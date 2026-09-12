@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="ArteENEM — diagnóstico das 4 áreas do ENEM. Descubra onde você se destaca e o que precisa melhorar.">
+  <meta name="description" content="ArteENEM — diagnóstico das 4 áreas do ENEM. Professores criam turmas, estudantes fazem o diagnóstico e disputam o ranking.">
   <title>ArteENEM · Diagnóstico das 4 áreas</title>
   <link rel="stylesheet" href="style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -18,19 +18,108 @@
         <span class="marca-icone">🎨</span>
         <span class="marca-nome">Arte<strong>ENEM</strong></span>
       </div>
-      <button id="btn-reiniciar" class="btn-ghost escondido">Recomeçar</button>
+      <div class="topo-usuario">
+        <span id="usuario-nome" class="usuario-nome escondido"></span>
+        <button id="btn-sair" class="btn-ghost escondido">Sair</button>
+      </div>
     </div>
   </header>
 
   <main id="app">
 
-    <!-- ===== TELA INICIAL ===== -->
-    <section id="tela-inicio" class="tela ativa">
+    <!-- ===== LOGIN ===== -->
+    <section id="tela-login" class="tela ativa">
+      <div class="login-card">
+        <span class="login-icone">🎨</span>
+        <h1>Arte<strong>ENEM</strong></h1>
+        <p>Entre para participar das turmas, fazer o diagnóstico das 4 áreas e disputar o ranking.</p>
+        <button id="btn-google" class="btn-google">
+          <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path fill="#4285F4" d="M17.64 9.2c0-.64-.06-1.25-.16-1.84H9v3.48h4.84a4.14 4.14 0 0 1-1.8 2.72v2.26h2.92c1.7-1.57 2.68-3.88 2.68-6.62z"/><path fill="#34A853" d="M9 18c2.43 0 4.47-.8 5.96-2.18l-2.92-2.26c-.8.54-1.84.86-3.04.86-2.34 0-4.32-1.58-5.03-3.7H.96v2.33A9 9 0 0 0 9 18z"/><path fill="#FBBC05" d="M3.97 10.72a5.4 5.4 0 0 1 0-3.44V4.95H.96a9 9 0 0 0 0 8.1l3.01-2.33z"/><path fill="#EA4335" d="M9 3.58c1.32 0 2.5.45 3.44 1.35l2.58-2.58C13.46.9 11.43 0 9 0A9 9 0 0 0 .96 4.95l3.01 2.33C4.68 5.16 6.66 3.58 9 3.58z"/></svg>
+          Entrar com Google
+        </button>
+        <p class="dica">Use a conta Google da escola ou pessoal.</p>
+      </div>
+    </section>
+
+    <!-- ===== ESCOLHA DE PAPEL ===== -->
+    <section id="tela-papel" class="tela">
       <div class="hero">
-        <h1>Descubra seu perfil no <span class="destaque">ENEM</span></h1>
-        <p>Responda questões das quatro áreas do conhecimento e veja onde você se destaca — e onde precisa melhorar.</p>
+        <h1>Como você vai usar o <span class="destaque">ArteENEM</span>?</h1>
+        <p>Escolha seu perfil. Você poderá alterar depois.</p>
+      </div>
+      <div class="papeis">
+        <button class="papel-card" data-papel="professor">
+          <span class="papel-icone">👩🏽‍🏫</span>
+          <span class="papel-nome">Sou Professor(a)</span>
+          <span class="papel-desc">Criar turmas e acompanhar o ranking dos estudantes.</span>
+        </button>
+        <button class="papel-card" data-papel="estudante">
+          <span class="papel-icone">🎒</span>
+          <span class="papel-nome">Sou Estudante</span>
+          <span class="papel-desc">Entrar numa turma, fazer o diagnóstico e ver sua posição.</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- ===== PAINEL DO PROFESSOR ===== -->
+    <section id="tela-professor" class="tela">
+      <div class="hero esquerda">
+        <h1>Painel do professor</h1>
+        <p id="prof-saudacao"></p>
       </div>
 
+      <div class="painel-bloco">
+        <h3 class="secao-titulo">Criar nova turma</h3>
+        <div class="form-linha">
+          <input id="input-nome-turma" type="text" placeholder="Nome da turma (ex.: 3º Ano B)" maxlength="40">
+          <button id="btn-criar-turma" class="btn-principal compacto">Criar</button>
+        </div>
+        <div id="turma-criada" class="aviso escondido"></div>
+      </div>
+
+      <h3 class="secao-titulo">Minhas turmas</h3>
+      <div id="lista-turmas-prof" class="turmas-lista"></div>
+    </section>
+
+    <!-- ===== DETALHE DA TURMA ===== -->
+    <section id="tela-turma" class="tela">
+      <button id="btn-voltar-prof" class="btn-ghost voltar">← Voltar</button>
+      <div class="hero esquerda">
+        <h1 id="turma-titulo"></h1>
+        <p id="turma-codigo" class="codigo-turma"></p>
+      </div>
+
+      <div class="turma-stats" id="turma-stats"></div>
+
+      <h3 class="secao-titulo">🏆 Ranking da turma</h3>
+      <div id="ranking-turma" class="ranking"></div>
+
+      <h3 class="secao-titulo">Estudantes</h3>
+      <div id="membros-turma" class="membros"></div>
+    </section>
+
+    <!-- ===== INÍCIO (ESTUDANTE) ===== -->
+    <section id="tela-inicio" class="tela">
+      <div class="hero">
+        <h1>Olá, <span class="destaque" id="aluno-nome">estudante</span>!</h1>
+        <p>Responda questões das quatro áreas do ENEM e veja onde você se destaca — e onde precisa melhorar.</p>
+      </div>
+
+      <div id="bloco-turma-aluno" class="painel-bloco escondido">
+        <h3 class="secao-titulo">Minha turma</h3>
+        <div id="turma-aluno-info"></div>
+      </div>
+
+      <div id="bloco-entrar-turma" class="painel-bloco">
+        <h3 class="secao-titulo">Entrar numa turma</h3>
+        <div class="form-linha">
+          <input id="input-codigo" type="text" placeholder="Código da turma (ex.: ABC123)" maxlength="6" style="text-transform:uppercase">
+          <button id="btn-entrar-turma" class="btn-principal compacto">Entrar</button>
+        </div>
+        <div id="entrar-aviso" class="aviso escondido"></div>
+      </div>
+
+      <h3 class="secao-titulo">Fazer o diagnóstico</h3>
       <div class="areas" id="lista-areas"></div>
 
       <button id="btn-completo" class="btn-principal">
@@ -41,7 +130,7 @@
       <div id="resultado-anterior" class="anterior escondido"></div>
     </section>
 
-    <!-- ===== TELA DO QUIZ ===== -->
+    <!-- ===== QUIZ ===== -->
     <section id="tela-quiz" class="tela">
       <div class="progresso-wrap">
         <div class="progresso-info">
@@ -65,7 +154,7 @@
       </div>
     </section>
 
-    <!-- ===== TELA DE RESULTADO ===== -->
+    <!-- ===== RESULTADO ===== -->
     <section id="tela-resultado" class="tela">
       <div class="resultado-header">
         <h2>Seu diagnóstico</h2>
@@ -96,6 +185,11 @@
       <h3 class="secao-titulo">Recomendações de estudo</h3>
       <ul id="recomendacoes" class="recomendacoes"></ul>
 
+      <div id="resultado-ranking" class="painel-bloco escondido">
+        <h3 class="secao-titulo">🏆 Ranking da turma</h3>
+        <div id="ranking-resultado"></div>
+      </div>
+
       <div class="resultado-acoes">
         <button id="btn-refazer" class="btn-principal">Refazer diagnóstico</button>
         <button id="btn-voltar" class="btn-secundario">Voltar ao início</button>
@@ -108,7 +202,13 @@
     <p>ArteENEM · Diagnóstico educacional das 4 áreas do ENEM</p>
   </footer>
 
+  <!-- Firebase (compat) -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+
   <script src="questoes.js"></script>
+  <script src="firebase-config.js"></script>
   <script src="script.js"></script>
 </body>
 </html>

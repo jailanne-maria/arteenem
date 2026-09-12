@@ -1,0 +1,164 @@
+/* ===== Firebase do ArteENEM =====
+   Chaves públicas do app web — seguras para expor no front-end.
+   A proteção dos dados é feita pelas regras do Firestore. */
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDRaBwtkSkXnAC1IddJVSGbHjziDmx0pzs",
+  authDomain: "arteenem-1691d.firebaseapp.com",
+  projectId: "arteenem-1691d",
+  storageBucket: "arteenem-1691d.firebasestorage.app",
+  messagingSenderId: "939048251715",
+  appId: "1:939048251715:web:bc11362b4ca73754903ff6",
+  measurementId: "G-V8GDMHRQY2",
+};
+
+let _app = null;
+
+function fb() {
+  if (!_app) _app = firebase.initializeApp(firebaseConfig);
+  return _app;
+}
+
+// ---------- Autenticação ----------
+function loginGoogle() {
+  fb();
+  const provider = new firebase.auth.GoogleAuthProvider();
+  provider.setCustomParameters({ prompt: "select_account" });
+  return firebase.auth().signInWithPopup(provider);
+}
+
+function logout() {
+  if (_app) return firebase.auth().signOut();
+}
+
+function aoMudarUsuario(callback) {
+  fb();
+  firebase.auth().onAuthStateChanged(callback);
+}
+
+function usuarioAtual() {
+  if (!_app) return null;
+  return firebase.auth().currentUser;
+}
+
+// ---------- Perfil do usuário ----------
+function carregarUsuario(uid) {
+  return firebase.firestore().collection("usuarios").doc(uid).get()
+    .then((doc) => (doc.exists ? doc.data() : null))
+    .catch(() => null);
+}
+
+function salvarUsuario(uid, dados) {
+  return firebase.firestore().collection("usuarios").doc(uid)
+    .set(dados, { merge: true });
+}
+
+// ---------- Turmas ----------
+function gerarCodigo() {
+  const letras = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+  let codigo = "";
+  for (let i = 0; i < 6; i++) {
+    codigo += letras[Math.floor(Math.random() * letras.length)];
+  }
+  return codigo;
+}
+
+function criarTurma(nome, professor) {
+  const codigo = gerarCodigo();
+  const turma = {
+    nome,
+    codigo,
+    professorId: professor.uid,
+    professorNome: professor.nome,
+    criadoEm: firebase.firestore.FieldValue.serverTimestamp(),
+  };
+  return firebase.firestore().collection("turmas").doc(codigo).set(turma)
+    .then(() => turma);
+}
+
+function buscarTurma(codigo) {
+  return firebase.firestore().collection("turmas").doc(codigo.toUpperCase()).get()
+    .then((doc) => (doc.exists ? { id: doc.id, ...doc.data() } : null));
+}
+
+function listarTurmasDoProfessor(uid) {
+  return firebase.firestore().collection("turmas")
+    .where("professorId", "==", uid)
+    .get()
+    .then((snap) => snap.docs.map((d) => ({ id: d.id, ...d.data() })));
+}
+
+function entrarNaTurma(codigo, aluno) {
+  const cod = codigo.toUpperCase();
+  return buscarTurma(cod).then((turma) => {
+    if (!turma) throw new Error("Turma não encontrada. Confira o código.");
+    return firebase.firestore()
+      .collection("turmas").doc(cod).collection("membros").doc(aluno.uid)
+      .set({
+        nome: aluno.nome,
+        email: aluno.email,
+        entrouEm: firebase.firestore.FieldValue.serverTimestamp(),
+      })
+      .then(() => turma);
+  });
+}
+
+function listarMembros(codigo) {
+  return firebase.firestore()
+    .collection("turmas").doc(codigo).collection("membros")
+    .get()
+    .then((snap) => snap.docs.map((d) => ({ uid: d.id, ...d.data() })));
+}
+
+function listarTurmasDoAluno(uid) {
+  // Busca em todas as turmas os membros com este uid
+  return firebase.firestore().collection("turmas").get().then(async (snap) => {
+    const turmas = [];
+    for (const doc of snap.docs) {
+      const membro = await doc.ref.collection("membros").doc(uid).get();
+      if (membro.exists) turmas.push({ id: doc.id, ...doc.data() });
+    }
+    return turmas;
+  });
+}
+
+// ---------- Resultados e ranking ----------
+// Doc id: {codigoTurma}_{uid} — guarda o melhor resultado do aluno na turma
+function salvarResultado(codigo, aluno, resultado) {
+  const cod = codigo.toUpperCase();
+  const id = `${cod}_${aluno.uid}`;
+  const ref = firebase.firestore().collection("resultados").doc(id);
+  return ref.get().then((doc) => {
+    const anterior = doc.exists ? doc.data() : null;
+    // Mantém o melhor percentual
+    if (anterior && anterior.pct >= resultado.pct) {
+      return ref.update({ atualizadoEm: firebase.firestore.FieldValue.serverTimestamp() });
+    }
+    return ref.set({
+      uid: aluno.uid,
+      nome: aluno.nome,
+      foto: aluno.foto || "",
+      turma: cod,
+      pct: resultado.pct,
+      acertos: resultado.acertos,
+      total: resultado.total,
+      areas: resultado.areas,
+      atualizadoEm: firebase.firestore.FieldValue.serverTimestamp(),
+    });
+  });
+}
+
+function rankingDaTurma(codigo) {
+  return firebase.firestore().collection("resultados")
+    .where("turma", "==", codigo.toUpperCase())
+    .get()
+    .then((snap) => {
+      const lista = snap.docs.map((d) => d.data());
+      lista.sort((a, b) => b.pct - a.pct);
+      return lista.map((d, i) => ({ posicao: i + 1, ...d }));
+    });
+}
+
+if (typeof module !== "undefined") {
+  module.exports = { firebaseConfig };
+}
