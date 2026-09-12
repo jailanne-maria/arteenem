@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="ArteENEM — diagnóstico das 4 áreas do ENEM. Descubra onde você se destaca e o que precisa melhorar.">
+  <title>ArteENEM · Diagnóstico das 4 áreas</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <header class="topo">
+    <div class="topo-inner">
+      <div class="marca">
+        <span class="marca-icone">🎨</span>
+        <span class="marca-nome">Arte<strong>ENEM</strong></span>
+      </div>
+      <button id="btn-reiniciar" class="btn-ghost escondido">Recomeçar</button>
+    </div>
+  </header>
+
+  <main id="app">
+
+    <!-- ===== TELA INICIAL ===== -->
+    <section id="tela-inicio" class="tela ativa">
+      <div class="hero">
+        <h1>Descubra seu perfil no <span class="destaque">ENEM</span></h1>
+        <p>Responda questões das quatro áreas do conhecimento e veja onde você se destaca — e onde precisa melhorar.</p>
+      </div>
+
+      <div class="areas" id="lista-areas"></div>
+
+      <button id="btn-completo" class="btn-principal">
+        🚀 Começar diagnóstico completo
+      </button>
+      <p class="dica">O diagnóstico completo percorre as 4 áreas e gera um relatório personalizado.</p>
+
+      <div id="resultado-anterior" class="anterior escondido"></div>
+    </section>
+
+    <!-- ===== TELA DO QUIZ ===== -->
+    <section id="tela-quiz" class="tela">
+      <div class="progresso-wrap">
+        <div class="progresso-info">
+          <span id="progresso-area"></span>
+          <span id="progresso-contagem"></span>
+        </div>
+        <div class="progresso-barra"><div id="progresso-fill"></div></div>
+      </div>
+
+      <div class="questao-card">
+        <span id="questao-tema" class="tema-tag"></span>
+        <div id="questao-imagem" class="questao-imagem escondido"></div>
+        <div id="questao-apoio" class="apoio escondido"></div>
+        <p id="questao-enunciado" class="enunciado"></p>
+        <div id="questao-alternativas" class="alternativas"></div>
+        <div id="questao-feedback" class="feedback escondido"></div>
+      </div>
+
+      <div class="quiz-acoes">
+        <button id="btn-proxima" class="btn-principal escondido">Próxima →</button>
+      </div>
+    </section>
+
+    <!-- ===== TELA DE RESULTADO ===== -->
+    <section id="tela-resultado" class="tela">
+      <div class="resultado-header">
+        <h2>Seu diagnóstico</h2>
+        <p id="resultado-resumo"></p>
+      </div>
+
+      <div class="score-geral">
+        <div class="score-circulo">
+          <span id="score-numero">0%</span>
+        </div>
+        <p id="score-texto"></p>
+      </div>
+
+      <h3 class="secao-titulo">Desempenho por área</h3>
+      <div id="barras-areas" class="barras"></div>
+
+      <div class="destaques">
+        <div class="card-destaque destaque-bom">
+          <h4>⭐ Você se destaca em</h4>
+          <div id="destaque-forte"></div>
+        </div>
+        <div class="card-destaque destaque-melhorar">
+          <h4>📈 Você precisa melhorar</h4>
+          <div id="destaque-fraco"></div>
+        </div>
+      </div>
+
+      <h3 class="secao-titulo">Recomendações de estudo</h3>
+      <ul id="recomendacoes" class="recomendacoes"></ul>
+
+      <div class="resultado-acoes">
+        <button id="btn-refazer" class="btn-principal">Refazer diagnóstico</button>
+        <button id="btn-voltar" class="btn-secundario">Voltar ao início</button>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="rodape">
+    <p>ArteENEM · Diagnóstico educacional das 4 áreas do ENEM</p>
+  </footer>
+
+  <script src="questoes.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
