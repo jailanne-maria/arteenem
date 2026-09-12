@@ -20,11 +20,32 @@ function fb() {
 }
 
 // ---------- Autenticação ----------
+// Tenta popup; se o navegador bloquear (cookies de terceiros),
+// cai para redirecionamento (mais confiável, sem popup).
 function loginGoogle() {
   fb();
   const provider = new firebase.auth.GoogleAuthProvider();
   provider.setCustomParameters({ prompt: "select_account" });
-  return firebase.auth().signInWithPopup(provider);
+  const auth = firebase.auth();
+  return auth.signInWithPopup(provider).catch((e) => {
+    const code = e && e.code;
+    const usarRedirect =
+      code === "auth/popup-blocked" ||
+      code === "auth/popup-closed-by-user" ||
+      code === "auth/cancelled-popup-request" ||
+      code === "auth/operation-not-supported-in-this-environment" ||
+      code === "auth/web-storage-unsupported";
+    if (usarRedirect) {
+      return auth.signInWithRedirect(provider);
+    }
+    throw e;
+  });
+}
+
+// Processa o retorno do redirecionamento (se usado)
+function processarRedirect() {
+  fb();
+  return firebase.auth().getRedirectResult().catch(() => null);
 }
 
 function logout() {

@@ -27,6 +27,8 @@ function exibir(el) { el.classList.remove("escondido"); }
 // ============================================================
 // AUTENTICAÇÃO
 // ============================================================
+processarRedirect();
+
 aoMudarUsuario(async (user) => {
   const btnSair = document.getElementById("btn-sair");
   const nomeTopo = document.getElementById("usuario-nome");
