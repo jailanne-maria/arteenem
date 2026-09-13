@@ -1444,3 +1444,26 @@ h1, h2, h3, h4, .marca-nome, .btn-principal, .btn-secundario, .btn-google, .btn-
 .membro-tag.clicavel:hover {
   background: var(--yellow);
 }
+
+.recado.fixado {
+  background: var(--surface-3);
+  border-color: var(--yellow-dark);
+  box-shadow: 4px 4px 0 var(--yellow-dark);
+}
+
+.recado-fixar {
+  margin-top: 10px;
+  background: var(--white);
+  border: 3px solid var(--black);
+  box-shadow: 2px 2px 0 var(--black);
+  border-radius: 8px;
+  padding: 6px 12px;
+  font-family: var(--pixel);
+  font-size: 0.5rem;
+  cursor: pointer;
+  color: var(--black);
+}
+
+.recado-fixar:hover {
+  background: var(--yellow);
+}

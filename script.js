@@ -3,6 +3,16 @@
 const LETRAS = ["A", "B", "C", "D", "E"];
 const CHAVE_RESULTADO = "arteenem_resultado";
 
+// E-mails com permissão de administração (fixar recados)
+const ADMIN_EMAILS = [
+  "jailanne.almeida@gmail.com",
+  "jailanne.maria@gmail.com",
+];
+
+function ehAdmin() {
+  return !!usuario && ADMIN_EMAILS.includes((usuario.email || "").toLowerCase());
+}
+
 // ---------- Estado global ----------
 let usuario = null;       // { uid, nome, email, foto, papel }
 let minhaTurma = null;    // { id, nome, codigo } do estudante
@@ -602,6 +612,13 @@ async function carregarDepoimentos() {
       lista.innerHTML = "<p class='vazio'>Nenhum recado ainda. Seja a primeira pessoa a escrever! ✍️</p>";
       return;
     }
+    // Fixados primeiro, depois por data
+    depoimentos.sort((a, b) => {
+      const fa = a.fixado ? 1 : 0;
+      const fb = b.fixado ? 1 : 0;
+      if (fa !== fb) return fb - fa;
+      return b.ms - a.ms;
+    });
     lista.innerHTML = depoimentos.map(renderRecado).join("");
   } catch (e) {
     lista.innerHTML = `<p class='vazio'>Erro ao carregar: ${e.message}</p>`;
@@ -613,15 +630,20 @@ function renderRecado(d) {
   const avatar = d.foto
     ? `<img src="${d.foto}" alt="" referrerpolicy="no-referrer">`
     : "🙂";
+  const admin = ehAdmin();
+  const botaoFixar = admin
+    ? `<button class="recado-fixar" data-id="${d.id}" data-fixado="${d.fixado ? "1" : "0"}">${d.fixado ? "📌 Desafixar" : "📌 Fixar"}</button>`
+    : "";
   return `
-    <div class="recado">
+    <div class="recado ${d.fixado ? "fixado" : ""}">
       <div class="recado-avatar">${avatar}</div>
       <div class="recado-corpo">
         <div class="recado-cabeca">
-          <span class="recado-nome clicavel" data-uid="${d.uid}">${d.nome || "Anônimo"}</span>
+          <span class="recado-nome clicavel" data-uid="${d.uid}">${d.fixado ? "📌 " : ""}${d.nome || "Anônimo"}</span>
           <span class="recado-tempo">${quando}</span>
         </div>
         <p class="recado-texto">${escaparHTML(d.texto || "")}</p>
+        ${botaoFixar}
       </div>
     </div>
   `;
@@ -776,8 +798,19 @@ document.getElementById("btn-voltar-perfil").addEventListener("click", () => {
   else abrirInicioEstudante();
 });
 
-// Clique no nome do autor do recado (abre o perfil)
-document.getElementById("mural-lista").addEventListener("click", (e) => {
+// Cliques no mural: nome do autor (abre perfil) e botão fixar (admin)
+document.getElementById("mural-lista").addEventListener("click", async (e) => {
+  const fixar = e.target.closest(".recado-fixar");
+  if (fixar) {
+    try {
+      const agora = fixar.dataset.fixado === "1";
+      await fixarDepoimento(fixar.dataset.id, !agora);
+      await carregarDepoimentos();
+    } catch (err) {
+      alert("Não foi possível fixar: " + err.message);
+    }
+    return;
+  }
   const alvo = e.target.closest(".recado-nome.clicavel");
   if (alvo && alvo.dataset.uid) abrirPerfilDe(alvo.dataset.uid);
 });

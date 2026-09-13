@@ -205,6 +205,12 @@ function listarDepoimentos() {
     );
 }
 
+// Fixar/desfixar recado (somente admin — garantido pelas regras do Firestore)
+function fixarDepoimento(id, fixado) {
+  return firebase.firestore().collection("depoimentos").doc(id)
+    .update({ fixado: !!fixado });
+}
+
 if (typeof module !== "undefined") {
   module.exports = { firebaseConfig };
 }
