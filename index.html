@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="ArteENEM â€” diagnÃ³stico das 4 Ã¡reas do ENEM. Professores criam turmas, estudantes fazem o diagnÃ³stico e disputam o ranking.">
-  <title>ArteENEM Â· DiagnÃ³stico das 4 Ã¡reas</title>
-  <link rel="stylesheet" href="style.css?v=6">
+  <meta name="description" content="ArteENEM — diagnóstico das 4 áreas do ENEM. Professores criam turmas, estudantes fazem o diagnóstico e disputam o ranking.">
+  <title>ArteENEM · Diagnóstico das 4 áreas</title>
+  <link rel="stylesheet" href="style.css?v=7">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
@@ -15,14 +15,14 @@
   <header class="topo">
     <div class="topo-inner">
       <div class="marca">
-        <span class="marca-icone">ðŸŽ¨</span>
+        <span class="marca-icone">🎨</span>
         <span class="marca-nome">Arte<strong>ENEM</strong></span>
       </div>
       <div class="topo-usuario">
         <span id="usuario-nome" class="usuario-nome escondido"></span>
-        <button id="btn-explorar" class="btn-ghost escondido">ðŸŽ® Explorar</button>
-        <button id="btn-perfil" class="btn-ghost escondido">ðŸ‘¤ Perfil</button>
-        <button id="btn-mural" class="btn-ghost escondido">ðŸ’¬ Mural</button>
+        <button id="btn-explorar" class="btn-ghost escondido">🎮 Explorar</button>
+        <button id="btn-perfil" class="btn-ghost escondido">👤 Perfil</button>
+        <button id="btn-mural" class="btn-ghost escondido">💬 Mural</button>
         <button id="btn-sair" class="btn-ghost escondido">Sair</button>
       </div>
     </div>
@@ -33,9 +33,9 @@
     <!-- ===== LOGIN ===== -->
     <section id="tela-login" class="tela ativa">
       <div class="login-card">
-        <span class="login-icone">ðŸŽ¨</span>
+        <span class="login-icone">🎨</span>
         <h1>Arte<strong>ENEM</strong></h1>
-        <p>Entre para participar das turmas, fazer o diagnÃ³stico das 4 Ã¡reas e disputar o ranking.</p>
+        <p>Entre para participar das turmas, fazer o diagnóstico das 4 áreas e disputar o ranking.</p>
         <button id="btn-google" class="btn-google">
           <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path fill="#4285F4" d="M17.64 9.2c0-.64-.06-1.25-.16-1.84H9v3.48h4.84a4.14 4.14 0 0 1-1.8 2.72v2.26h2.92c1.7-1.57 2.68-3.88 2.68-6.62z"/><path fill="#34A853" d="M9 18c2.43 0 4.47-.8 5.96-2.18l-2.92-2.26c-.8.54-1.84.86-3.04.86-2.34 0-4.32-1.58-5.03-3.7H.96v2.33A9 9 0 0 0 9 18z"/><path fill="#FBBC05" d="M3.97 10.72a5.4 5.4 0 0 1 0-3.44V4.95H.96a9 9 0 0 0 0 8.1l3.01-2.33z"/><path fill="#EA4335" d="M9 3.58c1.32 0 2.5.45 3.44 1.35l2.58-2.58C13.46.9 11.43 0 9 0A9 9 0 0 0 .96 4.95l3.01 2.33C4.68 5.16 6.66 3.58 9 3.58z"/></svg>
           Entrar com Google
@@ -47,19 +47,19 @@
     <!-- ===== ESCOLHA DE PAPEL ===== -->
     <section id="tela-papel" class="tela">
       <div class="hero">
-        <h1>Como vocÃª vai usar o <span class="destaque">ArteENEM</span>?</h1>
-        <p>Escolha seu perfil. VocÃª poderÃ¡ alterar depois.</p>
+        <h1>Como você vai usar o <span class="destaque">ArteENEM</span>?</h1>
+        <p>Escolha seu perfil. Você poderá alterar depois.</p>
       </div>
       <div class="papeis">
         <button class="papel-card" data-papel="professor">
-          <span class="papel-icone">ðŸ‘©ðŸ½â€ðŸ«</span>
+          <span class="papel-icone">👩🏽‍🏫</span>
           <span class="papel-nome">Sou Professor(a)</span>
           <span class="papel-desc">Criar turmas e acompanhar o ranking dos estudantes.</span>
         </button>
         <button class="papel-card" data-papel="estudante">
-          <span class="papel-icone">ðŸŽ’</span>
+          <span class="papel-icone">🎒</span>
           <span class="papel-nome">Sou Estudante</span>
-          <span class="papel-desc">Entrar numa turma, fazer o diagnÃ³stico e ver sua posiÃ§Ã£o.</span>
+          <span class="papel-desc">Entrar numa turma, fazer o diagnóstico e ver sua posição.</span>
         </button>
       </div>
     </section>
@@ -74,7 +74,7 @@
       <div class="painel-bloco">
         <h3 class="secao-titulo">Criar nova turma</h3>
         <div class="form-linha">
-          <input id="input-nome-turma" type="text" placeholder="Nome da turma (ex.: 3Âº Ano B)" maxlength="40">
+          <input id="input-nome-turma" type="text" placeholder="Nome da turma (ex.: 3º Ano B)" maxlength="40">
           <button id="btn-criar-turma" class="btn-principal compacto">Criar</button>
         </div>
         <div id="turma-criada" class="aviso escondido"></div>
@@ -82,14 +82,14 @@
 
       <div class="secao-cabeca">
         <h3 class="secao-titulo">Minhas turmas</h3>
-        <button id="btn-organizar" class="btn-ghost">â†•ï¸ Organizar</button>
+        <button id="btn-organizar" class="btn-ghost">↕️ Organizar</button>
       </div>
       <div id="lista-turmas-prof" class="turmas-lista"></div>
     </section>
 
     <!-- ===== DETALHE DA TURMA ===== -->
     <section id="tela-turma" class="tela">
-      <button id="btn-voltar-prof" class="btn-ghost voltar">â† Voltar</button>
+      <button id="btn-voltar-prof" class="btn-ghost voltar">← Voltar</button>
       <div class="hero esquerda">
         <h1 id="turma-titulo"></h1>
         <p id="turma-codigo" class="codigo-turma"></p>
@@ -97,21 +97,21 @@
 
       <div class="turma-stats" id="turma-stats"></div>
 
-      <h3 class="secao-titulo">ðŸ† Ranking da turma</h3>
+      <h3 class="secao-titulo">🏆 Ranking da turma</h3>
       <div id="ranking-turma" class="ranking"></div>
 
-      <h3 class="secao-titulo">ðŸ“Š Dificuldades da turma</h3>
+      <h3 class="secao-titulo">📊 Dificuldades da turma</h3>
       <div id="mapa-turma" class="mapa-dificuldades"></div>
 
       <h3 class="secao-titulo">Estudantes</h3>
       <div id="membros-turma" class="membros"></div>
     </section>
 
-    <!-- ===== INÃCIO (ESTUDANTE) ===== -->
+    <!-- ===== INÍCIO (ESTUDANTE) ===== -->
     <section id="tela-inicio" class="tela">
       <div class="hero">
-        <h1>OlÃ¡, <span class="destaque" id="aluno-nome">estudante</span>!</h1>
-        <p>Responda questÃµes das quatro Ã¡reas do ENEM e veja onde vocÃª se destaca â€” e onde precisa melhorar.</p>
+        <h1>Olá, <span class="destaque" id="aluno-nome">estudante</span>!</h1>
+        <p>Responda questões das quatro áreas do ENEM e veja onde você se destaca — e onde precisa melhorar.</p>
       </div>
 
       <div id="bloco-turma-aluno" class="painel-bloco escondido">
@@ -122,19 +122,19 @@
       <div id="bloco-entrar-turma" class="painel-bloco">
         <h3 class="secao-titulo">Entrar numa turma</h3>
         <div class="form-linha">
-          <input id="input-codigo" type="text" placeholder="CÃ³digo da turma (ex.: ABC123)" maxlength="6" style="text-transform:uppercase">
+          <input id="input-codigo" type="text" placeholder="Código da turma (ex.: ABC123)" maxlength="6" style="text-transform:uppercase">
           <button id="btn-entrar-turma" class="btn-principal compacto">Entrar</button>
         </div>
         <div id="entrar-aviso" class="aviso escondido"></div>
       </div>
 
-      <h3 class="secao-titulo">Fazer o diagnÃ³stico</h3>
+      <h3 class="secao-titulo">Fazer o diagnóstico</h3>
       <div class="areas" id="lista-areas"></div>
 
       <button id="btn-completo" class="btn-principal">
-        ðŸš€ ComeÃ§ar diagnÃ³stico completo
+        🚀 Começar diagnóstico completo
       </button>
-      <p class="dica">O diagnÃ³stico completo percorre as 4 Ã¡reas e gera um relatÃ³rio personalizado.</p>
+      <p class="dica">O diagnóstico completo percorre as 4 áreas e gera um relatório personalizado.</p>
 
       <div id="resultado-anterior" class="anterior escondido"></div>
     </section>
@@ -159,14 +159,14 @@
       </div>
 
       <div class="quiz-acoes">
-        <button id="btn-proxima" class="btn-principal escondido">PrÃ³xima â†’</button>
+        <button id="btn-proxima" class="btn-principal escondido">Próxima →</button>
       </div>
     </section>
 
     <!-- ===== RESULTADO ===== -->
     <section id="tela-resultado" class="tela">
       <div class="resultado-header">
-        <h2>Seu diagnÃ³stico</h2>
+        <h2>Seu diagnóstico</h2>
         <p id="resultado-resumo"></p>
       </div>
 
@@ -177,44 +177,44 @@
         <p id="score-texto"></p>
       </div>
 
-      <h3 class="secao-titulo">Desempenho por Ã¡rea</h3>
+      <h3 class="secao-titulo">Desempenho por área</h3>
       <div id="barras-areas" class="barras"></div>
 
       <div class="destaques">
         <div class="card-destaque destaque-bom">
-          <h4>â­ VocÃª se destaca em</h4>
+          <h4>⭐ Você se destaca em</h4>
           <div id="destaque-forte"></div>
         </div>
         <div class="card-destaque destaque-melhorar">
-          <h4>ðŸ“ˆ VocÃª precisa melhorar</h4>
+          <h4>📈 Você precisa melhorar</h4>
           <div id="destaque-fraco"></div>
         </div>
       </div>
 
-      <h3 class="secao-titulo">RecomendaÃ§Ãµes de estudo</h3>
+      <h3 class="secao-titulo">Recomendações de estudo</h3>
       <ul id="recomendacoes" class="recomendacoes"></ul>
 
-      <h3 class="secao-titulo">ðŸ“š Seu plano de estudos</h3>
+      <h3 class="secao-titulo">📚 Seu plano de estudos</h3>
       <div id="plano-estudos" class="plano"></div>
 
       <div id="resultado-ranking" class="painel-bloco escondido">
-        <h3 class="secao-titulo">ðŸ† Ranking da turma</h3>
+        <h3 class="secao-titulo">🏆 Ranking da turma</h3>
         <div id="ranking-resultado"></div>
       </div>
 
       <div class="resultado-acoes">
-        <button id="btn-refazer" class="btn-principal">Refazer diagnÃ³stico</button>
-        <button id="btn-voltar" class="btn-secundario">Voltar ao inÃ­cio</button>
+        <button id="btn-refazer" class="btn-principal">Refazer diagnóstico</button>
+        <button id="btn-voltar" class="btn-secundario">Voltar ao início</button>
       </div>
     </section>
 
     <!-- ===== PERFIL ===== -->
     <section id="tela-perfil" class="tela">
-      <button id="btn-voltar-perfil" class="btn-ghost voltar">â† Voltar</button>
+      <button id="btn-voltar-perfil" class="btn-ghost voltar">← Voltar</button>
 
       <div class="perfil-card">
         <div class="perfil-cabeca">
-          <div id="perfil-avatar" class="perfil-avatar">ðŸ™‚</div>
+          <div id="perfil-avatar" class="perfil-avatar">🙂</div>
           <div>
             <h1 id="perfil-nome" class="perfil-nome"></h1>
             <span id="perfil-papel" class="perfil-papel"></span>
@@ -223,52 +223,52 @@
 
         <div id="perfil-view" class="perfil-view">
           <div class="perfil-campo">
-            <span class="perfil-rotulo">ðŸ“ Bio</span>
+            <span class="perfil-rotulo">📝 Bio</span>
             <p id="perfil-bio-view" class="perfil-texto"></p>
           </div>
           <div class="perfil-campo">
-            <span class="perfil-rotulo">ðŸŒŸ O que quero ser</span>
+            <span class="perfil-rotulo">🌟 O que quero ser</span>
             <p id="perfil-sonho-view" class="perfil-texto"></p>
           </div>
           <div class="perfil-campo">
-            <span class="perfil-rotulo">â¤ï¸ Do que eu gosto</span>
+            <span class="perfil-rotulo">❤️ Do que eu gosto</span>
             <p id="perfil-gostos-view" class="perfil-texto"></p>
           </div>
         </div>
 
         <div id="perfil-edit" class="perfil-edit escondido">
           <div class="perfil-campo">
-            <label class="perfil-rotulo" for="perfil-bio">ðŸ“ Bio</label>
-            <textarea id="perfil-bio" maxlength="200" placeholder="Conte um pouco sobre vocÃª..."></textarea>
+            <label class="perfil-rotulo" for="perfil-bio">📝 Bio</label>
+            <textarea id="perfil-bio" maxlength="200" placeholder="Conte um pouco sobre você..."></textarea>
           </div>
           <div class="perfil-campo">
-            <label class="perfil-rotulo" for="perfil-sonho">ðŸŒŸ O que quero ser</label>
-            <input id="perfil-sonho" type="text" maxlength="80" placeholder="Ex.: MÃ©dica, programadora, artista...">
+            <label class="perfil-rotulo" for="perfil-sonho">🌟 O que quero ser</label>
+            <input id="perfil-sonho" type="text" maxlength="80" placeholder="Ex.: Médica, programadora, artista...">
           </div>
           <div class="perfil-campo">
-            <label class="perfil-rotulo" for="perfil-gostos">â¤ï¸ Do que eu gosto</label>
-            <input id="perfil-gostos" type="text" maxlength="100" placeholder="Ex.: mÃºsica, futebol, desenhar, games...">
+            <label class="perfil-rotulo" for="perfil-gostos">❤️ Do que eu gosto</label>
+            <input id="perfil-gostos" type="text" maxlength="100" placeholder="Ex.: música, futebol, desenhar, games...">
           </div>
           <div id="perfil-aviso" class="aviso escondido"></div>
-          <button id="btn-salvar-perfil" class="btn-principal">ðŸ’¾ Salvar perfil</button>
+          <button id="btn-salvar-perfil" class="btn-principal">💾 Salvar perfil</button>
         </div>
 
-        <button id="btn-editar-perfil" class="btn-secundario">âœï¸ Editar perfil</button>
+        <button id="btn-editar-perfil" class="btn-secundario">✏️ Editar perfil</button>
       </div>
     </section>
 
     <!-- ===== EXPLORAR (MAPA DO JOGO) ===== -->
     <section id="tela-explorar" class="tela">
       <div class="explorar-topo">
-        <h1>ðŸŽ® Explorar</h1>
-        <p>Viaje da PrÃ©-HistÃ³ria aos dias atuais e derrote a <strong>DesinformaÃ§Ã£o</strong>!</p>
+        <h1>🎮 Explorar</h1>
+        <p>Viaje da Pré-História aos dias atuais e derrote a <strong>Desinformação</strong>!</p>
       </div>
 
       <div class="avatar-bloco">
-        <div class="avatar-atual" id="avatar-atual">ðŸ§‘ðŸ½</div>
+        <div class="avatar-atual" id="avatar-atual">🧑🏽</div>
         <div class="avatar-info">
           <strong id="avatar-nome">Seu aventureiro</strong>
-          <button id="btn-trocar-avatar" class="btn-ghost">ðŸ”„ Trocar avatar</button>
+          <button id="btn-trocar-avatar" class="btn-ghost">🔄 Trocar avatar</button>
         </div>
       </div>
 
@@ -277,14 +277,14 @@
         <div class="avatar-grade" id="avatar-grade"></div>
       </div>
 
-      <h3 class="secao-titulo">ðŸ—ºï¸ Mapa das fases</h3>
+      <h3 class="secao-titulo">🗺️ Mapa das fases</h3>
       <div class="mario-mapa" id="mapa-fases"></div>
-      <p class="mario-legenda">Clique numa fase para o seu aventureiro caminhar atÃ© ela. Chegue ao castelo ðŸ°!</p>
+      <p class="mario-legenda">Clique numa fase para o seu aventureiro caminhar até ela. Chegue ao castelo 🏰!</p>
     </section>
 
     <!-- ===== FASE (JOGO) ===== -->
     <section id="tela-fase" class="tela">
-      <button id="btn-voltar-explorar" class="btn-ghost voltar">â† Voltar ao mapa</button>
+      <button id="btn-voltar-explorar" class="btn-ghost voltar">← Voltar ao mapa</button>
 
       <div class="fase-cabeca">
         <div>
@@ -296,7 +296,7 @@
 
       <div id="fase-intro" class="fase-intro">
         <p id="fase-intro-texto"></p>
-        <button id="btn-comecar-fase" class="btn-principal">â–¶ï¸ ComeÃ§ar a fase</button>
+        <button id="btn-comecar-fase" class="btn-principal">▶️ Começar a fase</button>
       </div>
 
       <div id="fase-jogo" class="escondido">
@@ -306,19 +306,19 @@
         </div>
 
         <div class="vilao" id="vilao">
-          <span class="vilao-emoji">ðŸ‘¾</span>
-          <span class="vilao-nome">DesinformaÃ§Ã£o</span>
+          <span class="vilao-emoji">👾</span>
+          <span class="vilao-nome">Desinformação</span>
         </div>
 
         <div class="noticia-card" id="noticia-card">
           <span class="noticia-tag" id="noticia-tag"></span>
           <p class="noticia-texto" id="noticia-texto"></p>
           <div class="noticia-acoes">
-            <button class="btn-vf verdadeira" id="btn-verdadeira">âœ… Verdadeira</button>
-            <button class="btn-vf falsa" id="btn-falsa">âŒ Falsa</button>
+            <button class="btn-vf verdadeira" id="btn-verdadeira">✅ Verdadeira</button>
+            <button class="btn-vf falsa" id="btn-falsa">❌ Falsa</button>
           </div>
           <div class="noticia-feedback escondido" id="noticia-feedback"></div>
-          <button class="btn-principal escondido" id="btn-proximo-desafio">PrÃ³ximo â†’</button>
+          <button class="btn-principal escondido" id="btn-proximo-desafio">Próximo →</button>
         </div>
       </div>
 
@@ -327,8 +327,8 @@
         <h2 id="fase-fim-titulo"></h2>
         <p id="fase-fim-texto"></p>
         <div class="fase-fim-acoes">
-          <button id="btn-repetir-fase" class="btn-secundario">ðŸ” Jogar de novo</button>
-          <button id="btn-proxima-fase" class="btn-principal">PrÃ³xima fase â†’</button>
+          <button id="btn-repetir-fase" class="btn-secundario">🔁 Jogar de novo</button>
+          <button id="btn-proxima-fase" class="btn-principal">Próxima fase →</button>
           <button id="btn-sair-fase" class="btn-secundario">Voltar ao mapa</button>
         </div>
       </div>
@@ -336,18 +336,18 @@
 
     <!-- ===== MURAL (ORKUT) ===== -->
     <section id="tela-mural" class="tela">
-      <button id="btn-voltar-mural" class="btn-ghost voltar">â† Voltar</button>
+      <button id="btn-voltar-mural" class="btn-ghost voltar">← Voltar</button>
 
       <div class="mural-topo">
-        <h1>ðŸ’¬ Mural de Recados</h1>
+        <h1>💬 Mural de Recados</h1>
         <p>Deixe um depoimento, uma dica de estudo ou uma mensagem de incentivo para a galera!</p>
       </div>
 
       <div class="mural-form">
-        <textarea id="mural-texto" maxlength="300" placeholder="Escreva seu recado... (ex.: 'Bora estudar humanas, galera! ðŸ“š')"></textarea>
+        <textarea id="mural-texto" maxlength="300" placeholder="Escreva seu recado... (ex.: 'Bora estudar humanas, galera! 📚')"></textarea>
         <div class="mural-form-acoes">
           <span id="mural-contador" class="mural-contador">0/300</span>
-          <button id="btn-postar" class="btn-principal compacto">ðŸ“Œ Postar recado</button>
+          <button id="btn-postar" class="btn-principal compacto">📌 Postar recado</button>
         </div>
         <div id="mural-aviso" class="aviso escondido"></div>
       </div>
@@ -359,8 +359,8 @@
   </main>
 
   <footer class="rodape">
-    <p class="rodape-credito">ðŸŽ¨ App desenvolvido pela artista educadora <strong>@maria.jai_</strong></p>
-    <p class="rodape-sub">ArteENEM Â· DiagnÃ³stico educacional das 4 Ã¡reas do ENEM</p>
+    <p class="rodape-credito">🎨 App desenvolvido pela artista educadora <strong>@maria.jai_</strong></p>
+    <p class="rodape-sub">ArteENEM · Diagnóstico educacional das 4 áreas do ENEM</p>
   </footer>
 
   <!-- Firebase (compat) -->
@@ -368,11 +368,10 @@
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 
-  <script src="questoes.js?v=6"></script>
-  <script src="plano.js?v=6"></script>
-  <script src="explorar.js?v=6"></script>
-  <script src="firebase-config.js?v=6"></script>
-  <script src="script.js?v=6"></script>
+  <script src="questoes.js?v=7"></script>
+  <script src="plano.js?v=7"></script>
+  <script src="explorar.js?v=7"></script>
+  <script src="firebase-config.js?v=7"></script>
+  <script src="script.js?v=7"></script>
 </body>
 </html>
-

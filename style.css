@@ -25,8 +25,8 @@
   --border: var(--black);
   --muted: #7a7a95;
 
-  --pixel: 'Press Start 2P', monospace;
-  --texto: 'VT323', monospace;
+  --pixel: 'Press Start 2P', 'VT323', 'Segoe UI Emoji', 'Apple Color Emoji', 'Noto Color Emoji', monospace;
+  --texto: 'VT323', 'Segoe UI Emoji', 'Apple Color Emoji', 'Noto Color Emoji', monospace;
 
   --sombra: 5px 5px 0 var(--black);
 }
