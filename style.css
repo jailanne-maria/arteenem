@@ -957,3 +957,165 @@ h1, h2, h3, h4, .marca-nome {
     width: 100%;
   }
 }
+
+/* ===== PLANO DE ESTUDOS ===== */
+.plano {
+  margin-bottom: 28px;
+}
+
+.plano-intro {
+  color: var(--on-surface-2);
+  font-size: 0.92rem;
+  margin-bottom: 16px;
+}
+
+.plano-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.plano-area {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px 18px;
+}
+
+.plano-area-topo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+
+.plano-area-nome {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 700;
+  font-size: 1.05rem;
+}
+
+.plano-tag {
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 999px;
+}
+
+.plano-topicos {
+  list-style: none;
+  margin-bottom: 12px;
+}
+
+.plano-topicos li {
+  font-size: 0.9rem;
+  color: var(--on-surface-2);
+  padding: 6px 0;
+  border-bottom: 1px dashed var(--border);
+}
+
+.plano-topicos li:last-child {
+  border-bottom: none;
+}
+
+.plano-topicos li strong {
+  color: var(--on-surface);
+}
+
+.plano-topicos li em {
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.plano-recursos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.recurso-link {
+  display: inline-block;
+  background: var(--surface-3);
+  color: var(--brand);
+  text-decoration: none;
+  font-size: 0.82rem;
+  font-weight: 600;
+  padding: 5px 12px;
+  border-radius: 999px;
+}
+
+.recurso-link:hover {
+  background: rgba(224, 122, 95, 0.15);
+}
+
+.plano-subtitulo {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1rem;
+  margin: 22px 0 12px;
+}
+
+.cronograma {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 10px;
+}
+
+.crono-dia {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.crono-nome {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--muted);
+  font-weight: 700;
+}
+
+.crono-foco {
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+/* ===== MAPA DE DIFICULDADES (PROFESSOR) ===== */
+.mapa-dificuldades {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 28px;
+}
+
+.mapa-item {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px 16px;
+}
+
+.mapa-topo {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9rem;
+  margin-bottom: 6px;
+}
+
+.mapa-track {
+  height: 8px;
+  background: var(--surface-3);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.mapa-fill {
+  height: 100%;
+  border-radius: 999px;
+}

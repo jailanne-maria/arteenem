@@ -159,9 +159,11 @@ async function abrirTurmaProfessor(turma) {
 
   const stats = document.getElementById("turma-stats");
   const rankingDiv = document.getElementById("ranking-turma");
+  const mapaDiv = document.getElementById("mapa-turma");
   const membrosDiv = document.getElementById("membros-turma");
   stats.innerHTML = "<p class='vazio'>Carregando…</p>";
   rankingDiv.innerHTML = "";
+  mapaDiv.innerHTML = "";
   membrosDiv.innerHTML = "";
 
   try {
@@ -181,6 +183,7 @@ async function abrirTurmaProfessor(turma) {
     `;
 
     renderRanking(rankingDiv, ranking, null);
+    renderMapaDificuldades(mapaDiv, ranking);
 
     if (membros.length) {
       membrosDiv.innerHTML = membros
@@ -192,6 +195,41 @@ async function abrirTurmaProfessor(turma) {
   } catch (e) {
     stats.innerHTML = `<p class='vazio'>Erro: ${e.message}</p>`;
   }
+}
+
+// Média da turma por área (onde a turma tem mais dificuldade)
+function renderMapaDificuldades(container, ranking) {
+  if (!ranking.length) {
+    container.innerHTML = "<p class='vazio'>Sem resultados para analisar ainda.</p>";
+    return;
+  }
+  const soma = {};
+  const cont = {};
+  ranking.forEach((r) => {
+    Object.entries(r.areas || {}).forEach(([area, pct]) => {
+      soma[area] = (soma[area] || 0) + pct;
+      cont[area] = (cont[area] || 0) + 1;
+    });
+  });
+  const medias = Object.keys(soma)
+    .map((area) => ({ area, pct: Math.round(soma[area] / cont[area]) }))
+    .sort((a, b) => a.pct - b.pct); // mais difícil primeiro
+
+  container.innerHTML = medias
+    .map((m) => {
+      const area = AREAS[m.area] || { icone: "", curto: m.area };
+      const cor = m.pct < 50 ? "var(--error)" : m.pct < 75 ? "var(--warning)" : "var(--success)";
+      return `
+        <div class="mapa-item">
+          <div class="mapa-topo">
+            <strong>${area.icone} ${area.curto}</strong>
+            <span>${m.pct}%</span>
+          </div>
+          <div class="mapa-track"><div class="mapa-fill" style="width:${m.pct}%;background:${cor}"></div></div>
+        </div>
+      `;
+    })
+    .join("");
 }
 
 document.getElementById("btn-voltar-prof").addEventListener("click", () => {
@@ -338,7 +376,7 @@ function renderQuestao() {
 function responder(escolha) {
   const q = fila[indice];
   const acertou = escolha === q.correta;
-  respostas.push({ area: q.area, acertou });
+  respostas.push({ area: q.area, acertou, tema: q.tema });
 
   document.querySelectorAll(".alt").forEach((b, i) => {
     b.classList.add("travada");
@@ -428,6 +466,11 @@ async function finalizar() {
     rec.innerHTML += `<li><strong>${area.icone} ${area.curto}</strong> — ${dica}.</li>`;
   });
 
+  // Plano de estudos personalizado
+  const areasMapa = ordenadas.reduce((acc, o) => ({ ...acc, [o.k]: Math.round(o.pct) }), {});
+  const plano = gerarPlano({ pct: pctGeral, areas: areasMapa });
+  renderPlano(document.getElementById("plano-estudos"), plano);
+
   // Salva localmente
   const resultado = {
     data: new Date().toISOString(),
@@ -463,6 +506,43 @@ function corDaBarra(pct) {
   if (pct >= 70) return "var(--success)";
   if (pct >= 40) return "var(--warning)";
   return "var(--error)";
+}
+
+// ---------- Plano de estudos ----------
+function renderPlano(container, plano) {
+  if (!container) return;
+  const prioridades = plano.prioridades
+    .map((p) => {
+      const area = AREAS[p.area] || { icone: "", curto: p.area };
+      const topicos = p.topicos
+        .map((t) => `<li><strong>${t.nome}</strong> — ${t.desc}<br><em>💡 ${t.dica}</em></li>`)
+        .join("");
+      const recursos = p.recursos
+        .map((r) => `<a class="recurso-link" href="${r.url}" target="_blank" rel="noopener">${r.nome} ↗</a>`)
+        .join("");
+      return `
+        <div class="plano-area" style="border-left:4px solid ${p.cor}">
+          <div class="plano-area-topo">
+            <span class="plano-area-nome">${area.icone} ${area.curto}</span>
+            <span class="plano-tag" style="background:${p.cor}">${p.etiqueta} · ${p.pct}%</span>
+          </div>
+          <ul class="plano-topicos">${topicos}</ul>
+          <div class="plano-recursos">${recursos}</div>
+        </div>
+      `;
+    })
+    .join("");
+
+  const cronograma = plano.cronograma
+    .map((c) => `<div class="crono-dia"><span class="crono-nome">${c.dia}</span><span class="crono-foco">${c.foco}</span></div>`)
+    .join("");
+
+  container.innerHTML = `
+    <p class="plano-intro">Seu roteiro foi montado a partir do seu desempenho: comece pelas áreas com prioridade mais alta.</p>
+    <div class="plano-grid">${prioridades}</div>
+    <h4 class="plano-subtitulo">🗓️ Sugestão de rotina semanal</h4>
+    <div class="cronograma">${cronograma}</div>
+  `;
 }
 
 function renderRanking(container, ranking, uidAtual) {
