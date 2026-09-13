@@ -1382,19 +1382,19 @@ h1, h2, h3, h4, .marca-nome, .btn-principal, .btn-secundario, .btn-google, .btn-
     width: 100%;
   }
   .mario-mapa {
-    height: 460px;
+    max-width: 100%;
   }
   .mario-node {
-    width: 46px;
-    height: 46px;
-    font-size: 1.2rem;
+    width: 42px;
+    height: 42px;
+    font-size: 1.1rem;
     border-width: 3px;
   }
   .mario-avatar {
-    font-size: 1.9rem;
+    font-size: 1.8rem;
   }
   .mario-castelo {
-    font-size: 2.3rem;
+    font-size: 2.1rem;
   }
   .avatar-grade {
     grid-template-columns: repeat(4, 1fr);
@@ -2005,6 +2005,7 @@ h1, h2, h3, h4, .marca-nome, .btn-principal, .btn-secundario, .btn-google, .btn-
   width: 100%;
   height: 100%;
   display: block;
+  pointer-events: none;
 }
 
 .mario-node {
@@ -2023,6 +2024,7 @@ h1, h2, h3, h4, .marca-nome, .btn-principal, .btn-secundario, .btn-google, .btn-
   font-size: 1.25rem;
   transition: transform 0.15s, box-shadow 0.15s;
   z-index: 3;
+  pointer-events: auto;
 }
 
 .mario-node:hover:not(.bloqueada) {
@@ -2178,6 +2180,20 @@ h1, h2, h3, h4, .marca-nome, .btn-principal, .btn-secundario, .btn-google, .btn-
   box-shadow: var(--sombra);
   border-radius: 12px;
   padding: 24px;
+}
+
+.fase-cena {
+  border: 4px solid var(--black);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 18px;
+  background: #2e5f96;
+}
+
+.fase-cena svg {
+  display: block;
+  width: 100%;
+  height: auto;
 }
 
 .fase-intro p {

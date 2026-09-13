@@ -1089,47 +1089,72 @@ function renderMapaFases() {
     nodesHtml += `<button class="mario-node ${liberada ? "" : "bloqueada"} ${concluida ? "concluida" : ""}" data-i="${i}" style="left:${pos.x}%;top:${pos.y}%" title="${f.nome}">${liberada ? f.emoji : "🔒"}${flag}</button>`;
   });
 
-  // Ondas do mar
-  let ondas = "";
-  for (let y = 5; y < 100; y += 8) {
-    for (let x = 4; x < 100; x += 15) {
-      ondas += `<line x1="${x}" y1="${y}" x2="${x + 6}" y2="${y}" stroke="#8fd0f5" stroke-width="0.7" stroke-linecap="round"/>`;
-    }
+  // Nuvens e pássaros (céu de Rio Branco)
+  const nuvens = `
+    <g fill="#fff3d6" opacity="0.95">
+      <ellipse cx="18" cy="14" rx="10" ry="3.6"/>
+      <ellipse cx="28" cy="12" rx="7" ry="3"/>
+      <ellipse cx="82" cy="22" rx="11" ry="3.8"/>
+      <ellipse cx="74" cy="20" rx="6" ry="2.6"/>
+    </g>`;
+  const passaros = `
+    <g fill="none" stroke="#2b2340" stroke-width="0.7" stroke-linecap="round">
+      <path d="M12,26 q2.2,-2 4.4,0 q2.2,-2 4.4,0"/>
+      <path d="M24,32 q1.8,-1.6 3.6,0 q1.8,-1.6 3.6,0"/>
+      <path d="M86,12 q1.8,-1.6 3.6,0 q1.8,-1.6 3.6,0"/>
+    </g>`;
+
+  // Reflexos do sol no rio
+  let reflexos = "";
+  for (let i = 0; i < 8; i++) {
+    const y = 74 + i * 3;
+    const w = 14 - i;
+    reflexos += `<line x1="${58 - w / 2}" y1="${y}" x2="${58 + w / 2}" y2="${y}" stroke="#f9c46b" stroke-width="0.8" opacity="0.7"/>`;
   }
 
-  // Ilha (blob verde com borda de areia)
-  const ilha = "M 6,90 C 2,80 4,66 8,56 C 4,44 4,30 12,20 C 20,8 40,2 58,4 C 76,2 92,10 95,26 C 98,40 90,50 92,62 C 96,76 90,90 78,94 C 60,99 30,98 16,94 Z";
+  // Ilha verde (margem do Rio Acre)
+  const ilha = "M 12,86 C 6,76 10,60 14,50 C 8,38 14,24 26,18 C 40,10 62,10 76,18 C 88,26 92,42 88,54 C 94,66 90,80 80,86 C 62,94 30,94 12,86 Z";
 
-  // Decorações (arbustos, árvores e moedas)
-  const decor = `
-    <circle cx="28" cy="88" r="2.4" fill="#4fae4f" stroke="#2e7d32" stroke-width="0.6"/>
-    <circle cx="52" cy="70" r="2" fill="#4fae4f" stroke="#2e7d32" stroke-width="0.6"/>
-    <circle cx="30" cy="52" r="2.2" fill="#4fae4f" stroke="#2e7d32" stroke-width="0.6"/>
-    <circle cx="62" cy="66" r="2" fill="#4fae4f" stroke="#2e7d32" stroke-width="0.6"/>
-    <circle cx="76" cy="48" r="2.2" fill="#4fae4f" stroke="#2e7d32" stroke-width="0.6"/>
-    <circle cx="66" cy="30" r="2" fill="#4fae4f" stroke="#2e7d32" stroke-width="0.6"/>
-    <circle cx="24" cy="30" r="2" fill="#4fae4f" stroke="#2e7d32" stroke-width="0.6"/>
-    <circle cx="14" cy="70" r="1.6" fill="#fbd000"/>
-    <circle cx="86" cy="58" r="1.6" fill="#fbd000"/>
-    <circle cx="48" cy="14" r="1.6" fill="#fbd000"/>
-    <g stroke="#2e7d32" stroke-width="0.6">
-      <circle cx="36" cy="40" r="2.2" fill="#4fae4f"/>
-      <circle cx="72" cy="78" r="2.2" fill="#4fae4f"/>
-      <circle cx="10" cy="46" r="2.2" fill="#4fae4f"/>
-    </g>
-  `;
+  // Árvores da floresta
+  const arvores = `
+    <g>
+      <circle cx="30" cy="80" r="2.6" fill="#3f7a35"/><circle cx="30" cy="78" r="2.2" fill="#4fae4f"/>
+      <circle cx="54" cy="70" r="2.4" fill="#3f7a35"/><circle cx="54" cy="68.5" r="2" fill="#4fae4f"/>
+      <circle cx="24" cy="54" r="2.6" fill="#3f7a35"/><circle cx="24" cy="52" r="2.2" fill="#4fae4f"/>
+      <circle cx="64" cy="66" r="2.4" fill="#3f7a35"/><circle cx="64" cy="64.5" r="2" fill="#4fae4f"/>
+      <circle cx="78" cy="50" r="2.6" fill="#3f7a35"/><circle cx="78" cy="48" r="2.2" fill="#4fae4f"/>
+      <circle cx="68" cy="30" r="2.4" fill="#3f7a35"/><circle cx="68" cy="28.5" r="2" fill="#4fae4f"/>
+      <circle cx="26" cy="32" r="2.4" fill="#3f7a35"/><circle cx="26" cy="30.5" r="2" fill="#4fae4f"/>
+    </g>`;
 
   const posAvatar = todasConcluidas() ? POS_CASTELO : POSICOES_FASES[indiceFaseAtual()];
   posicaoAvatarIndex = todasConcluidas() ? FASES.length : indiceFaseAtual();
 
   mapa.innerHTML = `
     <svg class="mario-cenario" viewBox="0 0 100 100" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-      <rect width="100" height="100" fill="#3aa0e8"/>
-      ${ondas}
-      <path d="${ilha}" fill="#7cc576" stroke="#d9a45b" stroke-width="4" stroke-linejoin="round"/>
+      <defs>
+        <linearGradient id="ceuAcre" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#3b3a6b"/>
+          <stop offset="42%" stop-color="#9c6a9a"/>
+          <stop offset="70%" stop-color="#f2a35e"/>
+          <stop offset="100%" stop-color="#f9d36b"/>
+        </linearGradient>
+        <linearGradient id="rioAcre" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#e8955a"/>
+          <stop offset="100%" stop-color="#2e5f96"/>
+        </linearGradient>
+      </defs>
+      <rect width="100" height="100" fill="url(#ceuAcre)"/>
+      <circle cx="58" cy="42" r="24" fill="#f9c46b" opacity="0.45"/>
+      <circle cx="58" cy="42" r="13" fill="#fde9a8" opacity="0.85"/>
+      ${nuvens}
+      ${passaros}
+      <rect y="70" width="100" height="30" fill="url(#rioAcre)"/>
+      ${reflexos}
+      <path d="${ilha}" fill="#6aa84f" stroke="#3f7a35" stroke-width="1.2"/>
+      ${arvores}
       <polyline points="${trilha}" fill="none" stroke="#f3e2b3" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
       <polyline points="${trilha}" fill="none" stroke="#c9a86a" stroke-width="1" stroke-dasharray="1 3" stroke-linecap="round"/>
-      ${decor}
     </svg>
     ${nodesHtml}
     <span class="mario-castelo" style="left:${POS_CASTELO.x}%;top:${POS_CASTELO.y}%">🏰</span>
@@ -1190,6 +1215,19 @@ function iniciarFase(fase) {
   document.getElementById("fase-periodo").textContent = fase.periodo;
   document.getElementById("fase-titulo").textContent = `${fase.emoji} ${fase.nome}`;
   document.getElementById("fase-intro-texto").textContent = fase.intro;
+
+  // Mergulho visual: cena da fase
+  const cenaDiv = document.getElementById("fase-cena");
+  if (cenaDiv) {
+    if (CENAS && CENAS[fase.cena]) {
+      cenaDiv.innerHTML = CENAS[fase.cena];
+      cenaDiv.classList.remove("escondido");
+    } else {
+      cenaDiv.innerHTML = "";
+      cenaDiv.classList.add("escondido");
+    }
+  }
+
   document.getElementById("fase-intro").classList.remove("escondido");
   document.getElementById("fase-jogo").classList.add("escondido");
   document.getElementById("fase-fim").classList.add("escondido");
