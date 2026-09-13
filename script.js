@@ -31,12 +31,14 @@ processarRedirect();
 
 aoMudarUsuario(async (user) => {
   const btnSair = document.getElementById("btn-sair");
+  const btnMural = document.getElementById("btn-mural");
   const nomeTopo = document.getElementById("usuario-nome");
 
   if (!user) {
     usuario = null;
     minhaTurma = null;
     esconder(btnSair);
+    esconder(btnMural);
     esconder(nomeTopo);
     mostrarTela("tela-login");
     return;
@@ -60,6 +62,7 @@ aoMudarUsuario(async (user) => {
   nomeTopo.textContent = usuario.nome.split(" ")[0];
   exibir(nomeTopo);
   exibir(btnSair);
+  exibir(btnMural);
 
   if (!usuario.papel) {
     mostrarTela("tela-papel");
@@ -578,6 +581,101 @@ function renderAnterior() {
   div.innerHTML = `📌 <strong>Último diagnóstico</strong> (${data}): média ${salvo.pct}% — ${partes}`;
   exibir(div);
 }
+
+// ============================================================
+// MURAL DE RECADOS (ORKUT)
+// ============================================================
+async function abrirMural() {
+  mostrarTela("tela-mural");
+  await carregarDepoimentos();
+}
+
+async function carregarDepoimentos() {
+  const lista = document.getElementById("mural-lista");
+  lista.innerHTML = "<p class='vazio'>Carregando recados…</p>";
+  try {
+    const depoimentos = await listarDepoimentos();
+    if (!depoimentos.length) {
+      lista.innerHTML = "<p class='vazio'>Nenhum recado ainda. Seja a primeira pessoa a escrever! ✍️</p>";
+      return;
+    }
+    lista.innerHTML = depoimentos.map(renderRecado).join("");
+  } catch (e) {
+    lista.innerHTML = `<p class='vazio'>Erro ao carregar: ${e.message}</p>`;
+  }
+}
+
+function renderRecado(d) {
+  const quando = tempoRelativo(d.ms);
+  const avatar = d.foto
+    ? `<img src="${d.foto}" alt="" referrerpolicy="no-referrer">`
+    : "🙂";
+  return `
+    <div class="recado">
+      <div class="recado-avatar">${avatar}</div>
+      <div class="recado-corpo">
+        <div class="recado-cabeca">
+          <span class="recado-nome">${d.nome || "Anônimo"}</span>
+          <span class="recado-tempo">${quando}</span>
+        </div>
+        <p class="recado-texto">${escaparHTML(d.texto || "")}</p>
+      </div>
+    </div>
+  `;
+}
+
+function tempoRelativo(ms) {
+  const diff = Date.now() - ms;
+  const min = Math.floor(diff / 60000);
+  if (min < 1) return "agora mesmo";
+  if (min < 60) return `há ${min} min`;
+  const h = Math.floor(min / 60);
+  if (h < 24) return `há ${h}h`;
+  const dias = Math.floor(h / 24);
+  if (dias < 30) return `há ${dias} dia(s)`;
+  return new Date(ms).toLocaleDateString("pt-BR");
+}
+
+function escaparHTML(s) {
+  return s.replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+}
+
+document.getElementById("btn-mural").addEventListener("click", abrirMural);
+
+document.getElementById("btn-voltar-mural").addEventListener("click", () => {
+  if (usuario && usuario.papel === "professor") abrirPainelProfessor();
+  else abrirInicioEstudante();
+});
+
+document.getElementById("mural-texto").addEventListener("input", (e) => {
+  document.getElementById("mural-contador").textContent = `${e.target.value.length}/300`;
+});
+
+document.getElementById("btn-postar").addEventListener("click", async () => {
+  const campo = document.getElementById("mural-texto");
+  const aviso = document.getElementById("mural-aviso");
+  const texto = campo.value.trim();
+  if (!texto) {
+    aviso.className = "aviso erro";
+    aviso.textContent = "Escreva algo antes de postar. 😊";
+    exibir(aviso);
+    return;
+  }
+  try {
+    await postarDepoimento(usuario, texto);
+    campo.value = "";
+    document.getElementById("mural-contador").textContent = "0/300";
+    aviso.className = "aviso ok";
+    aviso.textContent = "✅ Recado publicado!";
+    exibir(aviso);
+    setTimeout(() => esconder(aviso), 2500);
+    await carregarDepoimentos();
+  } catch (e) {
+    aviso.className = "aviso erro";
+    aviso.textContent = "Erro ao postar: " + e.message;
+    exibir(aviso);
+  }
+});
 
 // ---------- Eventos gerais ----------
 document.getElementById("btn-completo").addEventListener("click", () =>

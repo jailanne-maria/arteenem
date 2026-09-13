@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
 </head>
 <body>
 
@@ -20,6 +20,7 @@
       </div>
       <div class="topo-usuario">
         <span id="usuario-nome" class="usuario-nome escondido"></span>
+        <button id="btn-mural" class="btn-ghost escondido">💬 Mural</button>
         <button id="btn-sair" class="btn-ghost escondido">Sair</button>
       </div>
     </div>
@@ -200,6 +201,28 @@
         <button id="btn-refazer" class="btn-principal">Refazer diagnóstico</button>
         <button id="btn-voltar" class="btn-secundario">Voltar ao início</button>
       </div>
+    </section>
+
+    <!-- ===== MURAL (ORKUT) ===== -->
+    <section id="tela-mural" class="tela">
+      <button id="btn-voltar-mural" class="btn-ghost voltar">← Voltar</button>
+
+      <div class="mural-topo">
+        <h1>💬 Mural de Recados</h1>
+        <p>Deixe um depoimento, uma dica de estudo ou uma mensagem de incentivo para a galera!</p>
+      </div>
+
+      <div class="mural-form">
+        <textarea id="mural-texto" maxlength="300" placeholder="Escreva seu recado... (ex.: 'Bora estudar humanas, galera! 📚')"></textarea>
+        <div class="mural-form-acoes">
+          <span id="mural-contador" class="mural-contador">0/300</span>
+          <button id="btn-postar" class="btn-principal compacto">📌 Postar recado</button>
+        </div>
+        <div id="mural-aviso" class="aviso escondido"></div>
+      </div>
+
+      <h3 class="secao-titulo">Recados da galera</h3>
+      <div id="mural-lista" class="mural-lista"></div>
     </section>
 
   </main>

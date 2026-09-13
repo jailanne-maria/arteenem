@@ -180,6 +180,31 @@ function rankingDaTurma(codigo) {
     });
 }
 
+// ---------- Mural de recados (Orkut) ----------
+function postarDepoimento(usuario, texto) {
+  return firebase.firestore().collection("depoimentos").add({
+    uid: usuario.uid,
+    nome: usuario.nome,
+    foto: usuario.foto || "",
+    texto: texto.trim(),
+    criadoEm: firebase.firestore.FieldValue.serverTimestamp(),
+  });
+}
+
+function listarDepoimentos() {
+  return firebase.firestore().collection("depoimentos")
+    .orderBy("criadoEm", "desc")
+    .limit(50)
+    .get()
+    .then((snap) =>
+      snap.docs.map((d) => {
+        const data = d.data();
+        const ms = data.criadoEm && data.criadoEm.toMillis ? data.criadoEm.toMillis() : Date.now();
+        return { id: d.id, ...data, ms };
+      })
+    );
+}
+
 if (typeof module !== "undefined") {
   module.exports = { firebaseConfig };
 }
