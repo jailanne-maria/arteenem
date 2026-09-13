@@ -1752,7 +1752,7 @@ h1, h2, h3, h4, .marca-nome, .btn-principal, .btn-secundario, .btn-google, .btn-
   transform: translate(-50%, -50%);
   font-size: 2.4rem;
   z-index: 5;
-  transition: left 0.9s steps(9), top 0.9s steps(9);
+  transition: left 0.42s ease-in-out, top 0.42s ease-in-out;
   filter: drop-shadow(2px 3px 0 rgba(0, 0, 0, 0.35));
 }
 

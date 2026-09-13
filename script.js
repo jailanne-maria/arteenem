@@ -991,6 +991,7 @@ const POSICOES_FASES = [
   { x: 60, y: 19 },
 ];
 const POS_CASTELO = { x: 88, y: 8 };
+let posicaoAvatarIndex = 0; // posição atual da bonequinha no mapa
 
 function todasConcluidas() {
   return FASES.every((f) => faseConcluida(f.id));
@@ -1020,6 +1021,7 @@ function renderMapaFases() {
   });
 
   const posAvatar = todasConcluidas() ? POS_CASTELO : POSICOES_FASES[indiceFaseAtual()];
+  posicaoAvatarIndex = todasConcluidas() ? FASES.length : indiceFaseAtual();
 
   mapa.innerHTML = `
     <span class="mario-nuvem" style="left:12%;top:10%">☁️</span>
@@ -1045,16 +1047,23 @@ function renderMapaFases() {
 
 function caminharEIniciar(i) {
   const avatar = document.getElementById("mario-avatar");
-  const pos = POSICOES_FASES[i];
-  if (avatar) {
-    avatar.classList.add("pulando");
+  if (!avatar) return iniciarFase(FASES[i]);
+  avatar.classList.add("pulando");
+
+  const passo = () => {
+    if (posicaoAvatarIndex === i) {
+      avatar.classList.remove("pulando");
+      setTimeout(() => iniciarFase(FASES[i]), 250);
+      return;
+    }
+    // Anda um ponto por vez, seguindo a rota (para frente ou para trás)
+    posicaoAvatarIndex += i > posicaoAvatarIndex ? 1 : -1;
+    const pos = POSICOES_FASES[posicaoAvatarIndex];
     avatar.style.left = pos.x + "%";
     avatar.style.top = pos.y + "%";
-  }
-  setTimeout(() => {
-    if (avatar) avatar.classList.remove("pulando");
-    iniciarFase(FASES[i]);
-  }, 950);
+    setTimeout(passo, 460);
+  };
+  passo();
 }
 
 document.getElementById("btn-explorar").addEventListener("click", abrirExplorar);
