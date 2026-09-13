@@ -1009,7 +1009,7 @@ function renderMapaFases() {
   const av = explorarEstado.avatarId ? avatarPorId(explorarEstado.avatarId).emoji : "🧑🏽";
 
   const pontos = POSICOES_FASES.map((p) => `${p.x},${p.y}`).join(" ");
-  const pontosCompleto = `${pontos} ${POS_CASTELO.x},${POS_CASTELO.y}`;
+  const trilha = `${pontos} ${POS_CASTELO.x},${POS_CASTELO.y}`;
 
   let nodesHtml = "";
   FASES.forEach((f, i) => {
@@ -1020,15 +1020,47 @@ function renderMapaFases() {
     nodesHtml += `<button class="mario-node ${liberada ? "" : "bloqueada"} ${concluida ? "concluida" : ""}" data-i="${i}" style="left:${pos.x}%;top:${pos.y}%" title="${f.nome}">${liberada ? f.emoji : "🔒"}${flag}</button>`;
   });
 
+  // Ondas do mar
+  let ondas = "";
+  for (let y = 5; y < 100; y += 8) {
+    for (let x = 4; x < 100; x += 15) {
+      ondas += `<line x1="${x}" y1="${y}" x2="${x + 6}" y2="${y}" stroke="#8fd0f5" stroke-width="0.7" stroke-linecap="round"/>`;
+    }
+  }
+
+  // Ilha (blob verde com borda de areia)
+  const ilha = "M 6,90 C 2,80 4,66 8,56 C 4,44 4,30 12,20 C 20,8 40,2 58,4 C 76,2 92,10 95,26 C 98,40 90,50 92,62 C 96,76 90,90 78,94 C 60,99 30,98 16,94 Z";
+
+  // Decorações (arbustos, árvores e moedas)
+  const decor = `
+    <circle cx="28" cy="88" r="2.4" fill="#4fae4f" stroke="#2e7d32" stroke-width="0.6"/>
+    <circle cx="52" cy="70" r="2" fill="#4fae4f" stroke="#2e7d32" stroke-width="0.6"/>
+    <circle cx="30" cy="52" r="2.2" fill="#4fae4f" stroke="#2e7d32" stroke-width="0.6"/>
+    <circle cx="62" cy="66" r="2" fill="#4fae4f" stroke="#2e7d32" stroke-width="0.6"/>
+    <circle cx="76" cy="48" r="2.2" fill="#4fae4f" stroke="#2e7d32" stroke-width="0.6"/>
+    <circle cx="66" cy="30" r="2" fill="#4fae4f" stroke="#2e7d32" stroke-width="0.6"/>
+    <circle cx="24" cy="30" r="2" fill="#4fae4f" stroke="#2e7d32" stroke-width="0.6"/>
+    <circle cx="14" cy="70" r="1.6" fill="#fbd000"/>
+    <circle cx="86" cy="58" r="1.6" fill="#fbd000"/>
+    <circle cx="48" cy="14" r="1.6" fill="#fbd000"/>
+    <g stroke="#2e7d32" stroke-width="0.6">
+      <circle cx="36" cy="40" r="2.2" fill="#4fae4f"/>
+      <circle cx="72" cy="78" r="2.2" fill="#4fae4f"/>
+      <circle cx="10" cy="46" r="2.2" fill="#4fae4f"/>
+    </g>
+  `;
+
   const posAvatar = todasConcluidas() ? POS_CASTELO : POSICOES_FASES[indiceFaseAtual()];
   posicaoAvatarIndex = todasConcluidas() ? FASES.length : indiceFaseAtual();
 
   mapa.innerHTML = `
-    <span class="mario-nuvem" style="left:12%;top:10%">☁️</span>
-    <span class="mario-nuvem" style="left:55%;top:24%;animation-delay:1s">☁️</span>
-    <span class="mario-nuvem" style="left:78%;top:62%;animation-delay:2s">☁️</span>
-    <svg class="mario-trilha" viewBox="0 0 100 100" preserveAspectRatio="none">
-      <polyline points="${pontosCompleto}"></polyline>
+    <svg class="mario-cenario" viewBox="0 0 100 100" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <rect width="100" height="100" fill="#3aa0e8"/>
+      ${ondas}
+      <path d="${ilha}" fill="#7cc576" stroke="#d9a45b" stroke-width="4" stroke-linejoin="round"/>
+      <polyline points="${trilha}" fill="none" stroke="#f3e2b3" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+      <polyline points="${trilha}" fill="none" stroke="#c9a86a" stroke-width="1" stroke-dasharray="1 3" stroke-linecap="round"/>
+      ${decor}
     </svg>
     ${nodesHtml}
     <span class="mario-castelo" style="left:${POS_CASTELO.x}%;top:${POS_CASTELO.y}%">🏰</span>
