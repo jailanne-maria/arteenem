@@ -121,28 +121,87 @@ async function carregarTurmasProfessor() {
   const lista = document.getElementById("lista-turmas-prof");
   lista.innerHTML = "<p class='vazio'>Carregando…</p>";
   try {
-    const turmas = await listarTurmasDoProfessor(usuario.uid);
+    let turmas = await listarTurmasDoProfessor(usuario.uid);
     if (!turmas.length) {
       lista.innerHTML = "<p class='vazio'>Você ainda não criou turmas. Crie a primeira acima!</p>";
       return;
     }
+    // Ordena conforme a ordem salva pelo professor
+    const ordem = usuario.ordemTurmas || [];
+    turmas.sort((a, b) => {
+      const ia = ordem.indexOf(a.codigo);
+      const ib = ordem.indexOf(b.codigo);
+      if (ia === -1 && ib === -1) return 0;
+      if (ia === -1) return 1;
+      if (ib === -1) return -1;
+      return ia - ib;
+    });
+
     lista.innerHTML = "";
-    for (const t of turmas) {
+    for (let i = 0; i < turmas.length; i++) {
+      const t = turmas[i];
       const membros = await listarMembros(t.codigo).catch(() => []);
-      const btn = document.createElement("button");
-      btn.className = "turma-card";
-      btn.innerHTML = `
-        <span class="turma-nome">${t.nome}</span>
-        <span class="turma-meta">${membros.length} estudante(s)</span>
-        <span class="turma-cod">${t.codigo}</span>
+      const card = document.createElement("div");
+      card.className = "turma-card";
+      const controles = modoOrganizar
+        ? `<div class="turma-organizar">
+             <button class="mover" data-dir="up" data-codigo="${t.codigo}" ${i === 0 ? "disabled" : ""}>▲</button>
+             <button class="mover" data-dir="down" data-codigo="${t.codigo}" ${i === turmas.length - 1 ? "disabled" : ""}>▼</button>
+           </div>`
+        : "";
+      card.innerHTML = `
+        <div class="turma-card-corpo">
+          <span class="turma-nome">${t.nome}</span>
+          <span class="turma-meta">${membros.length} estudante(s)</span>
+          <span class="turma-cod">${t.codigo}</span>
+        </div>
+        ${controles}
       `;
-      btn.addEventListener("click", () => abrirTurmaProfessor(t));
-      lista.appendChild(btn);
+      if (!modoOrganizar) {
+        card.style.cursor = "pointer";
+        card.addEventListener("click", () => abrirTurmaProfessor(t));
+      }
+      lista.appendChild(card);
     }
   } catch (e) {
     lista.innerHTML = `<p class='vazio'>Erro ao carregar turmas: ${e.message}</p>`;
   }
 }
+
+// ---------- Organizar turmas (professor) ----------
+let modoOrganizar = false;
+
+document.getElementById("btn-organizar").addEventListener("click", () => {
+  modoOrganizar = !modoOrganizar;
+  const btn = document.getElementById("btn-organizar");
+  btn.textContent = modoOrganizar ? "✅ Concluir" : "↕️ Organizar";
+  carregarTurmasProfessor();
+});
+
+// Move uma turma para cima/baixo e salva a ordem no perfil
+document.getElementById("lista-turmas-prof").addEventListener("click", async (e) => {
+  const botao = e.target.closest(".mover");
+  if (!botao) return;
+  e.stopPropagation();
+  const codigo = botao.dataset.codigo;
+  const dir = botao.dataset.dir;
+
+  const turmas = await listarTurmasDoProfessor(usuario.uid);
+  const ordem = usuario.ordemTurmas && usuario.ordemTurmas.length
+    ? usuario.ordemTurmas.filter((c) => turmas.some((t) => t.codigo === c))
+    : turmas.map((t) => t.codigo);
+  // Garante que todas as turmas estejam na lista
+  turmas.forEach((t) => { if (!ordem.includes(t.codigo)) ordem.push(t.codigo); });
+
+  const pos = ordem.indexOf(codigo);
+  const nova = pos + (dir === "up" ? -1 : 1);
+  if (nova < 0 || nova >= ordem.length) return;
+  [ordem[pos], ordem[nova]] = [ordem[nova], ordem[pos]];
+
+  usuario.ordemTurmas = ordem;
+  await salvarUsuario(usuario.uid, { ordemTurmas: ordem }).catch(() => {});
+  await carregarTurmasProfessor();
+});
 
 document.getElementById("btn-criar-turma").addEventListener("click", async () => {
   const nome = document.getElementById("input-nome-turma").value.trim();

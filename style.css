@@ -834,6 +834,54 @@ h1, h2, h3, h4, .marca-nome, .btn-principal, .btn-secundario, .btn-google, .btn-
   font-family: inherit;
   color: inherit;
   transition: transform 0.1s, box-shadow 0.1s;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.turma-card-corpo {
+  display: flex;
+  flex-direction: column;
+}
+
+.turma-organizar {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.mover {
+  width: 40px;
+  height: 34px;
+  background: var(--sky-2);
+  border: 3px solid var(--black);
+  box-shadow: 2px 2px 0 var(--black);
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  color: var(--black);
+}
+
+.mover:hover:not(:disabled) {
+  background: var(--yellow);
+}
+
+.mover:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.secao-cabeca {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.secao-cabeca .secao-titulo {
+  margin-bottom: 0;
 }
 
 .turma-card:hover {
