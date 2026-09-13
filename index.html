@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="ArteENEM — diagnóstico das 4 áreas do ENEM. Professores criam turmas, estudantes fazem o diagnóstico e disputam o ranking.">
   <title>ArteENEM · Diagnóstico das 4 áreas</title>
-  <link rel="stylesheet" href="style.css?v=8">
+  <link rel="stylesheet" href="style.css?v=9">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
@@ -21,6 +21,7 @@
       <div class="topo-usuario">
         <span id="usuario-nome" class="usuario-nome escondido"></span>
         <button id="btn-explorar" class="btn-ghost escondido">🎮 Explorar</button>
+        <button id="btn-eca" class="btn-ghost escondido">📜 ECA</button>
         <button id="btn-perfil" class="btn-ghost escondido">👤 Perfil</button>
         <button id="btn-mural" class="btn-ghost escondido">💬 Mural</button>
         <button id="btn-sair" class="btn-ghost escondido">Sair</button>
@@ -430,7 +431,73 @@
       <div id="mural-lista" class="mural-lista"></div>
     </section>
 
+    <!-- ===== ECA (ESTATUTO DA CRIANÇA E DO ADOLESCENTE) ===== -->
+    <section id="tela-eca" class="tela">
+      <button id="btn-voltar-eca" class="btn-ghost voltar">← Voltar</button>
+
+      <div class="eca-topo">
+        <span class="eca-icone">📜</span>
+        <h1>ECA Digital</h1>
+        <p>Estatuto da Criança e do Adolescente — Lei nº 8.069/1990 — e a garantia da soberania digital nos estados brasileiros.</p>
+      </div>
+
+      <div class="eca-bloco">
+        <h3>🌐 Soberania digital</h3>
+        <p>A <strong>soberania digital</strong> é o direito de cada povo e território de controlar seus dados, suas tecnologias e suas narrativas. No Brasil, ela se expressa na proteção de crianças e adolescentes no ambiente digital, respeitando a cultura, os territórios e as realidades de cada estado — do Acre à Amazônia.</p>
+        <p>Este app reafirma: os dados de estudantes pertencem à comunidade escolar e são tratados com respeito, finalidade educativa e proteção integral, conforme o ECA e a LGPD (Lei nº 13.709/2018, art. 14).</p>
+      </div>
+
+      <div class="eca-bloco">
+        <h3>📖 Princípios fundamentais do ECA</h3>
+        <div class="eca-artigo"><strong>Art. 1º</strong> Esta Lei dispõe sobre a proteção integral à criança e ao adolescente.</div>
+        <div class="eca-artigo"><strong>Art. 2º</strong> Considera-se criança, para os efeitos desta Lei, a pessoa até doze anos de idade incompletos, e adolescente aquela entre doze e dezoito anos de idade.</div>
+        <div class="eca-artigo"><strong>Art. 3º</strong> A criança e o adolescente gozam de todos os direitos fundamentais inerentes à pessoa humana, sem prejuízo da proteção integral, assegurando-se-lhes todas as oportunidades e facilidades para o desenvolvimento físico, mental, moral, espiritual e social, em condições de liberdade e de dignidade.</div>
+        <div class="eca-artigo"><strong>Art. 4º</strong> É dever da família, da comunidade, da sociedade em geral e do poder público assegurar, com absoluta prioridade, a efetivação dos direitos referentes à vida, à saúde, à alimentação, à educação, ao esporte, ao lazer, à profissionalização, à cultura, à dignidade, ao respeito, à liberdade e à convivência familiar e comunitária.</div>
+        <div class="eca-artigo"><strong>Art. 5º</strong> Nenhuma criança ou adolescente será objeto de qualquer forma de negligência, discriminação, exploração, violência, crueldade e opressão, punido na forma da lei qualquer atentado, por ação ou omissão, aos seus direitos fundamentais.</div>
+      </div>
+
+      <div class="eca-bloco">
+        <h3>🕊️ Direito à liberdade, ao respeito e à dignidade</h3>
+        <div class="eca-artigo"><strong>Art. 15</strong> A criança e o adolescente têm direito à liberdade, ao respeito e à dignidade como pessoas humanas em processo de desenvolvimento e como sujeitos de direitos civis, humanos e sociais garantidos na Constituição e nas leis.</div>
+        <div class="eca-artigo"><strong>Art. 16</strong> O direito à liberdade compreende os seguintes aspectos: ir, vir e estar nos logradouros públicos; opinar e se expressar; brincar, praticar esportes e divertir-se; participar da vida familiar e comunitária; participar da vida política; buscar refúgio, auxílio e orientação.</div>
+        <div class="eca-artigo"><strong>Art. 17</strong> O direito ao respeito consiste na inviolabilidade da integridade física, psíquica e moral da criança e do adolescente, abrangendo a preservação da imagem, da identidade, da autonomia, dos valores, ideias e crenças, dos espaços e objetos pessoais.</div>
+      </div>
+
+      <div class="eca-bloco">
+        <h3>🛡️ Prevenção e proteção no ambiente digital</h3>
+        <div class="eca-artigo"><strong>Art. 70</strong> É dever de todos prevenir a ocorrência de ameaça ou violação dos direitos da criança e do adolescente.</div>
+        <div class="eca-artigo"><strong>Art. 71</strong> A criança e o adolescente têm direito a informação, cultura, lazer, esportes, diversões e espetáculos, produtos e serviços que respeitem sua condição peculiar de pessoa em desenvolvimento.</div>
+        <p class="eca-nota">A proteção também alcança o mundo digital: bullying e cyberbullying são tipificados pela Lei nº 14.811/2024, e o tratamento de dados de crianças e adolescentes exige consentimento e finalidade legítima (LGPD, art. 14).</p>
+      </div>
+
+      <div class="eca-bloco eca-compromisso">
+        <h3>✅ Compromisso do ArteENEM</h3>
+        <ul>
+          <li>Espaço seguro, educativo e livre de violência, discriminação e assédio.</li>
+          <li>Dados usados apenas para fins pedagógicos (turmas, diagnóstico e ranking).</li>
+          <li>Respeito à imagem, à identidade e à privacidade de cada estudante.</li>
+          <li>Tolerância zero a bullying, cyberbullying e qualquer violação do ECA.</li>
+          <li>Violações podem levar ao <strong>banimento</strong> da conta e às responsabilidades legais.</li>
+        </ul>
+      </div>
+    </section>
+
   </main>
+
+  <!-- ===== AVISO ECA (LOGIN) ===== -->
+  <div id="modal-eca" class="modal-eca escondido">
+    <div class="modal-eca-caixa">
+      <span class="modal-eca-icone">📜</span>
+      <h2>Aviso importante</h2>
+      <p>Este aplicativo foi desenvolvido no contexto do <strong>ECA Digital</strong> e <strong>não poderá, em hipótese alguma, ferir o Estatuto da Criança e do Adolescente</strong> (Lei nº 8.069/1990).</p>
+      <p>Qualquer uso que viole os direitos de crianças e adolescentes — como bullying, cyberbullying, exposição indevida, discriminação ou qualquer forma de violência — está sujeito a <strong>banimento</strong> da conta e às responsabilidades previstas em lei.</p>
+      <p>Ao continuar, você declara estar de acordo com o ECA e com o uso respeitoso e seguro deste espaço.</p>
+      <div class="modal-eca-acoes">
+        <button id="btn-eca-ler" class="btn-secundario">📖 Ler o ECA</button>
+        <button id="btn-eca-aceitar" class="btn-principal">✅ Li e concordo</button>
+      </div>
+    </div>
+  </div>
 
   <footer class="rodape">
     <p class="rodape-credito">🎨 App desenvolvido pela artista educadora <strong>@maria.jai_</strong></p>
@@ -442,10 +509,10 @@
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 
-  <script src="questoes.js?v=8"></script>
-  <script src="plano.js?v=8"></script>
-  <script src="explorar.js?v=8"></script>
-  <script src="firebase-config.js?v=8"></script>
-  <script src="script.js?v=8"></script>
+  <script src="questoes.js?v=9"></script>
+  <script src="plano.js?v=9"></script>
+  <script src="explorar.js?v=9"></script>
+  <script src="firebase-config.js?v=9"></script>
+  <script src="script.js?v=9"></script>
 </body>
 </html>

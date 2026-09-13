@@ -131,6 +131,13 @@ function listarMembros(codigo) {
     .then((snap) => snap.docs.map((d) => ({ uid: d.id, ...d.data() })));
 }
 
+// Remove um membro da turma (professor remove aluno, ou o próprio aluno sai)
+function removerMembro(codigo, uid) {
+  return firebase.firestore()
+    .collection("turmas").doc(codigo).collection("membros").doc(uid)
+    .delete();
+}
+
 function listarTurmasDoAluno(uid) {
   // Busca em todas as turmas os membros com este uid
   return firebase.firestore().collection("turmas").get().then(async (snap) => {

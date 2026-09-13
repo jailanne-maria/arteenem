@@ -1520,12 +1520,13 @@ h1, h2, h3, h4, .marca-nome, .btn-principal, .btn-secundario, .btn-google, .btn-
   color: var(--green-dark);
 }
 
-.membro-tag.clicavel {
+.membro-nome.clicavel {
   cursor: pointer;
 }
 
-.membro-tag.clicavel:hover {
-  background: var(--yellow);
+.membro-nome.clicavel:hover {
+  color: var(--green-dark);
+  text-decoration: underline;
 }
 
 /* ===== CONTRIBUIR COM PERGUNTAS ===== */
@@ -1621,6 +1622,178 @@ h1, h2, h3, h4, .marca-nome, .btn-principal, .btn-secundario, .btn-google, .btn-
 .pergunta-resposta {
   font-size: 1.05rem;
   color: var(--green-dark);
+}
+
+/* ===== AVISO ECA (MODAL) ===== */
+.modal-eca {
+  position: fixed;
+  inset: 0;
+  background: rgba(20, 20, 43, 0.82);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.modal-eca-caixa {
+  background: var(--surface-2);
+  border: 5px solid var(--black);
+  box-shadow: 8px 8px 0 var(--black);
+  border-radius: 14px;
+  padding: 28px 24px;
+  max-width: 480px;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.modal-eca-icone {
+  font-size: 2.6rem;
+  display: block;
+  text-align: center;
+  margin-bottom: 12px;
+}
+
+.modal-eca-caixa h2 {
+  font-size: 0.85rem;
+  color: var(--red);
+  text-align: center;
+  margin-bottom: 16px;
+  line-height: 1.8;
+}
+
+.modal-eca-caixa p {
+  font-size: 1.15rem;
+  color: var(--on-surface-2);
+  margin-bottom: 12px;
+}
+
+.modal-eca-acoes {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+/* ===== ABA ECA ===== */
+.eca-topo {
+  text-align: center;
+  margin-bottom: 22px;
+}
+
+.eca-icone {
+  font-size: 2.6rem;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.eca-topo h1 {
+  font-size: 1.2rem;
+  color: var(--white);
+  text-shadow: 3px 3px 0 var(--black);
+  margin-bottom: 10px;
+}
+
+.eca-topo p {
+  color: var(--white);
+  text-shadow: 2px 2px 0 var(--black);
+  max-width: 620px;
+  margin: 0 auto;
+}
+
+.eca-bloco {
+  background: var(--surface-2);
+  border: 4px solid var(--black);
+  box-shadow: var(--sombra);
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 18px;
+}
+
+.eca-bloco h3 {
+  font-size: 0.75rem;
+  color: var(--red);
+  margin-bottom: 14px;
+  line-height: 1.8;
+}
+
+.eca-bloco p {
+  font-size: 1.15rem;
+  color: var(--on-surface-2);
+  margin-bottom: 10px;
+}
+
+.eca-artigo {
+  font-size: 1.1rem;
+  color: var(--on-surface-2);
+  background: var(--surface);
+  border-left: 4px solid var(--green);
+  border-radius: 8px;
+  padding: 12px 14px;
+  margin-bottom: 10px;
+}
+
+.eca-artigo strong {
+  color: var(--black);
+}
+
+.eca-nota {
+  font-size: 1.05rem;
+  font-style: italic;
+  color: var(--muted);
+}
+
+.eca-compromisso ul {
+  list-style: none;
+}
+
+.eca-compromisso li {
+  font-size: 1.15rem;
+  color: var(--on-surface-2);
+  padding: 7px 0 7px 26px;
+  position: relative;
+}
+
+.eca-compromisso li::before {
+  content: "✔️";
+  position: absolute;
+  left: 0;
+}
+
+.eca-compromisso strong {
+  color: var(--red);
+}
+
+/* ===== SAIR / REMOVER DA TURMA ===== */
+.turma-aluno .btn-sair-turma {
+  background: #ffd9d4;
+  border: 3px solid var(--black);
+  box-shadow: 2px 2px 0 var(--black);
+  border-radius: 8px;
+  padding: 8px 14px;
+  font-family: var(--pixel);
+  font-size: 0.5rem;
+  cursor: pointer;
+  color: var(--black);
+}
+
+.turma-aluno .btn-sair-turma:hover {
+  background: var(--red);
+  color: var(--white);
+}
+
+.membro-tag .btn-remover {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 0.95rem;
+  margin-left: 6px;
+  padding: 0;
+  color: var(--red);
+}
+
+.membro-tag .btn-remover:hover {
+  transform: scale(1.2);
 }
 
 .recado.fixado {

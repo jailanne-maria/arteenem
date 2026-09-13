@@ -52,6 +52,7 @@ aoMudarUsuario(async (user) => {
   const btnMural = document.getElementById("btn-mural");
   const btnPerfil = document.getElementById("btn-perfil");
   const btnExplorar = document.getElementById("btn-explorar");
+  const btnEca = document.getElementById("btn-eca");
   const nomeTopo = document.getElementById("usuario-nome");
 
   if (!user) {
@@ -61,6 +62,7 @@ aoMudarUsuario(async (user) => {
     esconder(btnMural);
     esconder(btnPerfil);
     esconder(btnExplorar);
+    esconder(btnEca);
     esconder(nomeTopo);
     mostrarTela("tela-login");
     return;
@@ -87,6 +89,10 @@ aoMudarUsuario(async (user) => {
   exibir(btnMural);
   exibir(btnPerfil);
   exibir(btnExplorar);
+  exibir(btnEca);
+
+  // Aviso do ECA a cada login (uma vez por sessão)
+  mostrarAvisoECA();
 
   // Carrega as perguntas contribuídas (banco compartilhado)
   listarPerguntas()
@@ -278,7 +284,7 @@ async function abrirTurmaProfessor(turma) {
 
     if (membros.length) {
       membrosDiv.innerHTML = membros
-        .map((m) => `<span class="membro-tag clicavel" data-uid="${m.uid}">${m.nome}</span>`)
+        .map((m) => `<span class="membro-tag"><span class="membro-nome clicavel" data-uid="${m.uid}">${m.nome}</span><button class="btn-remover" data-uid="${m.uid}" data-nome="${(m.nome || "").replace(/"/g, "&quot;")}" title="Remover da turma">✖</button></span>`)
         .join("");
     } else {
       membrosDiv.innerHTML = "<p class='vazio'>Nenhum estudante entrou ainda.</p>";
@@ -352,8 +358,10 @@ async function carregarTurmaEstudante() {
             <strong>${turma.nome}</strong><br>
             <span class="turma-cod">${turma.codigo}</span>
           </div>
+          <button class="btn-sair-turma" id="btn-sair-turma">🚪 Sair da turma</button>
         </div>
       `;
+      document.getElementById("btn-sair-turma").addEventListener("click", sairDaTurma);
       exibir(blocoInfo);
       esconder(blocoEntrar);
       return;
@@ -362,6 +370,20 @@ async function carregarTurmaEstudante() {
   minhaTurma = null;
   esconder(blocoInfo);
   exibir(blocoEntrar);
+}
+
+async function sairDaTurma() {
+  if (!minhaTurma) return;
+  if (!confirm(`Sair da turma "${minhaTurma.nome}"?`)) return;
+  try {
+    await removerMembro(minhaTurma.codigo, usuario.uid);
+    usuario.turmaAtual = null;
+    await salvarUsuario(usuario.uid, { turmaAtual: null }).catch(() => {});
+    minhaTurma = null;
+    await carregarTurmaEstudante();
+  } catch (e) {
+    alert("Erro ao sair da turma: " + e.message);
+  }
 }
 
 document.getElementById("btn-entrar-turma").addEventListener("click", async () => {
@@ -913,9 +935,21 @@ document.getElementById("mural-lista").addEventListener("click", async (e) => {
   if (alvo && alvo.dataset.uid) abrirPerfilDe(alvo.dataset.uid);
 });
 
-// Clique num colega da turma (abre o perfil)
-document.getElementById("membros-turma").addEventListener("click", (e) => {
-  const alvo = e.target.closest(".membro-tag.clicavel");
+// Clique num colega da turma (abre o perfil) e botão remover (professor)
+document.getElementById("membros-turma").addEventListener("click", async (e) => {
+  const remover = e.target.closest(".btn-remover");
+  if (remover) {
+    if (!turmaAtualProf) return;
+    if (!confirm(`Remover ${remover.dataset.nome} da turma?`)) return;
+    try {
+      await removerMembro(turmaAtualProf.codigo, remover.dataset.uid);
+      await abrirTurmaProfessor(turmaAtualProf);
+    } catch (err) {
+      alert("Erro ao remover: " + err.message);
+    }
+    return;
+  }
+  const alvo = e.target.closest(".membro-nome.clicavel");
   if (alvo && alvo.dataset.uid) abrirPerfilDe(alvo.dataset.uid);
 });
 
@@ -1367,6 +1401,38 @@ document.getElementById("lista-perguntas").addEventListener("click", async (e) =
   } catch (err) {
     alert("Erro ao excluir: " + err.message);
   }
+});
+
+// ============================================================
+// ECA (ESTATUTO DA CRIANÇA E DO ADOLESCENTE)
+// ============================================================
+function mostrarAvisoECA() {
+  // Mostra uma vez por sessão de navegação
+  let jaViu = false;
+  try { jaViu = sessionStorage.getItem("eca_aviso_visto") === "1"; } catch {}
+  if (!jaViu) {
+    exibir(document.getElementById("modal-eca"));
+  }
+}
+
+function fecharAvisoECA() {
+  try { sessionStorage.setItem("eca_aviso_visto", "1"); } catch {}
+  esconder(document.getElementById("modal-eca"));
+}
+
+function abrirECA() {
+  mostrarTela("tela-eca");
+}
+
+document.getElementById("btn-eca").addEventListener("click", abrirECA);
+document.getElementById("btn-voltar-eca").addEventListener("click", () => {
+  if (usuario && usuario.papel === "professor") abrirPainelProfessor();
+  else abrirInicioEstudante();
+});
+document.getElementById("btn-eca-aceitar").addEventListener("click", fecharAvisoECA);
+document.getElementById("btn-eca-ler").addEventListener("click", () => {
+  fecharAvisoECA();
+  abrirECA();
 });
 
 // ---------- Eventos gerais ----------
