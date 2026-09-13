@@ -696,6 +696,14 @@ function renderRecado(d) {
   const botaoFixar = admin
     ? `<button class="recado-fixar" data-id="${d.id}" data-fixado="${d.fixado ? "1" : "0"}">${d.fixado ? "📌 Desafixar" : "📌 Fixar"}</button>`
     : "";
+
+  const curtidas = d.curtidas || [];
+  const curtiu = usuario && curtidas.includes(usuario.uid);
+  const botaoCurtir = `<button class="recado-curtir ${curtiu ? "curtido" : ""}" data-id="${d.id}" data-curtiu="${curtiu ? "1" : "0"}">
+      <span class="coracao">💚</span>
+      <span class="curtidas-num">${curtidas.length}</span>
+    </button>`;
+
   return `
     <div class="recado ${d.fixado ? "fixado" : ""}">
       <div class="recado-avatar">${avatar}</div>
@@ -705,7 +713,10 @@ function renderRecado(d) {
           <span class="recado-tempo">${quando}</span>
         </div>
         <p class="recado-texto">${escaparHTML(d.texto || "")}</p>
-        ${botaoFixar}
+        <div class="recado-acoes">
+          ${botaoCurtir}
+          ${botaoFixar}
+        </div>
       </div>
     </div>
   `;
@@ -862,6 +873,18 @@ document.getElementById("btn-voltar-perfil").addEventListener("click", () => {
 
 // Cliques no mural: nome do autor (abre perfil) e botão fixar (admin)
 document.getElementById("mural-lista").addEventListener("click", async (e) => {
+  const curtir = e.target.closest(".recado-curtir");
+  if (curtir) {
+    try {
+      const jaCurtiu = curtir.dataset.curtiu === "1";
+      await curtirDepoimento(curtir.dataset.id, usuario.uid, !jaCurtiu);
+      await carregarDepoimentos();
+    } catch (err) {
+      alert("Não foi possível curtir: " + err.message);
+    }
+    return;
+  }
+
   const fixar = e.target.closest(".recado-fixar");
   if (fixar) {
     try {
@@ -957,25 +980,81 @@ function faseLiberada(i) {
   return faseConcluida(FASES[i - 1].id);
 }
 
+// Posições (x%, y%) das fases no mapa estilo Super Mario
+const POSICOES_FASES = [
+  { x: 14, y: 84 },
+  { x: 40, y: 72 },
+  { x: 18, y: 58 },
+  { x: 44, y: 45 },
+  { x: 71, y: 55 },
+  { x: 85, y: 36 },
+  { x: 60, y: 19 },
+];
+const POS_CASTELO = { x: 88, y: 8 };
+
+function todasConcluidas() {
+  return FASES.every((f) => faseConcluida(f.id));
+}
+
+function indiceFaseAtual() {
+  for (let i = 0; i < FASES.length; i++) {
+    if (faseLiberada(i) && !faseConcluida(FASES[i].id)) return i;
+  }
+  return FASES.length - 1;
+}
+
 function renderMapaFases() {
   const mapa = document.getElementById("mapa-fases");
-  mapa.innerHTML = "";
+  const av = explorarEstado.avatarId ? avatarPorId(explorarEstado.avatarId).emoji : "🧑🏽";
+
+  const pontos = POSICOES_FASES.map((p) => `${p.x},${p.y}`).join(" ");
+  const pontosCompleto = `${pontos} ${POS_CASTELO.x},${POS_CASTELO.y}`;
+
+  let nodesHtml = "";
   FASES.forEach((f, i) => {
     const liberada = faseLiberada(i);
     const concluida = faseConcluida(f.id);
-    const node = document.createElement("button");
-    node.className = "fase-node" + (liberada ? "" : " bloqueada") + (concluida ? " concluida" : "");
-    node.innerHTML = `
-      <span class="fase-node-emoji">${liberada ? f.emoji : "🔒"}</span>
-      <span class="fase-node-info">
-        <span class="fase-node-nome">${f.nome}</span>
-        <span class="fase-node-periodo">${f.periodo}</span>
-      </span>
-      <span class="fase-node-status">${concluida ? "✅ Concluída" : liberada ? "▶️ Jogar" : "Bloqueada"}</span>
-    `;
-    if (liberada) node.addEventListener("click", () => iniciarFase(f));
-    mapa.appendChild(node);
+    const pos = POSICOES_FASES[i];
+    const flag = concluida ? '<span class="node-flag">⭐</span>' : "";
+    nodesHtml += `<button class="mario-node ${liberada ? "" : "bloqueada"} ${concluida ? "concluida" : ""}" data-i="${i}" style="left:${pos.x}%;top:${pos.y}%" title="${f.nome}">${liberada ? f.emoji : "🔒"}${flag}</button>`;
   });
+
+  const posAvatar = todasConcluidas() ? POS_CASTELO : POSICOES_FASES[indiceFaseAtual()];
+
+  mapa.innerHTML = `
+    <span class="mario-nuvem" style="left:12%;top:10%">☁️</span>
+    <span class="mario-nuvem" style="left:55%;top:24%;animation-delay:1s">☁️</span>
+    <span class="mario-nuvem" style="left:78%;top:62%;animation-delay:2s">☁️</span>
+    <svg class="mario-trilha" viewBox="0 0 100 100" preserveAspectRatio="none">
+      <polyline points="${pontosCompleto}"></polyline>
+    </svg>
+    ${nodesHtml}
+    <span class="mario-castelo" style="left:${POS_CASTELO.x}%;top:${POS_CASTELO.y}%">🏰</span>
+    <span class="mario-avatar" id="mario-avatar" style="left:${posAvatar.x}%;top:${posAvatar.y}%">${av}</span>
+  `;
+
+  mapa.querySelectorAll(".mario-node").forEach((node) => {
+    const i = parseInt(node.dataset.i, 10);
+    if (!faseLiberada(i)) {
+      node.addEventListener("click", () => alert("Conclua a fase anterior para desbloquear esta! 🔒"));
+      return;
+    }
+    node.addEventListener("click", () => caminharEIniciar(i));
+  });
+}
+
+function caminharEIniciar(i) {
+  const avatar = document.getElementById("mario-avatar");
+  const pos = POSICOES_FASES[i];
+  if (avatar) {
+    avatar.classList.add("pulando");
+    avatar.style.left = pos.x + "%";
+    avatar.style.top = pos.y + "%";
+  }
+  setTimeout(() => {
+    if (avatar) avatar.classList.remove("pulando");
+    iniciarFase(FASES[i]);
+  }, 950);
 }
 
 document.getElementById("btn-explorar").addEventListener("click", abrirExplorar);

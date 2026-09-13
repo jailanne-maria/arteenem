@@ -1516,6 +1516,52 @@ h1, h2, h3, h4, .marca-nome, .btn-principal, .btn-secundario, .btn-google, .btn-
   background: var(--yellow);
 }
 
+.recado-acoes {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+  flex-wrap: wrap;
+}
+
+.recado-curtir {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--white);
+  border: 3px solid var(--black);
+  box-shadow: 2px 2px 0 var(--black);
+  border-radius: 999px;
+  padding: 5px 14px 5px 10px;
+  cursor: pointer;
+  font-family: var(--pixel);
+  font-size: 0.55rem;
+  color: var(--black);
+}
+
+.recado-curtir .coracao {
+  font-size: 1.1rem;
+  filter: grayscale(1) opacity(0.6);
+  transition: filter 0.15s, transform 0.15s;
+}
+
+.recado-curtir:hover .coracao {
+  transform: scale(1.2);
+}
+
+.recado-curtir.curtido {
+  background: #d4f5d4;
+}
+
+.recado-curtir.curtido .coracao {
+  filter: none;
+}
+
+.recado-curtir .curtidas-num {
+  min-width: 14px;
+  text-align: center;
+}
+
 /* ===== EXPLORAR (JOGO) ===== */
 .explorar-topo {
   text-align: center;
@@ -1618,6 +1664,124 @@ h1, h2, h3, h4, .marca-nome, .btn-principal, .btn-secundario, .btn-google, .btn-
   flex-direction: column;
   gap: 14px;
 }
+
+/* ===== MAPA ESTILO SUPER MARIO ===== */
+.mario-mapa {
+  position: relative;
+  width: 100%;
+  height: 600px;
+  background: linear-gradient(180deg, #5c94fc 0%, #7fb0ff 60%, #8cb8ff 100%);
+  border: 5px solid var(--black);
+  border-radius: 14px;
+  box-shadow: var(--sombra);
+  overflow: hidden;
+}
+
+.mario-nuvem {
+  position: absolute;
+  font-size: 2rem;
+  opacity: 0.9;
+  animation: nuvem-mover 6s ease-in-out infinite alternate;
+}
+
+@keyframes nuvem-mover {
+  from { transform: translateX(0); }
+  to { transform: translateX(24px); }
+}
+
+.mario-trilha {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.mario-trilha polyline {
+  fill: none;
+  stroke: #ffffff;
+  stroke-width: 4;
+  stroke-dasharray: 10 10;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+  opacity: 0.85;
+}
+
+.mario-node {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  width: 58px;
+  height: 58px;
+  border: 4px solid var(--black);
+  border-radius: 50%;
+  background: var(--yellow);
+  box-shadow: 3px 3px 0 var(--black);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  transition: transform 0.15s, box-shadow 0.15s;
+  z-index: 3;
+}
+
+.mario-node:hover:not(.bloqueada) {
+  transform: translate(-50%, -50%) scale(1.15);
+  box-shadow: 4px 4px 0 var(--black);
+}
+
+.mario-node.bloqueada {
+  background: #b9b9c9;
+  cursor: not-allowed;
+  filter: grayscale(0.5);
+}
+
+.mario-node.concluida {
+  background: var(--green);
+}
+
+.mario-node .node-flag {
+  position: absolute;
+  top: -14px;
+  right: -10px;
+  font-size: 1rem;
+}
+
+.mario-avatar {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  font-size: 2.4rem;
+  z-index: 5;
+  transition: left 0.9s steps(9), top 0.9s steps(9);
+  filter: drop-shadow(2px 3px 0 rgba(0, 0, 0, 0.35));
+}
+
+.mario-avatar.pulando {
+  animation: pulinho 0.4s ease-in-out infinite;
+}
+
+@keyframes pulinho {
+  0%, 100% { transform: translate(-50%, -50%); }
+  50% { transform: translate(-50%, -85%); }
+}
+
+.mario-castelo {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  font-size: 3rem;
+  z-index: 2;
+  filter: drop-shadow(2px 3px 0 rgba(0, 0, 0, 0.35));
+}
+
+.mario-legenda {
+  text-align: center;
+  color: var(--white);
+  text-shadow: 2px 2px 0 var(--black);
+  font-size: 1rem;
+  margin-top: 12px;
+}
+
+/* ===== FIM DO MAPA ===== */
 
 .fase-node {
   display: flex;

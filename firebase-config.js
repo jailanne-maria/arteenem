@@ -211,6 +211,15 @@ function fixarDepoimento(id, fixado) {
     .update({ fixado: !!fixado });
 }
 
+// Curtir/descurtir um recado (qualquer pessoa logada)
+function curtirDepoimento(id, uid, curtir) {
+  const campo = firebase.firestore.FieldValue;
+  return firebase.firestore().collection("depoimentos").doc(id)
+    .update({
+      curtidas: curtir ? campo.arrayUnion(uid) : campo.arrayRemove(uid),
+    });
+}
+
 if (typeof module !== "undefined") {
   module.exports = { firebaseConfig };
 }
