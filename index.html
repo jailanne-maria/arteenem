@@ -20,6 +20,7 @@
       </div>
       <div class="topo-usuario">
         <span id="usuario-nome" class="usuario-nome escondido"></span>
+        <button id="btn-perfil" class="btn-ghost escondido">👤 Perfil</button>
         <button id="btn-mural" class="btn-ghost escondido">💬 Mural</button>
         <button id="btn-sair" class="btn-ghost escondido">Sair</button>
       </div>
@@ -200,6 +201,55 @@
       <div class="resultado-acoes">
         <button id="btn-refazer" class="btn-principal">Refazer diagnóstico</button>
         <button id="btn-voltar" class="btn-secundario">Voltar ao início</button>
+      </div>
+    </section>
+
+    <!-- ===== PERFIL ===== -->
+    <section id="tela-perfil" class="tela">
+      <button id="btn-voltar-perfil" class="btn-ghost voltar">← Voltar</button>
+
+      <div class="perfil-card">
+        <div class="perfil-cabeca">
+          <div id="perfil-avatar" class="perfil-avatar">🙂</div>
+          <div>
+            <h1 id="perfil-nome" class="perfil-nome"></h1>
+            <span id="perfil-papel" class="perfil-papel"></span>
+          </div>
+        </div>
+
+        <div id="perfil-view" class="perfil-view">
+          <div class="perfil-campo">
+            <span class="perfil-rotulo">📝 Bio</span>
+            <p id="perfil-bio-view" class="perfil-texto"></p>
+          </div>
+          <div class="perfil-campo">
+            <span class="perfil-rotulo">🌟 O que quero ser</span>
+            <p id="perfil-sonho-view" class="perfil-texto"></p>
+          </div>
+          <div class="perfil-campo">
+            <span class="perfil-rotulo">❤️ Do que eu gosto</span>
+            <p id="perfil-gostos-view" class="perfil-texto"></p>
+          </div>
+        </div>
+
+        <div id="perfil-edit" class="perfil-edit escondido">
+          <div class="perfil-campo">
+            <label class="perfil-rotulo" for="perfil-bio">📝 Bio</label>
+            <textarea id="perfil-bio" maxlength="200" placeholder="Conte um pouco sobre você..."></textarea>
+          </div>
+          <div class="perfil-campo">
+            <label class="perfil-rotulo" for="perfil-sonho">🌟 O que quero ser</label>
+            <input id="perfil-sonho" type="text" maxlength="80" placeholder="Ex.: Médica, programadora, artista...">
+          </div>
+          <div class="perfil-campo">
+            <label class="perfil-rotulo" for="perfil-gostos">❤️ Do que eu gosto</label>
+            <input id="perfil-gostos" type="text" maxlength="100" placeholder="Ex.: música, futebol, desenhar, games...">
+          </div>
+          <div id="perfil-aviso" class="aviso escondido"></div>
+          <button id="btn-salvar-perfil" class="btn-principal">💾 Salvar perfil</button>
+        </div>
+
+        <button id="btn-editar-perfil" class="btn-secundario">✏️ Editar perfil</button>
       </div>
     </section>
 

@@ -32,6 +32,7 @@ processarRedirect();
 aoMudarUsuario(async (user) => {
   const btnSair = document.getElementById("btn-sair");
   const btnMural = document.getElementById("btn-mural");
+  const btnPerfil = document.getElementById("btn-perfil");
   const nomeTopo = document.getElementById("usuario-nome");
 
   if (!user) {
@@ -39,6 +40,7 @@ aoMudarUsuario(async (user) => {
     minhaTurma = null;
     esconder(btnSair);
     esconder(btnMural);
+    esconder(btnPerfil);
     esconder(nomeTopo);
     mostrarTela("tela-login");
     return;
@@ -63,6 +65,7 @@ aoMudarUsuario(async (user) => {
   exibir(nomeTopo);
   exibir(btnSair);
   exibir(btnMural);
+  exibir(btnPerfil);
 
   if (!usuario.papel) {
     mostrarTela("tela-papel");
@@ -190,7 +193,7 @@ async function abrirTurmaProfessor(turma) {
 
     if (membros.length) {
       membrosDiv.innerHTML = membros
-        .map((m) => `<span class="membro-tag">${m.nome}</span>`)
+        .map((m) => `<span class="membro-tag clicavel" data-uid="${m.uid}">${m.nome}</span>`)
         .join("");
     } else {
       membrosDiv.innerHTML = "<p class='vazio'>Nenhum estudante entrou ainda.</p>";
@@ -615,7 +618,7 @@ function renderRecado(d) {
       <div class="recado-avatar">${avatar}</div>
       <div class="recado-corpo">
         <div class="recado-cabeca">
-          <span class="recado-nome">${d.nome || "Anônimo"}</span>
+          <span class="recado-nome clicavel" data-uid="${d.uid}">${d.nome || "Anônimo"}</span>
           <span class="recado-tempo">${quando}</span>
         </div>
         <p class="recado-texto">${escaparHTML(d.texto || "")}</p>
@@ -675,6 +678,114 @@ document.getElementById("btn-postar").addEventListener("click", async () => {
     aviso.textContent = "Erro ao postar: " + e.message;
     exibir(aviso);
   }
+});
+
+// ============================================================
+// PERFIL
+// ============================================================
+let perfilEmEdicao = false;
+
+function preencherPerfil(p) {
+  document.getElementById("perfil-nome").textContent = p.nome || "Usuário";
+  const papel = p.papel === "professor" ? "👩🏽‍🏫 Professor(a)" : "🎒 Estudante";
+  document.getElementById("perfil-papel").textContent = papel;
+
+  const avatar = document.getElementById("perfil-avatar");
+  avatar.innerHTML = p.foto
+    ? `<img src="${p.foto}" alt="" referrerpolicy="no-referrer">`
+    : "🙂";
+
+  document.getElementById("perfil-bio-view").textContent = p.bio || "";
+  document.getElementById("perfil-sonho-view").textContent = p.sonho || "";
+  document.getElementById("perfil-gostos-view").textContent = p.gostos || "";
+
+  document.getElementById("perfil-bio").value = p.bio || "";
+  document.getElementById("perfil-sonho").value = p.sonho || "";
+  document.getElementById("perfil-gostos").value = p.gostos || "";
+}
+
+function modoPerfil(editando) {
+  perfilEmEdicao = editando;
+  if (editando) {
+    exibir(document.getElementById("perfil-edit"));
+    esconder(document.getElementById("perfil-view"));
+    exibir(document.getElementById("btn-editar-perfil"));
+    document.getElementById("btn-editar-perfil").textContent = "Cancelar";
+  } else {
+    esconder(document.getElementById("perfil-edit"));
+    exibir(document.getElementById("perfil-view"));
+    exibir(document.getElementById("btn-editar-perfil"));
+    document.getElementById("btn-editar-perfil").textContent = "✏️ Editar perfil";
+  }
+}
+
+function abrirMeuPerfil() {
+  preencherPerfil(usuario);
+  exibir(document.getElementById("btn-editar-perfil"));
+  modoPerfil(false);
+  mostrarTela("tela-perfil");
+}
+
+async function abrirPerfilDe(uid) {
+  if (uid === usuario.uid) return abrirMeuPerfil();
+  const p = await carregarUsuario(uid).catch(() => null);
+  if (!p) return;
+  preencherPerfil(p);
+  esconder(document.getElementById("btn-editar-perfil"));
+  modoPerfil(false);
+  mostrarTela("tela-perfil");
+}
+
+document.getElementById("btn-perfil").addEventListener("click", abrirMeuPerfil);
+
+document.getElementById("btn-editar-perfil").addEventListener("click", () => {
+  if (perfilEmEdicao) {
+    // Cancelar
+    preencherPerfil(usuario);
+    modoPerfil(false);
+  } else {
+    modoPerfil(true);
+  }
+});
+
+document.getElementById("btn-salvar-perfil").addEventListener("click", async () => {
+  const aviso = document.getElementById("perfil-aviso");
+  const dados = {
+    bio: document.getElementById("perfil-bio").value.trim(),
+    sonho: document.getElementById("perfil-sonho").value.trim(),
+    gostos: document.getElementById("perfil-gostos").value.trim(),
+  };
+  try {
+    await salvarUsuario(usuario.uid, dados);
+    Object.assign(usuario, dados);
+    aviso.className = "aviso ok";
+    aviso.textContent = "✅ Perfil salvo!";
+    exibir(aviso);
+    setTimeout(() => esconder(aviso), 2500);
+    preencherPerfil(usuario);
+    modoPerfil(false);
+  } catch (e) {
+    aviso.className = "aviso erro";
+    aviso.textContent = "Erro ao salvar: " + e.message;
+    exibir(aviso);
+  }
+});
+
+document.getElementById("btn-voltar-perfil").addEventListener("click", () => {
+  if (usuario && usuario.papel === "professor") abrirPainelProfessor();
+  else abrirInicioEstudante();
+});
+
+// Clique no nome do autor do recado (abre o perfil)
+document.getElementById("mural-lista").addEventListener("click", (e) => {
+  const alvo = e.target.closest(".recado-nome.clicavel");
+  if (alvo && alvo.dataset.uid) abrirPerfilDe(alvo.dataset.uid);
+});
+
+// Clique num colega da turma (abre o perfil)
+document.getElementById("membros-turma").addEventListener("click", (e) => {
+  const alvo = e.target.closest(".membro-tag.clicavel");
+  if (alvo && alvo.dataset.uid) abrirPerfilDe(alvo.dataset.uid);
 });
 
 // ---------- Eventos gerais ----------
