@@ -1349,6 +1349,24 @@ h1, h2, h3, h4, .marca-nome, .btn-principal, .btn-secundario, .btn-google, .btn-
   .btn-principal.compacto {
     width: 100%;
   }
+  .mario-mapa {
+    height: 460px;
+  }
+  .mario-node {
+    width: 46px;
+    height: 46px;
+    font-size: 1.2rem;
+    border-width: 3px;
+  }
+  .mario-avatar {
+    font-size: 1.9rem;
+  }
+  .mario-castelo {
+    font-size: 2.3rem;
+  }
+  .avatar-grade {
+    grid-template-columns: repeat(4, 1fr);
+  }
 }
 
 /* ===== PERFIL ===== */
@@ -1669,7 +1687,7 @@ h1, h2, h3, h4, .marca-nome, .btn-principal, .btn-secundario, .btn-google, .btn-
 .mario-mapa {
   position: relative;
   width: 100%;
-  height: 600px;
+  height: clamp(420px, 64vh, 560px);
   background: linear-gradient(180deg, #5c94fc 0%, #7fb0ff 60%, #8cb8ff 100%);
   border: 5px solid var(--black);
   border-radius: 14px;

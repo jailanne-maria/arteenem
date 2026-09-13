@@ -982,15 +982,15 @@ function faseLiberada(i) {
 
 // Posições (x%, y%) das fases no mapa estilo Super Mario
 const POSICOES_FASES = [
-  { x: 14, y: 84 },
+  { x: 16, y: 82 },
   { x: 40, y: 72 },
-  { x: 18, y: 58 },
-  { x: 44, y: 45 },
-  { x: 71, y: 55 },
-  { x: 85, y: 36 },
-  { x: 60, y: 19 },
+  { x: 20, y: 58 },
+  { x: 45, y: 46 },
+  { x: 70, y: 56 },
+  { x: 82, y: 38 },
+  { x: 58, y: 22 },
 ];
-const POS_CASTELO = { x: 88, y: 8 };
+const POS_CASTELO = { x: 82, y: 11 };
 let posicaoAvatarIndex = 0; // posição atual da bonequinha no mapa
 
 function todasConcluidas() {
