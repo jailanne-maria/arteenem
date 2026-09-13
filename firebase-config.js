@@ -102,6 +102,12 @@ function buscarTurma(codigo) {
     .then((doc) => (doc.exists ? { id: doc.id, ...doc.data() } : null));
 }
 
+// Renomear turma (somente o professor dono — garantido pelas regras)
+function renomearTurma(codigo, novoNome) {
+  return firebase.firestore().collection("turmas").doc(codigo)
+    .update({ nome: novoNome });
+}
+
 function listarTurmasDoProfessor(uid) {
   return firebase.firestore().collection("turmas")
     .where("professorId", "==", uid)

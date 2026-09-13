@@ -171,9 +171,12 @@ async function carregarTurmasProfessor() {
              <button class="mover" data-dir="down" data-codigo="${t.codigo}" ${i === turmas.length - 1 ? "disabled" : ""}>▼</button>
            </div>`
         : "";
+      const editar = modoOrganizar
+        ? ""
+        : `<button class="turma-editar" data-codigo="${t.codigo}" data-nome="${(t.nome || "").replace(/"/g, "&quot;")}" title="Renomear turma">✏️</button>`;
       card.innerHTML = `
         <div class="turma-card-corpo">
-          <span class="turma-nome">${t.nome}</span>
+          <span class="turma-nome">${t.nome} ${editar}</span>
           <span class="turma-meta">${membros.length} estudante(s)</span>
           <span class="turma-cod">${t.codigo}</span>
         </div>
@@ -181,7 +184,10 @@ async function carregarTurmasProfessor() {
       `;
       if (!modoOrganizar) {
         card.style.cursor = "pointer";
-        card.addEventListener("click", () => abrirTurmaProfessor(t));
+        card.addEventListener("click", (ev) => {
+          if (ev.target.closest(".turma-editar")) return;
+          abrirTurmaProfessor(t);
+        });
       }
       lista.appendChild(card);
     }
@@ -202,6 +208,22 @@ document.getElementById("btn-organizar").addEventListener("click", () => {
 
 // Move uma turma para cima/baixo e salva a ordem no perfil
 document.getElementById("lista-turmas-prof").addEventListener("click", async (e) => {
+  const editar = e.target.closest(".turma-editar");
+  if (editar) {
+    const atual = editar.dataset.nome || "";
+    const novo = prompt("Novo nome da turma:", atual);
+    if (novo === null) return;
+    const nome = novo.trim();
+    if (!nome || nome === atual) return;
+    try {
+      await renomearTurma(editar.dataset.codigo, nome);
+      await carregarTurmasProfessor();
+    } catch (err) {
+      alert("Erro ao renomear: " + err.message);
+    }
+    return;
+  }
+
   const botao = e.target.closest(".mover");
   if (!botao) return;
   e.stopPropagation();

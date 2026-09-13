@@ -930,6 +930,21 @@ h1, h2, h3, h4, .marca-nome, .btn-principal, .btn-secundario, .btn-google, .btn-
   border-radius: 8px;
 }
 
+.turma-editar {
+  background: var(--white);
+  border: 2px solid var(--black);
+  box-shadow: 2px 2px 0 var(--black);
+  border-radius: 6px;
+  padding: 2px 6px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  margin-left: 6px;
+}
+
+.turma-editar:hover {
+  background: var(--yellow);
+}
+
 .codigo-turma {
   font-family: var(--pixel);
   font-size: 0.85rem;
