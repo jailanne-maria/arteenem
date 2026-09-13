@@ -85,6 +85,12 @@
         <button id="btn-organizar" class="btn-ghost">↕️ Organizar</button>
       </div>
       <div id="lista-turmas-prof" class="turmas-lista"></div>
+
+      <div class="painel-bloco" style="margin-top:24px">
+        <h3 class="secao-titulo">📝 Contribuir com perguntas</h3>
+        <p class="texto-ajuda">Ajude a ampliar o banco de questões do ArteENEM. Suas perguntas podem aparecer no diagnóstico dos estudantes.</p>
+        <button id="btn-ir-contribuir" class="btn-principal">➕ Adicionar perguntas</button>
+      </div>
     </section>
 
     <!-- ===== DETALHE DA TURMA ===== -->
@@ -332,6 +338,74 @@
           <button id="btn-sair-fase" class="btn-secundario">Voltar ao mapa</button>
         </div>
       </div>
+    </section>
+
+    <!-- ===== CONTRIBUIR COM PERGUNTAS (PROFESSOR) ===== -->
+    <section id="tela-contribuir" class="tela">
+      <button id="btn-voltar-contribuir" class="btn-ghost voltar">← Voltar</button>
+
+      <div class="hero esquerda">
+        <h1>📝 Contribuir com perguntas</h1>
+        <p>Sua pergunta entra no banco e pode aparecer no diagnóstico dos estudantes.</p>
+      </div>
+
+      <div class="painel-bloco">
+        <div class="campo">
+          <label class="perfil-rotulo" for="perg-area">Área</label>
+          <select id="perg-area">
+            <option value="linguagens">🎨 Linguagens</option>
+            <option value="humanas">🌍 Humanas</option>
+            <option value="natureza">🧪 Natureza</option>
+            <option value="matematica">📐 Matemática</option>
+          </select>
+        </div>
+
+        <div class="campo">
+          <label class="perfil-rotulo" for="perg-tema">Tema</label>
+          <input id="perg-tema" type="text" maxlength="60" placeholder="Ex.: Arte Moderna, Porcentagem, Ecologia...">
+        </div>
+
+        <div class="campo">
+          <label class="perfil-rotulo" for="perg-apoio">Texto de apoio (opcional)</label>
+          <textarea id="perg-apoio" maxlength="600" placeholder="Trecho, citação ou contexto para leitura antes da pergunta."></textarea>
+        </div>
+
+        <div class="campo">
+          <label class="perfil-rotulo" for="perg-enunciado">Enunciado da pergunta</label>
+          <textarea id="perg-enunciado" maxlength="400" placeholder="Ex.: A principal característica do Modernismo foi..."></textarea>
+        </div>
+
+        <div class="campo">
+          <label class="perfil-rotulo">Alternativas (A a E)</label>
+          <input id="perg-alt0" type="text" maxlength="200" placeholder="A) ...">
+          <input id="perg-alt1" type="text" maxlength="200" placeholder="B) ...">
+          <input id="perg-alt2" type="text" maxlength="200" placeholder="C) ...">
+          <input id="perg-alt3" type="text" maxlength="200" placeholder="D) ...">
+          <input id="perg-alt4" type="text" maxlength="200" placeholder="E) ...">
+        </div>
+
+        <div class="campo">
+          <label class="perfil-rotulo" for="perg-correta">Resposta correta</label>
+          <select id="perg-correta">
+            <option value="0">A</option>
+            <option value="1">B</option>
+            <option value="2">C</option>
+            <option value="3">D</option>
+            <option value="4">E</option>
+          </select>
+        </div>
+
+        <div class="campo">
+          <label class="perfil-rotulo" for="perg-explicacao">Explicação (aparece no feedback)</label>
+          <textarea id="perg-explicacao" maxlength="400" placeholder="Explique por que a resposta está correta."></textarea>
+        </div>
+
+        <div id="perg-aviso" class="aviso escondido"></div>
+        <button id="btn-salvar-pergunta" class="btn-principal">➕ Adicionar pergunta ao banco</button>
+      </div>
+
+      <h3 class="secao-titulo">Minhas perguntas adicionadas</h3>
+      <div id="lista-perguntas" class="perguntas-lista"></div>
     </section>
 
     <!-- ===== MURAL (ORKUT) ===== -->

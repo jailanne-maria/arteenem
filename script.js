@@ -23,6 +23,14 @@ let fila = [];
 let indice = 0;
 let respostas = [];
 
+// Perguntas contribuídas por professores (carregadas do Firestore)
+let perguntasExtras = [];
+
+// Banco completo (fixas + contribuídas), usado no diagnóstico
+function bancoDePerguntas() {
+  return QUESTOES.concat(perguntasExtras);
+}
+
 // ---------- Navegação ----------
 function mostrarTela(id) {
   document.querySelectorAll(".tela").forEach((t) => t.classList.remove("ativa"));
@@ -79,6 +87,11 @@ aoMudarUsuario(async (user) => {
   exibir(btnMural);
   exibir(btnPerfil);
   exibir(btnExplorar);
+
+  // Carrega as perguntas contribuídas (banco compartilhado)
+  listarPerguntas()
+    .then((ps) => { perguntasExtras = ps; })
+    .catch(() => {});
 
   if (!usuario.papel) {
     mostrarTela("tela-papel");
@@ -392,7 +405,7 @@ function renderAreas() {
 }
 
 function iniciarQuiz(areasSelecionadas) {
-  const base = QUESTOES.filter((q) => areasSelecionadas.includes(q.area));
+  const base = bancoDePerguntas().filter((q) => areasSelecionadas.includes(q.area));
   embaralhar(base);
   fila = base.map(prepararQuestao);
   indice = 0;
@@ -1249,6 +1262,112 @@ function fimDeFase(ganhou) {
   document.getElementById("fase-intro").classList.add("escondido");
   exibir(fim);
 }
+
+// ============================================================
+// CONTRIBUIR COM PERGUNTAS (PROFESSOR)
+// ============================================================
+function abrirContribuir() {
+  limparFormularioPergunta();
+  carregarMinhasPerguntas();
+  mostrarTela("tela-contribuir");
+}
+
+function limparFormularioPergunta() {
+  document.getElementById("perg-tema").value = "";
+  document.getElementById("perg-apoio").value = "";
+  document.getElementById("perg-enunciado").value = "";
+  for (let i = 0; i < 5; i++) document.getElementById("perg-alt" + i).value = "";
+  document.getElementById("perg-correta").value = "0";
+  document.getElementById("perg-explicacao").value = "";
+  esconder(document.getElementById("perg-aviso"));
+}
+
+async function carregarMinhasPerguntas() {
+  const lista = document.getElementById("lista-perguntas");
+  lista.innerHTML = "<p class='vazio'>Carregando…</p>";
+  try {
+    const perguntas = await listarPerguntasDoProfessor(usuario.uid);
+    if (!perguntas.length) {
+      lista.innerHTML = "<p class='vazio'>Você ainda não contribuiu com perguntas.</p>";
+      return;
+    }
+    lista.innerHTML = perguntas.map(renderPerguntaCard).join("");
+  } catch (e) {
+    lista.innerHTML = `<p class='vazio'>Erro: ${e.message}</p>`;
+  }
+}
+
+function renderPerguntaCard(p) {
+  const area = AREAS[p.area] || { icone: "", curto: p.area };
+  const letras = ["A", "B", "C", "D", "E"];
+  return `
+    <div class="pergunta-card">
+      <div class="pergunta-topo">
+        <span class="pergunta-tag">${area.icone} ${area.curto} · ${p.tema || "—"}</span>
+        <button class="pergunta-excluir" data-id="${p.id}" title="Excluir">🗑️</button>
+      </div>
+      <p class="pergunta-enunciado">${escaparHTML(p.enunciado || "")}</p>
+      <p class="pergunta-resposta">✅ Correta: <strong>${letras[p.correta]})</strong> ${escaparHTML(p.alternativas[p.correta] || "")}</p>
+    </div>
+  `;
+}
+
+document.getElementById("btn-ir-contribuir").addEventListener("click", abrirContribuir);
+document.getElementById("btn-voltar-contribuir").addEventListener("click", abrirPainelProfessor);
+
+document.getElementById("btn-salvar-pergunta").addEventListener("click", async () => {
+  const aviso = document.getElementById("perg-aviso");
+  const area = document.getElementById("perg-area").value;
+  const tema = document.getElementById("perg-tema").value.trim();
+  const apoio = document.getElementById("perg-apoio").value.trim();
+  const enunciado = document.getElementById("perg-enunciado").value.trim();
+  const alternativas = [0, 1, 2, 3, 4].map((i) => document.getElementById("perg-alt" + i).value.trim());
+  const correta = parseInt(document.getElementById("perg-correta").value, 10);
+  const explicacao = document.getElementById("perg-explicacao").value.trim();
+
+  const faltando = [];
+  if (!tema) faltando.push("tema");
+  if (!enunciado) faltando.push("enunciado");
+  if (alternativas.some((a) => !a)) faltando.push("todas as 5 alternativas");
+  if (!explicacao) faltando.push("explicação");
+
+  if (faltando.length) {
+    aviso.className = "aviso erro";
+    aviso.textContent = "Preencha: " + faltando.join(", ") + ".";
+    exibir(aviso);
+    return;
+  }
+
+  try {
+    await criarPergunta(usuario, {
+      area, tema, apoio, enunciado, alternativas, correta, explicacao,
+    });
+    // Atualiza o banco local para o diagnóstico
+    perguntasExtras = await listarPerguntas().catch(() => perguntasExtras);
+    aviso.className = "aviso ok";
+    aviso.textContent = "✅ Pergunta adicionada ao banco!";
+    exibir(aviso);
+    limparFormularioPergunta();
+    await carregarMinhasPerguntas();
+  } catch (e) {
+    aviso.className = "aviso erro";
+    aviso.textContent = "Erro ao salvar: " + e.message;
+    exibir(aviso);
+  }
+});
+
+document.getElementById("lista-perguntas").addEventListener("click", async (e) => {
+  const btn = e.target.closest(".pergunta-excluir");
+  if (!btn) return;
+  if (!confirm("Excluir esta pergunta do banco?")) return;
+  try {
+    await excluirPergunta(btn.dataset.id);
+    perguntasExtras = await listarPerguntas().catch(() => perguntasExtras);
+    await carregarMinhasPerguntas();
+  } catch (err) {
+    alert("Erro ao excluir: " + err.message);
+  }
+});
 
 // ---------- Eventos gerais ----------
 document.getElementById("btn-completo").addEventListener("click", () =>

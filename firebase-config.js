@@ -220,6 +220,32 @@ function curtirDepoimento(id, uid, curtir) {
     });
 }
 
+// ---------- Banco de perguntas (contribuição dos professores) ----------
+function criarPergunta(professor, dados) {
+  return firebase.firestore().collection("perguntas").add({
+    ...dados,
+    autorId: professor.uid,
+    autorNome: professor.nome,
+    criadaEm: firebase.firestore.FieldValue.serverTimestamp(),
+  });
+}
+
+function listarPerguntas() {
+  return firebase.firestore().collection("perguntas").get()
+    .then((snap) => snap.docs.map((d) => ({ id: d.id, ...d.data() })));
+}
+
+function listarPerguntasDoProfessor(uid) {
+  return firebase.firestore().collection("perguntas")
+    .where("autorId", "==", uid)
+    .get()
+    .then((snap) => snap.docs.map((d) => ({ id: d.id, ...d.data() })));
+}
+
+function excluirPergunta(id) {
+  return firebase.firestore().collection("perguntas").doc(id).delete();
+}
+
 if (typeof module !== "undefined") {
   module.exports = { firebaseConfig };
 }
