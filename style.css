@@ -50,7 +50,7 @@ body {
   display: flex;
   flex-direction: column;
   background-color: var(--sky);
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='200' viewBox='0 0 240 200'%3E%3Cg fill='%23ffffff' fill-opacity='0.9'%3E%3Crect x='20' y='30' width='60' height='18'/%3E%3Crect x='34' y='14' width='30' height='18'/%3E%3Crect x='150' y='90' width='66' height='18'/%3E%3Crect x='168' y='74' width='32' height='18'/%3E%3C/g%3E%3Cg fill='%2343b047'%3E%3Crect x='0' y='185' width='240' height='15'/%3E%3C/g%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='200' viewBox='0 0 240 200'%3E%3Cg fill='%23ffffff' fill-opacity='0.9'%3E%3Crect x='20' y='30' width='60' height='18'/%3E%3Crect x='34' y='14' width='30' height='18'/%3E%3Crect x='150' y='90' width='66' height='18'/%3E%3Crect x='168' y='74' width='32' height='18'/%3E%3C/g%3E%3C/svg%3E");
   background-attachment: fixed;
 }
 
@@ -649,6 +649,23 @@ h1, h2, h3, h4, .marca-nome, .btn-principal, .btn-secundario, .btn-google, .btn-
   font-size: 1.05rem;
   border-top: 4px solid var(--black);
   background: var(--brown);
+}
+
+.rodape-credito {
+  font-family: var(--pixel);
+  font-size: 0.6rem;
+  line-height: 1.8;
+  margin-bottom: 10px;
+  color: var(--yellow);
+}
+
+.rodape-credito strong {
+  color: var(--white);
+}
+
+.rodape-sub {
+  font-size: 0.95rem;
+  opacity: 0.85;
 }
 
 /* ===== LOGIN ===== */
