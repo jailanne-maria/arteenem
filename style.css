@@ -1515,3 +1515,389 @@ h1, h2, h3, h4, .marca-nome, .btn-principal, .btn-secundario, .btn-google, .btn-
 .recado-fixar:hover {
   background: var(--yellow);
 }
+
+/* ===== EXPLORAR (JOGO) ===== */
+.explorar-topo {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.explorar-topo h1 {
+  font-size: 1.2rem;
+  color: var(--white);
+  text-shadow: 3px 3px 0 var(--black);
+  margin-bottom: 12px;
+}
+
+.explorar-topo p {
+  color: var(--white);
+  text-shadow: 2px 2px 0 var(--black);
+}
+
+.avatar-bloco {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: var(--surface-2);
+  border: 4px solid var(--black);
+  box-shadow: var(--sombra);
+  border-radius: 12px;
+  padding: 16px 18px;
+  margin-bottom: 16px;
+}
+
+.avatar-atual {
+  width: 64px;
+  height: 64px;
+  border: 4px solid var(--black);
+  border-radius: 12px;
+  background: var(--sky-2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.4rem;
+}
+
+.avatar-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: flex-start;
+}
+
+.avatar-info strong {
+  font-family: var(--pixel);
+  font-size: 0.65rem;
+}
+
+.avatar-escolha {
+  background: var(--surface-2);
+  border: 4px solid var(--black);
+  box-shadow: var(--sombra);
+  border-radius: 12px;
+  padding: 18px;
+  margin-bottom: 16px;
+}
+
+.avatar-titulo {
+  font-family: var(--pixel);
+  font-size: 0.6rem;
+  margin-bottom: 14px;
+}
+
+.avatar-grade {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.avatar-opcao {
+  background: var(--surface);
+  border: 3px solid var(--black);
+  box-shadow: 3px 3px 0 var(--black);
+  border-radius: 10px;
+  padding: 12px;
+  font-size: 2rem;
+  cursor: pointer;
+  transition: transform 0.1s;
+}
+
+.avatar-opcao:hover {
+  transform: translate(-2px, -2px);
+  background: var(--yellow);
+}
+
+.avatar-opcao.escolhido {
+  background: var(--green);
+}
+
+/* Mapa de fases */
+.mapa-fases {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.fase-node {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: var(--surface-2);
+  border: 4px solid var(--black);
+  box-shadow: var(--sombra);
+  border-radius: 12px;
+  padding: 16px 18px;
+  cursor: pointer;
+  text-align: left;
+  font-family: inherit;
+  color: inherit;
+  transition: transform 0.1s, box-shadow 0.1s;
+}
+
+.fase-node:hover:not(.bloqueada) {
+  transform: translate(-3px, -3px);
+  box-shadow: 8px 8px 0 var(--black);
+}
+
+.fase-node.bloqueada {
+  opacity: 0.55;
+  cursor: not-allowed;
+  filter: grayscale(0.6);
+}
+
+.fase-node.concluida {
+  background: #d4f5d4;
+}
+
+.fase-node-emoji {
+  font-size: 2.2rem;
+  flex-shrink: 0;
+}
+
+.fase-node-info {
+  flex: 1;
+}
+
+.fase-node-nome {
+  font-family: var(--pixel);
+  font-size: 0.65rem;
+  display: block;
+  margin-bottom: 6px;
+}
+
+.fase-node-periodo {
+  font-size: 1rem;
+  color: var(--muted);
+}
+
+.fase-node-status {
+  font-family: var(--pixel);
+  font-size: 0.55rem;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+/* Cabeçalho da fase */
+.fase-cabeca {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 18px;
+  flex-wrap: wrap;
+}
+
+.fase-periodo {
+  font-family: var(--pixel);
+  font-size: 0.5rem;
+  color: var(--yellow);
+  text-shadow: 2px 2px 0 var(--black);
+  display: block;
+  margin-bottom: 8px;
+}
+
+.fase-cabeca h1 {
+  font-size: 0.9rem;
+  color: var(--white);
+  text-shadow: 3px 3px 0 var(--black);
+}
+
+.fase-vidas {
+  font-size: 1.6rem;
+  letter-spacing: 2px;
+}
+
+/* Intro da fase */
+.fase-intro {
+  background: var(--surface-2);
+  border: 4px solid var(--black);
+  box-shadow: var(--sombra);
+  border-radius: 12px;
+  padding: 24px;
+}
+
+.fase-intro p {
+  font-size: 1.25rem;
+  margin-bottom: 20px;
+  color: var(--on-surface-2);
+}
+
+/* Progresso do jogo */
+.fase-progresso-wrap {
+  margin-bottom: 16px;
+}
+
+#fase-progresso-texto {
+  font-size: 1.05rem;
+  color: var(--white);
+  text-shadow: 2px 2px 0 var(--black);
+  display: block;
+  margin-bottom: 6px;
+}
+
+.fase-progresso {
+  height: 18px;
+  background: var(--white);
+  border: 4px solid var(--black);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+#fase-progresso-fill {
+  height: 100%;
+  width: 0;
+  background: repeating-linear-gradient(90deg, var(--yellow) 0 12px, var(--yellow-dark) 12px 14px);
+  transition: width 0.3s steps(8);
+}
+
+/* Vilão */
+.vilao {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: var(--black);
+  border: 4px solid var(--black);
+  border-radius: 12px;
+  padding: 12px;
+  margin-bottom: 16px;
+  color: var(--red);
+}
+
+.vilao-emoji {
+  font-size: 1.8rem;
+  animation: flutuar 1.2s ease-in-out infinite;
+}
+
+@keyframes flutuar {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+.vilao-nome {
+  font-family: var(--pixel);
+  font-size: 0.6rem;
+  color: var(--red);
+}
+
+.vilao.derrotado {
+  animation: derrotar 0.6s forwards;
+}
+
+@keyframes derrotar {
+  to { opacity: 0; transform: scale(0.5); }
+}
+
+/* Notícia */
+.noticia-card {
+  background: var(--surface-2);
+  border: 4px solid var(--black);
+  box-shadow: var(--sombra);
+  border-radius: 12px;
+  padding: 22px;
+}
+
+.noticia-tag {
+  display: inline-block;
+  background: var(--sky);
+  color: var(--white);
+  font-family: var(--pixel);
+  font-size: 0.5rem;
+  padding: 5px 10px;
+  border: 3px solid var(--black);
+  border-radius: 8px;
+  margin-bottom: 14px;
+}
+
+.noticia-texto {
+  font-size: 1.4rem;
+  margin-bottom: 20px;
+  color: var(--black);
+}
+
+.noticia-acoes {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.btn-vf {
+  border: 4px solid var(--black);
+  box-shadow: var(--sombra);
+  border-radius: 10px;
+  padding: 16px;
+  font-family: var(--pixel);
+  font-size: 0.65rem;
+  cursor: pointer;
+  transition: transform 0.1s, box-shadow 0.1s;
+}
+
+.btn-vf.verdadeira {
+  background: var(--green);
+  color: var(--white);
+}
+
+.btn-vf.falsa {
+  background: var(--red);
+  color: var(--white);
+}
+
+.btn-vf:hover:not(:disabled) {
+  transform: translate(-2px, -2px);
+  box-shadow: 7px 7px 0 var(--black);
+}
+
+.btn-vf:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.noticia-feedback {
+  margin-top: 16px;
+  padding: 14px 16px;
+  border: 3px solid var(--black);
+  border-radius: 10px;
+  font-size: 1.15rem;
+}
+
+.noticia-feedback.ok {
+  background: #d4f5d4;
+}
+
+.noticia-feedback.erro {
+  background: #ffd9d4;
+}
+
+/* Fim da fase */
+.fase-fim {
+  background: var(--surface-2);
+  border: 5px solid var(--black);
+  box-shadow: 8px 8px 0 var(--black);
+  border-radius: 14px;
+  padding: 30px;
+  text-align: center;
+}
+
+.fase-fim-emoji {
+  font-size: 3.5rem;
+  margin-bottom: 14px;
+}
+
+.fase-fim h2 {
+  font-size: 1rem;
+  margin-bottom: 14px;
+  color: var(--red);
+}
+
+.fase-fim p {
+  font-size: 1.2rem;
+  color: var(--on-surface-2);
+  margin-bottom: 22px;
+}
+
+.fase-fim-acoes {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}

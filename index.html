@@ -20,6 +20,7 @@
       </div>
       <div class="topo-usuario">
         <span id="usuario-nome" class="usuario-nome escondido"></span>
+        <button id="btn-explorar" class="btn-ghost escondido">🎮 Explorar</button>
         <button id="btn-perfil" class="btn-ghost escondido">👤 Perfil</button>
         <button id="btn-mural" class="btn-ghost escondido">💬 Mural</button>
         <button id="btn-sair" class="btn-ghost escondido">Sair</button>
@@ -256,6 +257,82 @@
       </div>
     </section>
 
+    <!-- ===== EXPLORAR (MAPA DO JOGO) ===== -->
+    <section id="tela-explorar" class="tela">
+      <div class="explorar-topo">
+        <h1>🎮 Explorar</h1>
+        <p>Viaje da Pré-História aos dias atuais e derrote a <strong>Desinformação</strong>!</p>
+      </div>
+
+      <div class="avatar-bloco">
+        <div class="avatar-atual" id="avatar-atual">🧑🏽</div>
+        <div class="avatar-info">
+          <strong id="avatar-nome">Seu aventureiro</strong>
+          <button id="btn-trocar-avatar" class="btn-ghost">🔄 Trocar avatar</button>
+        </div>
+      </div>
+
+      <div id="avatar-escolha" class="avatar-escolha escondido">
+        <p class="avatar-titulo">Escolha seu personagem:</p>
+        <div class="avatar-grade" id="avatar-grade"></div>
+      </div>
+
+      <h3 class="secao-titulo">🗺️ Mapa das fases</h3>
+      <div class="mapa-fases" id="mapa-fases"></div>
+    </section>
+
+    <!-- ===== FASE (JOGO) ===== -->
+    <section id="tela-fase" class="tela">
+      <button id="btn-voltar-explorar" class="btn-ghost voltar">← Voltar ao mapa</button>
+
+      <div class="fase-cabeca">
+        <div>
+          <span class="fase-periodo" id="fase-periodo"></span>
+          <h1 id="fase-titulo"></h1>
+        </div>
+        <div class="fase-vidas" id="fase-vidas"></div>
+      </div>
+
+      <div id="fase-intro" class="fase-intro">
+        <p id="fase-intro-texto"></p>
+        <button id="btn-comecar-fase" class="btn-principal">▶️ Começar a fase</button>
+      </div>
+
+      <div id="fase-jogo" class="escondido">
+        <div class="fase-progresso-wrap">
+          <span id="fase-progresso-texto"></span>
+          <div class="fase-progresso"><div id="fase-progresso-fill"></div></div>
+        </div>
+
+        <div class="vilao" id="vilao">
+          <span class="vilao-emoji">👾</span>
+          <span class="vilao-nome">Desinformação</span>
+        </div>
+
+        <div class="noticia-card" id="noticia-card">
+          <span class="noticia-tag" id="noticia-tag"></span>
+          <p class="noticia-texto" id="noticia-texto"></p>
+          <div class="noticia-acoes">
+            <button class="btn-vf verdadeira" id="btn-verdadeira">✅ Verdadeira</button>
+            <button class="btn-vf falsa" id="btn-falsa">❌ Falsa</button>
+          </div>
+          <div class="noticia-feedback escondido" id="noticia-feedback"></div>
+          <button class="btn-principal escondido" id="btn-proximo-desafio">Próximo →</button>
+        </div>
+      </div>
+
+      <div id="fase-fim" class="fase-fim escondido">
+        <div class="fase-fim-emoji" id="fase-fim-emoji"></div>
+        <h2 id="fase-fim-titulo"></h2>
+        <p id="fase-fim-texto"></p>
+        <div class="fase-fim-acoes">
+          <button id="btn-repetir-fase" class="btn-secundario">🔁 Jogar de novo</button>
+          <button id="btn-proxima-fase" class="btn-principal">Próxima fase →</button>
+          <button id="btn-sair-fase" class="btn-secundario">Voltar ao mapa</button>
+        </div>
+      </div>
+    </section>
+
     <!-- ===== MURAL (ORKUT) ===== -->
     <section id="tela-mural" class="tela">
       <button id="btn-voltar-mural" class="btn-ghost voltar">← Voltar</button>
@@ -291,6 +368,7 @@
 
   <script src="questoes.js"></script>
   <script src="plano.js"></script>
+  <script src="explorar.js"></script>
   <script src="firebase-config.js"></script>
   <script src="script.js"></script>
 </body>

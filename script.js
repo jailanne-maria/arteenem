@@ -43,6 +43,7 @@ aoMudarUsuario(async (user) => {
   const btnSair = document.getElementById("btn-sair");
   const btnMural = document.getElementById("btn-mural");
   const btnPerfil = document.getElementById("btn-perfil");
+  const btnExplorar = document.getElementById("btn-explorar");
   const nomeTopo = document.getElementById("usuario-nome");
 
   if (!user) {
@@ -51,6 +52,7 @@ aoMudarUsuario(async (user) => {
     esconder(btnSair);
     esconder(btnMural);
     esconder(btnPerfil);
+    esconder(btnExplorar);
     esconder(nomeTopo);
     mostrarTela("tela-login");
     return;
@@ -76,6 +78,7 @@ aoMudarUsuario(async (user) => {
   exibir(btnSair);
   exibir(btnMural);
   exibir(btnPerfil);
+  exibir(btnExplorar);
 
   if (!usuario.papel) {
     mostrarTela("tela-papel");
@@ -879,6 +882,253 @@ document.getElementById("membros-turma").addEventListener("click", (e) => {
   const alvo = e.target.closest(".membro-tag.clicavel");
   if (alvo && alvo.dataset.uid) abrirPerfilDe(alvo.dataset.uid);
 });
+
+// ============================================================
+// EXPLORAR (JOGO CONTRA A DESINFORMAÇÃO)
+// ============================================================
+const MAX_VIDAS = 5;
+let explorarEstado = { avatarId: null, fasesConcluidas: [] };
+let faseAtual = null;
+let desafioAtual = 0;
+let vidas = MAX_VIDAS;
+let respondido = false;
+
+function carregarEstadoExplorar() {
+  explorarEstado = {
+    avatarId: (usuario && usuario.avatarId) || null,
+    fasesConcluidas: (usuario && usuario.fasesConcluidas) || [],
+  };
+}
+
+function avatarPorId(id) {
+  return AVATARES.find((a) => a.id === id) || AVATARES[0];
+}
+
+function salvarExplorar() {
+  if (!usuario) return Promise.resolve();
+  return salvarUsuario(usuario.uid, {
+    avatarId: explorarEstado.avatarId,
+    fasesConcluidas: explorarEstado.fasesConcluidas,
+  }).catch(() => {});
+}
+
+function abrirExplorar() {
+  carregarEstadoExplorar();
+  renderAvatar();
+  renderMapaFases();
+  mostrarTela("tela-explorar");
+}
+
+function renderAvatar() {
+  const av = explorarEstado.avatarId ? avatarPorId(explorarEstado.avatarId) : null;
+  document.getElementById("avatar-atual").textContent = av ? av.emoji : "❓";
+  document.getElementById("avatar-nome").textContent = av
+    ? `Seu aventureiro (${av.genero})`
+    : "Escolha seu aventureiro";
+
+  // Grade de escolha
+  const grade = document.getElementById("avatar-grade");
+  grade.innerHTML = "";
+  AVATARES.forEach((a) => {
+    const btn = document.createElement("button");
+    btn.className = "avatar-opcao" + (a.id === explorarEstado.avatarId ? " escolhido" : "");
+    btn.textContent = a.emoji;
+    btn.title = a.genero;
+    btn.addEventListener("click", async () => {
+      explorarEstado.avatarId = a.id;
+      await salvarExplorar();
+      esconder(document.getElementById("avatar-escolha"));
+      renderAvatar();
+    });
+    grade.appendChild(btn);
+  });
+
+  // Se ainda não escolheu, mostra a grade
+  if (!explorarEstado.avatarId) exibir(document.getElementById("avatar-escolha"));
+  else esconder(document.getElementById("avatar-escolha"));
+}
+
+function faseConcluida(id) {
+  return explorarEstado.fasesConcluidas.includes(id);
+}
+
+function faseLiberada(i) {
+  if (i === 0) return true;
+  return faseConcluida(FASES[i - 1].id);
+}
+
+function renderMapaFases() {
+  const mapa = document.getElementById("mapa-fases");
+  mapa.innerHTML = "";
+  FASES.forEach((f, i) => {
+    const liberada = faseLiberada(i);
+    const concluida = faseConcluida(f.id);
+    const node = document.createElement("button");
+    node.className = "fase-node" + (liberada ? "" : " bloqueada") + (concluida ? " concluida" : "");
+    node.innerHTML = `
+      <span class="fase-node-emoji">${liberada ? f.emoji : "🔒"}</span>
+      <span class="fase-node-info">
+        <span class="fase-node-nome">${f.nome}</span>
+        <span class="fase-node-periodo">${f.periodo}</span>
+      </span>
+      <span class="fase-node-status">${concluida ? "✅ Concluída" : liberada ? "▶️ Jogar" : "Bloqueada"}</span>
+    `;
+    if (liberada) node.addEventListener("click", () => iniciarFase(f));
+    mapa.appendChild(node);
+  });
+}
+
+document.getElementById("btn-explorar").addEventListener("click", abrirExplorar);
+document.getElementById("btn-trocar-avatar").addEventListener("click", () => {
+  const bloco = document.getElementById("avatar-escolha");
+  if (bloco.classList.contains("escondido")) exibir(bloco);
+  else esconder(bloco);
+});
+document.getElementById("btn-voltar-explorar").addEventListener("click", abrirExplorar);
+document.getElementById("btn-sair-fase").addEventListener("click", abrirExplorar);
+
+function iniciarFase(fase) {
+  if (!explorarEstado.avatarId) {
+    alert("Escolha seu aventureiro primeiro! 🧑🏽");
+    abrirExplorar();
+    return;
+  }
+  faseAtual = fase;
+  desafioAtual = 0;
+  vidas = MAX_VIDAS;
+  respondido = false;
+
+  document.getElementById("fase-periodo").textContent = fase.periodo;
+  document.getElementById("fase-titulo").textContent = `${fase.emoji} ${fase.nome}`;
+  document.getElementById("fase-intro-texto").textContent = fase.intro;
+  document.getElementById("fase-intro").classList.remove("escondido");
+  document.getElementById("fase-jogo").classList.add("escondido");
+  document.getElementById("fase-fim").classList.add("escondido");
+  document.getElementById("btn-voltar-explorar").classList.remove("escondido");
+  renderVidas();
+  mostrarTela("tela-fase");
+}
+
+function renderVidas() {
+  let html = "";
+  for (let i = 0; i < MAX_VIDAS; i++) html += i < vidas ? "❤️" : "🖤";
+  document.getElementById("fase-vidas").textContent = html;
+}
+
+document.getElementById("btn-comecar-fase").addEventListener("click", () => {
+  document.getElementById("fase-intro").classList.add("escondido");
+  document.getElementById("fase-jogo").classList.remove("escondido");
+  renderDesafio();
+});
+
+function renderDesafio() {
+  const d = faseAtual.desafios[desafioAtual];
+  const area = AREAS[d.area] || { icone: "", curto: d.area };
+  respondido = false;
+
+  document.getElementById("fase-progresso-texto").textContent =
+    `Desafio ${desafioAtual + 1} de ${faseAtual.desafios.length}`;
+  document.getElementById("fase-progresso-fill").style.width =
+    `${(desafioAtual / faseAtual.desafios.length) * 100}%`;
+
+  document.getElementById("noticia-tag").textContent = `${area.icone} ${area.curto}`;
+  document.getElementById("noticia-texto").textContent = `"${d.noticia}"`;
+
+  const fb = document.getElementById("noticia-feedback");
+  fb.className = "noticia-feedback escondido";
+  fb.textContent = "";
+  esconder(document.getElementById("btn-proximo-desafio"));
+
+  const bV = document.getElementById("btn-verdadeira");
+  const bF = document.getElementById("btn-falsa");
+  bV.disabled = false;
+  bF.disabled = false;
+  bV.classList.remove("escondido");
+  bF.classList.remove("escondido");
+
+  const vilao = document.getElementById("vilao");
+  vilao.classList.remove("derrotado");
+  vilao.style.visibility = "visible";
+}
+
+function responderVF(achouVerdadeira) {
+  if (respondido) return;
+  respondido = true;
+  const d = faseAtual.desafios[desafioAtual];
+  // Acertou se: a notícia é fake e o jogador marcou "Falsa",
+  // ou a notícia é verdadeira e o jogador marcou "Verdadeira".
+  const acertou = achouVerdadeira !== d.fake;
+
+  document.getElementById("btn-verdadeira").disabled = true;
+  document.getElementById("btn-falsa").disabled = true;
+
+  const fb = document.getElementById("noticia-feedback");
+  if (acertou) {
+    fb.className = "noticia-feedback ok";
+    fb.innerHTML = `⚔️ <strong>Você derrotou a Desinformação!</strong><br>${d.explica}`;
+    const vilao = document.getElementById("vilao");
+    vilao.classList.add("derrotado");
+    setTimeout(() => { vilao.style.visibility = "hidden"; }, 600);
+  } else {
+    vidas--;
+    renderVidas();
+    fb.className = "noticia-feedback erro";
+    fb.innerHTML = `💔 <strong>Você foi enganado(a)! Perdeu um coração.</strong><br>${d.explica}`;
+  }
+  exibir(fb);
+
+  const btn = document.getElementById("btn-proximo-desafio");
+  btn.textContent = desafioAtual + 1 < faseAtual.desafios.length ? "Próximo →" : "Ver resultado →";
+  exibir(btn);
+}
+
+document.getElementById("btn-verdadeira").addEventListener("click", () => responderVF(true));
+document.getElementById("btn-falsa").addEventListener("click", () => responderVF(false));
+
+document.getElementById("btn-proximo-desafio").addEventListener("click", () => {
+  if (vidas <= 0) return fimDeFase(false);
+  desafioAtual++;
+  if (desafioAtual < faseAtual.desafios.length) renderDesafio();
+  else fimDeFase(true);
+});
+
+document.getElementById("btn-repetir-fase").addEventListener("click", () => iniciarFase(faseAtual));
+
+document.getElementById("btn-proxima-fase").addEventListener("click", () => {
+  const idx = FASES.findIndex((f) => f.id === faseAtual.id);
+  const proxima = FASES[idx + 1];
+  if (proxima) iniciarFase(proxima);
+  else abrirExplorar();
+});
+
+function fimDeFase(ganhou) {
+  const fim = document.getElementById("fase-fim");
+  const emoji = document.getElementById("fase-fim-emoji");
+  const titulo = document.getElementById("fase-fim-titulo");
+  const texto = document.getElementById("fase-fim-texto");
+
+  if (ganhou) {
+    if (!explorarEstado.fasesConcluidas.includes(faseAtual.id)) {
+      explorarEstado.fasesConcluidas.push(faseAtual.id);
+      salvarExplorar();
+    }
+    emoji.textContent = "🏆";
+    titulo.textContent = "Fase concluída!";
+    texto.textContent = `Você venceu a Desinformação na ${faseAtual.nome} e salvou ${vidas} coração(ões)!`;
+    const idx = FASES.findIndex((f) => f.id === faseAtual.id);
+    const temProxima = !!FASES[idx + 1];
+    document.getElementById("btn-proxima-fase").style.display = temProxima ? "block" : "none";
+  } else {
+    emoji.textContent = "💀";
+    titulo.textContent = "Você perdeu todos os corações!";
+    texto.textContent = "A Desinformação venceu desta vez. Revise as explicações e tente de novo — a verdade é o seu poder!";
+    document.getElementById("btn-proxima-fase").style.display = "none";
+  }
+
+  esconder(document.getElementById("fase-jogo"));
+  document.getElementById("fase-intro").classList.add("escondido");
+  exibir(fim);
+}
 
 // ---------- Eventos gerais ----------
 document.getElementById("btn-completo").addEventListener("click", () =>
