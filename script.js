@@ -54,6 +54,7 @@ aoMudarUsuario(async (user) => {
   const btnExplorar = document.getElementById("btn-explorar");
   const btnEca = document.getElementById("btn-eca");
   const btnJogo = document.getElementById("btn-jogo");
+  const btnNoticias = document.getElementById("btn-noticias");
   const nomeTopo = document.getElementById("usuario-nome");
 
   if (!user) {
@@ -65,6 +66,7 @@ aoMudarUsuario(async (user) => {
     esconder(btnExplorar);
     esconder(btnEca);
     esconder(btnJogo);
+    esconder(btnNoticias);
     esconder(nomeTopo);
     mostrarTela("tela-login");
     return;
@@ -93,6 +95,7 @@ aoMudarUsuario(async (user) => {
   exibir(btnExplorar);
   exibir(btnEca);
   exibir(btnJogo);
+  exibir(btnNoticias);
 
   // Aviso do ECA a cada login (uma vez por sessão)
   mostrarAvisoECA();
@@ -2103,6 +2106,72 @@ async function premiarVencedor(duelo) {
   if (duelo.premiado) return;
   await firebase.firestore().collection("duelos").doc(duelo.id).update({ premiado: true }).catch(() => {});
 }
+
+// ============================================================
+// NOTÍCIAS DO MEC + TEMAS DE REDAÇÃO
+// ============================================================
+const TEMAS_REDACAO = [
+  { tema: "Educação e desigualdade social", eixo: "Cidadania" },
+  { tema: "Inteligência artificial e o futuro do trabalho", eixo: "Tecnologia" },
+  { tema: "Saúde mental dos jovens", eixo: "Saúde" },
+  { tema: "Emergência climática e justiça ambiental", eixo: "Meio ambiente" },
+  { tema: "Democratização do acesso à cultura", eixo: "Cultura" },
+  { tema: "Segurança alimentar e combate à fome", eixo: "Direitos" },
+  { tema: "Inclusão de pessoas com deficiência", eixo: "Direitos" },
+  { tema: "Violência e cultura de paz nas escolas", eixo: "Educação" },
+  { tema: "Desinformação e o direito à informação", eixo: "Comunicação" },
+  { tema: "Valorização dos povos indígenas e tradicionais", eixo: "Cidadania" },
+];
+
+function abrirNoticias() {
+  mostrarTela("tela-noticias");
+  renderTemasRedacao();
+  carregarNoticias();
+}
+
+async function carregarNoticias() {
+  const lista = document.getElementById("noticias-lista");
+  lista.innerHTML = "<p class='vazio'>Carregando notícias…</p>";
+  try {
+    const resp = await fetch("noticias.json?v=" + Date.now());
+    const dados = await resp.json();
+    const quando = dados.atualizadoEm
+      ? new Date(dados.atualizadoEm).toLocaleString("pt-BR")
+      : "—";
+    document.getElementById("noticias-atualizado").textContent =
+      `Atualizado em ${quando} · Fonte: Ministério da Educação (MEC)`;
+
+    if (!dados.noticias || !dados.noticias.length) {
+      lista.innerHTML = "<p class='vazio'>Nenhuma notícia disponível no momento.</p>";
+      return;
+    }
+    lista.innerHTML = dados.noticias.map((n) => `
+      <a class="noticia-item" href="${n.link}" target="_blank" rel="noopener">
+        <span class="noticia-data">${n.data || ""}</span>
+        <span class="noticia-titulo">${escaparHTML(n.titulo)}</span>
+        <span class="noticia-link">Ler no MEC ↗</span>
+      </a>
+    `).join("");
+  } catch (e) {
+    lista.innerHTML = `<p class='vazio'>Erro ao carregar notícias: ${e.message}</p>`;
+  }
+}
+
+function renderTemasRedacao() {
+  const div = document.getElementById("temas-redacao");
+  div.innerHTML = TEMAS_REDACAO.map((t) => `
+    <div class="tema-card">
+      <span class="tema-eixo">${t.eixo}</span>
+      <span class="tema-nome">${t.tema}</span>
+    </div>
+  `).join("");
+}
+
+document.getElementById("btn-noticias").addEventListener("click", abrirNoticias);
+document.getElementById("btn-voltar-noticias").addEventListener("click", () => {
+  if (usuario && usuario.papel === "professor") abrirPainelProfessor();
+  else abrirInicioEstudante();
+});
 
 // ---------- Eventos gerais ----------
 document.getElementById("btn-completo").addEventListener("click", () =>

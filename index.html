@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="NINA — diagnóstico das 4 áreas do ENEM. Professores criam turmas, estudantes fazem o diagnóstico e disputam o ranking.">
   <title>NINA · Diagnóstico das 4 áreas</title>
-  <link rel="stylesheet" href="style.css?v=15">
+  <link rel="stylesheet" href="style.css?v=16">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
@@ -20,6 +20,7 @@
       </div>
       <div class="topo-usuario">
         <span id="usuario-nome" class="usuario-nome escondido"></span>
+        <button id="btn-noticias" class="btn-ghost escondido">📰 Notícias</button>
         <button id="btn-jogo" class="btn-ghost escondido">🎡 Jogo</button>
         <button id="btn-explorar" class="btn-ghost escondido">🎮 Explorar</button>
         <button id="btn-eca" class="btn-ghost escondido">📜 ECA</button>
@@ -492,6 +493,25 @@
       </div>
     </section>
 
+    <!-- ===== NOTÍCIAS DO MEC ===== -->
+    <section id="tela-noticias" class="tela">
+      <button id="btn-voltar-noticias" class="btn-ghost voltar">← Voltar</button>
+
+      <div class="hero">
+        <h1>📰 Notícias do <span class="destaque">MEC</span></h1>
+        <p>As principais notícias de educação da semana — que podem virar temas de redação!</p>
+      </div>
+
+      <div id="noticias-atualizado" class="noticias-atualizado"></div>
+
+      <h3 class="secao-titulo">🗞️ Últimas notícias</h3>
+      <div id="noticias-lista" class="noticias-lista"></div>
+
+      <h3 class="secao-titulo">✍️ Possíveis temas de redação</h3>
+      <p class="noticias-dica">Os temas do ENEM costumam tratar de cidadania, direitos, tecnologia, meio ambiente e sociedade. Estude estes eixos e treine relacioná-los com as notícias do MEC.</p>
+      <div id="temas-redacao" class="temas-redacao"></div>
+    </section>
+
     <!-- ===== MURAL (ORKUT) ===== -->
     <section id="tela-mural" class="tela">
       <button id="btn-voltar-mural" class="btn-ghost voltar">← Voltar</button>
@@ -608,11 +628,11 @@
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 
-  <script src="questoes.js?v=15"></script>
-  <script src="plano.js?v=15"></script>
-  <script src="explorar.js?v=15"></script>
-  <script src="figurinhas.js?v=15"></script>
-  <script src="firebase-config.js?v=15"></script>
-  <script src="script.js?v=15"></script>
+  <script src="questoes.js?v=16"></script>
+  <script src="plano.js?v=16"></script>
+  <script src="explorar.js?v=16"></script>
+  <script src="figurinhas.js?v=16"></script>
+  <script src="firebase-config.js?v=16"></script>
+  <script src="script.js?v=16"></script>
 </body>
 </html>
