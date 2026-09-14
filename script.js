@@ -1506,15 +1506,51 @@ let girando = false;
 let jogoAreaAtual = null;
 let jogoQuestaoAtual = null;
 let jogoRespondido = false;
+let setoresRoleta = [];
+let jogoUsadas = new Set();
 
 function minhasFigurinhas() {
   return (usuario && usuario.figurinhas) || [];
 }
 
+// Pesos: áreas com MENOS figurinhas têm MAIS chance de sair na roleta
+function pesosRoleta() {
+  const tenho = minhasFigurinhas();
+  return ORDEM_ROLETA.map((area) => {
+    const faltam = figurinhasDaArea(area).filter((f) => !tenho.includes(f.id)).length;
+    return 1 + faltam * 2;
+  });
+}
+
+// Desenha a roleta com setores de tamanhos proporcionais aos pesos
+function renderRoleta() {
+  const pesos = pesosRoleta();
+  const soma = pesos.reduce((a, b) => a + b, 0);
+  let acc = 0;
+  setoresRoleta = ORDEM_ROLETA.map((area, i) => {
+    const graus = (pesos[i] / soma) * 360;
+    const inicio = acc;
+    acc += graus;
+    return { area, inicio, fim: acc };
+  });
+
+  const partes = setoresRoleta.map((s) => `${CORES_AREA[s.area]} ${s.inicio}deg ${s.fim}deg`);
+  document.querySelector(".roleta-face").style.background = `conic-gradient(${partes.join(", ")})`;
+
+  const itens = document.querySelectorAll(".roleta-item");
+  itens.forEach((el, i) => {
+    const meio = (setoresRoleta[i].inicio + setoresRoleta[i].fim) / 2;
+    el.style.setProperty("--ang", meio + "deg");
+  });
+}
+
 function abrirJogo() {
+  renderRoleta();
   renderAlbum();
   esconder(document.getElementById("jogo-painel"));
-  document.getElementById("btn-girar").disabled = false;
+  const btn = document.getElementById("btn-girar");
+  btn.disabled = false;
+  btn.textContent = "🎡 Girar a roleta";
   mostrarTela("tela-jogo");
 }
 
@@ -1528,8 +1564,19 @@ document.getElementById("btn-girar").addEventListener("click", () => {
   btn.disabled = true;
   btn.textContent = "🎡 Girando...";
 
-  const s = Math.floor(Math.random() * 4); // setor sorteado
-  const alvo = (315 - s * 90 + 360) % 360;
+  // Sorteio ponderado (áreas com menos figurinhas saem mais)
+  const pesos = pesosRoleta();
+  const soma = pesos.reduce((a, b) => a + b, 0);
+  let r = Math.random() * soma;
+  let idx = 0;
+  for (let i = 0; i < pesos.length; i++) {
+    if (r < pesos[i]) { idx = i; break; }
+    r -= pesos[i];
+  }
+
+  const s = setoresRoleta[idx];
+  const p = s.inicio + Math.random() * (s.fim - s.inicio);
+  const alvo = (360 - p + 360) % 360;
   anguloRoleta += 5 * 360 + (((alvo - (anguloRoleta % 360)) % 360) + 360) % 360;
   document.getElementById("roleta").style.transform = `rotate(${anguloRoleta}deg)`;
 
@@ -1537,10 +1584,14 @@ document.getElementById("btn-girar").addEventListener("click", () => {
     girando = false;
     btn.disabled = false;
     btn.textContent = "🎡 Girar a roleta";
-    jogoAreaAtual = ORDEM_ROLETA[s];
-    mostrarPerguntaDaArea(jogoAreaAtual);
+    jogoAreaAtual = s.area;
+    mostrarPerguntaDaArea(s.area);
   }, 4200);
 });
+
+function chaveQuestao(q) {
+  return q.id || (q.enunciado || "").slice(0, 40);
+}
 
 function mostrarPerguntaDaArea(area) {
   const banco = bancoDePerguntas().filter((q) => q.area === area);
@@ -1548,7 +1599,18 @@ function mostrarPerguntaDaArea(area) {
     alert("Ainda não há perguntas dessa área.");
     return;
   }
-  jogoQuestaoAtual = banco[Math.floor(Math.random() * banco.length)];
+
+  // Evita repetir a mesma pergunta; quando esgotar, reinicia a lista
+  let disponiveis = banco.filter((q) => !jogoUsadas.has(chaveQuestao(q)));
+  if (!disponiveis.length) {
+    jogoUsadas = new Set();
+    disponiveis = banco;
+  }
+  const escolhida = disponiveis[Math.floor(Math.random() * disponiveis.length)];
+  jogoUsadas.add(chaveQuestao(escolhida));
+
+  // EMBARALHA as alternativas (corrige o bug de "todas são A")
+  jogoQuestaoAtual = prepararQuestao(escolhida);
   jogoRespondido = false;
 
   const info = AREAS[area] || { icone: "", curto: area };
