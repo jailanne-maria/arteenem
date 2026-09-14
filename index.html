@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="NINA — diagnóstico das 4 áreas do ENEM. Professores criam turmas, estudantes fazem o diagnóstico e disputam o ranking.">
   <title>NINA · Diagnóstico das 4 áreas</title>
-  <link rel="stylesheet" href="style.css?v=14">
+  <link rel="stylesheet" href="style.css?v=15">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
@@ -498,7 +498,12 @@
 
       <div class="mural-topo">
         <h1>💬 Mural de Recados</h1>
-        <p>Deixe um depoimento, uma dica de estudo ou uma mensagem de incentivo para a galera!</p>
+        <p>Deixe um recado no mural da sua turma ou no mural coletivo!</p>
+      </div>
+
+      <div class="mural-abas">
+        <button class="mural-aba ativa" data-aba="turma">👥 Minha turma</button>
+        <button class="mural-aba" data-aba="geral">🌎 Coletivo</button>
       </div>
 
       <div class="mural-form">
@@ -510,7 +515,7 @@
         <div id="mural-aviso" class="aviso escondido"></div>
       </div>
 
-      <h3 class="secao-titulo">Recados da galera</h3>
+      <h3 class="secao-titulo" id="mural-titulo">Recados da turma</h3>
       <div id="mural-lista" class="mural-lista"></div>
     </section>
 
@@ -603,11 +608,11 @@
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 
-  <script src="questoes.js?v=14"></script>
-  <script src="plano.js?v=14"></script>
-  <script src="explorar.js?v=14"></script>
-  <script src="figurinhas.js?v=14"></script>
-  <script src="firebase-config.js?v=14"></script>
-  <script src="script.js?v=14"></script>
+  <script src="questoes.js?v=15"></script>
+  <script src="plano.js?v=15"></script>
+  <script src="explorar.js?v=15"></script>
+  <script src="figurinhas.js?v=15"></script>
+  <script src="firebase-config.js?v=15"></script>
+  <script src="script.js?v=15"></script>
 </body>
 </html>

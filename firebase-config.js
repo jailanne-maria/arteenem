@@ -193,29 +193,36 @@ function rankingDaTurma(codigo) {
     });
 }
 
-// ---------- Mural de recados (Orkut) ----------
-function postarDepoimento(usuario, texto) {
+// ---------- Mural de recados ----------
+// turma = código da turma (mural da turma) ou null (mural coletivo)
+function postarDepoimento(usuario, texto, turma) {
   return firebase.firestore().collection("depoimentos").add({
     uid: usuario.uid,
     nome: usuario.nome,
     foto: usuario.foto || "",
     texto: texto.trim(),
+    turma: turma || null,
     criadoEm: firebase.firestore.FieldValue.serverTimestamp(),
   });
 }
 
-function listarDepoimentos() {
+function listarDepoimentos(turma) {
   return firebase.firestore().collection("depoimentos")
-    .orderBy("criadoEm", "desc")
-    .limit(50)
+    .where("turma", "==", turma || null)
     .get()
-    .then((snap) =>
-      snap.docs.map((d) => {
+    .then((snap) => {
+      const lista = snap.docs.map((d) => {
         const data = d.data();
-        const ms = data.criadoEm && data.criadoEm.toMillis ? data.criadoEm.toMillis() : Date.now();
+        const ms = data.criadoEm && data.criadoEm.toMillis ? data.criadoEm.toMillis() : 0;
         return { id: d.id, ...data, ms };
-      })
-    );
+      });
+      lista.sort((a, b) => b.ms - a.ms);
+      return lista;
+    });
+}
+
+function excluirDepoimento(id) {
+  return firebase.firestore().collection("depoimentos").doc(id).delete();
 }
 
 // Fixar/desfixar recado (somente admin — garantido pelas regras do Firestore)

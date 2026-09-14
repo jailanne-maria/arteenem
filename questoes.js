@@ -152,6 +152,52 @@ const QUESTOES = [
     explicacao:
       "A repetição é recurso estético (função poética): cria musicalidade e reforça a ideia do obstáculo que insiste em reaparecer.",
   },
+  {
+    id: "lin7",
+    area: "linguagens",
+    tema: "Espanhol",
+    apoio: "Lee el texto:\n\n“Buenos Aires es una ciudad que nunca duerme. Sus calles mezclan el tango, el café y una arquitectura que recuerda a Europa. Por la noche, los teatros y las librerías siguen abiertos hasta tarde.”",
+    enunciado: "Según el texto, Buenos Aires se caracteriza por:",
+    alternativas: [
+      "Una vida cultural intensa, con tango, cafés y librerías abiertas hasta tarde.",
+      "Ser una ciudad silenciosa y tranquila por la noche.",
+      "No tener ninguna influencia europea.",
+      "Cerrar todos los teatros al anochecer.",
+      "Ser una ciudad exclusivamente industrial.",
+    ],
+    correta: 0,
+    explicacao:
+      "O texto destaca a vida cultural (tango, cafés, teatros e livrarias) e a arquitetura de influência europeia.",
+  },
+  {
+    id: "lin8",
+    area: "linguagens",
+    tema: "Espanhol — falsos amigos",
+    apoio: "Atenção aos 'falsos amigos' (falsos cognatos) entre português e espanhol:\n\n“rato” em espanhol significa un momento; “largo” significa longo; “embarazada” significa grávida.",
+    enunciado:
+      "Na frase “La película fue muy larga”, a palavra “larga” significa:",
+    alternativas: [
+      "Longa (com muita duração).",
+      "Larga (largura grande).",
+      "Rápida.",
+      "Chata.",
+      "Curta.",
+    ],
+    correta: 0,
+    explicacao:
+      "Em espanhol, 'largo' significa 'longo/comprido' (duração ou comprimento). Já 'ancho' é 'largo' no sentido de largura.",
+  },
+  {
+    id: "lin9",
+    area: "linguagens",
+    tema: "Espanhol — gramática",
+    apoio: "Lee la frase:\n\n“Cuando era niño, yo ______ a la escuela todos los días.”",
+    enunciado: "A forma verbal que completa corretamente a frase é:",
+    alternativas: ["iba", "voy", "iré", "iría", "he ido"],
+    correta: 0,
+    explicacao:
+      "'Cuando era niño' indica uma ação habitual no passado, então usa-se o pretérito imperfeito: 'iba'.",
+  },
 
   // ================= HUMANAS =================
   {

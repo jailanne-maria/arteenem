@@ -1259,6 +1259,46 @@ h1, h2, h3, h4, .marca-nome, .btn-principal, .btn-secundario, .btn-google, .btn-
   text-shadow: 2px 2px 0 var(--black);
 }
 
+.mural-abas {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.mural-aba {
+  flex: 1;
+  background: var(--surface-2);
+  border: 3px solid var(--black);
+  box-shadow: 3px 3px 0 var(--black);
+  border-radius: 10px;
+  padding: 12px;
+  font-family: var(--pixel);
+  font-size: 0.6rem;
+  cursor: pointer;
+  color: var(--black);
+}
+
+.mural-aba.ativa {
+  background: var(--yellow);
+}
+
+.recado-excluir {
+  background: #ffd9d4;
+  border: 3px solid var(--black);
+  box-shadow: 2px 2px 0 var(--black);
+  border-radius: 8px;
+  padding: 5px 12px;
+  font-family: var(--pixel);
+  font-size: 0.5rem;
+  cursor: pointer;
+  color: var(--black);
+}
+
+.recado-excluir:hover {
+  background: var(--red);
+  color: var(--white);
+}
+
 .mural-form {
   background: var(--surface-2);
   border: 4px solid var(--black);
@@ -2687,4 +2727,75 @@ h1, h2, h3, h4, .marca-nome, .btn-principal, .btn-secundario, .btn-google, .btn-
   line-height: 1.8;
   color: var(--red);
   margin-bottom: 14px;
+}
+
+/* ===== MELHORIAS PARA CELULAR ===== */
+@media (max-width: 640px) {
+  .topo-inner {
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 10px 14px;
+  }
+  .marca {
+    font-size: 0.75rem;
+  }
+  .topo-usuario {
+    width: 100%;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .btn-ghost {
+    font-size: 0.5rem;
+    padding: 6px 9px;
+  }
+  #app {
+    padding: 16px 14px 40px;
+  }
+  .hero h1 {
+    font-size: clamp(0.8rem, 4.5vw, 1.1rem);
+  }
+  .roleta-area {
+    width: 230px;
+    height: 230px;
+  }
+  .roleta-item {
+    font-size: 1.4rem;
+    transform: translate(-50%, -50%) rotate(var(--ang)) translateY(-72px) rotate(calc(-1 * var(--ang)));
+  }
+  .album {
+    grid-template-columns: repeat(auto-fill, minmax(105px, 1fr));
+  }
+  .form-linha {
+    flex-direction: column;
+  }
+  .modal-figurinha-caixa,
+  .modal-eca-caixa {
+    padding: 20px 16px;
+  }
+  .recado {
+    padding: 12px;
+    gap: 10px;
+  }
+  .recado-avatar {
+    width: 44px;
+    height: 44px;
+    font-size: 1.4rem;
+  }
+  .recado-texto {
+    font-size: 1.1rem;
+  }
+  .mural-aba {
+    font-size: 0.5rem;
+    padding: 10px 6px;
+  }
+  .fase-cabeca h1 {
+    font-size: 0.75rem;
+  }
+  .turma-stats {
+    flex-wrap: wrap;
+  }
+  .stat-card {
+    min-width: 90px;
+  }
 }

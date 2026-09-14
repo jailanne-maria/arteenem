@@ -720,18 +720,43 @@ function renderAnterior() {
 // ============================================================
 // MURAL DE RECADOS (ORKUT)
 // ============================================================
+let muralAba = "turma"; // "turma" | "geral"
+
 async function abrirMural() {
   mostrarTela("tela-mural");
+  // Se não tiver turma, força a aba coletiva
+  if (!minhaTurma || !minhaTurma.codigo) muralAba = "geral";
+  atualizarAbasMural();
   await carregarDepoimentos();
+}
+
+function atualizarAbasMural() {
+  document.querySelectorAll(".mural-aba").forEach((b) => {
+    b.classList.toggle("ativa", b.dataset.aba === muralAba);
+  });
+  const titulo = document.getElementById("mural-titulo");
+  if (titulo) titulo.textContent = muralAba === "turma" ? "Recados da turma" : "Recados coletivos";
+}
+
+document.querySelectorAll(".mural-aba").forEach((b) => {
+  b.addEventListener("click", async () => {
+    muralAba = b.dataset.aba;
+    atualizarAbasMural();
+    await carregarDepoimentos();
+  });
+});
+
+function turmaDoMural() {
+  return muralAba === "turma" ? (minhaTurma && minhaTurma.codigo) : null;
 }
 
 async function carregarDepoimentos() {
   const lista = document.getElementById("mural-lista");
   lista.innerHTML = "<p class='vazio'>Carregando recados…</p>";
   try {
-    const depoimentos = await listarDepoimentos();
+    const depoimentos = await listarDepoimentos(turmaDoMural());
     if (!depoimentos.length) {
-      lista.innerHTML = "<p class='vazio'>Nenhum recado ainda. Seja a primeira pessoa a escrever! ✍️</p>";
+      lista.innerHTML = `<p class='vazio'>${muralAba === "turma" ? "Nenhum recado na turma ainda." : "Nenhum recado coletivo ainda."} Seja a primeira pessoa a escrever! ✍️</p>`;
       return;
     }
     // Fixados primeiro, depois por data
@@ -764,6 +789,11 @@ function renderRecado(d) {
       <span class="curtidas-num">${curtidas.length}</span>
     </button>`;
 
+  const podeExcluir = usuario && (d.uid === usuario.uid || admin);
+  const botaoExcluir = podeExcluir
+    ? `<button class="recado-excluir" data-id="${d.id}" title="Apagar recado">🗑️ Apagar</button>`
+    : "";
+
   return `
     <div class="recado ${d.fixado ? "fixado" : ""}">
       <div class="recado-avatar">${avatar}</div>
@@ -776,6 +806,7 @@ function renderRecado(d) {
         <div class="recado-acoes">
           ${botaoCurtir}
           ${botaoFixar}
+          ${botaoExcluir}
         </div>
       </div>
     </div>
@@ -820,7 +851,7 @@ document.getElementById("btn-postar").addEventListener("click", async () => {
     return;
   }
   try {
-    await postarDepoimento(usuario, texto);
+    await postarDepoimento(usuario, texto, turmaDoMural());
     campo.value = "";
     document.getElementById("mural-contador").textContent = "0/300";
     aviso.className = "aviso ok";
@@ -1003,6 +1034,19 @@ document.getElementById("mural-lista").addEventListener("click", async (e) => {
     }
     return;
   }
+
+  const excluir = e.target.closest(".recado-excluir");
+  if (excluir) {
+    if (!confirm("Apagar este recado?")) return;
+    try {
+      await excluirDepoimento(excluir.dataset.id);
+      await carregarDepoimentos();
+    } catch (err) {
+      alert("Não foi possível apagar: " + err.message);
+    }
+    return;
+  }
+
   const alvo = e.target.closest(".recado-nome.clicavel");
   if (alvo && alvo.dataset.uid) abrirPerfilDe(alvo.dataset.uid);
 });
