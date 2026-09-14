@@ -1,10 +1,16 @@
 {
-  "atualizadoEm": "2026-09-14T06:43:46.354Z",
+  "atualizadoEm": "2026-09-14T16:01:41.377Z",
   "fontes": [
     "MEC",
     "Agência Brasil"
   ],
   "noticias": [
+    {
+      "titulo": "Prouni: hoje (14) é o último dia para comprovar informações da lista de espera",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/setembro/prouni-hoje-14-e-o-ultimo-dia-para-comprovar-informacoes-da-lista-de-espera",
+      "fonte": "MEC",
+      "data": "setembro/2026"
+    },
     {
       "titulo": "MEC Livros organiza acervo com best-sellers e 26 categorias",
       "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/setembro/mec-livros-organiza-acervo-com-best-sellers-e-26-categorias",
@@ -84,12 +90,6 @@
       "data": "setembro/2026"
     },
     {
-      "titulo": "Rondônia registra queda na taxa de analfabetismo",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/setembro/rondonia-registra-queda-na-taxa-de-analfabetismo",
-      "fonte": "MEC",
-      "data": "setembro/2026"
-    },
-    {
       "titulo": "Prova que avalia formação médica ocorre neste domingo em todo país",
       "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-09/prova-que-avalia-formacao-medica-ocorre-neste-domingo-em-todo-pais",
       "fonte": "Agência Brasil",
@@ -150,51 +150,5 @@
       "data": "09/09"
     }
   ],
-  "temasRedacao": [
-    {
-      "tema": "Os desafios para a erradicação do analfabetismo e a democratização da leitura no Brasil",
-      "eixo": "Educação e Cidadania",
-      "argumento": "A persistência do analfabetismo e do acesso desigual à literatura exige políticas integradas de democratização do livro e incentivo à leitura adaptada, essenciais para a autonomia do cidadão.",
-      "textosMotivadores": [
-        "O artigo 205 da Constituição Federal de 1988 estabelece que a educação é um direito de todos e dever do Estado, visando ao pleno desenvolvimento da pessoa, seu preparo para o exercício da cidadania e sua qualificação para o trabalho.",
-        "Segundo o educador Paulo Freire em 'A Importância do Ato de Ler', a leitura do mundo precede a leitura da palavra. Dessa forma, o acesso à leitura inclusiva, como livros em Braille e acervos diversificados, é pilar indispensável para a verdadeira emancipação social."
-      ]
-    },
-    {
-      "tema": "O papel das instituições de ensino na garantia do direito à moradia digna e aos Direitos Humanos",
-      "eixo": "Direitos Humanos",
-      "argumento": "A função social das escolas e institutos federais deve ir além do ensino formal, atuando diretamente no suporte comunitário e no combate às vulnerabilidades habitacionais da população.",
-      "textosMotivadores": [
-        "A Declaração Universal dos Direitos Humanos consagra a moradia e a educação como garantias fundamentais para a preservação da dignidade da pessoa humana.",
-        "O filósofo Immanuel Kant afirmava que o ser humano é aquilo que a educação faz dele. No contexto contemporâneo, a extensão acadêmica voltada à assistência habitacional materializa o compromisso ético do conhecimento técnico com o bem-estar coletivo."
-      ]
-    },
-    {
-      "tema": "A relevância da avaliação contínua do ensino superior para a qualidade dos serviços de saúde",
-      "eixo": "Saúde e Educação",
-      "argumento": "O monitoramento rigoroso e a avaliação padronizada dos cursos de graduação em áreas essenciais são indispensáveis para garantir um atendimento público e privado eficiente e ético à sociedade.",
-      "textosMotivadores": [
-        "Conforme o artigo 196 da Constituição de 1988, a saúde é direito de todos e dever do Estado, garantido mediante políticas sociais e econômicas. Para tal, a qualificação rigorosa dos profissionais da área constitui requisito indispensável de segurança sanitária.",
-        "Com base na teoria do 'Contrato Social' de Jean-Jacques Rousseau, o Estado assume o compromisso de proteger o bem-estar coletivo, o que justifica a implementação de exames nacionais e mecanismos de regulação da formação universitária."
-      ]
-    },
-    {
-      "tema": "Caminhos para a recomposição das aprendizagens e a promoção da equidade educacional",
-      "eixo": "Educação e Sociedade",
-      "argumento": "Superar os impactos e as lacunas no aprendizado escolar exige estratégias pedagógicas estruturadas e flexíveis que evitem a evasão e mitiguem as desigualdades regionais.",
-      "textosMotivadores": [
-        "O Estatuto da Criança e do Adolescente (ECA) assegura o direito à igualdade de condições para o acesso e a permanência na escola, responsabilizando o Estado por mitigar defasagens que comprometam o desenvolvimento infantojuvenil.",
-        "O sociólogo Pierre Bourdieu argumentava que a escola pode reproduzir desigualdades sociais caso não ofereça mecanismos de compensação cultural. Planos de ação estruturados para recomposição da aprendizagem são, portanto, urgentes para romper esse ciclo."
-      ]
-    },
-    {
-      "tema": "A sustentabilidade no ambiente escolar como vetor de transformação socioambiental",
-      "eixo": "Meio Ambiente",
-      "argumento": "A implementação do suporte técnico e de práticas ecológicas na gestão escolar forma cidadãos conscientes e preparados para enfrentar as emergências climáticas globais.",
-      "textosMotivadores": [
-        "O artigo 225 da Constituição Federal determina que todos têm direito ao meio ambiente ecologicamente equilibrado, impondo ao Poder Público e à coletividade o dever de defendê-lo. A Educação Ambiental é ferramenta obrigatória para alcançar esse objetivo.",
-        "O pensador Zygmunt Bauman apontava que os problemas globais exigem respostas locais e integradas. A adoção de infraestrutura sustentável nas escolas educa pelo exemplo e multiplica o engajamento comunitário."
-      ]
-    }
-  ]
+  "temasRedacao": []
 }
