@@ -2353,33 +2353,47 @@ function renderCurriculo() {
   const div = document.getElementById("curriculo-conteudo");
 
   const habilidades = dados.habilidades.filter((h) => h.series.includes(curriculoSerie));
-  const compsUsadas = [...new Set(habilidades.map((h) => h.competencia))].sort((a, b) => a - b);
 
-  const compsHtml = compsUsadas.map((n) => `
-    <div class="comp-card">
-      <span class="comp-num">Competência ${n}</span>
-      <p>${escaparHTML(dados.competencias[n - 1] || "")}</p>
-    </div>
-  `).join("");
+  // Índice de códigos (chips separados)
+  const chips = habilidades.map((h) => `<span class="hab-chip">${h.codigo}</span>`).join("");
 
-  const habHtml = habilidades.map((h) => `
-    <div class="hab-card">
-      <span class="hab-codigo">${h.codigo}</span>
-      <p class="hab-desc">${escaparHTML(h.descricao)}</p>
-    </div>
-  `).join("");
+  // Agrupa por competência
+  const grupos = {};
+  habilidades.forEach((h) => {
+    (grupos[h.competencia] = grupos[h.competencia] || []).push(h);
+  });
+  const comps = Object.keys(grupos).map(Number).sort((a, b) => a - b);
+
+  const gruposHtml = comps.map((n) => {
+    const habs = grupos[n].map((h) => `
+      <div class="hab-item">
+        <span class="hab-codigo">${h.codigo}</span>
+        <p class="hab-desc">${escaparHTML(h.descricao)}</p>
+      </div>
+    `).join("");
+    return `
+      <div class="comp-bloco">
+        <div class="comp-cabeca">
+          <span class="comp-num">Competência ${n}</span>
+          <p class="comp-texto">${escaparHTML(dados.competencias[n - 1] || "")}</p>
+        </div>
+        <div class="hab-lista">${habs}</div>
+      </div>
+    `;
+  }).join("");
 
   const temasHtml = dados.temasAcre.map((t) => `<li>${escaparHTML(t)}</li>`).join("");
 
   div.innerHTML = `
     <h3 class="secao-titulo">${dados.nome} · ${curriculoSerie} série</h3>
 
-    <h4 class="curriculo-sub">🎯 Competências específicas</h4>
-    <div class="comp-lista">${compsHtml || "<p class='vazio'>—</p>"}</div>
+    <p class="curriculo-info">${habilidades.length} habilidade(s) nesta série. Os códigos EM13 valem para as três séries do Ensino Médio; a distribuição por série é uma sugestão.</p>
 
-    <h4 class="curriculo-sub">✅ Habilidades (BNCC)</h4>
-    <p class="curriculo-info">${habilidades.length} habilidade(s) sugerida(s) para esta série. Os códigos EM13 valem para as três séries do Ensino Médio; a distribuição oficial é definida pelo currículo estadual.</p>
-    <div class="hab-lista">${habHtml || "<p class='vazio'>—</p>"}</div>
+    <h4 class="curriculo-sub">🔖 Códigos desta série</h4>
+    <div class="hab-chips">${chips || "<p class='vazio'>—</p>"}</div>
+
+    <h4 class="curriculo-sub">🎯 Competências e habilidades</h4>
+    ${gruposHtml || "<p class='vazio'>—</p>"}
 
     <h4 class="curriculo-sub">🌳 Temas regionais do Acre</h4>
     <ul class="temas-acre">${temasHtml}</ul>
