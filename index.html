@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="NINA — diagnóstico das 4 áreas do ENEM. Professores criam turmas, estudantes fazem o diagnóstico e disputam o ranking.">
   <title>NINA · Diagnóstico das 4 áreas</title>
-  <link rel="stylesheet" href="style.css?v=13">
+  <link rel="stylesheet" href="style.css?v=14">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
@@ -246,6 +246,15 @@
 
         <div id="perfil-edit" class="perfil-edit escondido">
           <div class="perfil-campo">
+            <span class="perfil-rotulo">📷 Foto de perfil</span>
+            <input id="perfil-foto-input" type="file" accept="image/*">
+            <img id="perfil-foto-preview" class="perfil-foto-preview escondido" alt="Prévia da foto">
+            <p class="perfil-termos">
+              A foto deve ser de <strong>rosto legível</strong>, sem filtros ou elementos que dificultem a identificação.
+              Ao enviar, você confirma que a imagem é sua ou que tem autorização para usá-la. Fotos inadequadas podem ser removidas.
+            </p>
+          </div>
+          <div class="perfil-campo">
             <label class="perfil-rotulo" for="perfil-bio">📝 Bio</label>
             <textarea id="perfil-bio" maxlength="200" placeholder="Conte um pouco sobre você..."></textarea>
           </div>
@@ -431,6 +440,7 @@
       </div>
 
       <button id="btn-girar" class="btn-principal">🎡 Girar a roleta</button>
+      <button id="btn-ir-duelo" class="btn-secundario" style="margin-top:12px">⚔️ Duelar com um colega</button>
 
       <div id="jogo-painel" class="jogo-painel escondido">
         <div id="jogo-area-tag" class="jogo-area-tag"></div>
@@ -442,6 +452,44 @@
       <h3 class="secao-titulo">🏆 Meu álbum de figurinhas</h3>
       <p id="album-resumo" class="album-resumo"></p>
       <div id="album" class="album"></div>
+    </section>
+
+    <!-- ===== DUELO ===== -->
+    <section id="tela-duelo" class="tela">
+      <button id="btn-voltar-duelo" class="btn-ghost voltar">← Voltar ao jogo</button>
+
+      <div class="hero">
+        <h1>⚔️ Duelo de <span class="destaque">Figurinhas</span></h1>
+        <p>Desafie um colega da turma. Quem acertar mais leva uma figurinha!</p>
+      </div>
+
+      <div id="duelo-sem-turma" class="painel-bloco escondido">
+        <p class="texto-ajuda">Para duelar, entre numa turma primeiro (na tela inicial). Os duelos acontecem com colegas da sua turma.</p>
+      </div>
+
+      <div id="duelo-conteudo" class="escondido">
+        <div class="painel-bloco">
+          <h3 class="secao-titulo">Desafiar um colega</h3>
+          <div id="duelo-colegas" class="duelo-colegas"></div>
+        </div>
+
+        <div class="painel-bloco">
+          <h3 class="secao-titulo">Desafios para você</h3>
+          <div id="duelo-pendentes" class="duelo-lista"></div>
+        </div>
+
+        <div class="painel-bloco">
+          <h3 class="secao-titulo">Meus duelos</h3>
+          <div id="duelo-meus" class="duelo-lista"></div>
+        </div>
+      </div>
+
+      <div id="duelo-jogo" class="painel-bloco escondido">
+        <div id="duelo-placar" class="duelo-placar"></div>
+        <p id="duelo-enunciado" class="jogo-enunciado"></p>
+        <div id="duelo-alternativas" class="jogo-alternativas"></div>
+        <div id="duelo-feedback" class="jogo-feedback escondido"></div>
+      </div>
     </section>
 
     <!-- ===== MURAL (ORKUT) ===== -->
@@ -534,6 +582,17 @@
     </div>
   </div>
 
+  <!-- ===== HISTÓRIA DA FIGURINHA ===== -->
+  <div id="modal-figurinha" class="modal-figurinha escondido">
+    <div class="modal-figurinha-caixa">
+      <span id="fig-modal-emoji" class="fig-modal-emoji"></span>
+      <h3 id="fig-modal-nome"></h3>
+      <span id="fig-modal-raridade" class="fig-modal-raridade"></span>
+      <p id="fig-modal-historia"></p>
+      <button id="btn-fechar-figurinha" class="btn-principal">Fechar</button>
+    </div>
+  </div>
+
   <footer class="rodape">
     <p class="rodape-credito">🎨 App desenvolvido pela artista educadora <strong>@maria.jai_</strong></p>
     <p class="rodape-sub">NINA · Diagnóstico educacional das 4 áreas do ENEM</p>
@@ -544,11 +603,11 @@
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 
-  <script src="questoes.js?v=13"></script>
-  <script src="plano.js?v=13"></script>
-  <script src="explorar.js?v=13"></script>
-  <script src="figurinhas.js?v=13"></script>
-  <script src="firebase-config.js?v=13"></script>
-  <script src="script.js?v=13"></script>
+  <script src="questoes.js?v=14"></script>
+  <script src="plano.js?v=14"></script>
+  <script src="explorar.js?v=14"></script>
+  <script src="figurinhas.js?v=14"></script>
+  <script src="firebase-config.js?v=14"></script>
+  <script src="script.js?v=14"></script>
 </body>
 </html>

@@ -893,12 +893,57 @@ async function abrirPerfilDe(uid) {
 
 document.getElementById("btn-perfil").addEventListener("click", abrirMeuPerfil);
 
+// ---------- Foto de perfil ----------
+let fotoPendente = null;
+
+function redimensionarImagem(file, maxLado = 256) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => {
+      const img = new Image();
+      img.onload = () => {
+        let { width, height } = img;
+        if (width > height) {
+          if (width > maxLado) { height = Math.round((height * maxLado) / width); width = maxLado; }
+        } else {
+          if (height > maxLado) { width = Math.round((width * maxLado) / height); height = maxLado; }
+        }
+        const canvas = document.createElement("canvas");
+        canvas.width = width;
+        canvas.height = height;
+        canvas.getContext("2d").drawImage(img, 0, 0, width, height);
+        resolve(canvas.toDataURL("image/jpeg", 0.82));
+      };
+      img.onerror = reject;
+      img.src = reader.result;
+    };
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+}
+
+document.getElementById("perfil-foto-input").addEventListener("change", async (e) => {
+  const file = e.target.files && e.target.files[0];
+  if (!file) return;
+  try {
+    fotoPendente = await redimensionarImagem(file);
+    const prev = document.getElementById("perfil-foto-preview");
+    prev.src = fotoPendente;
+    prev.classList.remove("escondido");
+  } catch {
+    alert("Não foi possível carregar a imagem.");
+  }
+});
+
 document.getElementById("btn-editar-perfil").addEventListener("click", () => {
   if (perfilEmEdicao) {
     // Cancelar
     preencherPerfil(usuario);
     modoPerfil(false);
   } else {
+    fotoPendente = null;
+    const prev = document.getElementById("perfil-foto-preview");
+    if (prev) prev.classList.add("escondido");
     modoPerfil(true);
   }
 });
@@ -910,6 +955,7 @@ document.getElementById("btn-salvar-perfil").addEventListener("click", async () 
     sonho: document.getElementById("perfil-sonho").value.trim(),
     gostos: document.getElementById("perfil-gostos").value.trim(),
   };
+  if (fotoPendente) dados.foto = fotoPendente;
   try {
     await salvarUsuario(usuario.uid, dados);
     Object.assign(usuario, dados);
@@ -917,6 +963,7 @@ document.getElementById("btn-salvar-perfil").addEventListener("click", async () 
     aviso.textContent = "✅ Perfil salvo!";
     exibir(aviso);
     setTimeout(() => esconder(aviso), 2500);
+    fotoPendente = null;
     preencherPerfil(usuario);
     modoPerfil(false);
   } catch (e) {
@@ -1513,13 +1560,27 @@ function minhasFigurinhas() {
   return (usuario && usuario.figurinhas) || [];
 }
 
-// Pesos: áreas com MENOS figurinhas têm MAIS chance de sair na roleta
+// Pesos: áreas em que o aluno tem MAIS DIFICULDADE saem mais na roleta
 function pesosRoleta() {
+  let resultado = null;
+  try { resultado = JSON.parse(localStorage.getItem(CHAVE_RESULTADO)); } catch {}
+
+  if (resultado && Array.isArray(resultado.areas) && resultado.areas.length) {
+    const mapa = {};
+    resultado.areas.forEach((a) => { mapa[a.area] = a.pct; });
+    return ORDEM_ROLETA.map((area) => {
+      const pct = mapa[area];
+      if (pct == null) return 3; // sem dado: peso médio
+      // quanto MENOR o desempenho, MAIOR o peso (1 a 6)
+      return Math.max(1, Math.min(6, Math.round((100 - pct) / 18) + 1));
+    });
+  }
+
+  // Sem diagnóstico ainda: dá mais chance a quem tem menos figurinhas
   const tenho = minhasFigurinhas();
-  return ORDEM_ROLETA.map((area) => {
-    const faltam = figurinhasDaArea(area).filter((f) => !tenho.includes(f.id)).length;
-    return 1 + faltam * 2;
-  });
+  return ORDEM_ROLETA.map(
+    (area) => 1 + figurinhasDaArea(area).filter((f) => !tenho.includes(f.id)).length
+  );
 }
 
 // Desenha a roleta com setores de tamanhos proporcionais aos pesos
@@ -1649,7 +1710,7 @@ async function responderJogo(escolha) {
   if (acertou) {
     const nova = await ganharFigurinha(jogoAreaAtual);
     if (nova) {
-      fb.innerHTML = `🎉 <strong>Acertou! Você ganhou a figurinha ${nova.emoji} ${nova.nome}!</strong><br>${q.explicacao || ""}`;
+      fb.innerHTML = `🎉 <strong>Acertou! Você ganhou ${nova.emoji} ${nova.nome}!</strong><br><em>${nova.historia || ""}</em>`;
     } else {
       fb.innerHTML = `🎉 <strong>Acertou!</strong> Você já tem todas as figurinhas dessa área! 🌟<br>${q.explicacao || ""}`;
     }
@@ -1685,7 +1746,7 @@ function renderAlbum() {
     const tem = tenho.includes(f.id);
     const info = AREAS[f.area] || { icone: "", curto: f.area };
     return `
-      <div class="figurinha ${f.raridade} area-${f.area} ${tem ? "" : "bloqueada"}">
+      <div class="figurinha ${f.raridade} area-${f.area} ${tem ? "clicavel" : "bloqueada"}" data-id="${f.id}">
         <span class="fig-emoji">${tem ? f.emoji : "❓"}</span>
         <span class="fig-nome">${tem ? f.nome : "???"}</span>
         <span class="fig-raridade ${f.raridade}">${tem ? f.raridade : info.curto}</span>
@@ -1703,6 +1764,300 @@ function renderAlbum() {
   ORDEM_ROLETA.forEach((a) => {
     porArea[a] = { total: figurinhasDaArea(a).length, tenho: figurinhasDaArea(a).filter((f) => tenho.includes(f.id)).length };
   });
+}
+
+// Clique numa figurinha coletada: mostra a história
+document.getElementById("album").addEventListener("click", (e) => {
+  const card = e.target.closest(".figurinha.clicavel");
+  if (!card) return;
+  const f = figurinhaPorId(card.dataset.id);
+  if (!f) return;
+  document.getElementById("fig-modal-emoji").textContent = f.emoji;
+  document.getElementById("fig-modal-nome").textContent = f.nome;
+  const rar = document.getElementById("fig-modal-raridade");
+  rar.textContent = f.raridade;
+  rar.className = "fig-modal-raridade " + f.raridade;
+  document.getElementById("fig-modal-historia").textContent = f.historia || "";
+  document.getElementById("modal-figurinha").classList.remove("escondido");
+});
+
+document.getElementById("btn-fechar-figurinha").addEventListener("click", () => {
+  document.getElementById("modal-figurinha").classList.add("escondido");
+});
+
+// ============================================================
+// DUELO DE FIGURINHAS
+// ============================================================
+let dueloAtual = null;
+let dueloQuestoes = [];
+let dueloIndice = 0;
+let dueloRespostas = [];
+let dueloRespondido = false;
+
+function abrirDuelo() {
+  mostrarTela("tela-duelo");
+  esconder(document.getElementById("duelo-jogo"));
+  const temTurma = !!(minhaTurma && minhaTurma.codigo);
+  if (temTurma) {
+    exibir(document.getElementById("duelo-conteudo"));
+    esconder(document.getElementById("duelo-sem-turma"));
+    renderDuelo();
+  } else {
+    esconder(document.getElementById("duelo-conteudo"));
+    exibir(document.getElementById("duelo-sem-turma"));
+  }
+}
+
+document.getElementById("btn-ir-duelo").addEventListener("click", abrirDuelo);
+document.getElementById("btn-voltar-duelo").addEventListener("click", () => { abrirJogo(); });
+
+async function renderDuelo() {
+  const colegasDiv = document.getElementById("duelo-colegas");
+  const pendDiv = document.getElementById("duelo-pendentes");
+  const meusDiv = document.getElementById("duelo-meus");
+  colegasDiv.innerHTML = "<p class='vazio'>Carregando colegas…</p>";
+  pendDiv.innerHTML = "";
+  meusDiv.innerHTML = "";
+
+  try {
+    const membros = await listarMembros(minhaTurma.codigo);
+    const outros = membros.filter((m) => m.uid !== usuario.uid);
+    if (outros.length) {
+      colegasDiv.innerHTML = outros
+        .map((m) => `<button class="duelo-colega" data-uid="${m.uid}" data-nome="${(m.nome || "").replace(/"/g, "&quot;")}">⚔️ ${m.nome}</button>`)
+        .join("");
+    } else {
+      colegasDiv.innerHTML = "<p class='vazio'>Nenhum colega na turma ainda.</p>";
+    }
+
+    const pendentes = await duelosPendentesPara(usuario.uid).catch(() => []);
+    if (pendentes.length) {
+      pendDiv.innerHTML = pendentes
+        .map((d) => {
+          const euJa = d.respostas && d.respostas[usuario.uid];
+          const acao = euJa ? "Ver resultado" : "Aceitar e responder";
+          return `<div class="duelo-item">
+            <span>⚔️ Desafio de <strong>${d.criadorNome}</strong></span>
+            <button class="btn-principal compacto duelo-abrir" data-id="${d.id}">${acao}</button>
+          </div>`;
+        })
+        .join("");
+    } else {
+      pendDiv.innerHTML = "<p class='vazio'>Nenhum desafio no momento.</p>";
+    }
+
+    const meus = await duelosDoUsuario(usuario.uid).catch(() => []);
+    if (meus.length) {
+      meusDiv.innerHTML = meus
+        .map((d) => {
+          const status = d.status === "finalizado" ? "Finalizado" : "Aguardando oponente";
+          return `<div class="duelo-item">
+            <span>vs <strong>${d.oponenteNome}</strong> · ${status}</span>
+            <button class="btn-secundario compacto duelo-abrir" data-id="${d.id}">Abrir</button>
+          </div>`;
+        })
+        .join("");
+    } else {
+      meusDiv.innerHTML = "<p class='vazio'>Você ainda não desafiou ninguém.</p>";
+    }
+  } catch (e) {
+    colegasDiv.innerHTML = `<p class='vazio'>Erro: ${e.message}</p>`;
+  }
+}
+
+// Cria um desafio com 5 perguntas das áreas de dificuldade do desafiante
+document.getElementById("duelo-colegas").addEventListener("click", async (e) => {
+  const btn = e.target.closest(".duelo-colega");
+  if (!btn) return;
+  const oponente = { uid: btn.dataset.uid, nome: btn.dataset.nome };
+
+  const pesos = pesosRoleta();
+  const areas = [];
+  ORDEM_ROLETA.forEach((a, i) => { for (let k = 0; k < pesos[i]; k++) areas.push(a); });
+
+  const perguntas = [];
+  const usadas = new Set();
+  let tentativas = 0;
+  while (perguntas.length < 5 && tentativas < 200) {
+    tentativas++;
+    const area = areas[Math.floor(Math.random() * areas.length)];
+    const banco = bancoDePerguntas().filter((q) => q.area === area && !usadas.has(chaveQuestao(q)));
+    if (!banco.length) continue;
+    const q = prepararQuestao(banco[Math.floor(Math.random() * banco.length)]);
+    usadas.add(chaveQuestao(q));
+    perguntas.push(q);
+  }
+  if (perguntas.length < 5) {
+    alert("Ainda não há perguntas suficientes para um duelo.");
+    return;
+  }
+
+  try {
+    await criarDuelo({
+      turma: minhaTurma.codigo,
+      criadorId: usuario.uid,
+      criadorNome: usuario.nome,
+      criadorFoto: usuario.foto || "",
+      oponenteId: oponente.uid,
+      oponenteNome: oponente.nome,
+      oponenteFoto: "",
+      perguntas,
+    });
+    alert(`Desafio enviado para ${oponente.nome}! Agora responda suas perguntas.`);
+    renderDuelo();
+  } catch (err) {
+    alert("Erro ao criar duelo: " + err.message);
+  }
+});
+
+// Abre um duelo existente (aceitar/responder/ver)
+document.getElementById("duelo-pendentes").addEventListener("click", (e) => {
+  const btn = e.target.closest(".duelo-abrir");
+  if (!btn) return;
+  abrirDueloJogo(btn.dataset.id);
+});
+document.getElementById("duelo-meus").addEventListener("click", (e) => {
+  const btn = e.target.closest(".duelo-abrir");
+  if (!btn) return;
+  abrirDueloJogo(btn.dataset.id);
+});
+
+async function abrirDueloJogo(dueloId) {
+  const duelo = await new Promise((resolve) => {
+    const unsub = ouvirDuelo(dueloId, (d) => { unsub && unsub(); resolve(d); });
+  });
+  if (!duelo) return;
+
+  const euJa = duelo.respostas && duelo.respostas[usuario.uid];
+  if (duelo.status === "finalizado" || euJa) {
+    mostrarResultadoDuelo(duelo);
+    return;
+  }
+
+  dueloAtual = duelo;
+  dueloQuestoes = duelo.perguntas || [];
+  dueloIndice = 0;
+  dueloRespostas = [];
+  document.getElementById("duelo-conteudo").classList.add("escondido");
+  document.getElementById("duelo-jogo").classList.remove("escondido");
+  renderQuestaoDuelo();
+}
+
+function renderQuestaoDuelo() {
+  const q = dueloQuestoes[dueloIndice];
+  dueloRespondido = false;
+  document.getElementById("duelo-placar").textContent =
+    `Pergunta ${dueloIndice + 1} de ${dueloQuestoes.length} · Você acertou ${dueloRespostas.filter((x) => x).length}`;
+  document.getElementById("duelo-enunciado").textContent = q.enunciado;
+  const alts = document.getElementById("duelo-alternativas");
+  alts.innerHTML = "";
+  q.alternativas.forEach((texto, i) => {
+    const b = document.createElement("button");
+    b.className = "alt";
+    b.innerHTML = `<span class="alt-letra">${LETRAS[i]}</span><span>${texto}</span>`;
+    b.addEventListener("click", () => responderDuelo(i));
+    alts.appendChild(b);
+  });
+  esconder(document.getElementById("duelo-feedback"));
+}
+
+async function responderDuelo(escolha) {
+  if (dueloRespondido) return;
+  dueloRespondido = true;
+  const q = dueloQuestoes[dueloIndice];
+  const acertou = escolha === q.correta;
+  dueloRespostas.push(acertou ? 1 : 0);
+
+  document.querySelectorAll("#duelo-alternativas .alt").forEach((b, i) => {
+    b.classList.add("travada");
+    if (i === q.correta) b.classList.add("correta");
+    else if (i === escolha) b.classList.add("errada");
+  });
+
+  setTimeout(async () => {
+    dueloIndice++;
+    if (dueloIndice < dueloQuestoes.length) {
+      renderQuestaoDuelo();
+    } else {
+      await terminarMinhasRespostas();
+    }
+  }, 900);
+}
+
+async function terminarMinhasRespostas() {
+  try {
+    await salvarRespostaDuelo(dueloAtual.id, usuario.uid, dueloRespostas);
+    // Recarrega para ver se o outro já respondeu
+    const atualizado = await new Promise((resolve) => {
+      const unsub = ouvirDuelo(dueloAtual.id, (d) => { unsub && unsub(); resolve(d); });
+    });
+    await checarFinalizacao(atualizado);
+    mostrarResultadoDuelo(atualizado);
+  } catch (e) {
+    alert("Erro ao enviar respostas: " + e.message);
+  }
+}
+
+async function checarFinalizacao(duelo) {
+  const r = duelo.respostas || {};
+  if (!r[duelo.criadorId] || !r[duelo.oponenteId]) return duelo;
+  const acC = r[duelo.criadorId].reduce((a, b) => a + b, 0);
+  const acO = r[duelo.oponenteId].reduce((a, b) => a + b, 0);
+  let vencedorId = null;
+  if (acC > acO) vencedorId = duelo.criadorId;
+  else if (acO > acC) vencedorId = duelo.oponenteId;
+  if (duelo.status !== "finalizado") {
+    await finalizarDuelo(duelo.id, vencedorId, { [duelo.criadorId]: acC, [duelo.oponenteId]: acO }).catch(() => {});
+  }
+  return { ...duelo, status: "finalizado", vencedorId, placar: { [duelo.criadorId]: acC, [duelo.oponenteId]: acO } };
+}
+
+async function mostrarResultadoDuelo(duelo) {
+  duelo = await checarFinalizacao(duelo);
+  const r = duelo.respostas || {};
+  const acC = (r[duelo.criadorId] || []).reduce((a, b) => a + b, 0);
+  const acO = (r[duelo.oponenteId] || []).reduce((a, b) => a + b, 0);
+  const souCriador = duelo.criadorId === usuario.uid;
+  const meus = souCriador ? acC : acO;
+  const dele = souCriador ? acO : acC;
+  const oponenteNome = souCriador ? duelo.oponenteNome : duelo.criadorNome;
+
+  let msg;
+  if (duelo.status === "finalizado" || duelo.vencedorId !== undefined) {
+    if (duelo.vencedorId === usuario.uid) {
+      msg = `🏆 Você venceu ${oponenteNome}! (${meus} x ${dele})`;
+      // Premia só uma vez
+      if (!duelo.premiado) {
+        await premiarVencedor(duelo);
+        const area = ORDEM_ROLETA[Math.floor(Math.random() * ORDEM_ROLETA.length)];
+        const nova = await ganharFigurinha(area);
+        if (nova) msg += ` Ganhou ${nova.emoji} ${nova.nome}!`;
+      }
+    } else if (duelo.vencedorId === null) {
+      msg = `🤝 Empate com ${oponenteNome}! (${meus} x ${dele})`;
+    } else {
+      msg = `😅 ${oponenteNome} venceu desta vez. (${meus} x ${dele})`;
+    }
+  } else {
+    msg = `Você respondeu ${meus} corretas. Aguardando ${oponenteNome} responder...`;
+  }
+
+  document.getElementById("duelo-placar").textContent = msg;
+  document.getElementById("duelo-enunciado").textContent = "";
+  document.getElementById("duelo-alternativas").innerHTML = "";
+  const fb = document.getElementById("duelo-feedback");
+  fb.className = "jogo-feedback ok";
+  fb.innerHTML = `Volte ao jogo para girar a roleta e ganhar mais figurinhas!`;
+  exibir(fb);
+  document.getElementById("duelo-jogo").classList.remove("escondido");
+  document.getElementById("duelo-conteudo").classList.add("escondido");
+  renderAlbum();
+}
+
+// Marca o duelo como premiado (evita dar figurinha mais de uma vez)
+async function premiarVencedor(duelo) {
+  if (duelo.premiado) return;
+  await firebase.firestore().collection("duelos").doc(duelo.id).update({ premiado: true }).catch(() => {});
 }
 
 // ---------- Eventos gerais ----------

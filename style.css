@@ -1441,6 +1441,26 @@ h1, h2, h3, h4, .marca-nome, .btn-principal, .btn-secundario, .btn-google, .btn-
   object-fit: cover;
 }
 
+.perfil-foto-preview {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border: 4px solid var(--black);
+  border-radius: 12px;
+  margin-top: 10px;
+}
+
+.perfil-termos {
+  font-size: 0.9rem;
+  color: var(--muted);
+  margin-top: 8px;
+  line-height: 1.45;
+}
+
+.perfil-termos strong {
+  color: var(--red);
+}
+
 .perfil-nome {
   font-size: 0.95rem;
   color: var(--red);
@@ -2553,3 +2573,118 @@ h1, h2, h3, h4, .marca-nome, .btn-principal, .btn-secundario, .btn-google, .btn-
 .figurinha.area-humanas { border-color: #43b047; }
 .figurinha.area-natureza { border-color: #d4a017; }
 .figurinha.area-matematica { border-color: #1b7ea6; }
+
+.figurinha.clicavel {
+  cursor: pointer;
+  transition: transform 0.12s, box-shadow 0.12s;
+}
+
+.figurinha.clicavel:hover {
+  transform: translateY(-4px);
+  box-shadow: 6px 8px 0 var(--black);
+}
+
+/* ===== MODAL DA FIGURINHA ===== */
+.modal-figurinha {
+  position: fixed;
+  inset: 0;
+  background: rgba(20, 20, 43, 0.85);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.modal-figurinha-caixa {
+  background: var(--surface-2);
+  border: 5px solid var(--black);
+  box-shadow: 8px 8px 0 var(--black);
+  border-radius: 14px;
+  padding: 28px 24px;
+  max-width: 420px;
+  text-align: center;
+}
+
+.fig-modal-emoji {
+  font-size: 4rem;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.modal-figurinha-caixa h3 {
+  font-size: 0.85rem;
+  color: var(--red);
+  margin-bottom: 12px;
+  line-height: 1.8;
+}
+
+.fig-modal-raridade {
+  display: inline-block;
+  font-family: var(--pixel);
+  font-size: 0.5rem;
+  padding: 4px 10px;
+  border-radius: 8px;
+  color: #fff;
+  margin-bottom: 14px;
+}
+
+.fig-modal-raridade.comum { background: #43b047; }
+.fig-modal-raridade.rara { background: #1b7ea6; }
+.fig-modal-raridade.lendaria { background: #d4a017; }
+
+#fig-modal-historia {
+  font-size: 1.15rem;
+  color: var(--on-surface-2);
+  margin-bottom: 18px;
+}
+
+/* ===== DUELO ===== */
+.duelo-colegas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.duelo-colega {
+  background: var(--surface-2);
+  border: 3px solid var(--black);
+  box-shadow: 3px 3px 0 var(--black);
+  border-radius: 999px;
+  padding: 10px 16px;
+  font-family: var(--pixel);
+  font-size: 0.55rem;
+  cursor: pointer;
+  color: var(--black);
+}
+
+.duelo-colega:hover {
+  background: var(--yellow);
+}
+
+.duelo-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.duelo-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  background: var(--surface);
+  border: 3px solid var(--black);
+  border-radius: 10px;
+  padding: 12px 14px;
+  font-size: 1.1rem;
+}
+
+.duelo-placar {
+  font-family: var(--pixel);
+  font-size: 0.6rem;
+  line-height: 1.8;
+  color: var(--red);
+  margin-bottom: 14px;
+}

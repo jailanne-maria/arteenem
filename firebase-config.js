@@ -259,6 +259,47 @@ function excluirPergunta(id) {
   return firebase.firestore().collection("perguntas").doc(id).delete();
 }
 
+// ---------- Duelos ----------
+function criarDuelo(dados) {
+  return firebase.firestore().collection("duelos").add({
+    ...dados,
+    status: "aguardando",
+    respostas: {},
+    criadoEm: firebase.firestore.FieldValue.serverTimestamp(),
+  });
+}
+
+function duelosPendentesPara(uid) {
+  return firebase.firestore().collection("duelos")
+    .where("oponenteId", "==", uid)
+    .get()
+    .then((snap) => snap.docs
+      .map((d) => ({ id: d.id, ...d.data() }))
+      .filter((d) => d.status !== "finalizado"));
+}
+
+function duelosDoUsuario(uid) {
+  return firebase.firestore().collection("duelos")
+    .where("criadorId", "==", uid)
+    .get()
+    .then((snap) => snap.docs.map((d) => ({ id: d.id, ...d.data() })));
+}
+
+function ouvirDuelo(dueloId, callback) {
+  return firebase.firestore().collection("duelos").doc(dueloId)
+    .onSnapshot((doc) => callback(doc.exists ? { id: doc.id, ...doc.data() } : null));
+}
+
+function salvarRespostaDuelo(dueloId, uid, respostas) {
+  const ref = firebase.firestore().collection("duelos").doc(dueloId);
+  return ref.update({ ["respostas." + uid]: respostas, status: "em_andamento" });
+}
+
+function finalizarDuelo(dueloId, vencedorId, placar) {
+  return firebase.firestore().collection("duelos").doc(dueloId)
+    .update({ status: "finalizado", vencedorId, placar });
+}
+
 if (typeof module !== "undefined") {
   module.exports = { firebaseConfig };
 }
