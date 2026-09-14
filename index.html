@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="NINA — diagnóstico das 4 áreas do ENEM. Professores criam turmas, estudantes fazem o diagnóstico e disputam o ranking.">
   <title>NINA · Diagnóstico das 4 áreas</title>
-  <link rel="stylesheet" href="style.css?v=18">
+  <link rel="stylesheet" href="style.css?v=19">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
@@ -22,6 +22,7 @@
         <span id="usuario-nome" class="usuario-nome escondido"></span>
         <button id="btn-noticias" class="btn-ghost escondido">📰 Notícias</button>
         <button id="btn-sintese" class="btn-ghost escondido">⏱️ Síntese</button>
+        <button id="btn-curriculo" class="btn-ghost escondido">📚 Currículo</button>
         <button id="btn-jogo" class="btn-ghost escondido">🎡 Jogo</button>
         <button id="btn-explorar" class="btn-ghost escondido">🎮 Explorar</button>
         <button id="btn-eca" class="btn-ghost escondido">📜 ECA</button>
@@ -541,6 +542,31 @@
       <p class="sintese-dica">💡 Dica: na pesquisa, anote só <strong>3 ideias principais</strong>. Na fala, comece pela ideia central e conecte os argumentos — sem ler.</p>
     </section>
 
+    <!-- ===== CURRÍCULO (BNCC + ACRE) ===== -->
+    <section id="tela-curriculo" class="tela">
+      <button id="btn-voltar-curriculo" class="btn-ghost voltar">← Voltar</button>
+
+      <div class="hero">
+        <h1>📚 Currículo do <span class="destaque">Ensino Médio</span></h1>
+        <p>Competências e habilidades da <strong>BNCC</strong> por série, com temas regionais do <strong>Acre</strong>.</p>
+      </div>
+
+      <div class="curriculo-series">
+        <button class="serie-btn ativa" data-serie="1ª">1ª série</button>
+        <button class="serie-btn" data-serie="2ª">2ª série</button>
+        <button class="serie-btn" data-serie="3ª">3ª série</button>
+      </div>
+
+      <div class="curriculo-areas">
+        <button class="area-btn ativa" data-area="linguagens">🎨 Linguagens</button>
+        <button class="area-btn" data-area="humanas">🌍 Humanas</button>
+        <button class="area-btn" data-area="natureza">🧪 Natureza</button>
+        <button class="area-btn" data-area="matematica">📐 Matemática</button>
+      </div>
+
+      <div id="curriculo-conteudo" class="curriculo-conteudo"></div>
+    </section>
+
     <!-- ===== MURAL (ORKUT) ===== -->
     <section id="tela-mural" class="tela">
       <button id="btn-voltar-mural" class="btn-ghost voltar">← Voltar</button>
@@ -657,11 +683,12 @@
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 
-  <script src="questoes.js?v=18"></script>
-  <script src="plano.js?v=18"></script>
-  <script src="explorar.js?v=18"></script>
-  <script src="figurinhas.js?v=18"></script>
-  <script src="firebase-config.js?v=18"></script>
-  <script src="script.js?v=18"></script>
+  <script src="questoes.js?v=19"></script>
+  <script src="plano.js?v=19"></script>
+  <script src="explorar.js?v=19"></script>
+  <script src="figurinhas.js?v=19"></script>
+  <script src="curriculo.js?v=19"></script>
+  <script src="firebase-config.js?v=19"></script>
+  <script src="script.js?v=19"></script>
 </body>
 </html>

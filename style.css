@@ -2908,6 +2908,128 @@ h1, h2, h3, h4, .marca-nome, .btn-principal, .btn-secundario, .btn-google, .btn-
   text-align: center;
 }
 
+/* ===== CURRÍCULO (BNCC + ACRE) ===== */
+.curriculo-series {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.serie-btn,
+.area-btn {
+  flex: 1;
+  background: var(--surface-2);
+  border: 3px solid var(--black);
+  box-shadow: 3px 3px 0 var(--black);
+  border-radius: 10px;
+  padding: 12px 8px;
+  font-family: var(--pixel);
+  font-size: 0.55rem;
+  cursor: pointer;
+  color: var(--black);
+}
+
+.serie-btn.ativa,
+.area-btn.ativa {
+  background: var(--yellow);
+}
+
+.curriculo-areas {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 22px;
+}
+
+.curriculo-sub {
+  font-family: var(--pixel);
+  font-size: 0.6rem;
+  color: var(--white);
+  text-shadow: 2px 2px 0 var(--black);
+  margin: 20px 0 12px;
+  line-height: 1.8;
+}
+
+.curriculo-info {
+  color: var(--white);
+  text-shadow: 2px 2px 0 var(--black);
+  font-size: 0.98rem;
+  margin-bottom: 12px;
+}
+
+.comp-lista,
+.hab-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.comp-card {
+  background: var(--surface-2);
+  border: 3px solid var(--black);
+  box-shadow: 3px 3px 0 var(--black);
+  border-radius: 10px;
+  padding: 12px 14px;
+}
+
+.comp-num {
+  display: inline-block;
+  background: var(--roxo);
+  color: var(--white);
+  font-family: var(--pixel);
+  font-size: 0.5rem;
+  padding: 4px 10px;
+  border-radius: 8px;
+  margin-bottom: 8px;
+}
+
+.comp-card p {
+  font-size: 1.05rem;
+  color: var(--on-surface-2);
+}
+
+.hab-card {
+  background: var(--surface-2);
+  border: 3px solid var(--black);
+  box-shadow: 3px 3px 0 var(--black);
+  border-radius: 10px;
+  padding: 12px 14px;
+}
+
+.hab-codigo {
+  display: inline-block;
+  background: var(--green);
+  color: var(--white);
+  font-family: var(--pixel);
+  font-size: 0.5rem;
+  padding: 4px 10px;
+  border-radius: 8px;
+  margin-bottom: 8px;
+}
+
+.hab-desc {
+  font-size: 1.05rem;
+  color: var(--on-surface-2);
+}
+
+.temas-acre {
+  list-style: none;
+}
+
+.temas-acre li {
+  background: var(--surface-2);
+  border: 3px solid var(--black);
+  box-shadow: 3px 3px 0 var(--black);
+  border-radius: 10px;
+  padding: 12px 14px;
+  margin-bottom: 10px;
+  font-size: 1.1rem;
+}
+
+.temas-acre li::before {
+  content: "🌳 ";
+}
+
 /* ===== MELHORIAS PARA CELULAR ===== */
 @media (max-width: 640px) {
   .topo-inner {

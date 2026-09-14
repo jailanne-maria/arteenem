@@ -56,6 +56,7 @@ aoMudarUsuario(async (user) => {
   const btnJogo = document.getElementById("btn-jogo");
   const btnNoticias = document.getElementById("btn-noticias");
   const btnSintese = document.getElementById("btn-sintese");
+  const btnCurriculo = document.getElementById("btn-curriculo");
   const nomeTopo = document.getElementById("usuario-nome");
 
   if (!user) {
@@ -69,6 +70,7 @@ aoMudarUsuario(async (user) => {
     esconder(btnJogo);
     esconder(btnNoticias);
     esconder(btnSintese);
+    esconder(btnCurriculo);
     esconder(nomeTopo);
     mostrarTela("tela-login");
     return;
@@ -99,6 +101,7 @@ aoMudarUsuario(async (user) => {
   exibir(btnJogo);
   exibir(btnNoticias);
   exibir(btnSintese);
+  exibir(btnCurriculo);
 
   // Aviso do ECA a cada login (uma vez por sessão)
   mostrarAvisoECA();
@@ -2310,6 +2313,78 @@ document.getElementById("btn-voltar-sintese").addEventListener("click", () => {
   if (usuario && usuario.papel === "professor") abrirPainelProfessor();
   else abrirInicioEstudante();
 });
+
+// ============================================================
+// CURRÍCULO (BNCC + ACRE) POR SÉRIE
+// ============================================================
+let curriculoSerie = "1ª";
+let curriculoArea = "linguagens";
+
+function abrirCurriculo() {
+  renderCurriculo();
+  mostrarTela("tela-curriculo");
+}
+
+document.getElementById("btn-curriculo").addEventListener("click", abrirCurriculo);
+document.getElementById("btn-voltar-curriculo").addEventListener("click", () => {
+  if (usuario && usuario.papel === "professor") abrirPainelProfessor();
+  else abrirInicioEstudante();
+});
+
+document.querySelectorAll(".serie-btn").forEach((b) => {
+  b.addEventListener("click", () => {
+    curriculoSerie = b.dataset.serie;
+    document.querySelectorAll(".serie-btn").forEach((x) => x.classList.toggle("ativa", x === b));
+    renderCurriculo();
+  });
+});
+
+document.querySelectorAll(".area-btn").forEach((b) => {
+  b.addEventListener("click", () => {
+    curriculoArea = b.dataset.area;
+    document.querySelectorAll(".area-btn").forEach((x) => x.classList.toggle("ativa", x === b));
+    renderCurriculo();
+  });
+});
+
+function renderCurriculo() {
+  const dados = CURRICULO[curriculoArea];
+  if (!dados) return;
+  const div = document.getElementById("curriculo-conteudo");
+
+  const habilidades = dados.habilidades.filter((h) => h.series.includes(curriculoSerie));
+  const compsUsadas = [...new Set(habilidades.map((h) => h.competencia))].sort((a, b) => a - b);
+
+  const compsHtml = compsUsadas.map((n) => `
+    <div class="comp-card">
+      <span class="comp-num">Competência ${n}</span>
+      <p>${escaparHTML(dados.competencias[n - 1] || "")}</p>
+    </div>
+  `).join("");
+
+  const habHtml = habilidades.map((h) => `
+    <div class="hab-card">
+      <span class="hab-codigo">${h.codigo}</span>
+      <p class="hab-desc">${escaparHTML(h.descricao)}</p>
+    </div>
+  `).join("");
+
+  const temasHtml = dados.temasAcre.map((t) => `<li>${escaparHTML(t)}</li>`).join("");
+
+  div.innerHTML = `
+    <h3 class="secao-titulo">${dados.nome} · ${curriculoSerie} série</h3>
+
+    <h4 class="curriculo-sub">🎯 Competências específicas</h4>
+    <div class="comp-lista">${compsHtml || "<p class='vazio'>—</p>"}</div>
+
+    <h4 class="curriculo-sub">✅ Habilidades (BNCC)</h4>
+    <p class="curriculo-info">${habilidades.length} habilidade(s) sugerida(s) para esta série. Os códigos EM13 valem para as três séries do Ensino Médio; a distribuição oficial é definida pelo currículo estadual.</p>
+    <div class="hab-lista">${habHtml || "<p class='vazio'>—</p>"}</div>
+
+    <h4 class="curriculo-sub">🌳 Temas regionais do Acre</h4>
+    <ul class="temas-acre">${temasHtml}</ul>
+  `;
+}
 
 // ---------- Eventos gerais ----------
 document.getElementById("btn-completo").addEventListener("click", () =>
