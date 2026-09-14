@@ -53,6 +53,7 @@ aoMudarUsuario(async (user) => {
   const btnPerfil = document.getElementById("btn-perfil");
   const btnExplorar = document.getElementById("btn-explorar");
   const btnEca = document.getElementById("btn-eca");
+  const btnJogo = document.getElementById("btn-jogo");
   const nomeTopo = document.getElementById("usuario-nome");
 
   if (!user) {
@@ -63,6 +64,7 @@ aoMudarUsuario(async (user) => {
     esconder(btnPerfil);
     esconder(btnExplorar);
     esconder(btnEca);
+    esconder(btnJogo);
     esconder(nomeTopo);
     mostrarTela("tela-login");
     return;
@@ -90,6 +92,7 @@ aoMudarUsuario(async (user) => {
   exibir(btnPerfil);
   exibir(btnExplorar);
   exibir(btnEca);
+  exibir(btnJogo);
 
   // Aviso do ECA a cada login (uma vez por sessão)
   mostrarAvisoECA();
@@ -1494,6 +1497,151 @@ document.getElementById("btn-eca-ler").addEventListener("click", () => {
   fecharAvisoECA();
   abrirECA();
 });
+
+// ============================================================
+// JOGO: ROLETA DE FIGURINHAS
+// ============================================================
+let anguloRoleta = 0;
+let girando = false;
+let jogoAreaAtual = null;
+let jogoQuestaoAtual = null;
+let jogoRespondido = false;
+
+function minhasFigurinhas() {
+  return (usuario && usuario.figurinhas) || [];
+}
+
+function abrirJogo() {
+  renderAlbum();
+  esconder(document.getElementById("jogo-painel"));
+  document.getElementById("btn-girar").disabled = false;
+  mostrarTela("tela-jogo");
+}
+
+document.getElementById("btn-jogo").addEventListener("click", abrirJogo);
+
+document.getElementById("btn-girar").addEventListener("click", () => {
+  if (girando) return;
+  girando = true;
+  esconder(document.getElementById("jogo-painel"));
+  const btn = document.getElementById("btn-girar");
+  btn.disabled = true;
+  btn.textContent = "🎡 Girando...";
+
+  const s = Math.floor(Math.random() * 4); // setor sorteado
+  const alvo = (315 - s * 90 + 360) % 360;
+  anguloRoleta += 5 * 360 + (((alvo - (anguloRoleta % 360)) % 360) + 360) % 360;
+  document.getElementById("roleta").style.transform = `rotate(${anguloRoleta}deg)`;
+
+  setTimeout(() => {
+    girando = false;
+    btn.disabled = false;
+    btn.textContent = "🎡 Girar a roleta";
+    jogoAreaAtual = ORDEM_ROLETA[s];
+    mostrarPerguntaDaArea(jogoAreaAtual);
+  }, 4200);
+});
+
+function mostrarPerguntaDaArea(area) {
+  const banco = bancoDePerguntas().filter((q) => q.area === area);
+  if (!banco.length) {
+    alert("Ainda não há perguntas dessa área.");
+    return;
+  }
+  jogoQuestaoAtual = banco[Math.floor(Math.random() * banco.length)];
+  jogoRespondido = false;
+
+  const info = AREAS[area] || { icone: "", curto: area };
+  document.getElementById("jogo-area-tag").textContent = `${info.icone} ${info.curto}`;
+  document.getElementById("jogo-enunciado").textContent = jogoQuestaoAtual.enunciado;
+
+  const alts = document.getElementById("jogo-alternativas");
+  alts.innerHTML = "";
+  jogoQuestaoAtual.alternativas.forEach((texto, i) => {
+    const b = document.createElement("button");
+    b.className = "alt";
+    b.innerHTML = `<span class="alt-letra">${LETRAS[i]}</span><span>${texto}</span>`;
+    b.addEventListener("click", () => responderJogo(i));
+    alts.appendChild(b);
+  });
+
+  esconder(document.getElementById("jogo-feedback"));
+  document.getElementById("jogo-painel").classList.remove("escondido");
+}
+
+async function responderJogo(escolha) {
+  if (jogoRespondido) return;
+  jogoRespondido = true;
+  const q = jogoQuestaoAtual;
+  const acertou = escolha === q.correta;
+
+  document.querySelectorAll("#jogo-alternativas .alt").forEach((b, i) => {
+    b.classList.add("travada");
+    if (i === q.correta) b.classList.add("correta");
+    else if (i === escolha) b.classList.add("errada");
+  });
+
+  const fb = document.getElementById("jogo-feedback");
+  fb.className = "jogo-feedback " + (acertou ? "ok" : "erro");
+
+  if (acertou) {
+    const nova = await ganharFigurinha(jogoAreaAtual);
+    if (nova) {
+      fb.innerHTML = `🎉 <strong>Acertou! Você ganhou a figurinha ${nova.emoji} ${nova.nome}!</strong><br>${q.explicacao || ""}`;
+    } else {
+      fb.innerHTML = `🎉 <strong>Acertou!</strong> Você já tem todas as figurinhas dessa área! 🌟<br>${q.explicacao || ""}`;
+    }
+  } else {
+    fb.innerHTML = `❌ <strong>Não foi essa.</strong> Tente de novo girando a roleta!<br>${q.explicacao || ""}`;
+  }
+  fb.classList.remove("escondido");
+  renderAlbum();
+}
+
+// Sorteia uma figurinha ainda não colecionada da área
+async function ganharFigurinha(area) {
+  const tenho = minhasFigurinhas();
+  const disponiveis = figurinhasDaArea(area).filter((f) => !tenho.includes(f.id));
+  if (!disponiveis.length) return null;
+
+  // Dá preferência às mais comuns; as raras/lendárias são mais difíceis
+  const peso = (f) => (f.raridade === "lendaria" ? 1 : f.raridade === "rara" ? 2 : 3);
+  const pool = [];
+  disponiveis.forEach((f) => { for (let i = 0; i < peso(f); i++) pool.push(f); });
+  const nova = pool[Math.floor(Math.random() * pool.length)];
+
+  const lista = tenho.concat(nova.id);
+  usuario.figurinhas = lista;
+  await salvarUsuario(usuario.uid, { figurinhas: lista }).catch(() => {});
+  return nova;
+}
+
+function renderAlbum() {
+  const album = document.getElementById("album");
+  const tenho = minhasFigurinhas();
+  album.innerHTML = FIGURINHAS.map((f) => {
+    const tem = tenho.includes(f.id);
+    const info = AREAS[f.area] || { icone: "", curto: f.area };
+    return `
+      <div class="figurinha ${f.raridade} area-${f.area} ${tem ? "" : "bloqueada"}">
+        <span class="fig-emoji">${tem ? f.emoji : "❓"}</span>
+        <span class="fig-nome">${tem ? f.nome : "???"}</span>
+        <span class="fig-raridade ${f.raridade}">${tem ? f.raridade : info.curto}</span>
+      </div>
+    `;
+  }).join("");
+
+  const total = FIGURINHAS.length;
+  const qtd = tenho.length;
+  document.getElementById("album-resumo").textContent =
+    `Você colecionou ${qtd} de ${total} figurinhas. Cada acerto na roleta revela uma nova!`;
+
+  // Destaques por área (quantas figurinhas em cada)
+  const porArea = {};
+  ORDEM_ROLETA.forEach((a) => {
+    porArea[a] = { total: figurinhasDaArea(a).length, tenho: figurinhasDaArea(a).filter((f) => tenho.includes(f.id)).length };
+  });
+}
 
 // ---------- Eventos gerais ----------
 document.getElementById("btn-completo").addEventListener("click", () =>

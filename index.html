@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="ArteENEM — diagnóstico das 4 áreas do ENEM. Professores criam turmas, estudantes fazem o diagnóstico e disputam o ranking.">
-  <title>ArteENEM · Diagnóstico das 4 áreas</title>
-  <link rel="stylesheet" href="style.css?v=11">
+  <meta name="description" content="NINA — diagnóstico das 4 áreas do ENEM. Professores criam turmas, estudantes fazem o diagnóstico e disputam o ranking.">
+  <title>NINA · Diagnóstico das 4 áreas</title>
+  <link rel="stylesheet" href="style.css?v=12">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
@@ -16,10 +16,11 @@
     <div class="topo-inner">
       <div class="marca">
         <span class="marca-icone">🎨</span>
-        <span class="marca-nome">Arte<strong>ENEM</strong></span>
+        <span class="marca-nome">NI<strong>NA</strong></span>
       </div>
       <div class="topo-usuario">
         <span id="usuario-nome" class="usuario-nome escondido"></span>
+        <button id="btn-jogo" class="btn-ghost escondido">🎡 Jogo</button>
         <button id="btn-explorar" class="btn-ghost escondido">🎮 Explorar</button>
         <button id="btn-eca" class="btn-ghost escondido">📜 ECA</button>
         <button id="btn-perfil" class="btn-ghost escondido">👤 Perfil</button>
@@ -35,7 +36,7 @@
     <section id="tela-login" class="tela ativa">
       <div class="login-card">
         <span class="login-icone">🎨</span>
-        <h1>Arte<strong>ENEM</strong></h1>
+        <h1>NI<strong>NA</strong></h1>
         <p>Entre para participar das turmas, fazer o diagnóstico das 4 áreas e disputar o ranking.</p>
         <button id="btn-google" class="btn-google">
           <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path fill="#4285F4" d="M17.64 9.2c0-.64-.06-1.25-.16-1.84H9v3.48h4.84a4.14 4.14 0 0 1-1.8 2.72v2.26h2.92c1.7-1.57 2.68-3.88 2.68-6.62z"/><path fill="#34A853" d="M9 18c2.43 0 4.47-.8 5.96-2.18l-2.92-2.26c-.8.54-1.84.86-3.04.86-2.34 0-4.32-1.58-5.03-3.7H.96v2.33A9 9 0 0 0 9 18z"/><path fill="#FBBC05" d="M3.97 10.72a5.4 5.4 0 0 1 0-3.44V4.95H.96a9 9 0 0 0 0 8.1l3.01-2.33z"/><path fill="#EA4335" d="M9 3.58c1.32 0 2.5.45 3.44 1.35l2.58-2.58C13.46.9 11.43 0 9 0A9 9 0 0 0 .96 4.95l3.01 2.33C4.68 5.16 6.66 3.58 9 3.58z"/></svg>
@@ -48,7 +49,7 @@
     <!-- ===== ESCOLHA DE PAPEL ===== -->
     <section id="tela-papel" class="tela">
       <div class="hero">
-        <h1>Como você vai usar o <span class="destaque">ArteENEM</span>?</h1>
+        <h1>Como você vai usar o <span class="destaque">NINA</span>?</h1>
         <p>Escolha seu perfil. Você poderá alterar depois.</p>
       </div>
       <div class="papeis">
@@ -89,7 +90,7 @@
 
       <div class="painel-bloco" style="margin-top:24px">
         <h3 class="secao-titulo">📝 Contribuir com perguntas</h3>
-        <p class="texto-ajuda">Ajude a ampliar o banco de questões do ArteENEM. Suas perguntas podem aparecer no diagnóstico dos estudantes.</p>
+        <p class="texto-ajuda">Ajude a ampliar o banco de questões do NINA. Suas perguntas podem aparecer no diagnóstico dos estudantes.</p>
         <button id="btn-ir-contribuir" class="btn-principal">➕ Adicionar perguntas</button>
       </div>
     </section>
@@ -410,6 +411,39 @@
       <div id="lista-perguntas" class="perguntas-lista"></div>
     </section>
 
+    <!-- ===== JOGO (ROLETA DE FIGURINHAS) ===== -->
+    <section id="tela-jogo" class="tela">
+      <div class="hero">
+        <h1>🎡 Roleta do <span class="destaque">NINA</span></h1>
+        <p>Gire a roleta, responda a pergunta da área sorteada e ganhe figurinhas colecionáveis!</p>
+      </div>
+
+      <div class="roleta-area">
+        <div class="roleta-ponteiro">▼</div>
+        <div class="roleta" id="roleta">
+          <div class="roleta-face">
+            <span class="roleta-item" style="--ang:45deg">🎨</span>
+            <span class="roleta-item" style="--ang:135deg">🌍</span>
+            <span class="roleta-item" style="--ang:225deg">🧪</span>
+            <span class="roleta-item" style="--ang:315deg">📐</span>
+          </div>
+        </div>
+      </div>
+
+      <button id="btn-girar" class="btn-principal">🎡 Girar a roleta</button>
+
+      <div id="jogo-painel" class="jogo-painel escondido">
+        <div id="jogo-area-tag" class="jogo-area-tag"></div>
+        <p id="jogo-enunciado" class="jogo-enunciado"></p>
+        <div id="jogo-alternativas" class="jogo-alternativas"></div>
+        <div id="jogo-feedback" class="jogo-feedback escondido"></div>
+      </div>
+
+      <h3 class="secao-titulo">🏆 Meu álbum de figurinhas</h3>
+      <p id="album-resumo" class="album-resumo"></p>
+      <div id="album" class="album"></div>
+    </section>
+
     <!-- ===== MURAL (ORKUT) ===== -->
     <section id="tela-mural" class="tela">
       <button id="btn-voltar-mural" class="btn-ghost voltar">← Voltar</button>
@@ -472,7 +506,7 @@
       </div>
 
       <div class="eca-bloco eca-compromisso">
-        <h3>✅ Compromisso do ArteENEM</h3>
+        <h3>✅ Compromisso do NINA</h3>
         <ul>
           <li>Espaço seguro, educativo e livre de violência, discriminação e assédio.</li>
           <li>Dados usados apenas para fins pedagógicos (turmas, diagnóstico e ranking).</li>
@@ -502,7 +536,7 @@
 
   <footer class="rodape">
     <p class="rodape-credito">🎨 App desenvolvido pela artista educadora <strong>@maria.jai_</strong></p>
-    <p class="rodape-sub">ArteENEM · Diagnóstico educacional das 4 áreas do ENEM</p>
+    <p class="rodape-sub">NINA · Diagnóstico educacional das 4 áreas do ENEM</p>
   </footer>
 
   <!-- Firebase (compat) -->
@@ -510,10 +544,11 @@
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 
-  <script src="questoes.js?v=11"></script>
-  <script src="plano.js?v=11"></script>
-  <script src="explorar.js?v=11"></script>
-  <script src="firebase-config.js?v=11"></script>
-  <script src="script.js?v=11"></script>
+  <script src="questoes.js?v=12"></script>
+  <script src="plano.js?v=12"></script>
+  <script src="explorar.js?v=12"></script>
+  <script src="figurinhas.js?v=12"></script>
+  <script src="firebase-config.js?v=12"></script>
+  <script src="script.js?v=12"></script>
 </body>
 </html>
