@@ -54,7 +54,7 @@ const CURRICULO = {
       },
       {
         "codigo": "EM13LGG105",
-        "descricao": "Analisar e experimentar diversos processos de remidiação de produções multissemióticas, multimídia e transmídia, como forma de fomentar diferentes modos de participação e intervenção social. 484",
+        "descricao": "Analisar e experimentar diversos processos de remidiação de produções multissemióticas, multimídia e transmídia, como forma de fomentar diferentes modos de participação e intervenção social.",
         "competencia": 1,
         "series": [
           "1ª"
@@ -118,7 +118,7 @@ const CURRICULO = {
       },
       {
         "codigo": "EM13LGG304",
-        "descricao": "Mapear e criar, por meio de práticas de linguagem, possibilidades de atuação social, política, artística e cultural para enfrentar desafios contemporâneos, discutindo seus princípios e objetivos de maneira crítica, criativa, solidária e ética. 486",
+        "descricao": "Mapear e criar, por meio de práticas de linguagem, possibilidades de atuação social, política, artística e cultural para enfrentar desafios contemporâneos, discutindo seus princípios e objetivos de maneira crítica, criativa, solidária e ética.",
         "competencia": 3,
         "series": [
           "2ª"
@@ -166,7 +166,7 @@ const CURRICULO = {
       },
       {
         "codigo": "EM13LGG503",
-        "descricao": "Praticar, significar e valorizar a cultura corporal de movimento como forma de autoconhecimento, autocuidado e construção de laços sociais em seus projetos de vida. 488",
+        "descricao": "Praticar, significar e valorizar a cultura corporal de movimento como forma de autoconhecimento, autocuidado e construção de laços sociais em seus projetos de vida.",
         "competencia": 5,
         "series": [
           "3ª"
@@ -230,7 +230,7 @@ const CURRICULO = {
       },
       {
         "codigo": "EM13LGG704",
-        "descricao": "Apropriar-se criticamente de processos de pesquisa e busca de informação, por meio de ferramentas e dos novos formatos de produção e distribuição do conhecimento na cultura de rede. 490",
+        "descricao": "Apropriar-se criticamente de processos de pesquisa e busca de informação, por meio de ferramentas e dos novos formatos de produção e distribuição do conhecimento na cultura de rede.",
         "competencia": 7,
         "series": [
           "3ª"
@@ -288,7 +288,7 @@ const CURRICULO = {
       },
       {
         "codigo": "EM13MAT105",
-        "descricao": "Utilizar as noções de transformações isométricas (translação, reflexão, rotação e composições destas) e transformações homotéticas para analisar diferentes produções humanas como construções civis, obras de arte, entre outras. 526",
+        "descricao": "Utilizar as noções de transformações isométricas (translação, reflexão, rotação e composições destas) e transformações homotéticas para analisar diferentes produções humanas como construções civis, obras de arte, entre outras.",
         "competencia": 1,
         "series": [
           "1ª"
@@ -440,7 +440,7 @@ const CURRICULO = {
       },
       {
         "codigo": "EM13MAT316",
-        "descricao": "Resolver e elaborar problemas, em diferentes contextos, que envolvem cálculo e interpretação das medidas de tendência central (média, moda, mediana) e das de dispersão (amplitude, variância e desvio padrão). 530",
+        "descricao": "Resolver e elaborar problemas, em diferentes contextos, que envolvem cálculo e interpretação das medidas de tendência central (média, moda, mediana) e das de dispersão (amplitude, variância e desvio padrão).",
         "competencia": 3,
         "series": [
           "2ª"
@@ -512,7 +512,7 @@ const CURRICULO = {
       },
       {
         "codigo": "EM13MAT409",
-        "descricao": "Interpretar e comparar conjuntos de dados estatísticos por meio de diferentes diagramas e gráficos, como o histograma, o de caixa ( box-plot ), o de ramos e folhas, reconhecendo os mais eficientes para sua análise. 532",
+        "descricao": "Interpretar e comparar conjuntos de dados estatísticos por meio de diferentes diagramas e gráficos, como o histograma, o de caixa ( box-plot ), o de ramos e folhas, reconhecendo os mais eficientes para sua análise.",
         "competencia": 4,
         "series": [
           "3ª"
@@ -608,7 +608,7 @@ const CURRICULO = {
       },
       {
         "codigo": "EM13MAT512",
-        "descricao": "Investigar propriedades de figuras geométricas, questionando suas conjecturas por meio da busca de contraexemplos, para refutá-las ou reconhecer a necessidade de sua demonstração para validação, como os teoremas relativos aos quadriláteros e triângulos. 534",
+        "descricao": "Investigar propriedades de figuras geométricas, questionando suas conjecturas por meio da busca de contraexemplos, para refutá-las ou reconhecer a necessidade de sua demonstração para validação, como os teoremas relativos aos quadriláteros e triângulos.",
         "competencia": 5,
         "series": [
           "3ª"
@@ -672,7 +672,7 @@ const CURRICULO = {
       },
       {
         "codigo": "EM13CNT106",
-        "descricao": "Avaliar tecnologias e possíveis soluções para as demandas que envolvem a geração, o transporte, a distribuição e o consumo de energia elétrica, considerando a disponibilidade de recursos, a eficiência energética, a relação custo/ benefício, as características geográficas e ambientais, a produção de resíduos e os impactos socioambientais. 542",
+        "descricao": "Avaliar tecnologias e possíveis soluções para as demandas que envolvem a geração, o transporte, a distribuição e o consumo de energia elétrica, considerando a disponibilidade de recursos, a eficiência energética, a relação custo/ benefício, as características geográficas e ambientais, a produção de resíduos e os impactos socioambientais.",
         "competencia": 1,
         "series": [
           "1ª"
@@ -728,7 +728,7 @@ const CURRICULO = {
       },
       {
         "codigo": "EM13CNT207",
-        "descricao": "Identificar e analisar vulnerabilidades vinculadas aos desafios contemporâneos aos quais as juventudes estão expostas, considerando as dimensões física, psicoemocional e social, a fim de desenvolver e divulgar ações de prevenção e de promoção da saúde e do bem-estar. 544",
+        "descricao": "Identificar e analisar vulnerabilidades vinculadas aos desafios contemporâneos aos quais as juventudes estão expostas, considerando as dimensões física, psicoemocional e social, a fim de desenvolver e divulgar ações de prevenção e de promoção da saúde e do bem-estar.",
         "competencia": 2,
         "series": [
           "2ª"
@@ -923,7 +923,7 @@ const CURRICULO = {
       },
       {
         "codigo": "EM13CHS206",
-        "descricao": "Compreender e aplicar os princípios de localização, distribuição, ordem, extensão, conexão, entre outros, relacionados com o raciocínio geográfico, na análise da ocupação humana e da produção do espaço em diferentes tempos. 562",
+        "descricao": "Compreender e aplicar os princípios de localização, distribuição, ordem, extensão, conexão, entre outros, relacionados com o raciocínio geográfico, na análise da ocupação humana e da produção do espaço em diferentes tempos.",
         "competencia": 2,
         "series": [
           "1ª"
@@ -1003,7 +1003,7 @@ const CURRICULO = {
       },
       {
         "codigo": "EM13CHS404",
-        "descricao": "Identificar e discutir os múltiplos aspectos do trabalho em diferentes circunstâncias e contextos históricos e/ou geográficos e seus efeitos sobre as gerações, em especial, os jovens e as gerações futuras, levando em consideração, na atualidade, as transformações técnicas, tecnológicas e informacionais. 564",
+        "descricao": "Identificar e discutir os múltiplos aspectos do trabalho em diferentes circunstâncias e contextos históricos e/ou geográficos e seus efeitos sobre as gerações, em especial, os jovens e as gerações futuras, levando em consideração, na atualidade, as transformações técnicas, tecnológicas e informacionais.",
         "competencia": 4,
         "series": [
           "2ª"
