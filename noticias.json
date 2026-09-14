@@ -1,104 +1,180 @@
 {
-  "atualizadoEm": "2026-09-14T06:24:07.138Z",
-  "fonte": "https://www.gov.br/mec/pt-br/assuntos/noticias",
+  "atualizadoEm": "2026-09-14T06:33:46.778Z",
+  "fontes": [
+    "MEC",
+    "Agência Brasil"
+  ],
   "noticias": [
     {
       "titulo": "MEC Livros organiza acervo com best-sellers e 26 categorias",
       "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/setembro/mec-livros-organiza-acervo-com-best-sellers-e-26-categorias",
-      "ano": 2026,
-      "mes": "setembro",
-      "data": "09/2026"
+      "fonte": "MEC",
+      "data": "setembro/2026"
     },
     {
       "titulo": "Inscrições para curso em Direitos Humanos no IFCE termina nesta sexta (11)",
       "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/setembro/inscricoes-para-curso-em-direitos-humanos-no-ifce-termina-nesta-sexta-11",
-      "ano": 2026,
-      "mes": "setembro",
-      "data": "09/2026"
+      "fonte": "MEC",
+      "data": "setembro/2026"
     },
     {
       "titulo": "Inep lança manual explicativo sobre o Enamed",
       "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/setembro/inep-lanca-manual-explicativo-sobre-o-enamed",
-      "ano": 2026,
-      "mes": "setembro",
-      "data": "09/2026"
+      "fonte": "MEC",
+      "data": "setembro/2026"
     },
     {
       "titulo": "Institutos federais auxiliam população com assistência em habitação",
       "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/setembro/institutos-federais-auxiliam-populacao-com-assistencia-em-habitacao",
-      "ano": 2026,
-      "mes": "setembro",
-      "data": "09/2026"
+      "fonte": "MEC",
+      "data": "setembro/2026"
     },
     {
       "titulo": "Prazo para escolha dos livros didáticos do PNLD termina nesta sexta (11)",
       "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/setembro/prazo-para-escolha-dos-livros-didaticos-do-pnld-termina-nesta-sexta-11",
-      "ano": 2026,
-      "mes": "setembro",
-      "data": "09/2026"
+      "fonte": "MEC",
+      "data": "setembro/2026"
     },
     {
       "titulo": "Envio de artigos ao Cadernos Equidade termina nesta sexta (11)",
       "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/setembro/envio-de-artigos-ao-cadernos-equidade-termina-nesta-sexta-11",
-      "ano": 2026,
-      "mes": "setembro",
-      "data": "09/2026"
+      "fonte": "MEC",
+      "data": "setembro/2026"
     },
     {
       "titulo": "Aulão do Enem reúne estudantes na Paraíba nesta sexta (11)",
       "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/setembro/aulao-do-enem-reune-estudantes-na-paraiba-nesta-sexta-11",
-      "ano": 2026,
-      "mes": "setembro",
-      "data": "09/2026"
+      "fonte": "MEC",
+      "data": "setembro/2026"
     },
     {
       "titulo": "MEC prorroga prazo para envio do Plano de Ação da Recomposição das Aprendizagens",
       "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/setembro/mec-prorroga-prazo-para-envio-do-plano-de-acao-da-recomposicao-das-aprendizagens",
-      "ano": 2026,
-      "mes": "setembro",
-      "data": "09/2026"
+      "fonte": "MEC",
+      "data": "setembro/2026"
     },
     {
       "titulo": "Inscrições para produção de livros em Braille-Tinta terminam sexta (11)",
       "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/setembro/inscricoes-para-producao-de-livros-em-braille-tinta-terminam-sexta-11",
-      "ano": 2026,
-      "mes": "setembro",
-      "data": "09/2026"
+      "fonte": "MEC",
+      "data": "setembro/2026"
     },
     {
       "titulo": "MEC divulga instituições selecionadas para apoio técnico em sustentabilidade",
       "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/setembro/mec-divulga-instituicoes-selecionadas-para-apoio-tecnico-em-sustentabilidade",
-      "ano": 2026,
-      "mes": "setembro",
-      "data": "09/2026"
+      "fonte": "MEC",
+      "data": "setembro/2026"
     },
     {
       "titulo": "Santa Catarina registra queda na taxa de analfabetismo",
       "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/setembro/santa-catarina-registra-queda-na-taxa-de-analfabetismo",
-      "ano": 2026,
-      "mes": "setembro",
-      "data": "09/2026"
+      "fonte": "MEC",
+      "data": "setembro/2026"
     },
     {
       "titulo": "Roraima registra queda na taxa de analfabetismo",
       "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/setembro/roraima-registra-queda-na-taxa-de-analfabetismo",
-      "ano": 2026,
-      "mes": "setembro",
-      "data": "09/2026"
+      "fonte": "MEC",
+      "data": "setembro/2026"
     },
     {
       "titulo": "São Paulo registra queda na taxa de analfabetismo",
       "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/setembro/sao-paulo-registra-queda-na-taxa-de-analfabetismo",
-      "ano": 2026,
-      "mes": "setembro",
-      "data": "09/2026"
+      "fonte": "MEC",
+      "data": "setembro/2026"
     },
     {
       "titulo": "Rondônia registra queda na taxa de analfabetismo",
       "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/setembro/rondonia-registra-queda-na-taxa-de-analfabetismo",
-      "ano": 2026,
-      "mes": "setembro",
-      "data": "09/2026"
+      "fonte": "MEC",
+      "data": "setembro/2026"
+    },
+    {
+      "titulo": "Prova que avalia formação médica ocorre neste domingo em todo país",
+      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-09/prova-que-avalia-formacao-medica-ocorre-neste-domingo-em-todo-pais",
+      "fonte": "Agência Brasil",
+      "data": "13/09"
+    },
+    {
+      "titulo": "Enamed 2026: prova que avalia formação médica será neste domingo",
+      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-09/enamed-2026-prova-que-avalia-formacao-medica-sera-neste-domingo",
+      "fonte": "Agência Brasil",
+      "data": "11/09"
+    },
+    {
+      "titulo": "Aulas serão suspensas no DF nas sextas-feiras antes das eleições",
+      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-09/aulas-serao-suspensas-no-df-nas-sextas-feiras-antes-das-eleicoes",
+      "fonte": "Agência Brasil",
+      "data": "11/09"
+    },
+    {
+      "titulo": "Prazo para optar por seguir na lista de espera do CNU 1 termina hoje",
+      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-09/prazo-para-optar-por-seguir-na-lista-de-espera-do-cnu-1-termina-hoje",
+      "fonte": "Agência Brasil",
+      "data": "11/09"
+    },
+    {
+      "titulo": "Prazo para escolas escolherem livros didáticos para 2027 termina hoje",
+      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-09/prazo-para-escolas-escolherem-livros-didaticos-para-2027-termina-hoje",
+      "fonte": "Agência Brasil",
+      "data": "11/09"
+    },
+    {
+      "titulo": "Inep divulga relação final dos aprovados no Revalida 2025/2",
+      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-09/inep-divulga-relacao-final-dos-aprovados-no-revalida-20252",
+      "fonte": "Agência Brasil",
+      "data": "11/09"
+    },
+    {
+      "titulo": "MEC aprova regras para as férias escolares na Copa do Mundo Feminina",
+      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-09/mec-aprova-regras-para-ferias-escolares-na-copa-do-mundo-feminina",
+      "fonte": "Agência Brasil",
+      "data": "10/09"
+    },
+    {
+      "titulo": "Enem 2026: candidatos terão transporte gratuito no Rio",
+      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-09/enem-2026-candidatos-terao-transporte-gratuito-no-rio",
+      "fonte": "Agência Brasil",
+      "data": "10/09"
+    },
+    {
+      "titulo": "Brasil melhora desempenho escolar no longo prazo, mas patamar é baixo",
+      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-09/brasil-melhora-desempenho-escolar-no-longo-prazo-mas-patamar-e-baixo",
+      "fonte": "Agência Brasil",
+      "data": "10/09"
+    },
+    {
+      "titulo": "PND 2026: cartão que confirma inscrição está disponível na internet",
+      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-09/pnd-2026-cartao-que-confirma-inscricao-esta-disponivel-na-internet",
+      "fonte": "Agência Brasil",
+      "data": "09/09"
+    }
+  ],
+  "temasRedacao": [
+    {
+      "tema": "Desafios para a consolidação da alfabetização e inclusão educacional no Brasil",
+      "eixo": "Educação e Cidadania",
+      "argumento": "A garantia do direito à alfabetização exige a ampliação do acesso a materiais adaptados, como livros em Braille, aliada a políticas contínuas de recomposição das aprendizagens para combater a exclusão social."
+    },
+    {
+      "tema": "A relevância da avaliação profissional contínua para a garantia da qualidade no sistema de saúde",
+      "eixo": "Saúde e Sociedade",
+      "argumento": "A aplicação de exames nacionais de avaliação na formação médica é fundamental para padronizar a qualidade do atendimento no SUS e proteger a população contra disparidades na formação acadêmica."
+    },
+    {
+      "tema": "O papel do ensino público e técnico na resolução de problemas socioeconômicos locais",
+      "eixo": "Educação e Desenvolvimento Social",
+      "argumento": "A atuação dos Institutos Federais em áreas como habitação demonstra como a democratização do conhecimento técnico pode gerar soluções práticas e diretas para comunidades em vulnerabilidade social."
+    },
+    {
+      "tema": "Caminhos para a integração da sustentabilidade na gestão das instituições públicas de ensino",
+      "eixo": "Meio Ambiente e Educação",
+      "argumento": "É necessário unir o debate ecológico em sala de aula ao apoio técnico e financeiro para tornar a infraestrutura escolar sustentável, formando cidadãos conscientes por meio do exemplo prático."
+    },
+    {
+      "tema": "A importância da educação em Direitos Humanos para a promoção da equidade social",
+      "eixo": "Direitos Humanos",
+      "argumento": "O ensino focado em Direitos Humanos nas redes de formação técnica e superior é indispensável para combater preconceitos, mitigar desigualdades regionais e fortalecer o exercício pleno da cidadania."
     }
   ]
 }

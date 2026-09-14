@@ -2820,6 +2820,67 @@ h1, h2, h3, h4, .marca-nome, .btn-principal, .btn-secundario, .btn-google, .btn-
   font-weight: 700;
 }
 
+.tema-argumento {
+  font-size: 0.98rem;
+  color: var(--on-surface-2);
+  line-height: 1.4;
+}
+
+/* ===== DESAFIO DE SÍNTESE ===== */
+.sintese-card {
+  background: var(--surface-2);
+  border: 5px solid var(--black);
+  box-shadow: 8px 8px 0 var(--black);
+  border-radius: 14px;
+  padding: 26px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.sintese-tema {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--roxo);
+  min-height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  padding: 12px;
+  border: 3px dashed var(--border);
+  border-radius: 10px;
+}
+
+.sintese-relogio {
+  margin-bottom: 22px;
+}
+
+.sintese-timer {
+  font-family: var(--pixel);
+  font-size: 2.4rem;
+  color: var(--red);
+  line-height: 1;
+  margin-bottom: 10px;
+}
+
+.sintese-fase {
+  font-size: 1.15rem;
+  color: var(--on-surface-2);
+}
+
+.sintese-acoes {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.sintese-dica {
+  color: var(--white);
+  text-shadow: 2px 2px 0 var(--black);
+  font-size: 1.05rem;
+  text-align: center;
+}
+
 /* ===== MELHORIAS PARA CELULAR ===== */
 @media (max-width: 640px) {
   .topo-inner {

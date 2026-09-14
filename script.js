@@ -55,6 +55,7 @@ aoMudarUsuario(async (user) => {
   const btnEca = document.getElementById("btn-eca");
   const btnJogo = document.getElementById("btn-jogo");
   const btnNoticias = document.getElementById("btn-noticias");
+  const btnSintese = document.getElementById("btn-sintese");
   const nomeTopo = document.getElementById("usuario-nome");
 
   if (!user) {
@@ -67,6 +68,7 @@ aoMudarUsuario(async (user) => {
     esconder(btnEca);
     esconder(btnJogo);
     esconder(btnNoticias);
+    esconder(btnSintese);
     esconder(nomeTopo);
     mostrarTela("tela-login");
     return;
@@ -96,6 +98,7 @@ aoMudarUsuario(async (user) => {
   exibir(btnEca);
   exibir(btnJogo);
   exibir(btnNoticias);
+  exibir(btnSintese);
 
   // Aviso do ECA a cada login (uma vez por sessão)
   mostrarAvisoECA();
@@ -2125,7 +2128,6 @@ const TEMAS_REDACAO = [
 
 function abrirNoticias() {
   mostrarTela("tela-noticias");
-  renderTemasRedacao();
   carregarNoticias();
 }
 
@@ -2135,26 +2137,46 @@ async function carregarNoticias() {
   try {
     const resp = await fetch("noticias.json?v=" + Date.now());
     const dados = await resp.json();
+    window.__temasIA = dados.temasRedacao || [];
     const quando = dados.atualizadoEm
       ? new Date(dados.atualizadoEm).toLocaleString("pt-BR")
       : "—";
     document.getElementById("noticias-atualizado").textContent =
-      `Atualizado em ${quando} · Fonte: Ministério da Educação (MEC)`;
+      `Atualizado em ${quando} · Fontes: ${(dados.fontes || ["MEC"]).join(" · ")}`;
 
     if (!dados.noticias || !dados.noticias.length) {
       lista.innerHTML = "<p class='vazio'>Nenhuma notícia disponível no momento.</p>";
-      return;
+    } else {
+      lista.innerHTML = dados.noticias.map((n) => `
+        <a class="noticia-item" href="${n.link}" target="_blank" rel="noopener">
+          <span class="noticia-data">${n.fonte ? n.fonte + " · " : ""}${n.data || ""}</span>
+          <span class="noticia-titulo">${escaparHTML(n.titulo)}</span>
+          <span class="noticia-link">Ler a notícia ↗</span>
+        </a>
+      `).join("");
     }
-    lista.innerHTML = dados.noticias.map((n) => `
-      <a class="noticia-item" href="${n.link}" target="_blank" rel="noopener">
-        <span class="noticia-data">${n.data || ""}</span>
-        <span class="noticia-titulo">${escaparHTML(n.titulo)}</span>
-        <span class="noticia-link">Ler no MEC ↗</span>
-      </a>
-    `).join("");
+
+    // Temas de redação: usa os gerados por IA; senão, os fixos
+    if (dados.temasRedacao && dados.temasRedacao.length) {
+      renderTemasIA(dados.temasRedacao);
+    } else {
+      renderTemasRedacao();
+    }
   } catch (e) {
     lista.innerHTML = `<p class='vazio'>Erro ao carregar notícias: ${e.message}</p>`;
+    renderTemasRedacao();
   }
+}
+
+function renderTemasIA(temas) {
+  const div = document.getElementById("temas-redacao");
+  div.innerHTML = temas.map((t) => `
+    <div class="tema-card">
+      <span class="tema-eixo">${escaparHTML(t.eixo || "Tema")}</span>
+      <span class="tema-nome">${escaparHTML(t.tema)}</span>
+      ${t.argumento ? `<span class="tema-argumento">${escaparHTML(t.argumento)}</span>` : ""}
+    </div>
+  `).join("");
 }
 
 function renderTemasRedacao() {
@@ -2169,6 +2191,112 @@ function renderTemasRedacao() {
 
 document.getElementById("btn-noticias").addEventListener("click", abrirNoticias);
 document.getElementById("btn-voltar-noticias").addEventListener("click", () => {
+  if (usuario && usuario.papel === "professor") abrirPainelProfessor();
+  else abrirInicioEstudante();
+});
+
+// ============================================================
+// DESAFIO DE SÍNTESE (pesquisa 10 min + fala 1 min)
+// ============================================================
+const TEMAS_SINTESE = [
+  "Redes sociais e saúde mental dos jovens",
+  "Inteligência artificial na educação",
+  "Mudanças climáticas e o futuro da Amazônia",
+  "Desigualdade social no Brasil",
+  "O papel da escola na formação cidadã",
+  "Combate à desinformação",
+  "Cultura e identidade brasileira",
+  "Segurança pública e juventude",
+  "Tecnologia e o futuro do trabalho",
+  "Preservação dos povos indígenas",
+  "Esporte como ferramenta de inclusão",
+  "Alimentação saudável nas escolas",
+  "Bullying e cultura de paz",
+  "Economia circular e consumo consciente",
+  "Leitura e o hábito de ler no Brasil",
+  "Direitos da criança e do adolescente",
+  "Mobilidade urbana nas cidades brasileiras",
+];
+
+const TEMPO_PESQUISA = 10 * 60;
+const TEMPO_FALA = 60;
+let sinteseTimer = null;
+let sinteseSegundos = TEMPO_PESQUISA;
+
+function abrirSintese() {
+  pararTimerSintese();
+  sinteseSegundos = TEMPO_PESQUISA;
+  document.getElementById("sintese-tema").textContent = 'Clique em "Sortear tema" para começar';
+  document.getElementById("sintese-timer").textContent = "10:00";
+  document.getElementById("sintese-fase").textContent = "Fase de pesquisa";
+  esconder(document.getElementById("btn-iniciar-sintese"));
+  esconder(document.getElementById("btn-falar"));
+  esconder(document.getElementById("btn-reiniciar-sintese"));
+  exibir(document.getElementById("btn-sortear-tema"));
+  mostrarTela("tela-sintese");
+}
+
+function pararTimerSintese() {
+  if (sinteseTimer) { clearInterval(sinteseTimer); sinteseTimer = null; }
+}
+
+function formatarTempo(seg) {
+  const m = Math.floor(seg / 60);
+  const s = seg % 60;
+  return `${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
+}
+
+function sortearTema() {
+  const ia = (window.__temasIA || []).map((t) => t.tema);
+  const lista = TEMAS_SINTESE.concat(ia);
+  const tema = lista[Math.floor(Math.random() * lista.length)];
+  document.getElementById("sintese-tema").textContent = tema;
+  document.getElementById("sintese-timer").textContent = "10:00";
+  document.getElementById("sintese-fase").textContent = "Fase de pesquisa";
+  exibir(document.getElementById("btn-iniciar-sintese"));
+  esconder(document.getElementById("btn-sortear-tema"));
+}
+
+function rodarTimer(aoTerminar) {
+  pararTimerSintese();
+  document.getElementById("sintese-timer").textContent = formatarTempo(sinteseSegundos);
+  sinteseTimer = setInterval(() => {
+    sinteseSegundos--;
+    document.getElementById("sintese-timer").textContent = formatarTempo(Math.max(0, sinteseSegundos));
+    if (sinteseSegundos <= 0) {
+      pararTimerSintese();
+      if (aoTerminar) aoTerminar();
+    }
+  }, 1000);
+}
+
+document.getElementById("btn-sintese").addEventListener("click", abrirSintese);
+
+document.getElementById("btn-sortear-tema").addEventListener("click", sortearTema);
+
+document.getElementById("btn-iniciar-sintese").addEventListener("click", () => {
+  sinteseSegundos = TEMPO_PESQUISA;
+  document.getElementById("sintese-fase").textContent = "🔎 Fase de pesquisa (10 min)";
+  esconder(document.getElementById("btn-iniciar-sintese"));
+  exibir(document.getElementById("btn-falar"));
+  rodarTimer(() => {
+    document.getElementById("sintese-fase").textContent = "⏰ Tempo de pesquisa esgotado! Hora de falar.";
+  });
+});
+
+document.getElementById("btn-falar").addEventListener("click", () => {
+  sinteseSegundos = TEMPO_FALA;
+  document.getElementById("sintese-fase").textContent = "🎤 Fale agora! (1 min)";
+  esconder(document.getElementById("btn-falar"));
+  rodarTimer(() => {
+    document.getElementById("sintese-fase").textContent = "✅ Parabéns! Você completou o desafio de síntese.";
+    exibir(document.getElementById("btn-reiniciar-sintese"));
+  });
+});
+
+document.getElementById("btn-reiniciar-sintese").addEventListener("click", abrirSintese);
+document.getElementById("btn-voltar-sintese").addEventListener("click", () => {
+  pararTimerSintese();
   if (usuario && usuario.papel === "professor") abrirPainelProfessor();
   else abrirInicioEstudante();
 });

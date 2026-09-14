@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="NINA — diagnóstico das 4 áreas do ENEM. Professores criam turmas, estudantes fazem o diagnóstico e disputam o ranking.">
   <title>NINA · Diagnóstico das 4 áreas</title>
-  <link rel="stylesheet" href="style.css?v=16">
+  <link rel="stylesheet" href="style.css?v=17">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
@@ -21,6 +21,7 @@
       <div class="topo-usuario">
         <span id="usuario-nome" class="usuario-nome escondido"></span>
         <button id="btn-noticias" class="btn-ghost escondido">📰 Notícias</button>
+        <button id="btn-sintese" class="btn-ghost escondido">⏱️ Síntese</button>
         <button id="btn-jogo" class="btn-ghost escondido">🎡 Jogo</button>
         <button id="btn-explorar" class="btn-ghost escondido">🎮 Explorar</button>
         <button id="btn-eca" class="btn-ghost escondido">📜 ECA</button>
@@ -512,6 +513,34 @@
       <div id="temas-redacao" class="temas-redacao"></div>
     </section>
 
+    <!-- ===== SÍNTESE (PESQUISA 10 MIN + FALA 1 MIN) ===== -->
+    <section id="tela-sintese" class="tela">
+      <button id="btn-voltar-sintese" class="btn-ghost voltar">← Voltar</button>
+
+      <div class="hero">
+        <h1>⏱️ Desafio de <span class="destaque">Síntese</span></h1>
+        <p>Sorteie um tema, pesquise por 10 minutos e fale por 1 minuto. Teste seu poder de síntese!</p>
+      </div>
+
+      <div class="sintese-card">
+        <div id="sintese-tema" class="sintese-tema">Clique em "Sortear tema" para começar</div>
+
+        <div class="sintese-relogio">
+          <div id="sintese-timer" class="sintese-timer">10:00</div>
+          <div id="sintese-fase" class="sintese-fase">Fase de pesquisa</div>
+        </div>
+
+        <div class="sintese-acoes">
+          <button id="btn-sortear-tema" class="btn-secundario">🎲 Sortear tema</button>
+          <button id="btn-iniciar-sintese" class="btn-principal">▶️ Começar pesquisa (10 min)</button>
+          <button id="btn-falar" class="btn-principal escondido">🎤 Começar a falar (1 min)</button>
+          <button id="btn-reiniciar-sintese" class="btn-secundario escondido">🔁 Novo desafio</button>
+        </div>
+      </div>
+
+      <p class="sintese-dica">💡 Dica: na pesquisa, anote só <strong>3 ideias principais</strong>. Na fala, comece pela ideia central e conecte os argumentos — sem ler.</p>
+    </section>
+
     <!-- ===== MURAL (ORKUT) ===== -->
     <section id="tela-mural" class="tela">
       <button id="btn-voltar-mural" class="btn-ghost voltar">← Voltar</button>
@@ -628,11 +657,11 @@
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 
-  <script src="questoes.js?v=16"></script>
-  <script src="plano.js?v=16"></script>
-  <script src="explorar.js?v=16"></script>
-  <script src="figurinhas.js?v=16"></script>
-  <script src="firebase-config.js?v=16"></script>
-  <script src="script.js?v=16"></script>
+  <script src="questoes.js?v=17"></script>
+  <script src="plano.js?v=17"></script>
+  <script src="explorar.js?v=17"></script>
+  <script src="figurinhas.js?v=17"></script>
+  <script src="firebase-config.js?v=17"></script>
+  <script src="script.js?v=17"></script>
 </body>
 </html>
