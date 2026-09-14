@@ -1,5 +1,5 @@
 {
-  "atualizadoEm": "2026-09-14T06:33:46.778Z",
+  "atualizadoEm": "2026-09-14T06:43:46.354Z",
   "fontes": [
     "MEC",
     "Agência Brasil"
@@ -152,29 +152,49 @@
   ],
   "temasRedacao": [
     {
-      "tema": "Desafios para a consolidação da alfabetização e inclusão educacional no Brasil",
+      "tema": "Os desafios para a erradicação do analfabetismo e a democratização da leitura no Brasil",
       "eixo": "Educação e Cidadania",
-      "argumento": "A garantia do direito à alfabetização exige a ampliação do acesso a materiais adaptados, como livros em Braille, aliada a políticas contínuas de recomposição das aprendizagens para combater a exclusão social."
+      "argumento": "A persistência do analfabetismo e do acesso desigual à literatura exige políticas integradas de democratização do livro e incentivo à leitura adaptada, essenciais para a autonomia do cidadão.",
+      "textosMotivadores": [
+        "O artigo 205 da Constituição Federal de 1988 estabelece que a educação é um direito de todos e dever do Estado, visando ao pleno desenvolvimento da pessoa, seu preparo para o exercício da cidadania e sua qualificação para o trabalho.",
+        "Segundo o educador Paulo Freire em 'A Importância do Ato de Ler', a leitura do mundo precede a leitura da palavra. Dessa forma, o acesso à leitura inclusiva, como livros em Braille e acervos diversificados, é pilar indispensável para a verdadeira emancipação social."
+      ]
     },
     {
-      "tema": "A relevância da avaliação profissional contínua para a garantia da qualidade no sistema de saúde",
-      "eixo": "Saúde e Sociedade",
-      "argumento": "A aplicação de exames nacionais de avaliação na formação médica é fundamental para padronizar a qualidade do atendimento no SUS e proteger a população contra disparidades na formação acadêmica."
-    },
-    {
-      "tema": "O papel do ensino público e técnico na resolução de problemas socioeconômicos locais",
-      "eixo": "Educação e Desenvolvimento Social",
-      "argumento": "A atuação dos Institutos Federais em áreas como habitação demonstra como a democratização do conhecimento técnico pode gerar soluções práticas e diretas para comunidades em vulnerabilidade social."
-    },
-    {
-      "tema": "Caminhos para a integração da sustentabilidade na gestão das instituições públicas de ensino",
-      "eixo": "Meio Ambiente e Educação",
-      "argumento": "É necessário unir o debate ecológico em sala de aula ao apoio técnico e financeiro para tornar a infraestrutura escolar sustentável, formando cidadãos conscientes por meio do exemplo prático."
-    },
-    {
-      "tema": "A importância da educação em Direitos Humanos para a promoção da equidade social",
+      "tema": "O papel das instituições de ensino na garantia do direito à moradia digna e aos Direitos Humanos",
       "eixo": "Direitos Humanos",
-      "argumento": "O ensino focado em Direitos Humanos nas redes de formação técnica e superior é indispensável para combater preconceitos, mitigar desigualdades regionais e fortalecer o exercício pleno da cidadania."
+      "argumento": "A função social das escolas e institutos federais deve ir além do ensino formal, atuando diretamente no suporte comunitário e no combate às vulnerabilidades habitacionais da população.",
+      "textosMotivadores": [
+        "A Declaração Universal dos Direitos Humanos consagra a moradia e a educação como garantias fundamentais para a preservação da dignidade da pessoa humana.",
+        "O filósofo Immanuel Kant afirmava que o ser humano é aquilo que a educação faz dele. No contexto contemporâneo, a extensão acadêmica voltada à assistência habitacional materializa o compromisso ético do conhecimento técnico com o bem-estar coletivo."
+      ]
+    },
+    {
+      "tema": "A relevância da avaliação contínua do ensino superior para a qualidade dos serviços de saúde",
+      "eixo": "Saúde e Educação",
+      "argumento": "O monitoramento rigoroso e a avaliação padronizada dos cursos de graduação em áreas essenciais são indispensáveis para garantir um atendimento público e privado eficiente e ético à sociedade.",
+      "textosMotivadores": [
+        "Conforme o artigo 196 da Constituição de 1988, a saúde é direito de todos e dever do Estado, garantido mediante políticas sociais e econômicas. Para tal, a qualificação rigorosa dos profissionais da área constitui requisito indispensável de segurança sanitária.",
+        "Com base na teoria do 'Contrato Social' de Jean-Jacques Rousseau, o Estado assume o compromisso de proteger o bem-estar coletivo, o que justifica a implementação de exames nacionais e mecanismos de regulação da formação universitária."
+      ]
+    },
+    {
+      "tema": "Caminhos para a recomposição das aprendizagens e a promoção da equidade educacional",
+      "eixo": "Educação e Sociedade",
+      "argumento": "Superar os impactos e as lacunas no aprendizado escolar exige estratégias pedagógicas estruturadas e flexíveis que evitem a evasão e mitiguem as desigualdades regionais.",
+      "textosMotivadores": [
+        "O Estatuto da Criança e do Adolescente (ECA) assegura o direito à igualdade de condições para o acesso e a permanência na escola, responsabilizando o Estado por mitigar defasagens que comprometam o desenvolvimento infantojuvenil.",
+        "O sociólogo Pierre Bourdieu argumentava que a escola pode reproduzir desigualdades sociais caso não ofereça mecanismos de compensação cultural. Planos de ação estruturados para recomposição da aprendizagem são, portanto, urgentes para romper esse ciclo."
+      ]
+    },
+    {
+      "tema": "A sustentabilidade no ambiente escolar como vetor de transformação socioambiental",
+      "eixo": "Meio Ambiente",
+      "argumento": "A implementação do suporte técnico e de práticas ecológicas na gestão escolar forma cidadãos conscientes e preparados para enfrentar as emergências climáticas globais.",
+      "textosMotivadores": [
+        "O artigo 225 da Constituição Federal determina que todos têm direito ao meio ambiente ecologicamente equilibrado, impondo ao Poder Público e à coletividade o dever de defendê-lo. A Educação Ambiental é ferramenta obrigatória para alcançar esse objetivo.",
+        "O pensador Zygmunt Bauman apontava que os problemas globais exigem respostas locais e integradas. A adoção de infraestrutura sustentável nas escolas educa pelo exemplo e multiplica o engajamento comunitário."
+      ]
     }
   ]
 }

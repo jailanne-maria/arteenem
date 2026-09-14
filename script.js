@@ -2170,13 +2170,23 @@ async function carregarNoticias() {
 
 function renderTemasIA(temas) {
   const div = document.getElementById("temas-redacao");
-  div.innerHTML = temas.map((t) => `
-    <div class="tema-card">
-      <span class="tema-eixo">${escaparHTML(t.eixo || "Tema")}</span>
-      <span class="tema-nome">${escaparHTML(t.tema)}</span>
-      ${t.argumento ? `<span class="tema-argumento">${escaparHTML(t.argumento)}</span>` : ""}
-    </div>
-  `).join("");
+  div.innerHTML = temas.map((t) => {
+    const motivadores = Array.isArray(t.textosMotivadores) ? t.textosMotivadores : [];
+    const blocoMotivadores = motivadores.length
+      ? `<details class="tema-motivadores">
+           <summary>📄 Textos motivadores (${motivadores.length})</summary>
+           ${motivadores.map((tx) => `<p class="texto-motivador">${escaparHTML(tx)}</p>`).join("")}
+         </details>`
+      : "";
+    return `
+      <div class="tema-card">
+        <span class="tema-eixo">${escaparHTML(t.eixo || "Tema")}</span>
+        <span class="tema-nome">${escaparHTML(t.tema)}</span>
+        ${t.argumento ? `<span class="tema-argumento">${escaparHTML(t.argumento)}</span>` : ""}
+        ${blocoMotivadores}
+      </div>
+    `;
+  }).join("");
 }
 
 function renderTemasRedacao() {

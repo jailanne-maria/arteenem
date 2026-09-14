@@ -2826,6 +2826,33 @@ h1, h2, h3, h4, .marca-nome, .btn-principal, .btn-secundario, .btn-google, .btn-
   line-height: 1.4;
 }
 
+.tema-motivadores {
+  margin-top: 10px;
+}
+
+.tema-motivadores summary {
+  cursor: pointer;
+  font-weight: 800;
+  color: var(--roxo-claro);
+  font-size: 0.95rem;
+  list-style: none;
+}
+
+.tema-motivadores summary::-webkit-details-marker {
+  display: none;
+}
+
+.texto-motivador {
+  font-size: 0.95rem;
+  color: var(--on-surface-2);
+  background: var(--surface);
+  border-left: 4px solid var(--yellow);
+  border-radius: 6px;
+  padding: 10px 12px;
+  margin-top: 8px;
+  line-height: 1.45;
+}
+
 /* ===== DESAFIO DE SÍNTESE ===== */
 .sintese-card {
   background: var(--surface-2);

@@ -78,12 +78,13 @@ async function gerarIdeiasIA(noticias) {
 ${manchetes}
 
 Com base nelas, sugira 5 possíveis temas de redação do ENEM. Para cada tema, informe:
-- o tema (curto)
-- o eixo temático (ex.: Cidadania, Tecnologia, Meio ambiente)
-- uma linha de argumentação
+- "tema": o tema (curto)
+- "eixo": o eixo temático (ex.: Cidadania, Tecnologia, Meio ambiente, Direitos Humanos)
+- "argumento": uma linha de argumentação
+- "textosMotivadores": uma lista de 2 a 3 textos curtos de apoio (2 a 3 frases cada), com dados, fatos históricos, leis (como a Constituição, o ECA, a LGPD) ou citações de pensadores, que ajudem o estudante a refletir sobre o tema. NÃO copie as notícias; crie textos de contexto.
 
 Responda em JSON puro, no formato:
-{"temas":[{"tema":"...","eixo":"...","argumento":"..."}]}`;
+{"temas":[{"tema":"...","eixo":"...","argumento":"...","textosMotivadores":["...","..."]}]}`;
 
   const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent?key=${key}`;
   const resp = await fetch(url, {
