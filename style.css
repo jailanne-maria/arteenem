@@ -3083,6 +3083,105 @@ h1, h2, h3, h4, .marca-nome, .btn-principal, .btn-secundario, .btn-google, .btn-
   content: "🌳 ";
 }
 
+/* ===== REVISÃO COM IA ===== */
+.revisao-resultado {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.mapa-lista {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 12px;
+}
+
+.mapa-conceito {
+  background: var(--surface);
+  border: 3px solid var(--black);
+  box-shadow: 3px 3px 0 var(--black);
+  border-radius: 10px;
+  padding: 12px 14px;
+}
+
+.mapa-conceito-nome {
+  display: inline-block;
+  background: var(--roxo);
+  color: var(--white);
+  font-family: var(--pixel);
+  font-size: 0.5rem;
+  padding: 5px 10px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  line-height: 1.6;
+}
+
+.mapa-conceito ul {
+  list-style: none;
+}
+
+.mapa-conceito li {
+  font-size: 1rem;
+  color: var(--on-surface-2);
+  padding: 3px 0 3px 16px;
+  position: relative;
+}
+
+.mapa-conceito li::before {
+  content: "→";
+  position: absolute;
+  left: 0;
+  color: var(--brand);
+}
+
+.revisao-lista {
+  list-style: none;
+}
+
+.revisao-lista li {
+  background: var(--surface);
+  border-left: 4px solid var(--green);
+  border-radius: 8px;
+  padding: 10px 14px;
+  margin-bottom: 8px;
+  font-size: 1.1rem;
+}
+
+.ativ-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.ativ-item {
+  background: var(--surface);
+  border: 3px solid var(--black);
+  box-shadow: 3px 3px 0 var(--black);
+  border-radius: 10px;
+  padding: 12px 14px;
+}
+
+.ativ-pergunta {
+  font-size: 1.15rem;
+  margin-bottom: 8px;
+}
+
+.ativ-item details summary {
+  cursor: pointer;
+  font-weight: 800;
+  color: var(--green-dark);
+  font-size: 0.95rem;
+}
+
+.ativ-item details p {
+  margin-top: 8px;
+  font-size: 1.05rem;
+  color: var(--on-surface-2);
+  background: var(--surface-3);
+  border-radius: 8px;
+  padding: 10px 12px;
+}
+
 /* ===== MELHORIAS PARA CELULAR ===== */
 @media (max-width: 640px) {
   .topo-inner {

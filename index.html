@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="NINA — diagnóstico das 4 áreas do ENEM. Professores criam turmas, estudantes fazem o diagnóstico e disputam o ranking.">
   <title>NINA · Diagnóstico das 4 áreas</title>
-  <link rel="stylesheet" href="style.css?v=22">
+  <link rel="stylesheet" href="style.css?v=23">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
@@ -95,6 +95,12 @@
         <h3 class="secao-titulo">📝 Contribuir com perguntas</h3>
         <p class="texto-ajuda">Ajude a ampliar o banco de questões do NINA. Suas perguntas podem aparecer no diagnóstico dos estudantes.</p>
         <button id="btn-ir-contribuir" class="btn-principal">➕ Adicionar perguntas</button>
+      </div>
+
+      <div class="painel-bloco" style="margin-top:24px">
+        <h3 class="secao-titulo">📖 Revisão com IA</h3>
+        <p class="texto-ajuda">Suba um material que você trabalhou em aula e a plataforma gera um <strong>mapa conceitual</strong>, uma <strong>revisão</strong> e uma <strong>atividade</strong> para fixar e avaliar.</p>
+        <button id="btn-ir-revisao" class="btn-principal">📖 Criar revisão</button>
       </div>
     </section>
 
@@ -567,6 +573,34 @@
       <div id="curriculo-conteudo" class="curriculo-conteudo"></div>
     </section>
 
+    <!-- ===== REVISÃO COM IA (PROFESSOR) ===== -->
+    <section id="tela-revisao" class="tela">
+      <button id="btn-voltar-revisao" class="btn-ghost voltar">← Voltar</button>
+
+      <div class="hero esquerda">
+        <h1>📖 Revisão com <span class="destaque">IA</span></h1>
+        <p>Suba um material (PDF, Word ou texto) e receba um <strong>mapa conceitual</strong>, uma <strong>revisão</strong> e uma <strong>atividade</strong> de fixação.</p>
+      </div>
+
+      <div class="painel-bloco">
+        <div class="campo">
+          <label class="perfil-rotulo" for="revisao-arquivo">📎 Arquivo do material (PDF, Word ou texto)</label>
+          <input id="revisao-arquivo" type="file" accept=".pdf,.docx,.txt,.md">
+        </div>
+
+        <div class="campo" id="revisao-chave-campo">
+          <label class="perfil-rotulo" for="revisao-chave">🔑 Chave da IA (Gemini)</label>
+          <input id="revisao-chave" type="password" placeholder="Cole sua chave (fica só no seu navegador)">
+          <p class="perfil-termos">Pegue uma chave gratuita em <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener">aistudio.google.com/apikey</a>. Ela fica salva apenas no seu navegador.</p>
+        </div>
+
+        <div id="revisao-aviso" class="aviso escondido"></div>
+        <button id="btn-gerar-revisao" class="btn-principal">✨ Gerar revisão</button>
+      </div>
+
+      <div id="revisao-resultado" class="revisao-resultado escondido"></div>
+    </section>
+
     <!-- ===== MURAL (ORKUT) ===== -->
     <section id="tela-mural" class="tela">
       <button id="btn-voltar-mural" class="btn-ghost voltar">← Voltar</button>
@@ -683,12 +717,16 @@
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 
-  <script src="questoes.js?v=22"></script>
-  <script src="plano.js?v=22"></script>
-  <script src="explorar.js?v=22"></script>
-  <script src="figurinhas.js?v=22"></script>
-  <script src="curriculo.js?v=22"></script>
-  <script src="firebase-config.js?v=22"></script>
-  <script src="script.js?v=22"></script>
+  <!-- Leitura de arquivos (PDF e Word) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
+
+  <script src="questoes.js?v=23"></script>
+  <script src="plano.js?v=23"></script>
+  <script src="explorar.js?v=23"></script>
+  <script src="figurinhas.js?v=23"></script>
+  <script src="curriculo.js?v=23"></script>
+  <script src="firebase-config.js?v=23"></script>
+  <script src="script.js?v=23"></script>
 </body>
 </html>

@@ -2400,6 +2400,156 @@ function renderCurriculo() {
   `;
 }
 
+// ============================================================
+// REVISÃO COM IA (PROFESSOR)
+// ============================================================
+const CHAVE_IA = "nina_gemini_key";
+if (window.pdfjsLib) {
+  pdfjsLib.GlobalWorkerOptions.workerSrc = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+}
+
+function abrirRevisao() {
+  document.getElementById("revisao-chave").value = localStorage.getItem(CHAVE_IA) || "";
+  esconder(document.getElementById("revisao-aviso"));
+  esconder(document.getElementById("revisao-resultado"));
+  mostrarTela("tela-revisao");
+}
+
+document.getElementById("btn-ir-revisao").addEventListener("click", abrirRevisao);
+document.getElementById("btn-voltar-revisao").addEventListener("click", abrirPainelProfessor);
+
+async function extrairTextoArquivo(file) {
+  const nome = file.name.toLowerCase();
+  if (nome.endsWith(".txt") || nome.endsWith(".md")) return await file.text();
+  if (nome.endsWith(".pdf")) {
+    const buf = await file.arrayBuffer();
+    const pdf = await pdfjsLib.getDocument({ data: buf }).promise;
+    let texto = "";
+    const max = Math.min(pdf.numPages, 30);
+    for (let i = 1; i <= max; i++) {
+      const page = await pdf.getPage(i);
+      const content = await page.getTextContent();
+      texto += content.items.map((it) => it.str).join(" ") + "\n";
+    }
+    return texto;
+  }
+  if (nome.endsWith(".docx")) {
+    const buf = await file.arrayBuffer();
+    const res = await mammoth.extractRawText({ arrayBuffer: buf });
+    return res.value;
+  }
+  throw new Error("Formato não suportado. Use PDF, Word (.docx) ou texto (.txt).");
+}
+
+document.getElementById("btn-gerar-revisao").addEventListener("click", async () => {
+  const aviso = document.getElementById("revisao-aviso");
+  const btn = document.getElementById("btn-gerar-revisao");
+  const chave = document.getElementById("revisao-chave").value.trim();
+  const input = document.getElementById("revisao-arquivo");
+  const arquivo = input.files && input.files[0];
+
+  if (!chave) {
+    aviso.className = "aviso erro";
+    aviso.textContent = "Cole a chave da IA (Gemini).";
+    exibir(aviso);
+    return;
+  }
+  if (!arquivo) {
+    aviso.className = "aviso erro";
+    aviso.textContent = "Selecione um arquivo (PDF, Word ou texto).";
+    exibir(aviso);
+    return;
+  }
+  localStorage.setItem(CHAVE_IA, chave);
+  btn.disabled = true;
+  btn.textContent = "⏳ Processando...";
+
+  try {
+    aviso.className = "aviso ok";
+    aviso.textContent = "📖 Lendo o arquivo...";
+    exibir(aviso);
+    const texto = await extrairTextoArquivo(arquivo);
+    if (!texto || texto.trim().length < 50) throw new Error("Não consegui ler o texto deste arquivo.");
+
+    aviso.textContent = "🤖 Gerando mapa conceitual, revisão e atividade... (pode levar alguns segundos)";
+    const resultado = await chamarIARevisao(chave, texto.replace(/\s+/g, " ").slice(0, 16000));
+    renderRevisao(resultado);
+    esconder(aviso);
+  } catch (e) {
+    aviso.className = "aviso erro";
+    aviso.textContent = "Erro: " + e.message;
+    exibir(aviso);
+  } finally {
+    btn.disabled = false;
+    btn.textContent = "✨ Gerar revisão";
+  }
+});
+
+async function chamarIARevisao(chave, texto) {
+  const prompt = `Você é um professor do Ensino Médio. A partir do conteúdo abaixo, produza uma revisão didática para os estudantes.
+Responda em JSON puro, no formato:
+{
+  "mapa": [{"conceito":"conceito principal","relacoes":["relação com outro conceito","..."]}],
+  "revisao": ["tópico essencial 1","tópico 2"],
+  "atividade": [{"pergunta":"...","resposta":"..."}]
+}
+Inclua de 6 a 10 conceitos no mapa, 5 a 8 tópicos na revisão e 5 questões na atividade (com gabarito).
+
+Conteúdo:
+${texto}`;
+
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent?key=${chave}`;
+  const resp = await fetch(url, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }], generationConfig: { maxOutputTokens: 4000 } }),
+  });
+  if (!resp.ok) throw new Error("IA retornou erro " + resp.status);
+  const data = await resp.json();
+  let t = (data?.candidates?.[0]?.content?.parts || []).map((p) => p.text || "").join("");
+  t = t.replace(/```json|```/g, "").trim();
+  const i = t.indexOf("{");
+  const f = t.lastIndexOf("}");
+  if (i >= 0 && f > i) t = t.slice(i, f + 1);
+  return JSON.parse(t);
+}
+
+function renderRevisao(r) {
+  const div = document.getElementById("revisao-resultado");
+  const mapa = (r.mapa || []).map((m) => `
+    <div class="mapa-conceito">
+      <span class="mapa-conceito-nome">${escaparHTML(m.conceito)}</span>
+      <ul>${(m.relacoes || []).map((x) => `<li>${escaparHTML(x)}</li>`).join("")}</ul>
+    </div>
+  `).join("");
+  const revisao = (r.revisao || []).map((x) => `<li>${escaparHTML(x)}</li>`).join("");
+  const atividade = (r.atividade || []).map((a, i) => `
+    <div class="ativ-item">
+      <p class="ativ-pergunta"><strong>${i + 1}.</strong> ${escaparHTML(a.pergunta)}</p>
+      <details><summary>Ver resposta</summary><p>${escaparHTML(a.resposta)}</p></details>
+    </div>
+  `).join("");
+
+  div.innerHTML = `
+    <div class="painel-bloco">
+      <h3 class="secao-titulo">🧠 Mapa conceitual</h3>
+      <div class="mapa-lista">${mapa || "<p class='vazio'>—</p>"}</div>
+    </div>
+    <div class="painel-bloco">
+      <h3 class="secao-titulo">📖 Revisão</h3>
+      <ul class="revisao-lista">${revisao || "<li>—</li>"}</ul>
+    </div>
+    <div class="painel-bloco">
+      <h3 class="secao-titulo">✍️ Atividade de fixação</h3>
+      <div class="ativ-lista">${atividade || "<p class='vazio'>—</p>"}</div>
+    </div>
+    <button class="btn-secundario" id="btn-imprimir-revisao">🖨️ Imprimir / salvar em PDF</button>
+  `;
+  document.getElementById("btn-imprimir-revisao").addEventListener("click", () => window.print());
+  div.classList.remove("escondido");
+  div.scrollIntoView({ behavior: "smooth" });
+}
+
 // ---------- Eventos gerais ----------
 document.getElementById("btn-completo").addEventListener("click", () =>
   iniciarQuiz(Object.keys(AREAS))
