@@ -3182,6 +3182,79 @@ h1, h2, h3, h4, .marca-nome, .btn-principal, .btn-secundario, .btn-google, .btn-
   padding: 10px 12px;
 }
 
+/* ===== REVISÕES DA TURMA ===== */
+.turmas-checks {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 12px 0;
+}
+
+.turma-check {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--surface);
+  border: 3px solid var(--black);
+  border-radius: 10px;
+  padding: 10px 14px;
+  cursor: pointer;
+  font-size: 1.1rem;
+}
+
+.turma-check input {
+  width: 20px;
+  height: 20px;
+  accent-color: var(--green);
+}
+
+.turma-check small {
+  color: var(--muted);
+}
+
+.revisoes-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.revisao-card {
+  background: var(--surface-2);
+  border: 4px solid var(--black);
+  box-shadow: var(--sombra);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.revisao-card summary {
+  cursor: pointer;
+  padding: 16px 18px;
+  font-family: var(--pixel);
+  font-size: 0.6rem;
+  line-height: 1.8;
+  color: var(--black);
+  list-style: none;
+}
+
+.revisao-card summary::-webkit-details-marker {
+  display: none;
+}
+
+.revisao-card summary small {
+  color: var(--muted);
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.95rem;
+}
+
+.revisao-card[open] summary {
+  border-bottom: 3px solid var(--black);
+  background: var(--yellow);
+}
+
+.revisao-card-corpo {
+  padding: 16px 18px 20px;
+}
+
 /* ===== MELHORIAS PARA CELULAR ===== */
 @media (max-width: 640px) {
   .topo-inner {

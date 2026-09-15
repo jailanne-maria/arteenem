@@ -307,6 +307,42 @@ function finalizarDuelo(dueloId, vencedorId, placar) {
     .update({ status: "finalizado", vencedorId, placar });
 }
 
+// ---------- Revisões (professor publica para as turmas) ----------
+function publicarRevisao(professor, dados) {
+  return firebase.firestore().collection("revisoes").add({
+    ...dados,
+    professorId: professor.uid,
+    professorNome: professor.nome,
+    criadoEm: firebase.firestore.FieldValue.serverTimestamp(),
+  });
+}
+
+function listarRevisoesDaTurma(codigo) {
+  return firebase.firestore().collection("revisoes")
+    .where("turmas", "array-contains", codigo)
+    .get()
+    .then((snap) => {
+      const lista = snap.docs.map((d) => {
+        const data = d.data();
+        const ms = data.criadoEm && data.criadoEm.toMillis ? data.criadoEm.toMillis() : 0;
+        return { id: d.id, ...data, ms };
+      });
+      lista.sort((a, b) => b.ms - a.ms);
+      return lista;
+    });
+}
+
+function listarRevisoesDoProfessor(uid) {
+  return firebase.firestore().collection("revisoes")
+    .where("professorId", "==", uid)
+    .get()
+    .then((snap) => snap.docs.map((d) => ({ id: d.id, ...d.data() })));
+}
+
+function excluirRevisao(id) {
+  return firebase.firestore().collection("revisoes").doc(id).delete();
+}
+
 if (typeof module !== "undefined") {
   module.exports = { firebaseConfig };
 }

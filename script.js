@@ -57,6 +57,7 @@ aoMudarUsuario(async (user) => {
   const btnNoticias = document.getElementById("btn-noticias");
   const btnSintese = document.getElementById("btn-sintese");
   const btnCurriculo = document.getElementById("btn-curriculo");
+  const btnRevisoes = document.getElementById("btn-revisoes");
   const nomeTopo = document.getElementById("usuario-nome");
 
   if (!user) {
@@ -71,6 +72,7 @@ aoMudarUsuario(async (user) => {
     esconder(btnNoticias);
     esconder(btnSintese);
     esconder(btnCurriculo);
+    esconder(btnRevisoes);
     esconder(nomeTopo);
     mostrarTela("tela-login");
     return;
@@ -102,6 +104,7 @@ aoMudarUsuario(async (user) => {
   exibir(btnNoticias);
   exibir(btnSintese);
   exibir(btnCurriculo);
+  exibir(btnRevisoes);
 
   // Aviso do ECA a cada login (uma vez por sessão)
   mostrarAvisoECA();
@@ -2503,22 +2506,46 @@ Conteúdo:
 ${texto}`;
 
   const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent?key=${chave}`;
-  const resp = await fetch(url, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }], generationConfig: { maxOutputTokens: 4000 } }),
+  const corpo = JSON.stringify({
+    contents: [{ parts: [{ text: prompt }] }],
+    generationConfig: { maxOutputTokens: 4000 },
   });
-  if (!resp.ok) throw new Error("IA retornou erro " + resp.status);
-  const data = await resp.json();
-  let t = (data?.candidates?.[0]?.content?.parts || []).map((p) => p.text || "").join("");
-  t = t.replace(/```json|```/g, "").trim();
-  const i = t.indexOf("{");
-  const f = t.lastIndexOf("}");
-  if (i >= 0 && f > i) t = t.slice(i, f + 1);
-  return JSON.parse(t);
+
+  let ultimoStatus = null;
+  // Até 4 tentativas (a IA pode estar sobrecarregada — erro 503)
+  for (let tentativa = 1; tentativa <= 4; tentativa++) {
+    let resp;
+    try {
+      resp = await fetch(url, { method: "POST", headers: { "Content-Type": "application/json" }, body: corpo });
+    } catch (e) {
+      ultimoStatus = "rede";
+      await new Promise((r) => setTimeout(r, 1500 * tentativa));
+      continue;
+    }
+    if (resp.ok) {
+      const data = await resp.json();
+      let t = (data?.candidates?.[0]?.content?.parts || []).map((p) => p.text || "").join("");
+      t = t.replace(/```json|```/g, "").trim();
+      const i = t.indexOf("{");
+      const f = t.lastIndexOf("}");
+      if (i >= 0 && f > i) t = t.slice(i, f + 1);
+      return JSON.parse(t);
+    }
+    ultimoStatus = resp.status;
+    // 503 (sobrecarregada) e 429 (limite) merecem nova tentativa
+    if (resp.status === 503 || resp.status === 429 || resp.status === 500) {
+      await new Promise((r) => setTimeout(r, 2000 * tentativa));
+      continue;
+    }
+    throw new Error("IA retornou erro " + resp.status);
+  }
+  throw new Error("A IA está sobrecarregada no momento. Aguarde alguns instantes e tente novamente.");
 }
 
-function renderRevisao(r) {
+let revisaoAtual = null;
+
+async function renderRevisao(r) {
+  revisaoAtual = r;
   const div = document.getElementById("revisao-resultado");
   const mapa = (r.mapa || []).map((m) => `
     <div class="mapa-conceito">
@@ -2534,6 +2561,17 @@ function renderRevisao(r) {
     </div>
   `).join("");
 
+  // Turmas do professor
+  let turmas = [];
+  try { turmas = await listarTurmasDoProfessor(usuario.uid); } catch {}
+  const turmasHtml = turmas.length
+    ? turmas.map((t) => `
+        <label class="turma-check">
+          <input type="checkbox" class="revisao-turma-check" value="${t.codigo}">
+          <span>${escaparHTML(t.nome)} <small>(${t.codigo})</small></span>
+        </label>`).join("")
+    : "<p class='vazio'>Você ainda não criou turmas. Crie uma turma para publicar revisões.</p>";
+
   div.innerHTML = `
     <div class="painel-bloco">
       <h3 class="secao-titulo">🧠 Mapa conceitual</h3>
@@ -2547,12 +2585,109 @@ function renderRevisao(r) {
       <h3 class="secao-titulo">✍️ Atividade de fixação</h3>
       <div class="ativ-lista">${atividade || "<p class='vazio'>—</p>"}</div>
     </div>
+    <div class="painel-bloco">
+      <h3 class="secao-titulo">📢 Publicar para as turmas</h3>
+      <div class="campo">
+        <label class="perfil-rotulo" for="revisao-titulo-input">Título da revisão</label>
+        <input id="revisao-titulo-input" type="text" maxlength="80" placeholder="Ex.: Modernismo — Arte">
+      </div>
+      <div class="turmas-checks">${turmasHtml}</div>
+      <div id="revisao-pub-aviso" class="aviso escondido"></div>
+      <button class="btn-principal" id="btn-publicar-revisao">📢 Publicar para as turmas selecionadas</button>
+    </div>
     <button class="btn-secundario" id="btn-imprimir-revisao">🖨️ Imprimir / salvar em PDF</button>
   `;
   document.getElementById("btn-imprimir-revisao").addEventListener("click", () => window.print());
+  document.getElementById("btn-publicar-revisao").addEventListener("click", publicarRevisaoAtual);
   div.classList.remove("escondido");
   div.scrollIntoView({ behavior: "smooth" });
 }
+
+async function publicarRevisaoAtual() {
+  const aviso = document.getElementById("revisao-pub-aviso");
+  const marcadas = Array.from(document.querySelectorAll(".revisao-turma-check:checked")).map((c) => c.value);
+  if (!marcadas.length) {
+    aviso.className = "aviso erro";
+    aviso.textContent = "Selecione pelo menos uma turma.";
+    exibir(aviso);
+    return;
+  }
+  const titulo = (document.getElementById("revisao-titulo-input").value.trim()) || "Revisão";
+  try {
+    await publicarRevisao(usuario, {
+      titulo,
+      mapa: revisaoAtual.mapa || [],
+      revisao: revisaoAtual.revisao || [],
+      atividade: revisaoAtual.atividade || [],
+      turmas: marcadas,
+    });
+    aviso.className = "aviso ok";
+    aviso.textContent = `✅ Revisão publicada para ${marcadas.length} turma(s)! Os estudantes já podem ver.`;
+    exibir(aviso);
+  } catch (e) {
+    aviso.className = "aviso erro";
+    aviso.textContent = "Erro ao publicar: " + e.message;
+    exibir(aviso);
+  }
+}
+
+// ============================================================
+// REVISÕES DA TURMA (ALUNO)
+// ============================================================
+async function abrirRevisoes() {
+  const div = document.getElementById("revisoes-lista");
+  mostrarTela("tela-revisoes");
+  div.innerHTML = "<p class='vazio'>Carregando revisões…</p>";
+  try {
+    let revisoes = [];
+    if (usuario.papel === "professor") {
+      revisoes = await listarRevisoesDoProfessor(usuario.uid);
+    } else if (minhaTurma && minhaTurma.codigo) {
+      revisoes = await listarRevisoesDaTurma(minhaTurma.codigo);
+    }
+    if (!revisoes.length) {
+      div.innerHTML = `<p class='vazio'>${usuario.papel === "professor" ? "Você ainda não publicou revisões." : "Nenhuma revisão publicada para sua turma ainda."}</p>`;
+      return;
+    }
+    revisoes.sort((a, b) => (b.ms || 0) - (a.ms || 0));
+    div.innerHTML = revisoes.map(renderRevisaoCard).join("");
+  } catch (e) {
+    div.innerHTML = `<p class='vazio'>Erro ao carregar: ${e.message}</p>`;
+  }
+}
+
+function renderRevisaoCard(r) {
+  const mapa = (r.mapa || []).map((m) => `
+    <div class="mapa-conceito">
+      <span class="mapa-conceito-nome">${escaparHTML(m.conceito)}</span>
+      <ul>${(m.relacoes || []).map((x) => `<li>${escaparHTML(x)}</li>`).join("")}</ul>
+    </div>`).join("");
+  const revisao = (r.revisao || []).map((x) => `<li>${escaparHTML(x)}</li>`).join("");
+  const atividade = (r.atividade || []).map((a, i) => `
+    <div class="ativ-item">
+      <p class="ativ-pergunta"><strong>${i + 1}.</strong> ${escaparHTML(a.pergunta)}</p>
+      <details><summary>Ver resposta</summary><p>${escaparHTML(a.resposta)}</p></details>
+    </div>`).join("");
+  return `
+    <details class="revisao-card">
+      <summary>📖 ${escaparHTML(r.titulo || "Revisão")} <small>· ${escaparHTML(r.professorNome || "")}</small></summary>
+      <div class="revisao-card-corpo">
+        <h4 class="curriculo-sub">🧠 Mapa conceitual</h4>
+        <div class="mapa-lista">${mapa || "<p class='vazio'>—</p>"}</div>
+        <h4 class="curriculo-sub">📖 Revisão</h4>
+        <ul class="revisao-lista">${revisao || "<li>—</li>"}</ul>
+        <h4 class="curriculo-sub">✍️ Atividade</h4>
+        <div class="ativ-lista">${atividade || "<p class='vazio'>—</p>"}</div>
+      </div>
+    </details>
+  `;
+}
+
+document.getElementById("btn-revisoes").addEventListener("click", abrirRevisoes);
+document.getElementById("btn-voltar-revisoes").addEventListener("click", () => {
+  if (usuario && usuario.papel === "professor") abrirPainelProfessor();
+  else abrirInicioEstudante();
+});
 
 // ---------- Eventos gerais ----------
 document.getElementById("btn-completo").addEventListener("click", () =>

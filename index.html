@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="NINA — diagnóstico das 4 áreas do ENEM. Professores criam turmas, estudantes fazem o diagnóstico e disputam o ranking.">
   <title>NINA · Diagnóstico das 4 áreas</title>
-  <link rel="stylesheet" href="style.css?v=25">
+  <link rel="stylesheet" href="style.css?v=26">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
@@ -23,6 +23,7 @@
         <button id="btn-noticias" class="btn-ghost escondido">📰 Notícias</button>
         <button id="btn-sintese" class="btn-ghost escondido">⏱️ Síntese</button>
         <button id="btn-curriculo" class="btn-ghost escondido">📚 Currículo</button>
+        <button id="btn-revisoes" class="btn-ghost escondido">📖 Revisões</button>
         <button id="btn-jogo" class="btn-ghost escondido">🎡 Jogo</button>
         <button id="btn-explorar" class="btn-ghost escondido">🎮 Explorar</button>
         <button id="btn-eca" class="btn-ghost escondido">📜 ECA</button>
@@ -602,6 +603,18 @@
       <div id="revisao-resultado" class="revisao-resultado escondido"></div>
     </section>
 
+    <!-- ===== REVISÕES DA TURMA (ALUNO) ===== -->
+    <section id="tela-revisoes" class="tela">
+      <button id="btn-voltar-revisoes" class="btn-ghost voltar">← Voltar</button>
+
+      <div class="hero">
+        <h1>📖 Revisões da <span class="destaque">turma</span></h1>
+        <p>Mapas conceituais, revisões e atividades publicados pelos seus professores.</p>
+      </div>
+
+      <div id="revisoes-lista" class="revisoes-lista"></div>
+    </section>
+
     <!-- ===== MURAL (ORKUT) ===== -->
     <section id="tela-mural" class="tela">
       <button id="btn-voltar-mural" class="btn-ghost voltar">← Voltar</button>
@@ -722,12 +735,12 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
 
-  <script src="questoes.js?v=25"></script>
-  <script src="plano.js?v=25"></script>
-  <script src="explorar.js?v=25"></script>
-  <script src="figurinhas.js?v=25"></script>
-  <script src="curriculo.js?v=25"></script>
-  <script src="firebase-config.js?v=25"></script>
-  <script src="script.js?v=25"></script>
+  <script src="questoes.js?v=26"></script>
+  <script src="plano.js?v=26"></script>
+  <script src="explorar.js?v=26"></script>
+  <script src="figurinhas.js?v=26"></script>
+  <script src="curriculo.js?v=26"></script>
+  <script src="firebase-config.js?v=26"></script>
+  <script src="script.js?v=26"></script>
 </body>
 </html>
