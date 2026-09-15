@@ -8,7 +8,7 @@ const AREAS = {
     curto: "Linguagens",
     icone: "🎨",
     cor: "#E07A5F",
-    descricao: "Arte, Literatura, Língua Portuguesa, Inglês e Espanhol.",
+    descricao: "Arte, Educação Física, Literatura, Língua Portuguesa, Inglês e Espanhol.",
   },
   humanas: {
     nome: "Ciências Humanas e suas Tecnologias",
@@ -197,6 +197,57 @@ const QUESTOES = [
     correta: 0,
     explicacao:
       "'Cuando era niño' indica uma ação habitual no passado, então usa-se o pretérito imperfeito: 'iba'.",
+  },
+  {
+    id: "lin10",
+    area: "linguagens",
+    tema: "Educação Física — esporte",
+    apoio: "Leia:\n\n“O esporte pode ser praticado de diferentes formas: como rendimento (competição de alto nível), como participação (lazer e saúde) e como educação (nas aulas de Educação Física).”",
+    enunciado: "Uma caminhada no parque no fim de semana, pelo prazer de se movimentar, é um exemplo de:",
+    alternativas: [
+      "Esporte de participação, voltado ao lazer e à saúde.",
+      "Esporte de rendimento, com foco na competição.",
+      "Esporte profissional de alto nível.",
+      "Treinamento olímpico.",
+      "Competição de alto desempenho.",
+    ],
+    correta: 0,
+    explicacao:
+      "O esporte de participação é praticado no tempo livre, com finalidade de bem-estar físico e psicológico — diferente do rendimento, que busca superação e vitória.",
+  },
+  {
+    id: "lin11",
+    area: "linguagens",
+    tema: "Educação Física — saúde",
+    apoio: "Leia:\n\n“A Organização Mundial da Saúde (OMS) recomenda pelo menos 150 minutos de atividade física moderada por semana para adultos.”",
+    enunciado: "A prática regular de atividade física tem como principal benefício:",
+    alternativas: [
+      "A melhora da saúde física e mental, prevenindo doenças.",
+      "O aumento do sedentarismo.",
+      "O prejuízo ao coração e à circulação.",
+      "A redução da disposição e do sono.",
+      "O isolamento social.",
+    ],
+    correta: 0,
+    explicacao:
+      "A atividade física regular melhora a saúde cardiovascular, fortalece músculos e ossos e contribui para o bem-estar mental.",
+  },
+  {
+    id: "lin12",
+    area: "linguagens",
+    tema: "Educação Física — cultura corporal",
+    apoio: "Leia:\n\n“As danças, lutas, jogos e brincadeiras fazem parte da cultura corporal de um povo e expressam sua identidade e sua história.”",
+    enunciado: "A capoeira é um exemplo de manifestação da cultura corporal que reúne, ao mesmo tempo:",
+    alternativas: [
+      "Luta, dança e música, com raízes afro-brasileiras.",
+      "Apenas corrida de velocidade.",
+      "Apenas natação e mergulho.",
+      "Apenas ginástica de academia.",
+      "Apenas futebol de campo.",
+    ],
+    correta: 0,
+    explicacao:
+      "A capoeira une luta, dança, música e cultura afro-brasileira, sendo reconhecida como patrimônio cultural do Brasil.",
   },
 
   // ================= HUMANAS =================
