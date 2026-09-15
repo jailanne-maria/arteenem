@@ -2651,25 +2651,43 @@ async function abrirRevisoes() {
     }
     revisoes.sort((a, b) => (b.ms || 0) - (a.ms || 0));
     div.innerHTML = revisoes.map(renderRevisaoCard).join("");
+    if (usuario.papel === "professor") carregarRespostasAlunos();
   } catch (e) {
     div.innerHTML = `<p class='vazio'>Erro ao carregar: ${e.message}</p>`;
   }
 }
 
 function renderRevisaoCard(r) {
+  const ehProf = usuario.papel === "professor";
   const mapa = (r.mapa || []).map((m) => `
     <div class="mapa-conceito">
       <span class="mapa-conceito-nome">${escaparHTML(m.conceito)}</span>
       <ul>${(m.relacoes || []).map((x) => `<li>${escaparHTML(x)}</li>`).join("")}</ul>
     </div>`).join("");
   const revisao = (r.revisao || []).map((x) => `<li>${escaparHTML(x)}</li>`).join("");
-  const atividade = (r.atividade || []).map((a, i) => `
-    <div class="ativ-item">
-      <p class="ativ-pergunta"><strong>${i + 1}.</strong> ${escaparHTML(a.pergunta)}</p>
-      <textarea class="ativ-resposta-aluno" rows="2" placeholder="Escreva sua resposta antes de ver o gabarito..."></textarea>
-      <button class="ativ-revelar" disabled>👁️ Ver resposta</button>
-      <div class="ativ-gabarito escondido"><strong>Gabarito:</strong> ${escaparHTML(a.resposta)}</div>
-    </div>`).join("");
+
+  const atividade = (r.atividade || []).map((a, i) => {
+    if (ehProf) {
+      return `
+        <div class="ativ-item">
+          <p class="ativ-pergunta"><strong>${i + 1}.</strong> ${escaparHTML(a.pergunta)}</p>
+          <div class="ativ-gabarito"><strong>Gabarito:</strong> ${escaparHTML(a.resposta)}</div>
+        </div>`;
+    }
+    return `
+      <div class="ativ-item" data-revisao="${r.id}" data-index="${i}">
+        <p class="ativ-pergunta"><strong>${i + 1}.</strong> ${escaparHTML(a.pergunta)}</p>
+        <textarea class="ativ-resposta-aluno" rows="2" placeholder="Escreva sua resposta antes de ver o gabarito..."></textarea>
+        <button class="ativ-revelar" disabled>👁️ Ver resposta</button>
+        <div class="ativ-gabarito escondido"><strong>Gabarito:</strong> ${escaparHTML(a.resposta)}</div>
+      </div>`;
+  }).join("");
+
+  const blocoRespostas = ehProf
+    ? `<h4 class="curriculo-sub">🧑🏽‍🎓 Respostas dos estudantes</h4>
+       <div class="respostas-alunos" data-revisao="${r.id}"><p class="vazio">Carregando…</p></div>`
+    : "";
+
   return `
     <details class="revisao-card">
       <summary>📖 ${escaparHTML(r.titulo || "Revisão")} <small>· ${escaparHTML(r.professorNome || "")}</small></summary>
@@ -2680,9 +2698,38 @@ function renderRevisaoCard(r) {
         <ul class="revisao-lista">${revisao || "<li>—</li>"}</ul>
         <h4 class="curriculo-sub">✍️ Atividade</h4>
         <div class="ativ-lista">${atividade || "<p class='vazio'>—</p>"}</div>
+        ${blocoRespostas}
       </div>
     </details>
   `;
+}
+
+// Carrega as respostas dos alunos (visão do professor)
+async function carregarRespostasAlunos() {
+  const blocos = document.querySelectorAll(".respostas-alunos");
+  for (const bloco of blocos) {
+    const revisaoId = bloco.dataset.revisao;
+    try {
+      const respostas = await listarRespostasDaRevisao(revisaoId);
+      if (!respostas.length) {
+        bloco.innerHTML = "<p class='vazio'>Nenhum estudante respondeu ainda.</p>";
+        continue;
+      }
+      bloco.innerHTML = respostas.map((resp) => {
+        const itens = Object.entries(resp.respostas || {})
+          .sort((a, b) => Number(a[0]) - Number(b[0]))
+          .map(([idx, txt]) => `<p class="resp-item"><strong>${Number(idx) + 1}.</strong> ${escaparHTML(txt)}</p>`)
+          .join("");
+        return `
+          <div class="resp-aluno">
+            <span class="resp-aluno-nome">🧑🏽‍🎓 ${escaparHTML(resp.alunoNome || "Estudante")}</span>
+            ${itens || "<p class='vazio'>Sem respostas.</p>"}
+          </div>`;
+      }).join("");
+    } catch (e) {
+      bloco.innerHTML = `<p class='vazio'>Erro: ${e.message}</p>`;
+    }
+  }
 }
 
 document.getElementById("btn-revisoes").addEventListener("click", abrirRevisoes);
@@ -2700,7 +2747,7 @@ document.getElementById("revisoes-lista").addEventListener("input", (e) => {
   if (btn) btn.disabled = ta.value.trim().length < 3;
 });
 
-document.getElementById("revisoes-lista").addEventListener("click", (e) => {
+document.getElementById("revisoes-lista").addEventListener("click", async (e) => {
   const btn = e.target.closest(".ativ-revelar");
   if (!btn || btn.disabled) return;
   const item = btn.closest(".ativ-item");
@@ -2708,6 +2755,14 @@ document.getElementById("revisoes-lista").addEventListener("click", (e) => {
   if (gab) gab.classList.remove("escondido");
   btn.disabled = true;
   btn.textContent = "✅ Gabarito revelado";
+
+  // Salva a resposta do aluno para o professor
+  const revisaoId = item.dataset.revisao;
+  const idx = item.dataset.index;
+  const texto = (item.querySelector(".ativ-resposta-aluno").value || "").trim();
+  if (revisaoId && idx !== undefined && texto) {
+    await salvarRespostaAtividade(revisaoId, usuario, minhaTurma && minhaTurma.codigo, idx, texto).catch(() => {});
+  }
 });
 
 // ---------- Eventos gerais ----------

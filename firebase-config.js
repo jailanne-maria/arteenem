@@ -343,6 +343,27 @@ function excluirRevisao(id) {
   return firebase.firestore().collection("revisoes").doc(id).delete();
 }
 
+// ---------- Respostas dos alunos nas atividades ----------
+function salvarRespostaAtividade(revisaoId, aluno, turma, perguntaIndex, texto) {
+  const id = `${revisaoId}_${aluno.uid}`;
+  const ref = firebase.firestore().collection("respostasAtividade").doc(id);
+  return ref.set({
+    revisaoId,
+    alunoId: aluno.uid,
+    alunoNome: aluno.nome,
+    turma: turma || null,
+    ["respostas." + perguntaIndex]: texto,
+    atualizadoEm: firebase.firestore.FieldValue.serverTimestamp(),
+  }, { merge: true });
+}
+
+function listarRespostasDaRevisao(revisaoId) {
+  return firebase.firestore().collection("respostasAtividade")
+    .where("revisaoId", "==", revisaoId)
+    .get()
+    .then((snap) => snap.docs.map((d) => ({ id: d.id, ...d.data() })));
+}
+
 if (typeof module !== "undefined") {
   module.exports = { firebaseConfig };
 }
