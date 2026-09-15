@@ -2446,7 +2446,7 @@ document.getElementById("btn-gerar-revisao").addEventListener("click", async () 
   const btn = document.getElementById("btn-gerar-revisao");
   const chave = document.getElementById("revisao-chave").value.trim();
   const input = document.getElementById("revisao-arquivo");
-  const arquivo = input.files && input.files[0];
+  const arquivos = input.files ? Array.from(input.files) : [];
 
   if (!chave) {
     aviso.className = "aviso erro";
@@ -2454,9 +2454,9 @@ document.getElementById("btn-gerar-revisao").addEventListener("click", async () 
     exibir(aviso);
     return;
   }
-  if (!arquivo) {
+  if (!arquivos.length) {
     aviso.className = "aviso erro";
-    aviso.textContent = "Selecione um arquivo (PDF, Word ou texto).";
+    aviso.textContent = "Selecione um ou mais arquivos (PDF, Word ou texto).";
     exibir(aviso);
     return;
   }
@@ -2466,13 +2466,17 @@ document.getElementById("btn-gerar-revisao").addEventListener("click", async () 
 
   try {
     aviso.className = "aviso ok";
-    aviso.textContent = "📖 Lendo o arquivo...";
-    exibir(aviso);
-    const texto = await extrairTextoArquivo(arquivo);
-    if (!texto || texto.trim().length < 50) throw new Error("Não consegui ler o texto deste arquivo.");
+    let texto = "";
+    for (let i = 0; i < arquivos.length; i++) {
+      aviso.textContent = `📖 Lendo arquivo ${i + 1} de ${arquivos.length}: ${arquivos[i].name}...`;
+      exibir(aviso);
+      const t = await extrairTextoArquivo(arquivos[i]);
+      if (t) texto += `\n\n### Arquivo: ${arquivos[i].name}\n${t}`;
+    }
+    if (!texto || texto.trim().length < 50) throw new Error("Não consegui ler o texto dos arquivos.");
 
-    aviso.textContent = "🤖 Gerando mapa conceitual, revisão e atividade... (pode levar alguns segundos)";
-    const resultado = await chamarIARevisao(chave, texto.replace(/\s+/g, " ").slice(0, 16000));
+    aviso.textContent = `🤖 Gerando mapa conceitual, revisão e atividade a partir de ${arquivos.length} arquivo(s)... (pode levar alguns segundos)`;
+    const resultado = await chamarIARevisao(chave, texto.replace(/\s+/g, " ").slice(0, 20000));
     renderRevisao(resultado);
     esconder(aviso);
   } catch (e) {
