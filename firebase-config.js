@@ -364,6 +364,17 @@ function listarRespostasDaRevisao(revisaoId) {
     .then((snap) => snap.docs.map((d) => ({ id: d.id, ...d.data() })));
 }
 
+function salvarComentarioAtividade(respostaId, perguntaIndex, comentario) {
+  return firebase.firestore().collection("respostasAtividade").doc(respostaId)
+    .set({ ["comentarios." + perguntaIndex]: comentario }, { merge: true });
+}
+
+function buscarMinhaResposta(revisaoId, alunoId) {
+  return firebase.firestore().collection("respostasAtividade").doc(`${revisaoId}_${alunoId}`)
+    .get()
+    .then((d) => (d.exists ? d.data() : null));
+}
+
 if (typeof module !== "undefined") {
   module.exports = { firebaseConfig };
 }

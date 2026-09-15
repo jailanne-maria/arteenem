@@ -2652,6 +2652,7 @@ async function abrirRevisoes() {
     revisoes.sort((a, b) => (b.ms || 0) - (a.ms || 0));
     div.innerHTML = revisoes.map(renderRevisaoCard).join("");
     if (usuario.papel === "professor") carregarRespostasAlunos();
+    else carregarMinhasRespostas();
   } catch (e) {
     div.innerHTML = `<p class='vazio'>Erro ao carregar: ${e.message}</p>`;
   }
@@ -2677,14 +2678,16 @@ function renderRevisaoCard(r) {
     return `
       <div class="ativ-item" data-revisao="${r.id}" data-index="${i}">
         <p class="ativ-pergunta"><strong>${i + 1}.</strong> ${escaparHTML(a.pergunta)}</p>
-        <textarea class="ativ-resposta-aluno" rows="2" placeholder="Escreva sua resposta antes de ver o gabarito..."></textarea>
-        <button class="ativ-revelar" disabled>👁️ Ver resposta</button>
+        <textarea class="ativ-resposta-aluno" rows="2" placeholder="Escreva sua resposta e envie para ver o gabarito..."></textarea>
+        <button class="ativ-enviar" disabled>📤 Enviar resposta</button>
         <div class="ativ-gabarito escondido"><strong>Gabarito:</strong> ${escaparHTML(a.resposta)}</div>
+        <div class="ativ-comentario-prof escondido"></div>
       </div>`;
   }).join("");
 
   const blocoRespostas = ehProf
     ? `<h4 class="curriculo-sub">🧑🏽‍🎓 Respostas dos estudantes</h4>
+       <div class="respostas-contador" data-revisao="${r.id}"></div>
        <div class="respostas-alunos" data-revisao="${r.id}"><p class="vazio">Carregando…</p></div>`
     : "";
 
@@ -2704,21 +2707,40 @@ function renderRevisaoCard(r) {
   `;
 }
 
-// Carrega as respostas dos alunos (visão do professor)
+// Carrega as respostas dos alunos (visão do professor) + contador + comentários
 async function carregarRespostasAlunos() {
   const blocos = document.querySelectorAll(".respostas-alunos");
   for (const bloco of blocos) {
     const revisaoId = bloco.dataset.revisao;
+    const contador = document.querySelector(`.respostas-contador[data-revisao="${revisaoId}"]`);
     try {
       const respostas = await listarRespostasDaRevisao(revisaoId);
+
+      // Contador de quantos alunos responderam
+      if (contador) {
+        contador.innerHTML = `✅ <strong>${respostas.length}</strong> estudante(s) responderam esta atividade.`;
+        contador.classList.remove("escondido");
+      }
+
       if (!respostas.length) {
         bloco.innerHTML = "<p class='vazio'>Nenhum estudante respondeu ainda.</p>";
         continue;
       }
+
       bloco.innerHTML = respostas.map((resp) => {
         const itens = Object.entries(resp.respostas || {})
           .sort((a, b) => Number(a[0]) - Number(b[0]))
-          .map(([idx, txt]) => `<p class="resp-item"><strong>${Number(idx) + 1}.</strong> ${escaparHTML(txt)}</p>`)
+          .map(([idx, txt]) => {
+            const comentario = (resp.comentarios || {})[idx] || "";
+            return `
+              <div class="resp-item">
+                <p><strong>${Number(idx) + 1}.</strong> ${escaparHTML(txt)}</p>
+                <div class="resp-comentario">
+                  <input class="resp-comentario-input" data-resposta="${resp.id}" data-index="${idx}" value="${escaparHTML(comentario)}" placeholder="Comentar / devolver para o aluno...">
+                  <button class="resp-comentario-btn" data-resposta="${resp.id}" data-index="${idx}">💬 Enviar</button>
+                </div>
+              </div>`;
+          })
           .join("");
         return `
           <div class="resp-aluno">
@@ -2732,36 +2754,88 @@ async function carregarRespostasAlunos() {
   }
 }
 
+// Carrega as respostas do próprio aluno (pré-preenche e mostra comentários do professor)
+async function carregarMinhasRespostas() {
+  const itens = document.querySelectorAll(".ativ-item[data-revisao]");
+  for (const item of itens) {
+    const revisaoId = item.dataset.revisao;
+    const idx = item.dataset.index;
+    try {
+      const minha = await buscarMinhaResposta(revisaoId, usuario.uid);
+      if (!minha) continue;
+      const txt = (minha.respostas || {})[idx];
+      if (txt) {
+        const ta = item.querySelector(".ativ-resposta-aluno");
+        const btn = item.querySelector(".ativ-enviar");
+        const gab = item.querySelector(".ativ-gabarito");
+        ta.value = txt;
+        ta.disabled = true;
+        btn.disabled = true;
+        btn.textContent = "✅ Resposta enviada";
+        gab.classList.remove("escondido");
+        const comentario = (minha.comentarios || {})[idx];
+        if (comentario) {
+          const c = item.querySelector(".ativ-comentario-prof");
+          c.innerHTML = `<strong>💬 Comentário do professor:</strong> ${escaparHTML(comentario)}`;
+          c.classList.remove("escondido");
+        }
+      }
+    } catch {}
+  }
+}
+
 document.getElementById("btn-revisoes").addEventListener("click", abrirRevisoes);
 document.getElementById("btn-voltar-revisoes").addEventListener("click", () => {
   if (usuario && usuario.papel === "professor") abrirPainelProfessor();
   else abrirInicioEstudante();
 });
 
-// O aluno só vê o gabarito depois de escrever a própria resposta
+// O aluno só vê o gabarito depois de ENVIAR a própria resposta
 document.getElementById("revisoes-lista").addEventListener("input", (e) => {
   const ta = e.target.closest(".ativ-resposta-aluno");
   if (!ta) return;
   const item = ta.closest(".ativ-item");
-  const btn = item && item.querySelector(".ativ-revelar");
+  const btn = item && item.querySelector(".ativ-enviar");
   if (btn) btn.disabled = ta.value.trim().length < 3;
 });
 
 document.getElementById("revisoes-lista").addEventListener("click", async (e) => {
-  const btn = e.target.closest(".ativ-revelar");
-  if (!btn || btn.disabled) return;
-  const item = btn.closest(".ativ-item");
-  const gab = item && item.querySelector(".ativ-gabarito");
-  if (gab) gab.classList.remove("escondido");
-  btn.disabled = true;
-  btn.textContent = "✅ Gabarito revelado";
+  // Enviar resposta do aluno
+  const enviar = e.target.closest(".ativ-enviar");
+  if (enviar) {
+    if (enviar.disabled) return;
+    const item = enviar.closest(".ativ-item");
+    const texto = (item.querySelector(".ativ-resposta-aluno").value || "").trim();
+    enviar.disabled = true;
+    enviar.textContent = "⏳ Enviando...";
+    try {
+      await salvarRespostaAtividade(item.dataset.revisao, usuario, minhaTurma && minhaTurma.codigo, item.dataset.index, texto);
+      item.querySelector(".ativ-gabarito").classList.remove("escondido");
+      item.querySelector(".ativ-resposta-aluno").disabled = true;
+      enviar.textContent = "✅ Resposta enviada";
+    } catch (err) {
+      enviar.disabled = false;
+      enviar.textContent = "📤 Enviar resposta";
+      alert("Não foi possível enviar sua resposta: " + err.message);
+    }
+    return;
+  }
 
-  // Salva a resposta do aluno para o professor
-  const revisaoId = item.dataset.revisao;
-  const idx = item.dataset.index;
-  const texto = (item.querySelector(".ativ-resposta-aluno").value || "").trim();
-  if (revisaoId && idx !== undefined && texto) {
-    await salvarRespostaAtividade(revisaoId, usuario, minhaTurma && minhaTurma.codigo, idx, texto).catch(() => {});
+  // Comentário do professor
+  const comentar = e.target.closest(".resp-comentario-btn");
+  if (comentar) {
+    const input = document.querySelector(`.resp-comentario-input[data-resposta="${comentar.dataset.resposta}"][data-index="${comentar.dataset.index}"]`);
+    const texto = (input.value || "").trim();
+    comentar.disabled = true;
+    comentar.textContent = "⏳";
+    try {
+      await salvarComentarioAtividade(comentar.dataset.resposta, comentar.dataset.index, texto);
+      comentar.textContent = "✅ Enviado";
+    } catch (err) {
+      comentar.disabled = false;
+      comentar.textContent = "💬 Enviar";
+      alert("Erro ao enviar comentário: " + err.message);
+    }
   }
 });
 
