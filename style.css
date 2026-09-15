@@ -3409,6 +3409,52 @@ h1, h2, h3, h4, .marca-nome, .btn-principal, .btn-secundario, .btn-google, .btn-
   padding: 16px 18px 20px;
 }
 
+/* ===== CONTEÚDO DO ENEM ===== */
+.enem-conteudos {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 14px;
+  margin-bottom: 26px;
+}
+
+.enem-area {
+  background: var(--surface-2);
+  border: 4px solid var(--black);
+  box-shadow: var(--sombra);
+  border-radius: 12px;
+  padding: 16px;
+}
+
+.enem-area-nome {
+  display: inline-block;
+  background: var(--roxo);
+  color: var(--white);
+  font-family: var(--pixel);
+  font-size: 0.52rem;
+  padding: 6px 11px;
+  border-radius: 8px;
+  border: 3px solid var(--black);
+  margin-bottom: 12px;
+  line-height: 1.6;
+}
+
+.enem-area ul {
+  list-style: none;
+}
+
+.enem-area li {
+  font-size: 1.05rem;
+  color: var(--on-surface-2);
+  padding: 5px 0 5px 20px;
+  position: relative;
+}
+
+.enem-area li::before {
+  content: "📌";
+  position: absolute;
+  left: 0;
+}
+
 /* ===== MELHORIAS PARA CELULAR ===== */
 @media (max-width: 640px) {
   .topo-inner {

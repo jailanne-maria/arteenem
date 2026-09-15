@@ -2132,8 +2132,67 @@ const TEMAS_REDACAO = [
   { tema: "Valorização dos povos indígenas e tradicionais", eixo: "Cidadania" },
 ];
 
+const ENEM_CONTEUDOS = {
+  linguagens: {
+    nome: "Linguagens, Códigos e suas Tecnologias",
+    itens: [
+      "Interpretação de texto",
+      "Literatura brasileira",
+      "Arte e patrimônio cultural",
+      "Educação Física e cultura corporal",
+      "Gramática e variação linguística",
+      "Língua Inglesa ou Espanhola",
+      "Redação (proposta de intervenção)",
+    ],
+  },
+  humanas: {
+    nome: "Ciências Humanas e suas Tecnologias",
+    itens: [
+      "História do Brasil e Geral",
+      "Geografia (clima, urbanização, globalização)",
+      "Filosofia",
+      "Sociologia",
+      "Atualidades e cidadania",
+    ],
+  },
+  natureza: {
+    nome: "Ciências da Natureza e suas Tecnologias",
+    itens: [
+      "Biologia (ecologia, genética, citologia, evolução)",
+      "Física (mecânica, energia, eletricidade, ondas)",
+      "Química (estequiometria, soluções, orgânica)",
+      "Ciência, tecnologia e meio ambiente",
+    ],
+  },
+  matematica: {
+    nome: "Matemática e suas Tecnologias",
+    itens: [
+      "Aritmética e porcentagem",
+      "Funções e gráficos",
+      "Geometria plana e espacial",
+      "Estatística e probabilidade",
+      "Razão, proporção e grandezas",
+    ],
+  },
+};
+
+function renderEnemConteudos() {
+  const div = document.getElementById("enem-conteudos");
+  if (!div) return;
+  div.innerHTML = Object.entries(ENEM_CONTEUDOS).map(([area, d]) => {
+    const info = AREAS[area] || { icone: "", curto: area };
+    return `
+      <div class="enem-area">
+        <span class="enem-area-nome">${info.icone} ${escaparHTML(info.curto)}</span>
+        <ul>${d.itens.map((i) => `<li>${escaparHTML(i)}</li>`).join("")}</ul>
+      </div>
+    `;
+  }).join("");
+}
+
 function abrirNoticias() {
   mostrarTela("tela-noticias");
+  renderEnemConteudos();
   carregarNoticias();
 }
 
