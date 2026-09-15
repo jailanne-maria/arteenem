@@ -1,10 +1,46 @@
 {
-  "atualizadoEm": "2026-09-14T16:01:41.377Z",
+  "atualizadoEm": "2026-09-15T14:31:07.282Z",
   "fontes": [
     "MEC",
     "Agência Brasil"
   ],
   "noticias": [
+    {
+      "titulo": "PND 2026: participantes devem consultar local de prova com antecedência",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/setembro/pnd-2026-participantes-devem-consultar-local-de-prova-com-antecedencia",
+      "fonte": "MEC",
+      "data": "setembro/2026"
+    },
+    {
+      "titulo": "Educação de jovens e adultos é tema de episódio do PodMEC",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/setembro/educacao-de-jovens-e-adultos-e-tema-de-episodio-do-podmec",
+      "fonte": "MEC",
+      "data": "setembro/2026"
+    },
+    {
+      "titulo": "MEC participa de abertura virtual de formação de moçambicanos",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/setembro/mec-participa-de-abertura-virtual-de-formacao-de-mocambicanos",
+      "fonte": "MEC",
+      "data": "setembro/2026"
+    },
+    {
+      "titulo": "Campus Maricá do IFF oferece formação sobre Direitos de Meninas e Mulheres",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/setembro/campus-marica-do-iff-oferece-formacao-sobre-direitos-de-meninas-e-mulheres",
+      "fonte": "MEC",
+      "data": "setembro/2026"
+    },
+    {
+      "titulo": "Fórum prevê criação de Rede de Correição da Educação",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/setembro/forum-preve-criacao-de-rede-de-correicao-da-educacao",
+      "fonte": "MEC",
+      "data": "setembro/2026"
+    },
+    {
+      "titulo": "MEC disponibiliza painel com dados do Ideb para análise da aprendizagem",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/setembro/mec-disponibiliza-painel-com-dados-do-ideb-para-analise-da-aprendizagem",
+      "fonte": "MEC",
+      "data": "setembro/2026"
+    },
     {
       "titulo": "Prouni: hoje (14) é o último dia para comprovar informações da lista de espera",
       "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/setembro/prouni-hoje-14-e-o-ultimo-dia-para-comprovar-informacoes-da-lista-de-espera",
@@ -54,40 +90,10 @@
       "data": "setembro/2026"
     },
     {
-      "titulo": "MEC prorroga prazo para envio do Plano de Ação da Recomposição das Aprendizagens",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/setembro/mec-prorroga-prazo-para-envio-do-plano-de-acao-da-recomposicao-das-aprendizagens",
-      "fonte": "MEC",
-      "data": "setembro/2026"
-    },
-    {
-      "titulo": "Inscrições para produção de livros em Braille-Tinta terminam sexta (11)",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/setembro/inscricoes-para-producao-de-livros-em-braille-tinta-terminam-sexta-11",
-      "fonte": "MEC",
-      "data": "setembro/2026"
-    },
-    {
-      "titulo": "MEC divulga instituições selecionadas para apoio técnico em sustentabilidade",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/setembro/mec-divulga-instituicoes-selecionadas-para-apoio-tecnico-em-sustentabilidade",
-      "fonte": "MEC",
-      "data": "setembro/2026"
-    },
-    {
-      "titulo": "Santa Catarina registra queda na taxa de analfabetismo",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/setembro/santa-catarina-registra-queda-na-taxa-de-analfabetismo",
-      "fonte": "MEC",
-      "data": "setembro/2026"
-    },
-    {
-      "titulo": "Roraima registra queda na taxa de analfabetismo",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/setembro/roraima-registra-queda-na-taxa-de-analfabetismo",
-      "fonte": "MEC",
-      "data": "setembro/2026"
-    },
-    {
-      "titulo": "São Paulo registra queda na taxa de analfabetismo",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/setembro/sao-paulo-registra-queda-na-taxa-de-analfabetismo",
-      "fonte": "MEC",
-      "data": "setembro/2026"
+      "titulo": "Revalida 2026/2: prazo de envio de diploma médico termina dia 19",
+      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-09/revalida-20262-prazo-de-envio-de-diploma-medico-termina-dia-19",
+      "fonte": "Agência Brasil",
+      "data": "15/09"
     },
     {
       "titulo": "Prova que avalia formação médica ocorre neste domingo em todo país",
@@ -142,12 +148,6 @@
       "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-09/brasil-melhora-desempenho-escolar-no-longo-prazo-mas-patamar-e-baixo",
       "fonte": "Agência Brasil",
       "data": "10/09"
-    },
-    {
-      "titulo": "PND 2026: cartão que confirma inscrição está disponível na internet",
-      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-09/pnd-2026-cartao-que-confirma-inscricao-esta-disponivel-na-internet",
-      "fonte": "Agência Brasil",
-      "data": "09/09"
     }
   ],
   "temasRedacao": []
