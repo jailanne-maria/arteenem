@@ -2666,7 +2666,9 @@ function renderRevisaoCard(r) {
   const atividade = (r.atividade || []).map((a, i) => `
     <div class="ativ-item">
       <p class="ativ-pergunta"><strong>${i + 1}.</strong> ${escaparHTML(a.pergunta)}</p>
-      <details><summary>Ver resposta</summary><p>${escaparHTML(a.resposta)}</p></details>
+      <textarea class="ativ-resposta-aluno" rows="2" placeholder="Escreva sua resposta antes de ver o gabarito..."></textarea>
+      <button class="ativ-revelar" disabled>👁️ Ver resposta</button>
+      <div class="ativ-gabarito escondido"><strong>Gabarito:</strong> ${escaparHTML(a.resposta)}</div>
     </div>`).join("");
   return `
     <details class="revisao-card">
@@ -2687,6 +2689,25 @@ document.getElementById("btn-revisoes").addEventListener("click", abrirRevisoes)
 document.getElementById("btn-voltar-revisoes").addEventListener("click", () => {
   if (usuario && usuario.papel === "professor") abrirPainelProfessor();
   else abrirInicioEstudante();
+});
+
+// O aluno só vê o gabarito depois de escrever a própria resposta
+document.getElementById("revisoes-lista").addEventListener("input", (e) => {
+  const ta = e.target.closest(".ativ-resposta-aluno");
+  if (!ta) return;
+  const item = ta.closest(".ativ-item");
+  const btn = item && item.querySelector(".ativ-revelar");
+  if (btn) btn.disabled = ta.value.trim().length < 3;
+});
+
+document.getElementById("revisoes-lista").addEventListener("click", (e) => {
+  const btn = e.target.closest(".ativ-revelar");
+  if (!btn || btn.disabled) return;
+  const item = btn.closest(".ativ-item");
+  const gab = item && item.querySelector(".ativ-gabarito");
+  if (gab) gab.classList.remove("escondido");
+  btn.disabled = true;
+  btn.textContent = "✅ Gabarito revelado";
 });
 
 // ---------- Eventos gerais ----------

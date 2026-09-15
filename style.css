@@ -3186,6 +3186,57 @@ h1, h2, h3, h4, .marca-nome, .btn-principal, .btn-secundario, .btn-google, .btn-
   padding: 10px 12px;
 }
 
+.ativ-resposta-aluno {
+  width: 100%;
+  border: 3px solid var(--black);
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-family: var(--texto);
+  font-size: 1.15rem;
+  background: var(--surface);
+  color: var(--black);
+  resize: vertical;
+  margin-bottom: 8px;
+}
+
+.ativ-resposta-aluno:focus {
+  outline: none;
+  background: var(--surface-3);
+}
+
+.ativ-revelar {
+  background: var(--surface-2);
+  border: 3px solid var(--black);
+  box-shadow: 3px 3px 0 var(--black);
+  border-radius: 8px;
+  padding: 8px 14px;
+  font-family: var(--pixel);
+  font-size: 0.55rem;
+  cursor: pointer;
+  color: var(--black);
+}
+
+.ativ-revelar:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.ativ-revelar:not(:disabled):hover {
+  background: var(--green);
+  color: var(--white);
+}
+
+.ativ-gabarito {
+  margin-top: 10px;
+  background: #d4f5d4;
+  border: 3px solid var(--black);
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 1.05rem;
+  color: var(--black);
+}
+
 /* ===== REVISÕES DA TURMA ===== */
 .turmas-checks {
   display: flex;
