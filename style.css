@@ -14,6 +14,8 @@
   --black: #14142b;
   --white: #ffffff;
   --cream: #fff8e7;
+  --roxo: #6b3fd4;
+  --roxo-claro: #8a63e0;
 
   /* Papéis semânticos */
   --surface: var(--cream);
@@ -3430,12 +3432,13 @@ h1, h2, h3, h4, .marca-nome, .btn-principal, .btn-secundario, .btn-google, .btn-
   background: var(--roxo);
   color: var(--white);
   font-family: var(--pixel);
-  font-size: 0.52rem;
-  padding: 6px 11px;
+  font-size: 0.6rem;
+  padding: 7px 12px;
   border-radius: 8px;
   border: 3px solid var(--black);
   margin-bottom: 12px;
-  line-height: 1.6;
+  line-height: 1.7;
+  text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.35);
 }
 
 .enem-area ul {
