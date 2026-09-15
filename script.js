@@ -1732,6 +1732,27 @@ function mostrarPerguntaDaArea(area) {
 
   const info = AREAS[area] || { icone: "", curto: area };
   document.getElementById("jogo-area-tag").textContent = `${info.icone} ${info.curto}`;
+
+  // Imagem de apoio (se houver)
+  const imgDiv = document.getElementById("jogo-imagem");
+  if (jogoQuestaoAtual.imagem) {
+    imgDiv.innerHTML = jogoQuestaoAtual.imagem;
+    exibir(imgDiv);
+  } else {
+    imgDiv.innerHTML = "";
+    esconder(imgDiv);
+  }
+
+  // Texto de apoio (se houver)
+  const apoioDiv = document.getElementById("jogo-apoio");
+  if (jogoQuestaoAtual.apoio) {
+    apoioDiv.textContent = jogoQuestaoAtual.apoio;
+    exibir(apoioDiv);
+  } else {
+    apoioDiv.textContent = "";
+    esconder(apoioDiv);
+  }
+
   document.getElementById("jogo-enunciado").textContent = jogoQuestaoAtual.enunciado;
 
   const alts = document.getElementById("jogo-alternativas");
@@ -2004,6 +2025,27 @@ function renderQuestaoDuelo() {
   dueloRespondido = false;
   document.getElementById("duelo-placar").textContent =
     `Pergunta ${dueloIndice + 1} de ${dueloQuestoes.length} · Você acertou ${dueloRespostas.filter((x) => x).length}`;
+
+  // Imagem de apoio (se houver)
+  const imgDiv = document.getElementById("duelo-imagem");
+  if (q.imagem) {
+    imgDiv.innerHTML = q.imagem;
+    exibir(imgDiv);
+  } else {
+    imgDiv.innerHTML = "";
+    esconder(imgDiv);
+  }
+
+  // Texto de apoio (se houver)
+  const apoioDiv = document.getElementById("duelo-apoio");
+  if (q.apoio) {
+    apoioDiv.textContent = q.apoio;
+    exibir(apoioDiv);
+  } else {
+    apoioDiv.textContent = "";
+    esconder(apoioDiv);
+  }
+
   document.getElementById("duelo-enunciado").textContent = q.enunciado;
   const alts = document.getElementById("duelo-alternativas");
   alts.innerHTML = "";
