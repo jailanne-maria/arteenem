@@ -1,10 +1,34 @@
 {
-  "atualizadoEm": "2026-09-15T14:31:07.282Z",
+  "atualizadoEm": "2026-09-16T14:25:13.377Z",
   "fontes": [
     "MEC",
     "Agência Brasil"
   ],
   "noticias": [
+    {
+      "titulo": "Pesquisa da UFC usa tecnologia para prevenir quedas de idosos",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/setembro/pesquisa-da-ufc-usa-tecnologia-para-prevenir-quedas-de-idosos",
+      "fonte": "MEC",
+      "data": "setembro/2026"
+    },
+    {
+      "titulo": "Universidades e residência: MEC regulamenta habilitação para sanitaristas",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/setembro/universidades-e-residencia-mec-regulamenta-habilitacao-para-sanitaristas",
+      "fonte": "MEC",
+      "data": "setembro/2026"
+    },
+    {
+      "titulo": "Curso do MEC fortalece formação de coordenadores pedagógicos da rede pública",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/setembro/curso-do-mec-fortalece-formacao-de-coordenadores-pedagogicos-da-rede-publica",
+      "fonte": "MEC",
+      "data": "setembro/2026"
+    },
+    {
+      "titulo": "Saiba como revalidar diploma estrangeiro no Brasil",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/setembro/saiba-como-revalidar-diploma-estrangeiro-no-brasil",
+      "fonte": "MEC",
+      "data": "setembro/2026"
+    },
     {
       "titulo": "PND 2026: participantes devem consultar local de prova com antecedência",
       "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/setembro/pnd-2026-participantes-devem-consultar-local-de-prova-com-antecedencia",
@@ -60,34 +84,10 @@
       "data": "setembro/2026"
     },
     {
-      "titulo": "Inep lança manual explicativo sobre o Enamed",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/setembro/inep-lanca-manual-explicativo-sobre-o-enamed",
-      "fonte": "MEC",
-      "data": "setembro/2026"
-    },
-    {
-      "titulo": "Institutos federais auxiliam população com assistência em habitação",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/setembro/institutos-federais-auxiliam-populacao-com-assistencia-em-habitacao",
-      "fonte": "MEC",
-      "data": "setembro/2026"
-    },
-    {
-      "titulo": "Prazo para escolha dos livros didáticos do PNLD termina nesta sexta (11)",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/setembro/prazo-para-escolha-dos-livros-didaticos-do-pnld-termina-nesta-sexta-11",
-      "fonte": "MEC",
-      "data": "setembro/2026"
-    },
-    {
-      "titulo": "Envio de artigos ao Cadernos Equidade termina nesta sexta (11)",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/setembro/envio-de-artigos-ao-cadernos-equidade-termina-nesta-sexta-11",
-      "fonte": "MEC",
-      "data": "setembro/2026"
-    },
-    {
-      "titulo": "Aulão do Enem reúne estudantes na Paraíba nesta sexta (11)",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/setembro/aulao-do-enem-reune-estudantes-na-paraiba-nesta-sexta-11",
-      "fonte": "MEC",
-      "data": "setembro/2026"
+      "titulo": "PND 2026: participantes farão prova neste domingo em todo o país",
+      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-09/pnd-2026-participantes-farao-prova-neste-domingo-em-todo-o-pais",
+      "fonte": "Agência Brasil",
+      "data": "15/09"
     },
     {
       "titulo": "Revalida 2026/2: prazo de envio de diploma médico termina dia 19",
@@ -144,10 +144,10 @@
       "data": "10/09"
     },
     {
-      "titulo": "Brasil melhora desempenho escolar no longo prazo, mas patamar é baixo",
-      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-09/brasil-melhora-desempenho-escolar-no-longo-prazo-mas-patamar-e-baixo",
+      "titulo": "Lotofácil da Independência: 72 apostas faturam R$ 4,4 milhões cada",
+      "link": "https://agenciabrasil.ebc.com.br/geral/noticia/2026-09/lotofacil-da-independencia-72-apostas-faturam-r-44-milhoes-cada",
       "fonte": "Agência Brasil",
-      "data": "10/09"
+      "data": "16/09"
     }
   ],
   "temasRedacao": []
