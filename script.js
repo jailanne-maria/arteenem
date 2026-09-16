@@ -2752,15 +2752,17 @@ async function abrirRevisoes() {
     }
     revisoes.sort((a, b) => (b.ms || 0) - (a.ms || 0));
     div.innerHTML = revisoes.map(renderRevisaoCard).join("");
-    if (usuario.papel === "professor") carregarRespostasAlunos();
-    else carregarMinhasRespostas();
+    // Carrega as respostas dos alunos (para revisões do professor) e as minhas (para o aluno)
+    carregarRespostasAlunos();
+    carregarMinhasRespostas();
   } catch (e) {
     div.innerHTML = `<p class='vazio'>Erro ao carregar: ${e.message}</p>`;
   }
 }
 
 function renderRevisaoCard(r) {
-  const ehProf = usuario.papel === "professor";
+  // Considera "professor" quem tem o papel OU quem é o dono da revisão
+  const ehProf = usuario.papel === "professor" || (r.professorId && r.professorId === usuario.uid);
   const mapa = (r.mapa || []).map((m) => `
     <div class="mapa-conceito">
       <span class="mapa-conceito-nome">${escaparHTML(m.conceito)}</span>
