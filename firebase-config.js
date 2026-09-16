@@ -347,14 +347,19 @@ function excluirRevisao(id) {
 function salvarRespostaAtividade(revisaoId, aluno, turma, perguntaIndex, texto) {
   const id = `${revisaoId}_${aluno.uid}`;
   const ref = firebase.firestore().collection("respostasAtividade").doc(id);
-  return ref.set({
-    revisaoId,
-    alunoId: aluno.uid,
-    alunoNome: aluno.nome,
-    turma: turma || null,
-    ["respostas." + perguntaIndex]: texto,
-    atualizadoEm: firebase.firestore.FieldValue.serverTimestamp(),
-  }, { merge: true });
+  // Lê o que já existe, junta a nova resposta e salva (evita perder respostas anteriores)
+  return ref.get().then((doc) => {
+    const atual = doc.exists ? (doc.data().respostas || {}) : {};
+    atual[perguntaIndex] = texto;
+    return ref.set({
+      revisaoId,
+      alunoId: aluno.uid,
+      alunoNome: aluno.nome,
+      turma: turma || null,
+      respostas: atual,
+      atualizadoEm: firebase.firestore.FieldValue.serverTimestamp(),
+    }, { merge: true });
+  });
 }
 
 function listarRespostasDaRevisao(revisaoId) {

@@ -58,6 +58,8 @@ aoMudarUsuario(async (user) => {
   const btnSintese = document.getElementById("btn-sintese");
   const btnCurriculo = document.getElementById("btn-curriculo");
   const btnRevisoes = document.getElementById("btn-revisoes");
+  const btnInicio = document.getElementById("btn-inicio");
+  const btnMenu = document.getElementById("btn-menu");
   const nomeTopo = document.getElementById("usuario-nome");
 
   if (!user) {
@@ -73,7 +75,10 @@ aoMudarUsuario(async (user) => {
     esconder(btnSintese);
     esconder(btnCurriculo);
     esconder(btnRevisoes);
+    esconder(btnInicio);
+    esconder(btnMenu);
     esconder(nomeTopo);
+    esconder(document.getElementById("menu-extra"));
     mostrarTela("tela-login");
     return;
   }
@@ -105,6 +110,8 @@ aoMudarUsuario(async (user) => {
   exibir(btnSintese);
   exibir(btnCurriculo);
   exibir(btnRevisoes);
+  exibir(btnInicio);
+  exibir(btnMenu);
 
   // Aviso do ECA a cada login (uma vez por sessão)
   mostrarAvisoECA();
@@ -2940,6 +2947,26 @@ document.getElementById("revisoes-lista").addEventListener("click", async (e) =>
       alert("Erro ao enviar comentário: " + err.message);
     }
   }
+});
+
+// ============================================================
+// MENU (mostra/esconde os botões) + INÍCIO
+// ============================================================
+document.getElementById("btn-menu").addEventListener("click", () => {
+  const m = document.getElementById("menu-extra");
+  if (m.classList.contains("escondido")) exibir(m);
+  else esconder(m);
+});
+
+// Fecha o menu ao clicar em qualquer botão de dentro
+document.getElementById("menu-extra").addEventListener("click", (e) => {
+  if (e.target.closest("button")) esconder(document.getElementById("menu-extra"));
+});
+
+document.getElementById("btn-inicio").addEventListener("click", () => {
+  esconder(document.getElementById("menu-extra"));
+  if (usuario && usuario.papel === "professor") abrirPainelProfessor();
+  else abrirInicioEstudante();
 });
 
 // ---------- Eventos gerais ----------
