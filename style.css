@@ -3473,48 +3473,163 @@ h1, h2, h3, h4, .marca-nome, .btn-principal, .btn-secundario, .btn-google, .btn-
 
 /* ===== MELHORIAS PARA CELULAR ===== */
 @media (max-width: 640px) {
+  /* ===== TOPO ===== */
   .topo-inner {
     flex-wrap: wrap;
-    gap: 10px;
-    padding: 10px 14px;
+    gap: 8px;
+    padding: 10px 12px;
   }
   .marca {
-    font-size: 0.75rem;
+    font-size: 0.72rem;
+  }
+  .marca-icone {
+    font-size: 1.2rem;
   }
   .topo-usuario {
     width: 100%;
     justify-content: flex-start;
     flex-wrap: wrap;
-    gap: 8px;
+    gap: 6px;
   }
   .btn-ghost {
     font-size: 0.5rem;
-    padding: 6px 9px;
+    padding: 9px 10px;
+    min-height: 38px;
   }
+  .menu-extra {
+    justify-content: flex-start;
+    gap: 6px;
+  }
+
+  /* ===== CONTEÚDO ===== */
   #app {
-    padding: 16px 14px 40px;
+    padding: 14px 12px 40px;
+  }
+  .hero {
+    padding: 14px 0 20px;
   }
   .hero h1 {
     font-size: clamp(0.8rem, 4.5vw, 1.1rem);
   }
+  .hero p {
+    font-size: 1.05rem;
+  }
+  .secao-titulo {
+    font-size: 0.7rem;
+  }
+  .dica {
+    font-size: 0.95rem;
+  }
+
+  /* ===== BOTÕES ===== */
+  .btn-principal {
+    font-size: 0.7rem;
+    padding: 16px 12px;
+  }
+  .btn-secundario {
+    font-size: 0.62rem;
+    padding: 14px 12px;
+  }
+  .btn-principal.compacto {
+    width: 100%;
+  }
+
+  /* ===== CARDS / GRIDS ===== */
+  .areas {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .area-card {
+    padding: 14px 12px;
+  }
+  .area-icone {
+    font-size: 1.7rem;
+  }
+  .papeis,
+  .destaques,
+  .sobre-grid {
+    grid-template-columns: 1fr;
+  }
+  .turmas-lista,
+  .enem-conteudos,
+  .mapa-lista,
+  .temas-redacao,
+  .curriculo-conteudos {
+    grid-template-columns: 1fr;
+  }
+
+  /* ===== PERGUNTAS ===== */
+  .questao-card {
+    padding: 18px 14px;
+  }
+  .enunciado {
+    font-size: 1.2rem;
+  }
+  .alt {
+    padding: 12px;
+    font-size: 1.1rem;
+  }
+  .alt-letra {
+    width: 26px;
+    height: 26px;
+  }
+  .apoio {
+    font-size: 1.05rem;
+  }
+
+  /* ===== RESULTADO ===== */
+  .score-geral {
+    flex-direction: column;
+    text-align: center;
+  }
+  .score-circulo {
+    width: 88px;
+    height: 88px;
+  }
+
+  /* ===== ROLETA ===== */
   .roleta-area {
-    width: 230px;
-    height: 230px;
+    width: 220px;
+    height: 220px;
   }
   .roleta-item {
-    font-size: 1.4rem;
-    transform: translate(-50%, -50%) rotate(var(--ang)) translateY(-72px) rotate(calc(-1 * var(--ang)));
+    font-size: 1.3rem;
+    transform: translate(-50%, -50%) rotate(var(--ang)) translateY(-68px) rotate(calc(-1 * var(--ang)));
   }
+
+  /* ===== ÁLBUM ===== */
   .album {
-    grid-template-columns: repeat(auto-fill, minmax(105px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 10px;
   }
+  .figurinha {
+    padding: 10px 8px;
+  }
+  .figurinha .fig-emoji {
+    font-size: 2.2rem;
+  }
+
+  /* ===== FORMULÁRIOS ===== */
   .form-linha {
     flex-direction: column;
   }
+  .form-linha input,
+  .campo input,
+  .campo textarea,
+  .campo select,
+  .perfil-edit input,
+  .perfil-edit textarea {
+    font-size: 1.1rem;
+  }
+
+  /* ===== MODAIS ===== */
   .modal-figurinha-caixa,
-  .modal-eca-caixa {
+  .modal-eca-caixa,
+  .modal-peca-caixa {
     padding: 20px 16px;
   }
+
+  /* ===== MURAL ===== */
   .recado {
     padding: 12px;
     gap: 10px;
@@ -3528,16 +3643,40 @@ h1, h2, h3, h4, .marca-nome, .btn-principal, .btn-secundario, .btn-google, .btn-
     font-size: 1.1rem;
   }
   .mural-aba {
+    font-size: 0.48rem;
+    padding: 10px 6px;
+  }
+
+  /* ===== CURRÍCULO ===== */
+  .serie-btn,
+  .area-btn {
     font-size: 0.5rem;
     padding: 10px 6px;
   }
-  .fase-cabeca h1 {
-    font-size: 0.75rem;
+
+  /* ===== REVISÕES / SÍNTESE ===== */
+  .revisao-card summary {
+    font-size: 0.55rem;
   }
+  .sintese-timer {
+    font-size: 2rem;
+  }
+
+  /* ===== TURMAS ===== */
   .turma-stats {
     flex-wrap: wrap;
   }
   .stat-card {
     min-width: 90px;
   }
+
+  /* ===== MAPA ===== */
+  .fase-cabeca h1 {
+    font-size: 0.75rem;
+  }
+  .fase-cabeca {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }
+
