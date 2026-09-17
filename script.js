@@ -59,6 +59,7 @@ aoMudarUsuario(async (user) => {
   const btnCurriculo = document.getElementById("btn-curriculo");
   const btnRevisoes = document.getElementById("btn-revisoes");
   const btnAtividades = document.getElementById("btn-atividades");
+  const btnSimulado = document.getElementById("btn-simulado");
   const btnInicio = document.getElementById("btn-inicio");
   const btnMenu = document.getElementById("btn-menu");
   const nomeTopo = document.getElementById("usuario-nome");
@@ -77,6 +78,7 @@ aoMudarUsuario(async (user) => {
     esconder(btnCurriculo);
     esconder(btnRevisoes);
     esconder(btnAtividades);
+    esconder(btnSimulado);
     esconder(btnInicio);
     esconder(btnMenu);
     esconder(nomeTopo);
@@ -113,6 +115,7 @@ aoMudarUsuario(async (user) => {
   exibir(btnCurriculo);
   exibir(btnRevisoes);
   exibir(btnAtividades);
+  exibir(btnSimulado);
   exibir(btnInicio);
   exibir(btnMenu);
 
@@ -3587,6 +3590,326 @@ document.getElementById("btn-salvar-area").addEventListener("click", async () =>
   await salvarUsuario(usuario.uid, { area: areaEscolhida, disciplina: disciplinaEscolhida }).catch(() => {});
   abrirPainelProfessor();
 });
+
+// ============================================================
+// SIMULADO ENEM (questões reais da API pública enem.dev)
+// ============================================================
+const SIM_AREAS = [
+  { id: "linguagens", nome: "Linguagens", icone: "📖", cor: "#1b7ea6" },
+  { id: "ciencias-humanas", nome: "Humanas", icone: "🌍", cor: "#fbd000" },
+  { id: "ciencias-natureza", nome: "Natureza", icone: "🧪", cor: "#43b047" },
+  { id: "matematica", nome: "Matemática", icone: "📐", cor: "#e52521" },
+];
+const SIM_ANO = 2023;
+const SIM_POR_AREA = 10; // metade aproximada de cada área (ajustável)
+
+const REDACOES_ENEM = [
+  {
+    tema: "Desafios para o enfrentamento da invisibilidade do trabalho de cuidado realizado pela mulher no Brasil",
+    motivadores: [
+      "O trabalho de cuidado — cuidar de crianças, idosos e da casa — é realizado majoritariamente por mulheres e muitas vezes não é reconhecido nem remunerado.",
+      "Segundo o IBGE, as mulheres dedicam quase o dobro do tempo dos homens aos afazeres domésticos e ao cuidado de pessoas.",
+      "A Constituição de 1988 garante a igualdade entre homens e mulheres, mas a divisão desigual do trabalho de cuidado ainda persiste.",
+    ],
+  },
+  {
+    tema: "Democratização do acesso ao cinema no Brasil",
+    motivadores: [
+      "O cinema é uma manifestação cultural e um direito previsto no artigo 215 da Constituição, que garante o acesso à cultura.",
+      "Grande parte dos municípios brasileiros não possui sala de cinema, o que limita o acesso à produção audiovisual.",
+      "A Lei Paulo Gustavo (2022) destinou recursos emergenciais ao setor cultural, afetado pela pandemia.",
+    ],
+  },
+  {
+    tema: "Caminhos para combater a desinformação no Brasil",
+    motivadores: [
+      "As fake news se espalham rapidamente nas redes sociais e afetam a saúde pública, a democracia e a convivência social.",
+      "A educação midiática — saber checar fontes e identificar notícias falsas — é uma ferramenta essencial de cidadania.",
+      "O Marco Civil da Internet (2014) estabelece princípios para o uso da internet no Brasil, incluindo a responsabilidade e a transparência.",
+    ],
+  },
+];
+
+let simIdioma = null;
+let simQuestoesENEM = [];
+let simOrdemIndex = 0;
+let simAreaAtual = null;
+let simFila = [];
+let simIndice = 0;
+let simRespostas = [];
+let simRespondido = false;
+let simPorArea = {};
+
+function abrirSimulado() {
+  simIdioma = null;
+  simQuestoesENEM = [];
+  simOrdemIndex = 0;
+  simRespostas = [];
+  simPorArea = {};
+  document.querySelectorAll(".idioma-opcao").forEach((b) => b.classList.remove("ativa"));
+  exibir(document.getElementById("simulado-idioma"));
+  esconder(document.getElementById("simulado-roleta-wrap"));
+  esconder(document.getElementById("simulado-questoes"));
+  esconder(document.getElementById("simulado-redacao"));
+  esconder(document.getElementById("simulado-resultado"));
+  mostrarTela("tela-simulado");
+}
+
+document.getElementById("btn-simulado").addEventListener("click", abrirSimulado);
+document.getElementById("btn-voltar-simulado").addEventListener("click", () => {
+  if (usuario && usuario.papel === "professor") abrirPainelProfessor();
+  else abrirInicioEstudante();
+});
+
+document.querySelectorAll(".idioma-opcao").forEach((b) => {
+  b.addEventListener("click", async () => {
+    simIdioma = b.dataset.idioma;
+    document.querySelectorAll(".idioma-opcao").forEach((x) => x.classList.toggle("ativa", x === b));
+    await carregarQuestoesSimulado();
+  });
+});
+
+async function carregarQuestoesSimulado() {
+  const aviso = document.getElementById("simulado-idioma");
+  const info = aviso.querySelector(".dica") || aviso;
+  info.textContent = "⏳ Carregando questões do ENEM...";
+  try {
+    // A API limita 50 por página — busca em páginas
+    let todas = [];
+    for (let offset = 0; offset < 250; offset += 50) {
+      const r = await fetch(`https://api.enem.dev/v1/exams/${SIM_ANO}/questions?limit=50&offset=${offset}`);
+      if (!r.ok) break;
+      const data = await r.json();
+      const qs = data.questions || [];
+      todas = todas.concat(qs);
+      if (!data.metadata || !data.metadata.hasMore || qs.length < 50) break;
+    }
+    simQuestoesENEM = todas;
+    if (!simQuestoesENEM.length) throw new Error("Não foi possível carregar as questões.");
+
+    // Monta a fila por área (metade de cada, respeitando a língua em Linguagens)
+    simPorArea = {};
+    SIM_AREAS.forEach((a) => {
+      let qs = simQuestoesENEM.filter((q) => q.discipline === a.id);
+      if (a.id === "linguagens" && simIdioma) {
+        qs = qs.filter((q) => !q.language || q.language === simIdioma);
+      }
+      embaralhar(qs);
+      simPorArea[a.id] = qs.slice(0, SIM_POR_AREA);
+    });
+    esconder(document.getElementById("simulado-idioma"));
+    renderRoletaSimulado();
+    exibir(document.getElementById("simulado-roleta-wrap"));
+    document.getElementById("sim-roleta-info").textContent =
+      `Ordem oficial: ${SIM_AREAS.map((a) => a.nome).join(" → ")}`;
+  } catch (e) {
+    info.textContent = "Erro ao carregar: " + e.message;
+  }
+}
+
+function renderRoletaSimulado() {
+  const face = document.getElementById("sim-roleta-face");
+  const n = SIM_AREAS.length;
+  const passo = 360 / n;
+  const partes = SIM_AREAS.map((a, i) => `${a.cor} ${i * passo}deg ${(i + 1) * passo}deg`);
+  face.style.background = `conic-gradient(${partes.join(", ")})`;
+}
+
+document.getElementById("btn-sim-girar").addEventListener("click", () => {
+  if (simOrdemIndex >= SIM_AREAS.length) return;
+  const btn = document.getElementById("btn-sim-girar");
+  btn.disabled = true;
+  btn.textContent = "🎡 Girando...";
+
+  // A roleta para na área da vez (seguindo a ordem oficial)
+  const idx = simOrdemIndex;
+  const alvo = (360 - (idx * (360 / SIM_AREAS.length) + 360 / SIM_AREAS.length / 2) + 360) % 360;
+  const roleta = document.getElementById("sim-roleta");
+  const atual = parseFloat(roleta.dataset.rot || "0");
+  const novo = atual + 5 * 360 + (((alvo - (atual % 360)) % 360) + 360) % 360;
+  roleta.dataset.rot = novo;
+  roleta.style.transform = `rotate(${novo}deg)`;
+
+  setTimeout(() => {
+    btn.disabled = false;
+    btn.textContent = "🎡 Girar a roleta";
+    const area = SIM_AREAS[idx];
+    simAreaAtual = area;
+    simFila = simPorArea[area.id] || [];
+    simIndice = 0;
+    if (!simFila.length) {
+      // sem questões nessa área: pula
+      simOrdemIndex++;
+      if (simOrdemIndex >= SIM_AREAS.length) abrirRedacaoSimulado();
+      return;
+    }
+    esconder(document.getElementById("simulado-roleta-wrap"));
+    exibir(document.getElementById("simulado-questoes"));
+    renderQuestaoSimulado();
+  }, 4000);
+});
+
+function renderQuestaoSimulado() {
+  const q = simFila[simIndice];
+  simRespondido = false;
+  const area = simAreaAtual;
+  document.getElementById("sim-area-tag").textContent = `${area.icone} ${area.nome}`;
+  document.getElementById("sim-contagem").textContent =
+    `${simIndice + 1}/${simFila.length} · ${simRespostas.filter((r) => r.acertou).length} acertos`;
+  document.getElementById("sim-progresso-fill").style.width = `${(simIndice / simFila.length) * 100}%`;
+
+  // Imagem
+  const imgDiv = document.getElementById("sim-imagem");
+  const arquivos = Array.isArray(q.files) ? q.files : [];
+  if (arquivos.length) {
+    imgDiv.innerHTML = arquivos.map((u) => `<img src="${u}" alt="" referrerpolicy="no-referrer" style="width:100%;height:auto">`).join("");
+    exibir(imgDiv);
+  } else {
+    imgDiv.innerHTML = "";
+    esconder(imgDiv);
+  }
+
+  // Texto de apoio (limpa markdown básico)
+  const apoioDiv = document.getElementById("sim-apoio");
+  const ctx = (q.context || "").replace(/\*\*/g, "").trim();
+  if (ctx) {
+    apoioDiv.textContent = ctx;
+    exibir(apoioDiv);
+  } else {
+    apoioDiv.textContent = "";
+    esconder(apoioDiv);
+  }
+
+  document.getElementById("sim-enunciado").textContent =
+    (q.alternativesIntroduction || "Analise as alternativas e escolha a correta.").replace(/\*\*/g, "");
+
+  const alts = document.getElementById("sim-alternativas");
+  alts.innerHTML = "";
+  (q.alternatives || []).forEach((a, i) => {
+    const b = document.createElement("button");
+    b.className = "alt";
+    b.innerHTML = `<span class="alt-letra">${a.letter || LETRAS[i]}</span><span>${escaparHTML(a.text || "")}${a.file ? `<img src="${a.file}" style="max-width:100%;margin-top:6px" alt="">` : ""}</span>`;
+    b.addEventListener("click", () => responderSimulado(i, a));
+    alts.appendChild(b);
+  });
+
+  esconder(document.getElementById("sim-feedback"));
+  esconder(document.getElementById("btn-sim-proxima"));
+}
+
+function responderSimulado(i, alternativa) {
+  if (simRespondido) return;
+  simRespondido = true;
+  const q = simFila[simIndice];
+  const acertou = !!(alternativa && (alternativa.isCorrect || alternativa.letter === q.correctAlternative));
+  simRespostas.push({ area: simAreaAtual.id, acertou });
+
+  document.querySelectorAll("#sim-alternativas .alt").forEach((b, idx) => {
+    b.classList.add("travada");
+    const alt = (q.alternatives || [])[idx];
+    if (alt && (alt.isCorrect || alt.letter === q.correctAlternative)) b.classList.add("correta");
+    else if (idx === i) b.classList.add("errada");
+  });
+
+  const fb = document.getElementById("sim-feedback");
+  fb.className = "feedback " + (acertou ? "ok" : "nao");
+  fb.innerHTML = acertou ? "<strong>✅ Acertou!</strong>" : "<strong>❌ Não foi essa.</strong>";
+  exibir(fb);
+
+  const btn = document.getElementById("btn-sim-proxima");
+  btn.textContent = simIndice + 1 < simFila.length ? "Próxima →" : "Concluir área →";
+  exibir(btn);
+}
+
+document.getElementById("btn-sim-proxima").addEventListener("click", () => {
+  simIndice++;
+  if (simIndice < simFila.length) {
+    renderQuestaoSimulado();
+  } else {
+    // Concluiu a área: volta para a roleta da próxima
+    simOrdemIndex++;
+    esconder(document.getElementById("simulado-questoes"));
+    if (simOrdemIndex >= SIM_AREAS.length) {
+      abrirRedacaoSimulado();
+    } else {
+      exibir(document.getElementById("simulado-roleta-wrap"));
+      const proxima = SIM_AREAS[simOrdemIndex];
+      document.getElementById("sim-roleta-info").textContent = `Próxima área: ${proxima.icone} ${proxima.nome}`;
+    }
+  }
+});
+
+function abrirRedacaoSimulado() {
+  const r = REDACOES_ENEM[Math.floor(Math.random() * REDACOES_ENEM.length)];
+  document.getElementById("sim-redacao-tema").textContent = r.tema;
+  document.getElementById("sim-redacao-motivadores").innerHTML =
+    "<h4 class='curriculo-sub'>📄 Textos motivadores</h4>" +
+    r.motivadores.map((t) => `<p class="texto-motivador">${escaparHTML(t)}</p>`).join("");
+  window.__simRedacaoTema = r.tema;
+  esconder(document.getElementById("simulado-roleta-wrap"));
+  esconder(document.getElementById("simulado-questoes"));
+  exibir(document.getElementById("simulado-redacao"));
+}
+
+document.getElementById("btn-sim-finalizar").addEventListener("click", () => {
+  const arq = document.getElementById("sim-redacao-arquivo").files;
+  const temRedacao = arq && arq.length > 0;
+  mostrarResultadoSimulado(temRedacao);
+});
+
+function mostrarResultadoSimulado(temRedacao) {
+  const porArea = {};
+  SIM_AREAS.forEach((a) => (porArea[a.id] = { total: 0, acertos: 0 }));
+  simRespostas.forEach((r) => {
+    if (porArea[r.area]) {
+      porArea[r.area].total++;
+      if (r.acertou) porArea[r.area].acertos++;
+    }
+  });
+
+  const total = simRespostas.length;
+  const acertos = simRespostas.filter((r) => r.acertou).length;
+  const pct = total ? Math.round((acertos / total) * 100) : 0;
+  const estimativa = Math.round((acertos / total) * 1000) || 0;
+
+  const barras = SIM_AREAS.map((a) => {
+    const s = porArea[a.id];
+    if (!s.total) return "";
+    const p = Math.round((s.acertos / s.total) * 100);
+    return `<div class="barra-item">
+      <div class="barra-topo"><strong>${a.icone} ${a.nome}</strong><span>${s.acertos}/${s.total} · ${p}%</span></div>
+      <div class="barra-track"><div class="barra-fill" style="width:${p}%;background:${a.cor}"></div></div>
+    </div>`;
+  }).join("");
+
+  const div = document.getElementById("simulado-resultado");
+  div.innerHTML = `
+    <div class="resultado-header">
+      <h2>Resultado do Simulado</h2>
+      <p>ENEM ${SIM_ANO} · Língua: ${simIdioma === "espanhol" ? "Espanhol" : "Inglês"}</p>
+    </div>
+    <div class="score-geral">
+      <div class="score-circulo" style="--pct:${pct}%"><span>${pct}%</span></div>
+      <p>Você acertou <strong>${acertos} de ${total}</strong> questões objetivas.</p>
+    </div>
+    <div class="painel-bloco">
+      <h3 class="secao-titulo">📊 Desempenho por área</h3>
+      <div class="barras">${barras || "<p class='vazio'>—</p>"}</div>
+    </div>
+    <div class="painel-bloco">
+      <h3 class="secao-titulo">🎯 Estimativa de nota</h3>
+      <p class="texto-ajuda">Nota estimada nas objetivas: <strong>${estimativa} pontos</strong> (de 1000).</p>
+      <p class="texto-ajuda">${temRedacao ? "📎 Sua redação foi anexada! A correção detalhada (por competência) pode ser feita pela IA ou pelo professor." : "Você não anexou a redação desta vez."}</p>
+      <p class="texto-ajuda">Tema da redação: <em>${escaparHTML(window.__simRedacaoTema || "")}</em></p>
+    </div>
+    <div class="resultado-acoes">
+      <button class="btn-principal" onclick="abrirSimulado()">🔁 Fazer outro simulado</button>
+    </div>
+  `;
+  esconder(document.getElementById("simulado-redacao"));
+  exibir(div);
+  div.scrollIntoView({ behavior: "smooth" });
+}
 
 // ---------- Eventos gerais ----------
 document.getElementById("btn-completo").addEventListener("click", () =>

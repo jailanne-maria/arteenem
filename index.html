@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="NINA — diagnóstico das 4 áreas do ENEM. Professores criam turmas, estudantes fazem o diagnóstico e disputam o ranking.">
   <title>NINA · Diagnóstico das 4 áreas</title>
-  <link rel="stylesheet" href="style.css?v=39">
+  <link rel="stylesheet" href="style.css?v=40">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
@@ -24,6 +24,7 @@
         <button id="btn-noticias" class="btn-ghost escondido">📰 Notícias</button>
         <button id="btn-menu" class="btn-ghost escondido">☰ Menu</button>
         <div id="menu-extra" class="menu-extra escondido">
+          <button id="btn-simulado" class="btn-ghost escondido">📝 Simulado</button>
           <button id="btn-atividades" class="btn-ghost escondido">📋 Atividades</button>
           <button id="btn-sintese" class="btn-ghost escondido">⏱️ Síntese</button>
           <button id="btn-curriculo" class="btn-ghost escondido">📚 Currículo</button>
@@ -778,6 +779,78 @@
       </div>
     </section>
 
+    <!-- ===== SIMULADO ENEM ===== -->
+    <section id="tela-simulado" class="tela">
+      <button id="btn-voltar-simulado" class="btn-ghost voltar">← Voltar</button>
+
+      <div class="hero">
+        <h1>📝 Simulado <span class="destaque">ENEM</span></h1>
+        <p>Questões reais de provas anteriores, na ordem oficial: <strong>Linguagens, Humanas, Natureza e Matemática</strong>.</p>
+      </div>
+
+      <!-- Passo 1: idioma -->
+      <div id="simulado-idioma" class="painel-bloco">
+        <h3 class="secao-titulo">1. Escolha a língua estrangeira</h3>
+        <div class="idioma-opcoes">
+          <button class="idioma-opcao" data-idioma="ingles">🇬🇧 Inglês</button>
+          <button class="idioma-opcao" data-idioma="espanhol">🇪🇸 Espanhol</button>
+        </div>
+        <p class="dica">A língua vale para as questões de Linguagens.</p>
+      </div>
+
+      <!-- Passo 2: roleta -->
+      <div id="simulado-roleta-wrap" class="escondido">
+        <h3 class="secao-titulo">2. Gire a roleta das áreas</h3>
+        <div class="roleta-area">
+          <div class="roleta-ponteiro">▼</div>
+          <div class="roleta" id="sim-roleta">
+            <div class="roleta-face" id="sim-roleta-face"></div>
+          </div>
+        </div>
+        <p id="sim-roleta-info" class="dica"></p>
+        <button id="btn-sim-girar" class="btn-principal">🎡 Girar a roleta</button>
+      </div>
+
+      <!-- Passo 3: questões -->
+      <div id="simulado-questoes" class="escondido">
+        <div class="progresso-wrap">
+          <div class="progresso-info">
+            <span id="sim-area-tag"></span>
+            <span id="sim-contagem"></span>
+          </div>
+          <div class="progresso-barra"><div id="sim-progresso-fill"></div></div>
+        </div>
+        <div class="questao-card">
+          <div id="sim-imagem" class="questao-imagem escondido"></div>
+          <div id="sim-apoio" class="apoio escondido"></div>
+          <p id="sim-enunciado" class="enunciado"></p>
+          <div id="sim-alternativas" class="alternativas"></div>
+          <div id="sim-feedback" class="feedback escondido"></div>
+        </div>
+        <div class="quiz-acoes">
+          <button id="btn-sim-proxima" class="btn-principal escondido">Próxima →</button>
+        </div>
+      </div>
+
+      <!-- Passo 4: redação -->
+      <div id="simulado-redacao" class="escondido">
+        <h3 class="secao-titulo">4. Redação</h3>
+        <div class="painel-bloco">
+          <span class="tema-eixo">Tema da redação</span>
+          <p id="sim-redacao-tema" class="jogo-enunciado"></p>
+          <div id="sim-redacao-motivadores"></div>
+          <div class="campo">
+            <label class="perfil-rotulo" for="sim-redacao-arquivo">📎 Envie sua redação (foto ou PDF)</label>
+            <input id="sim-redacao-arquivo" type="file" accept=".pdf,image/*">
+          </div>
+          <button id="btn-sim-finalizar" class="btn-principal">✅ Finalizar simulado</button>
+        </div>
+      </div>
+
+      <!-- Passo 5: resultado -->
+      <div id="simulado-resultado" class="escondido"></div>
+    </section>
+
     <!-- ===== MURAL (ORKUT) ===== -->
     <section id="tela-mural" class="tela">
       <button id="btn-voltar-mural" class="btn-ghost voltar">← Voltar</button>
@@ -898,12 +971,12 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
 
-  <script src="questoes.js?v=39"></script>
-  <script src="plano.js?v=39"></script>
-  <script src="explorar.js?v=39"></script>
-  <script src="figurinhas.js?v=39"></script>
-  <script src="curriculo.js?v=39"></script>
-  <script src="firebase-config.js?v=39"></script>
-  <script src="script.js?v=39"></script>
+  <script src="questoes.js?v=40"></script>
+  <script src="plano.js?v=40"></script>
+  <script src="explorar.js?v=40"></script>
+  <script src="figurinhas.js?v=40"></script>
+  <script src="curriculo.js?v=40"></script>
+  <script src="firebase-config.js?v=40"></script>
+  <script src="script.js?v=40"></script>
 </body>
 </html>
