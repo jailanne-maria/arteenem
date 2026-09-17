@@ -3272,20 +3272,35 @@ document.getElementById("btn-criar-atividade").addEventListener("click", async (
       const qtd = Math.max(1, Math.min(20, parseInt(document.getElementById("ativ-qtd").value, 10) || 5));
       area = document.getElementById("ativ-area").value;
 
-      // Prioriza a disciplina do professor
-      let banco = bancoDePerguntas().filter((q) => {
-        const disc = disciplinaDaQuestao(q);
-        const okDisc = usuario.disciplina ? disc === usuario.disciplina : true;
-        const okArea = area === "todas" || q.area === area;
-        const okNivel = nivel === 0 || nivelDaQuestao(q) === nivel;
-        return okDisc && okArea && okNivel;
-      });
-      // Se não houver da disciplina, amplia para a área
-      if (!banco.length) {
-        banco = bancoDePerguntas().filter(
-          (q) => (area === "todas" || q.area === area) && (nivel === 0 || nivelDaQuestao(q) === nivel)
-        );
+      const todas = bancoDePerguntas();
+      const ids = new Set();
+      const banco = [];
+      const adicionar = (lista) => {
+        for (const q of lista) {
+          const k = chaveQuestao(q);
+          if (!ids.has(k)) { ids.add(k); banco.push(q); }
+        }
+      };
+
+      // 1) disciplina do professor + nível
+      if (usuario.disciplina) {
+        adicionar(todas.filter((q) => disciplinaDaQuestao(q) === usuario.disciplina && (nivel === 0 || nivelDaQuestao(q) === nivel)));
+        // 2) disciplina (qualquer nível)
+        adicionar(todas.filter((q) => disciplinaDaQuestao(q) === usuario.disciplina));
       }
+      // 3) área selecionada + nível
+      adicionar(todas.filter((q) => (area === "todas" || q.area === area) && (nivel === 0 || nivelDaQuestao(q) === nivel)));
+      // 4) área selecionada (qualquer nível)
+      adicionar(todas.filter((q) => area === "todas" || q.area === area));
+      // 5) questões reais do ENEM da área do professor
+      if (banco.length < qtd) {
+        const areaENEM = usuario.area || (area !== "todas" ? area : null);
+        if (areaENEM) {
+          const enem = await carregarENEMArea(areaENEM);
+          adicionar(enem);
+        }
+      }
+
       if (!banco.length) {
         throw new Error("Não há questões com esse filtro.");
       }
