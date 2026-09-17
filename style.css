@@ -1534,6 +1534,18 @@ h1, h2, h3, h4, .marca-nome, .btn-principal, .btn-secundario, .btn-google, .btn-
   border-radius: 8px;
 }
 
+.perfil-estrelas {
+  display: inline-block;
+  margin-top: 10px;
+  background: var(--yellow);
+  border: 3px solid var(--black);
+  border-radius: 999px;
+  padding: 6px 14px;
+  font-family: var(--pixel);
+  font-size: 0.5rem;
+  color: var(--black);
+}
+
 .perfil-view,
 .perfil-edit {
   display: flex;
@@ -3469,6 +3481,113 @@ h1, h2, h3, h4, .marca-nome, .btn-principal, .btn-secundario, .btn-google, .btn-
   content: "📌";
   position: absolute;
   left: 0;
+}
+
+/* ===== DIFICULDADE DO JOGO ===== */
+.dificuldade {
+  background: var(--surface-2);
+  border: 4px solid var(--black);
+  box-shadow: var(--sombra);
+  border-radius: 12px;
+  padding: 14px 16px;
+  margin-bottom: 18px;
+  text-align: center;
+}
+
+.dificuldade-rotulo {
+  display: block;
+  font-family: var(--pixel);
+  font-size: 0.55rem;
+  margin-bottom: 12px;
+  color: var(--black);
+}
+
+.dificuldade-opcoes {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.nivel-btn {
+  flex: 1;
+  min-width: 100px;
+  background: var(--surface);
+  border: 3px solid var(--black);
+  box-shadow: 3px 3px 0 var(--black);
+  border-radius: 10px;
+  padding: 12px 8px;
+  font-family: var(--pixel);
+  font-size: 0.52rem;
+  cursor: pointer;
+  color: var(--black);
+}
+
+.nivel-btn.ativa {
+  background: var(--yellow);
+}
+
+/* ===== ATIVIDADES ===== */
+.atividade-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  background: var(--surface-2);
+  border: 3px solid var(--black);
+  box-shadow: 3px 3px 0 var(--black);
+  border-radius: 12px;
+  padding: 14px 16px;
+}
+
+.atividade-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+}
+
+.atividade-info strong {
+  font-family: var(--pixel);
+  font-size: 0.55rem;
+  line-height: 1.7;
+}
+
+.atividade-info small {
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.atividade-feita {
+  font-weight: 700;
+  color: var(--green-dark);
+  font-size: 1rem;
+}
+
+/* ===== ATIVIDADES NO PERFIL ===== */
+.perfil-atividades {
+  margin-top: 22px;
+  border-top: 3px dashed var(--border);
+  padding-top: 16px;
+}
+
+.perfil-atividade-item {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+  background: var(--surface);
+  border: 3px solid var(--black);
+  border-radius: 10px;
+  padding: 10px 12px;
+  margin-bottom: 8px;
+  font-size: 1.05rem;
+}
+
+.perfil-atividade-pct {
+  font-weight: 700;
+  color: var(--green-dark);
 }
 
 /* ===== MELHORIAS PARA CELULAR ===== */

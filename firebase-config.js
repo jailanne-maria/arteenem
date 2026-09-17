@@ -380,6 +380,72 @@ function buscarMinhaResposta(revisaoId, alunoId) {
     .then((d) => (d.exists ? d.data() : null));
 }
 
+// ---------- Atividades (professor cria e envia para as turmas) ----------
+function criarAtividade(professor, dados) {
+  return firebase.firestore().collection("atividades").add({
+    ...dados,
+    professorId: professor.uid,
+    professorNome: professor.nome,
+    criadaEm: firebase.firestore.FieldValue.serverTimestamp(),
+  });
+}
+
+function listarAtividadesDaTurma(codigo) {
+  return firebase.firestore().collection("atividades")
+    .where("turmas", "array-contains", codigo)
+    .get()
+    .then((snap) => {
+      const lista = snap.docs.map((d) => {
+        const data = d.data();
+        const ms = data.criadaEm && data.criadaEm.toMillis ? data.criadaEm.toMillis() : 0;
+        return { id: d.id, ...data, ms };
+      });
+      lista.sort((a, b) => b.ms - a.ms);
+      return lista;
+    });
+}
+
+function listarAtividadesDoProfessor(uid) {
+  return firebase.firestore().collection("atividades")
+    .where("professorId", "==", uid)
+    .get()
+    .then((snap) => snap.docs.map((d) => ({ id: d.id, ...d.data() })));
+}
+
+function excluirAtividade(id) {
+  return firebase.firestore().collection("atividades").doc(id).delete();
+}
+
+// ---------- Respostas das atividades (auto-corrigidas) ----------
+function salvarRespostaQuiz(atividadeId, aluno, turma, respostas, acertos, total, atividadeTitulo) {
+  const id = `${atividadeId}_${aluno.uid}`;
+  return firebase.firestore().collection("respostasQuiz").doc(id).set({
+    atividadeId,
+    atividadeTitulo: atividadeTitulo || "Atividade",
+    alunoId: aluno.uid,
+    alunoNome: aluno.nome,
+    turma: turma || null,
+    respostas,
+    acertos,
+    total,
+    criadaEm: firebase.firestore.FieldValue.serverTimestamp(),
+  });
+}
+
+function listarRespostasQuiz(atividadeId) {
+  return firebase.firestore().collection("respostasQuiz")
+    .where("atividadeId", "==", atividadeId)
+    .get()
+    .then((snap) => snap.docs.map((d) => ({ id: d.id, ...d.data() })));
+}
+
+function listarRespostasQuizDoAluno(alunoId) {
+  return firebase.firestore().collection("respostasQuiz")
+    .where("alunoId", "==", alunoId)
+    .get()
+    .then((snap) => snap.docs.map((d) => ({ id: d.id, ...d.data() })));
+}
+
 if (typeof module !== "undefined") {
   module.exports = { firebaseConfig };
 }

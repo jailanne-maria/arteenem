@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="NINA — diagnóstico das 4 áreas do ENEM. Professores criam turmas, estudantes fazem o diagnóstico e disputam o ranking.">
   <title>NINA · Diagnóstico das 4 áreas</title>
-  <link rel="stylesheet" href="style.css?v=36">
+  <link rel="stylesheet" href="style.css?v=37">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
@@ -24,6 +24,7 @@
         <button id="btn-noticias" class="btn-ghost escondido">📰 Notícias</button>
         <button id="btn-menu" class="btn-ghost escondido">☰ Menu</button>
         <div id="menu-extra" class="menu-extra escondido">
+          <button id="btn-atividades" class="btn-ghost escondido">📋 Atividades</button>
           <button id="btn-sintese" class="btn-ghost escondido">⏱️ Síntese</button>
           <button id="btn-curriculo" class="btn-ghost escondido">📚 Currículo</button>
           <button id="btn-revisoes" class="btn-ghost escondido">📖 Revisões</button>
@@ -106,6 +107,12 @@
         <h3 class="secao-titulo">📖 Revisão com IA</h3>
         <p class="texto-ajuda">Suba um material que você trabalhou em aula e a plataforma gera um <strong>mapa conceitual</strong>, uma <strong>revisão</strong> e uma <strong>atividade</strong> para fixar e avaliar.</p>
         <button id="btn-ir-revisao" class="btn-principal">📖 Criar revisão</button>
+      </div>
+
+      <div class="painel-bloco" style="margin-top:24px">
+        <h3 class="secao-titulo">📋 Criar atividade</h3>
+        <p class="texto-ajuda">Monte uma atividade com questões do banco, envie para as turmas e veja as <strong>estatísticas de desempenho</strong>. A correção é automática.</p>
+        <button id="btn-ir-atividades" class="btn-principal">📋 Criar atividade</button>
       </div>
     </section>
 
@@ -240,6 +247,7 @@
           <div>
             <h1 id="perfil-nome" class="perfil-nome"></h1>
             <span id="perfil-papel" class="perfil-papel"></span>
+            <div id="perfil-estrelas" class="perfil-estrelas"></div>
           </div>
         </div>
 
@@ -285,6 +293,11 @@
         </div>
 
         <button id="btn-editar-perfil" class="btn-secundario">✏️ Editar perfil</button>
+
+        <div id="perfil-atividades" class="perfil-atividades escondido">
+          <h4 class="perfil-rotulo">📋 Atividades feitas</h4>
+          <div id="perfil-atividades-lista"></div>
+        </div>
       </div>
     </section>
 
@@ -439,6 +452,15 @@
       <div class="hero">
         <h1>🎡 Roleta do <span class="destaque">NINA</span></h1>
         <p>Gire a roleta, responda a pergunta da área sorteada e ganhe figurinhas colecionáveis!</p>
+      </div>
+
+      <div class="dificuldade">
+        <span class="dificuldade-rotulo">Escolha a dificuldade:</span>
+        <div class="dificuldade-opcoes">
+          <button class="nivel-btn ativa" data-nivel="1">🟢 Fácil</button>
+          <button class="nivel-btn" data-nivel="2">🟡 Intermediário</button>
+          <button class="nivel-btn" data-nivel="3">🔴 Difícil</button>
+        </div>
       </div>
 
       <div class="roleta-area">
@@ -632,6 +654,78 @@
       <div id="revisoes-lista" class="revisoes-lista"></div>
     </section>
 
+    <!-- ===== CRIAR ATIVIDADE (PROFESSOR) ===== -->
+    <section id="tela-atividades-prof" class="tela">
+      <button id="btn-voltar-atividades" class="btn-ghost voltar">← Voltar</button>
+
+      <div class="hero esquerda">
+        <h1>📋 Criar <span class="destaque">atividade</span></h1>
+        <p>Monte uma atividade com questões do banco, envie para as turmas e veja as estatísticas. A correção é automática.</p>
+      </div>
+
+      <div class="painel-bloco">
+        <div class="campo">
+          <label class="perfil-rotulo" for="ativ-titulo">Título da atividade</label>
+          <input id="ativ-titulo" type="text" maxlength="80" placeholder="Ex.: Revisão de Arte — Modernismo">
+        </div>
+        <div class="linha-campos">
+          <div class="campo">
+            <label class="perfil-rotulo" for="ativ-area">Área</label>
+            <select id="ativ-area">
+              <option value="todas">Todas as áreas</option>
+              <option value="linguagens">🎨 Linguagens</option>
+              <option value="humanas">🌍 Humanas</option>
+              <option value="natureza">🧪 Natureza</option>
+              <option value="matematica">📐 Matemática</option>
+            </select>
+          </div>
+          <div class="campo">
+            <label class="perfil-rotulo" for="ativ-nivel">Dificuldade</label>
+            <select id="ativ-nivel">
+              <option value="0">Todas</option>
+              <option value="1">🟢 Fácil</option>
+              <option value="2">🟡 Intermediário</option>
+              <option value="3">🔴 Difícil</option>
+            </select>
+          </div>
+          <div class="campo">
+            <label class="perfil-rotulo" for="ativ-qtd">Nº de questões</label>
+            <input id="ativ-qtd" type="number" min="1" max="20" value="5">
+          </div>
+        </div>
+        <div class="campo">
+          <label class="perfil-rotulo">Turmas</label>
+          <div id="ativ-turmas" class="turmas-checks"></div>
+        </div>
+        <div id="ativ-aviso" class="aviso escondido"></div>
+        <button id="btn-criar-atividade" class="btn-principal">📋 Criar e enviar para as turmas</button>
+      </div>
+
+      <h3 class="secao-titulo">Minhas atividades</h3>
+      <div id="lista-atividades-prof" class="revisoes-lista"></div>
+    </section>
+
+    <!-- ===== ATIVIDADES DO ALUNO ===== -->
+    <section id="tela-atividades-aluno" class="tela">
+      <button id="btn-voltar-atividades-aluno" class="btn-ghost voltar">← Voltar</button>
+
+      <div class="hero">
+        <h1>📋 Atividades da <span class="destaque">turma</span></h1>
+        <p>Responda as atividades enviadas pelos professores. A correção é automática!</p>
+      </div>
+
+      <div id="atividades-aluno-lista" class="revisoes-lista"></div>
+
+      <div id="ativ-jogo" class="painel-bloco escondido">
+        <div id="ativ-jogo-titulo" class="duelo-placar"></div>
+        <div id="ativ-jogo-imagem" class="questao-imagem escondido"></div>
+        <div id="ativ-jogo-apoio" class="apoio escondido"></div>
+        <p id="ativ-jogo-enunciado" class="jogo-enunciado"></p>
+        <div id="ativ-jogo-alternativas" class="jogo-alternativas"></div>
+        <div id="ativ-jogo-feedback" class="jogo-feedback escondido"></div>
+      </div>
+    </section>
+
     <!-- ===== MURAL (ORKUT) ===== -->
     <section id="tela-mural" class="tela">
       <button id="btn-voltar-mural" class="btn-ghost voltar">← Voltar</button>
@@ -752,12 +846,12 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
 
-  <script src="questoes.js?v=36"></script>
-  <script src="plano.js?v=36"></script>
-  <script src="explorar.js?v=36"></script>
-  <script src="figurinhas.js?v=36"></script>
-  <script src="curriculo.js?v=36"></script>
-  <script src="firebase-config.js?v=36"></script>
-  <script src="script.js?v=36"></script>
+  <script src="questoes.js?v=37"></script>
+  <script src="plano.js?v=37"></script>
+  <script src="explorar.js?v=37"></script>
+  <script src="figurinhas.js?v=37"></script>
+  <script src="curriculo.js?v=37"></script>
+  <script src="firebase-config.js?v=37"></script>
+  <script src="script.js?v=37"></script>
 </body>
 </html>

@@ -58,6 +58,7 @@ aoMudarUsuario(async (user) => {
   const btnSintese = document.getElementById("btn-sintese");
   const btnCurriculo = document.getElementById("btn-curriculo");
   const btnRevisoes = document.getElementById("btn-revisoes");
+  const btnAtividades = document.getElementById("btn-atividades");
   const btnInicio = document.getElementById("btn-inicio");
   const btnMenu = document.getElementById("btn-menu");
   const nomeTopo = document.getElementById("usuario-nome");
@@ -75,6 +76,7 @@ aoMudarUsuario(async (user) => {
     esconder(btnSintese);
     esconder(btnCurriculo);
     esconder(btnRevisoes);
+    esconder(btnAtividades);
     esconder(btnInicio);
     esconder(btnMenu);
     esconder(nomeTopo);
@@ -110,6 +112,7 @@ aoMudarUsuario(async (user) => {
   exibir(btnSintese);
   exibir(btnCurriculo);
   exibir(btnRevisoes);
+  exibir(btnAtividades);
   exibir(btnInicio);
   exibir(btnMenu);
 
@@ -895,6 +898,19 @@ function preencherPerfil(p) {
   const papel = p.papel === "professor" ? "👩🏽‍🏫 Professor(a)" : "🎒 Estudante";
   document.getElementById("perfil-papel").textContent = papel;
 
+  // Estrelas de bonificação
+  const estrelas = p.estrelas || 0;
+  const elEstrelas = document.getElementById("perfil-estrelas");
+  if (elEstrelas) {
+    if (estrelas > 0) {
+      elEstrelas.innerHTML = `⭐ ${estrelas} estrela(s) · Perfil Destaque`;
+      elEstrelas.classList.remove("escondido");
+    } else {
+      elEstrelas.innerHTML = "";
+      elEstrelas.classList.add("escondido");
+    }
+  }
+
   const avatar = document.getElementById("perfil-avatar");
   avatar.innerHTML = p.foto
     ? `<img src="${p.foto}" alt="" referrerpolicy="no-referrer">`
@@ -907,6 +923,14 @@ function preencherPerfil(p) {
   document.getElementById("perfil-bio").value = p.bio || "";
   document.getElementById("perfil-sonho").value = p.sonho || "";
   document.getElementById("perfil-gostos").value = p.gostos || "";
+}
+
+// Ganha uma estrela de bonificação (perfil destaque)
+async function ganharEstrela() {
+  if (!usuario) return;
+  const estrelas = (usuario.estrelas || 0) + 1;
+  usuario.estrelas = estrelas;
+  await salvarUsuario(usuario.uid, { estrelas }).catch(() => {});
 }
 
 function modoPerfil(editando) {
@@ -928,7 +952,38 @@ function abrirMeuPerfil() {
   preencherPerfil(usuario);
   exibir(document.getElementById("btn-editar-perfil"));
   modoPerfil(false);
+  carregarAtividadesPerfil(usuario.uid);
   mostrarTela("tela-perfil");
+}
+
+// Mostra as atividades feitas (visível para o aluno e para o professor que abrir o perfil)
+async function carregarAtividadesPerfil(uid) {
+  const bloco = document.getElementById("perfil-atividades");
+  const lista = document.getElementById("perfil-atividades-lista");
+  if (!bloco || !lista) return;
+  try {
+    const respostas = await listarRespostasQuizDoAluno(uid);
+    if (!respostas.length) {
+      bloco.classList.add("escondido");
+      return;
+    }
+    respostas.sort((a, b) => {
+      const ma = a.criadaEm && a.criadaEm.toMillis ? a.criadaEm.toMillis() : 0;
+      const mb = b.criadaEm && b.criadaEm.toMillis ? b.criadaEm.toMillis() : 0;
+      return mb - ma;
+    });
+    lista.innerHTML = respostas.map((r) => {
+      const pct = r.total ? Math.round((r.acertos / r.total) * 100) : 0;
+      const estrela = pct === 100 ? " ⭐" : "";
+      return `<div class="perfil-atividade-item">
+        <span>📋 ${escaparHTML(r.atividadeTitulo || "Atividade")}</span>
+        <span class="perfil-atividade-pct">${r.acertos}/${r.total} · ${pct}%${estrela}</span>
+      </div>`;
+    }).join("");
+    bloco.classList.remove("escondido");
+  } catch {
+    bloco.classList.add("escondido");
+  }
 }
 
 async function abrirPerfilDe(uid) {
@@ -938,6 +993,7 @@ async function abrirPerfilDe(uid) {
   preencherPerfil(p);
   esconder(document.getElementById("btn-editar-perfil"));
   modoPerfil(false);
+  carregarAtividadesPerfil(uid);
   mostrarTela("tela-perfil");
 }
 
@@ -1618,6 +1674,32 @@ let jogoQuestaoAtual = null;
 let jogoRespondido = false;
 let setoresRoleta = [];
 let jogoUsadas = new Set();
+let jogoNivel = 1; // 1 = fácil, 2 = intermediário, 3 = difícil
+
+// Nível de dificuldade de cada questão fixa (1 fácil, 2 médio, 3 difícil)
+const NIVEIS = {
+  lin1: 2, lin2: 3, lin3: 2, lin4: 1, lin5: 1, lin6: 2, lin7: 3, lin8: 2, lin9: 2, lin10: 1, lin11: 1, lin12: 2,
+  hum1: 2, hum2: 3, hum3: 2, hum4: 2, hum5: 2, hum6: 3,
+  nat1: 2, nat2: 1, nat3: 2, nat4: 1, nat5: 1, nat6: 2,
+  mat1: 1, mat2: 2, mat3: 1, mat4: 1, mat5: 1, mat6: 1,
+};
+
+function nivelDaQuestao(q) {
+  if (q.id && NIVEIS[q.id] != null) return NIVEIS[q.id];
+  // Questões contribuídas: estima pelo tamanho do enunciado/apoio
+  const tam = (q.enunciado || "").length + (q.apoio || "").length;
+  if (tam > 320) return 3;
+  if (tam > 180) return 2;
+  return 1;
+}
+
+document.querySelectorAll(".nivel-btn").forEach((b) => {
+  b.addEventListener("click", () => {
+    jogoNivel = parseInt(b.dataset.nivel, 10);
+    document.querySelectorAll(".nivel-btn").forEach((x) => x.classList.toggle("ativa", x === b));
+    jogoUsadas = new Set(); // recomeça as perguntas usadas ao trocar o nível
+  });
+});
 
 function minhasFigurinhas() {
   return (usuario && usuario.figurinhas) || [];
@@ -1718,7 +1800,12 @@ function chaveQuestao(q) {
 }
 
 function mostrarPerguntaDaArea(area) {
-  const banco = bancoDePerguntas().filter((q) => q.area === area);
+  // Filtra por área e pelo nível escolhido
+  let banco = bancoDePerguntas().filter((q) => q.area === area && nivelDaQuestao(q) === jogoNivel);
+  if (!banco.length) {
+    // Se não houver perguntas nesse nível, usa todas da área
+    banco = bancoDePerguntas().filter((q) => q.area === area);
+  }
   if (!banco.length) {
     alert("Ainda não há perguntas dessa área.");
     return;
@@ -2967,6 +3054,282 @@ document.getElementById("btn-inicio").addEventListener("click", () => {
   esconder(document.getElementById("menu-extra"));
   if (usuario && usuario.papel === "professor") abrirPainelProfessor();
   else abrirInicioEstudante();
+});
+
+// ============================================================
+// ATIVIDADES (PROFESSOR CRIA · ALUNO RESPONDE · ESTATÍSTICAS)
+// ============================================================
+let atividadeJogoAtual = null;
+let atividadeIndice = 0;
+let atividadeRespostas = [];
+let atividadeRespondido = false;
+let atividadesCache = [];
+
+// ---------- PROFESSOR ----------
+async function abrirAtividadesProf() {
+  esconder(document.getElementById("ativ-aviso"));
+  document.getElementById("lista-atividades-prof").innerHTML = "<p class='vazio'>Carregando…</p>";
+  mostrarTela("tela-atividades-prof");
+  await renderTurmasAtividade();
+  await carregarAtividadesProf();
+}
+
+async function renderTurmasAtividade() {
+  const div = document.getElementById("ativ-turmas");
+  try {
+    const turmas = await listarTurmasDoProfessor(usuario.uid);
+    div.innerHTML = turmas.length
+      ? turmas.map((t) => `<label class="turma-check"><input type="checkbox" class="ativ-turma-check" value="${t.codigo}"> <span>${escaparHTML(t.nome)} <small>(${t.codigo})</small></span></label>`).join("")
+      : "<p class='vazio'>Você ainda não criou turmas.</p>";
+  } catch {
+    div.innerHTML = "<p class='vazio'>Erro ao carregar turmas.</p>";
+  }
+}
+
+document.getElementById("btn-ir-atividades").addEventListener("click", abrirAtividadesProf);
+document.getElementById("btn-voltar-atividades").addEventListener("click", abrirPainelProfessor);
+
+document.getElementById("btn-criar-atividade").addEventListener("click", async () => {
+  const aviso = document.getElementById("ativ-aviso");
+  const titulo = (document.getElementById("ativ-titulo").value.trim()) || "Atividade";
+  const area = document.getElementById("ativ-area").value;
+  const nivel = parseInt(document.getElementById("ativ-nivel").value, 10);
+  const qtd = Math.max(1, Math.min(20, parseInt(document.getElementById("ativ-qtd").value, 10) || 5));
+  const turmas = Array.from(document.querySelectorAll(".ativ-turma-check:checked")).map((c) => c.value);
+
+  if (!turmas.length) {
+    aviso.className = "aviso erro";
+    aviso.textContent = "Selecione pelo menos uma turma.";
+    exibir(aviso);
+    return;
+  }
+
+  let banco = bancoDePerguntas().filter(
+    (q) => (area === "todas" || q.area === area) && (nivel === 0 || nivelDaQuestao(q) === nivel)
+  );
+  if (!banco.length) {
+    aviso.className = "aviso erro";
+    aviso.textContent = "Não há questões com esse filtro. Tente outra área ou dificuldade.";
+    exibir(aviso);
+    return;
+  }
+  embaralhar(banco);
+  const escolhidas = banco.slice(0, qtd).map(prepararQuestao);
+
+  try {
+    await criarAtividade(usuario, { titulo, area, nivel, perguntas: escolhidas, turmas });
+    aviso.className = "aviso ok";
+    aviso.textContent = `✅ Atividade "${titulo}" enviada para ${turmas.length} turma(s)!`;
+    exibir(aviso);
+    document.getElementById("ativ-titulo").value = "";
+    await carregarAtividadesProf();
+  } catch (e) {
+    aviso.className = "aviso erro";
+    aviso.textContent = "Erro: " + e.message;
+    exibir(aviso);
+  }
+});
+
+async function carregarAtividadesProf() {
+  const div = document.getElementById("lista-atividades-prof");
+  try {
+    const atividades = await listarAtividadesDoProfessor(usuario.uid);
+    if (!atividades.length) {
+      div.innerHTML = "<p class='vazio'>Você ainda não criou atividades.</p>";
+      return;
+    }
+    div.innerHTML = atividades.map((a) => `
+      <details class="revisao-card">
+        <summary>📋 ${escaparHTML(a.titulo)} <small>· ${(a.perguntas || []).length} questões · ${(a.turmas || []).length} turma(s)</small></summary>
+        <div class="revisao-card-corpo" data-atividade="${a.id}"><p class="vazio">Carregando estatísticas…</p></div>
+      </details>
+    `).join("");
+    for (const a of atividades) {
+      const corpo = div.querySelector(`.revisao-card-corpo[data-atividade="${a.id}"]`);
+      if (corpo) carregarEstatisticasAtividade(a, corpo);
+    }
+  } catch (e) {
+    div.innerHTML = `<p class='vazio'>Erro: ${e.message}</p>`;
+  }
+}
+
+async function carregarEstatisticasAtividade(atividade, corpo) {
+  try {
+    const respostas = await listarRespostasQuiz(atividade.id);
+    if (!respostas.length) {
+      corpo.innerHTML = "<p class='vazio'>Nenhum estudante respondeu ainda.</p>";
+      return;
+    }
+    // Agrupa por turma
+    const porTurma = {};
+    respostas.forEach((r) => {
+      const t = r.turma || "—";
+      (porTurma[t] = porTurma[t] || []).push(r);
+    });
+
+    let html = "";
+    for (const [turma, lista] of Object.entries(porTurma)) {
+      lista.sort((a, b) => (b.acertos || 0) - (a.acertos || 0));
+      const media = Math.round(lista.reduce((s, r) => s + (r.total ? (r.acertos / r.total) * 100 : 0), 0) / lista.length);
+      const perfeitos = lista.filter((r) => r.total && r.acertos === r.total).length;
+      html += `<h4 class="curriculo-sub">👥 Turma ${escaparHTML(turma)} · média ${media}% · ${perfeitos} com ⭐</h4>`;
+      html += `<div class="ranking">`;
+      html += lista.map((r, i) => {
+        const pct = r.total ? Math.round((r.acertos / r.total) * 100) : 0;
+        const medalha = i === 0 ? "🥇" : i === 1 ? "🥈" : i === 2 ? "🥉" : i + 1 + "º";
+        const estrela = r.total && r.acertos === r.total ? " ⭐" : "";
+        return `<div class="rank-item"><span class="rank-pos">${medalha}</span><div class="rank-info"><div class="rank-nome">${escaparHTML(r.alunoNome)}${estrela}</div><div class="rank-areas">${r.acertos}/${r.total} acertos</div></div><span class="rank-pct">${pct}%</span></div>`;
+      }).join("");
+      html += `</div>`;
+    }
+    corpo.innerHTML = html;
+  } catch (e) {
+    corpo.innerHTML = `<p class='vazio'>Erro: ${e.message}</p>`;
+  }
+}
+
+// ---------- ALUNO ----------
+async function abrirAtividadesAluno() {
+  const div = document.getElementById("atividades-aluno-lista");
+  esconder(document.getElementById("ativ-jogo"));
+  div.classList.remove("escondido");
+  mostrarTela("tela-atividades-aluno");
+  div.innerHTML = "<p class='vazio'>Carregando atividades…</p>";
+  try {
+    let atividades = [];
+    if (minhaTurma && minhaTurma.codigo) {
+      atividades = await listarAtividadesDaTurma(minhaTurma.codigo);
+    }
+    if (!atividades.length) {
+      div.innerHTML = "<p class='vazio'>Nenhuma atividade para sua turma ainda.</p>";
+      return;
+    }
+    const minhas = await listarRespostasQuizDoAluno(usuario.uid).catch(() => []);
+    const feitas = {};
+    minhas.forEach((r) => (feitas[r.atividadeId] = r));
+    atividadesCache = atividades;
+
+    div.innerHTML = atividades.map((a) => {
+      const feita = feitas[a.id];
+      const pct = feita && feita.total ? Math.round((feita.acertos / feita.total) * 100) : null;
+      const estrela = pct === 100 ? " ⭐" : "";
+      return `<div class="atividade-card">
+        <div class="atividade-info">
+          <strong>${escaparHTML(a.titulo)}</strong>
+          <small>${(a.perguntas || []).length} questões · ${escaparHTML(a.professorNome || "")}</small>
+          ${feita ? `<span class="atividade-feita">✅ Feita: ${feita.acertos}/${feita.total} (${pct}%)${estrela}</span>` : ""}
+        </div>
+        <button class="btn-principal compacto ativ-responder" data-id="${a.id}" ${feita ? "disabled" : ""}>${feita ? "Respondida" : "Responder"}</button>
+      </div>`;
+    }).join("");
+  } catch (e) {
+    div.innerHTML = `<p class='vazio'>Erro: ${e.message}</p>`;
+  }
+}
+
+document.getElementById("btn-voltar-atividades-aluno").addEventListener("click", () => {
+  if (usuario.papel === "professor") abrirPainelProfessor();
+  else abrirInicioEstudante();
+});
+
+document.getElementById("atividades-aluno-lista").addEventListener("click", (e) => {
+  const btn = e.target.closest(".ativ-responder");
+  if (!btn || btn.disabled) return;
+  const a = atividadesCache.find((x) => x.id === btn.dataset.id);
+  if (a) iniciarAtividade(a);
+});
+
+function iniciarAtividade(a) {
+  atividadeJogoAtual = a;
+  atividadeIndice = 0;
+  atividadeRespostas = [];
+  document.getElementById("atividades-aluno-lista").classList.add("escondido");
+  document.getElementById("ativ-jogo").classList.remove("escondido");
+  renderAtividadeQuestao();
+}
+
+function renderAtividadeQuestao() {
+  const q = atividadeJogoAtual.perguntas[atividadeIndice];
+  atividadeRespondido = false;
+  document.getElementById("ativ-jogo-titulo").textContent =
+    `Questão ${atividadeIndice + 1} de ${atividadeJogoAtual.perguntas.length}`;
+
+  const imgDiv = document.getElementById("ativ-jogo-imagem");
+  if (q.imagem) { imgDiv.innerHTML = q.imagem; exibir(imgDiv); }
+  else { imgDiv.innerHTML = ""; esconder(imgDiv); }
+
+  const apoioDiv = document.getElementById("ativ-jogo-apoio");
+  if (q.apoio) { apoioDiv.textContent = q.apoio; exibir(apoioDiv); }
+  else { apoioDiv.textContent = ""; esconder(apoioDiv); }
+
+  document.getElementById("ativ-jogo-enunciado").textContent = q.enunciado;
+  const alts = document.getElementById("ativ-jogo-alternativas");
+  alts.innerHTML = "";
+  q.alternativas.forEach((texto, i) => {
+    const b = document.createElement("button");
+    b.className = "alt";
+    b.innerHTML = `<span class="alt-letra">${LETRAS[i]}</span><span>${texto}</span>`;
+    b.addEventListener("click", () => responderAtividade(i));
+    alts.appendChild(b);
+  });
+  esconder(document.getElementById("ativ-jogo-feedback"));
+}
+
+function responderAtividade(escolha) {
+  if (atividadeRespondido) return;
+  atividadeRespondido = true;
+  const q = atividadeJogoAtual.perguntas[atividadeIndice];
+  const acertou = escolha === q.correta;
+  atividadeRespostas.push({ escolha, acertou });
+
+  document.querySelectorAll("#ativ-jogo-alternativas .alt").forEach((b, i) => {
+    b.classList.add("travada");
+    if (i === q.correta) b.classList.add("correta");
+    else if (i === escolha) b.classList.add("errada");
+  });
+  const fb = document.getElementById("ativ-jogo-feedback");
+  fb.className = "jogo-feedback " + (acertou ? "ok" : "erro");
+  fb.innerHTML = acertou ? "✅ Acertou!" : "❌ Não foi essa.";
+  exibir(fb);
+
+  setTimeout(() => {
+    atividadeIndice++;
+    if (atividadeIndice < atividadeJogoAtual.perguntas.length) renderAtividadeQuestao();
+    else finalizarAtividade();
+  }, 900);
+}
+
+async function finalizarAtividade() {
+  const total = atividadeJogoAtual.perguntas.length;
+  const acertos = atividadeRespostas.filter((r) => r.acertou).length;
+  const respostasMap = {};
+  atividadeRespostas.forEach((r, i) => (respostasMap[i] = r.escolha));
+  const perfeito = acertos === total;
+
+  try {
+    await salvarRespostaQuiz(atividadeJogoAtual.id, usuario, minhaTurma && minhaTurma.codigo, respostasMap, acertos, total, atividadeJogoAtual.titulo);
+    if (perfeito) await ganharEstrela();
+  } catch {}
+
+  const fb = document.getElementById("ativ-jogo-feedback");
+  fb.className = "jogo-feedback " + (perfeito ? "ok" : "erro");
+  fb.innerHTML = perfeito
+    ? `🏆 <strong>Parabéns! Você acertou TODAS as ${total} questões e ganhou uma ⭐ estrela de bonificação!</strong>`
+    : `Você acertou <strong>${acertos} de ${total}</strong> (${Math.round((acertos / total) * 100)}%). Tente de novo depois!`;
+  exibir(fb);
+
+  document.getElementById("ativ-jogo-alternativas").innerHTML = "";
+  document.getElementById("ativ-jogo-enunciado").textContent = "";
+  esconder(document.getElementById("ativ-jogo-imagem"));
+  esconder(document.getElementById("ativ-jogo-apoio"));
+  document.getElementById("ativ-jogo-titulo").textContent = "Resultado";
+  setTimeout(() => abrirAtividadesAluno(), 3000);
+}
+
+// Botão do menu
+document.getElementById("btn-atividades").addEventListener("click", () => {
+  if (usuario.papel === "professor") abrirAtividadesProf();
+  else abrirAtividadesAluno();
 });
 
 // ---------- Eventos gerais ----------
