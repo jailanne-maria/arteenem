@@ -1704,6 +1704,40 @@ const DISCIPLINAS_ROLETA = [
   { id: "Matemática", area: "matematica", icone: "📐" },
 ];
 
+// Estatísticas do jogo (acertos por disciplina, salvas no navegador)
+const CHAVE_JOGO_STATS = "nina_jogo_stats";
+
+function registrarJogo(disc, acertou) {
+  if (!disc) return;
+  let stats = {};
+  try { stats = JSON.parse(localStorage.getItem(CHAVE_JOGO_STATS)) || {}; } catch {}
+  if (!stats[disc.id]) stats[disc.id] = { total: 0, acertos: 0 };
+  stats[disc.id].total++;
+  if (acertou) stats[disc.id].acertos++;
+  try { localStorage.setItem(CHAVE_JOGO_STATS, JSON.stringify(stats)); } catch {}
+}
+
+function renderEstatisticasJogo() {
+  const div = document.getElementById("jogo-estatisticas");
+  if (!div) return;
+  let stats = {};
+  try { stats = JSON.parse(localStorage.getItem(CHAVE_JOGO_STATS)) || {}; } catch {}
+  const entradas = Object.entries(stats)
+    .filter(([, s]) => s.total > 0)
+    .sort((a, b) => b[1].acertos / b[1].total - a[1].acertos / a[1].total);
+  if (!entradas.length) { div.innerHTML = ""; return; }
+  div.innerHTML =
+    `<h3 class="secao-titulo">📊 Seu desempenho por disciplina</h3>` +
+    entradas.map(([id, s]) => {
+      const pct = Math.round((s.acertos / s.total) * 100);
+      const cor = pct >= 70 ? "var(--green)" : pct >= 40 ? "var(--yellow)" : "var(--red)";
+      return `<div class="barra-item">
+        <div class="barra-topo"><strong>${escaparHTML(id)}</strong><span>${s.acertos}/${s.total} · ${pct}%</span></div>
+        <div class="barra-track"><div class="barra-fill" style="width:${pct}%;background:${cor}"></div></div>
+      </div>`;
+    }).join("");
+}
+
 // Nível de dificuldade de cada questão fixa (1 fácil, 2 médio, 3 difícil)
 const NIVEIS = {
   lin1: 2, lin2: 3, lin3: 2, lin4: 1, lin5: 1, lin6: 2, lin7: 3, lin8: 2, lin9: 2, lin10: 1, lin11: 1, lin12: 2,
@@ -1771,22 +1805,45 @@ function pesosRoleta() {
   );
 }
 
-// Desenha a roleta com as DISCIPLINAS cobradas no ENEM
+// Pesos das disciplinas: áreas em que o aluno tem mais dificuldade têm mais chance
+function pesosDisciplinas() {
+  let resultado = null;
+  try { resultado = JSON.parse(localStorage.getItem(CHAVE_RESULTADO)); } catch {}
+  const pesoArea = {};
+  ORDEM_ROLETA.forEach((a) => (pesoArea[a] = 3));
+  if (resultado && Array.isArray(resultado.areas) && resultado.areas.length) {
+    resultado.areas.forEach((a) => {
+      pesoArea[a.area] = Math.max(1, Math.min(6, Math.round((100 - a.pct) / 18) + 1));
+    });
+  }
+  return DISCIPLINAS_ROLETA.map((d) => pesoArea[d.area] || 3);
+}
+
+// Desenha a roleta com as DISCIPLINAS, com setores proporcionais à dificuldade
 function renderRoleta() {
-  const n = DISCIPLINAS_ROLETA.length;
-  const passo = 360 / n;
-  const partes = DISCIPLINAS_ROLETA.map((d, i) => `${CORES_AREA[d.area]} ${i * passo}deg ${(i + 1) * passo}deg`);
+  const pesos = pesosDisciplinas();
+  const soma = pesos.reduce((a, b) => a + b, 0);
+  let acc = 0;
+  setoresRoleta = DISCIPLINAS_ROLETA.map((d, i) => {
+    const graus = (pesos[i] / soma) * 360;
+    const inicio = acc;
+    acc += graus;
+    return { disc: d, inicio, fim: acc };
+  });
+
+  const partes = setoresRoleta.map((s) => `${CORES_AREA[s.disc.area]} ${s.inicio}deg ${s.fim}deg`);
   const face = document.getElementById("roleta-face");
   face.style.background = `conic-gradient(${partes.join(", ")})`;
-  face.innerHTML = DISCIPLINAS_ROLETA.map((d, i) => {
-    const meio = i * passo + passo / 2;
-    return `<span class="roleta-item" style="--ang:${meio}deg" title="${escaparHTML(d.id)}">${d.icone}</span>`;
+  face.innerHTML = setoresRoleta.map((s) => {
+    const meio = (s.inicio + s.fim) / 2;
+    return `<span class="roleta-item" style="--ang:${meio}deg" title="${escaparHTML(s.disc.id)}">${s.disc.icone}</span>`;
   }).join("");
 }
 
 function abrirJogo() {
   renderRoleta();
   renderAlbum();
+  renderEstatisticasJogo();
   esconder(document.getElementById("jogo-painel"));
   const btn = document.getElementById("btn-girar");
   btn.disabled = false;
@@ -1804,11 +1861,17 @@ document.getElementById("btn-girar").addEventListener("click", () => {
   btn.disabled = true;
   btn.textContent = "🎡 Girando...";
 
-  // Sorteia uma DISCIPLINA
-  const n = DISCIPLINAS_ROLETA.length;
-  const passo = 360 / n;
-  const idx = Math.floor(Math.random() * n);
-  const p = idx * passo + passo / 2;
+  // Sorteio ponderado (disciplinas de áreas com mais dificuldade saem mais)
+  const pesos = pesosDisciplinas();
+  const soma = pesos.reduce((a, b) => a + b, 0);
+  let r = Math.random() * soma;
+  let idx = 0;
+  for (let i = 0; i < pesos.length; i++) {
+    if (r < pesos[i]) { idx = i; break; }
+    r -= pesos[i];
+  }
+  const s = setoresRoleta[idx];
+  const p = s.inicio + Math.random() * (s.fim - s.inicio);
   const alvo = (360 - p + 360) % 360;
   anguloRoleta += 5 * 360 + (((alvo - (anguloRoleta % 360)) % 360) + 360) % 360;
   document.getElementById("roleta").style.transform = `rotate(${anguloRoleta}deg)`;
@@ -1817,44 +1880,47 @@ document.getElementById("btn-girar").addEventListener("click", () => {
     girando = false;
     btn.disabled = false;
     btn.textContent = "🎡 Girar a roleta";
-    jogoDisciplinaAtual = DISCIPLINAS_ROLETA[idx];
+    jogoDisciplinaAtual = s.disc;
     mostrarPerguntaDaDisciplina(jogoDisciplinaAtual);
   }, 4200);
 });
 
-// Busca questões reais do ENEM por área (mais desafiadoras) — com cache
+// Busca questões reais do ENEM por área (vários anos) — com cache
+const ENEM_ANOS = [2023, 2022, 2021];
+
 async function carregarENEMArea(area) {
   if (enemPorArea[area]) return enemPorArea[area];
   const mapa = { linguagens: "linguagens", humanas: "ciencias-humanas", natureza: "ciencias-natureza", matematica: "matematica" };
   const apiArea = mapa[area];
-  try {
-    let todas = [];
+  let todas = [];
+  for (const ano of ENEM_ANOS) {
     for (let offset = 0; offset < 200; offset += 50) {
-      const r = await fetch(`https://api.enem.dev/v1/exams/2023/questions?limit=50&offset=${offset}`);
-      if (!r.ok) break;
-      const data = await r.json();
-      todas = todas.concat((data.questions || []).filter((q) => q.discipline === apiArea));
-      if (!data.metadata || !data.metadata.hasMore) break;
+      try {
+        const r = await fetch(`https://api.enem.dev/v1/exams/${ano}/questions?limit=50&offset=${offset}`);
+        if (!r.ok) break;
+        const data = await r.json();
+        todas = todas.concat((data.questions || []).filter((q) => q.discipline === apiArea).map((q) => ({ ...q, year: q.year || ano })));
+        if (!data.metadata || !data.metadata.hasMore) break;
+      } catch {
+        break;
+      }
     }
-    const mapeadas = todas
-      .map((q, i) => ({
-        id: "enem_" + area + "_" + i,
-        area,
-        disciplina: null,
-        tema: "ENEM " + q.year,
-        apoio: q.context || "",
-        enunciado: q.alternativesIntroduction || "",
-        alternativas: (q.alternatives || []).map((a) => a.text || ""),
-        correta: (q.alternatives || []).findIndex((a) => a.letter === q.correctAlternative),
-        explicacao: "",
-      }))
-      .filter((q) => q.alternativas.length >= 4 && q.correta >= 0);
-    enemPorArea[area] = mapeadas;
-    return mapeadas;
-  } catch {
-    enemPorArea[area] = [];
-    return [];
   }
+  const mapeadas = todas
+    .map((q, i) => ({
+      id: "enem_" + area + "_" + (q.year || "") + "_" + (q.index || i),
+      area,
+      disciplina: null,
+      tema: "ENEM " + (q.year || ""),
+      apoio: q.context || "",
+      enunciado: q.alternativesIntroduction || "",
+      alternativas: (q.alternatives || []).map((a) => a.text || ""),
+      correta: (q.alternatives || []).findIndex((a) => a.letter === q.correctAlternative),
+      explicacao: "",
+    }))
+    .filter((q) => q.alternativas.length >= 4 && q.correta >= 0);
+  enemPorArea[area] = mapeadas;
+  return mapeadas;
 }
 
 function chaveQuestao(q) {
@@ -1941,7 +2007,8 @@ async function responderJogo(escolha) {
   fb.className = "jogo-feedback " + (acertou ? "ok" : "erro");
 
   if (acertou) {
-    const nova = await ganharFigurinha(jogoAreaAtual);
+    const areaFig = jogoDisciplinaAtual ? jogoDisciplinaAtual.area : jogoAreaAtual;
+    const nova = await ganharFigurinha(areaFig);
     if (nova) {
       fb.innerHTML = `🎉 <strong>Acertou! Você ganhou ${nova.emoji} ${nova.nome}!</strong><br><em>${nova.historia || ""}</em>`;
     } else {
@@ -1951,7 +2018,9 @@ async function responderJogo(escolha) {
     fb.innerHTML = `❌ <strong>Não foi essa.</strong> Tente de novo girando a roleta!<br>${q.explicacao || ""}`;
   }
   fb.classList.remove("escondido");
+  registrarJogo(jogoDisciplinaAtual, acertou);
   renderAlbum();
+  renderEstatisticasJogo();
 }
 
 // Sorteia uma figurinha ainda não colecionada da área
@@ -3713,15 +3782,17 @@ async function carregarQuestoesSimulado() {
   const info = aviso.querySelector(".dica") || aviso;
   info.textContent = "⏳ Carregando questões do ENEM...";
   try {
-    // A API limita 50 por página — busca em páginas
+    // A API limita 50 por página — busca em páginas, em vários anos
     let todas = [];
-    for (let offset = 0; offset < 250; offset += 50) {
-      const r = await fetch(`https://api.enem.dev/v1/exams/${SIM_ANO}/questions?limit=50&offset=${offset}`);
-      if (!r.ok) break;
-      const data = await r.json();
-      const qs = data.questions || [];
-      todas = todas.concat(qs);
-      if (!data.metadata || !data.metadata.hasMore || qs.length < 50) break;
+    for (const ano of ENEM_ANOS) {
+      for (let offset = 0; offset < 250; offset += 50) {
+        const r = await fetch(`https://api.enem.dev/v1/exams/${ano}/questions?limit=50&offset=${offset}`);
+        if (!r.ok) break;
+        const data = await r.json();
+        const qs = (data.questions || []).map((q) => ({ ...q, year: q.year || ano }));
+        todas = todas.concat(qs);
+        if (!data.metadata || !data.metadata.hasMore || qs.length < 50) break;
+      }
     }
     simQuestoesENEM = todas;
     if (!simQuestoesENEM.length) throw new Error("Não foi possível carregar as questões.");
@@ -3944,7 +4015,7 @@ function mostrarResultadoSimulado(temRedacao) {
   div.innerHTML = `
     <div class="resultado-header">
       <h2>Resultado do Simulado</h2>
-      <p>ENEM ${SIM_ANO} · Língua: ${simIdioma === "espanhol" ? "Espanhol" : "Inglês"}</p>
+      <p>ENEM ${ENEM_ANOS[ENEM_ANOS.length - 1]}–${ENEM_ANOS[0]} · Língua: ${simIdioma === "espanhol" ? "Espanhol" : "Inglês"}</p>
     </div>
     <div class="score-geral">
       <div class="score-circulo" style="--pct:${pct}%"><span>${pct}%</span></div>

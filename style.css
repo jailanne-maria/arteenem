@@ -3704,6 +3704,11 @@ h1, h2, h3, h4, .marca-nome, .btn-principal, .btn-secundario, .btn-google, .btn-
   margin-top: 8px;
 }
 
+/* ===== ESTATÍSTICAS DO JOGO ===== */
+.jogo-estatisticas {
+  margin-top: 26px;
+}
+
 /* ===== SIMULADO ENEM ===== */
 .apoio img {
   max-width: 100%;
