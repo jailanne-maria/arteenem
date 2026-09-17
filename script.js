@@ -903,6 +903,7 @@ document.getElementById("btn-postar").addEventListener("click", async () => {
 // PERFIL
 // ============================================================
 let perfilEmEdicao = false;
+let perfilEhMeu = false;
 
 function preencherPerfil(p) {
   document.getElementById("perfil-nome").textContent = p.nome || "Usuário";
@@ -947,26 +948,62 @@ async function ganharEstrela() {
 
 function modoPerfil(editando) {
   perfilEmEdicao = editando;
+  const btnPapel = document.getElementById("btn-trocar-papel");
   if (editando) {
     exibir(document.getElementById("perfil-edit"));
     esconder(document.getElementById("perfil-view"));
     exibir(document.getElementById("btn-editar-perfil"));
     document.getElementById("btn-editar-perfil").textContent = "Cancelar";
+    if (btnPapel) esconder(btnPapel);
   } else {
     esconder(document.getElementById("perfil-edit"));
     exibir(document.getElementById("perfil-view"));
     exibir(document.getElementById("btn-editar-perfil"));
     document.getElementById("btn-editar-perfil").textContent = "✏️ Editar perfil";
+    if (btnPapel) { if (perfilEhMeu) exibir(btnPapel); else esconder(btnPapel); }
   }
 }
 
 function abrirMeuPerfil() {
+  perfilEhMeu = true;
   preencherPerfil(usuario);
   exibir(document.getElementById("btn-editar-perfil"));
+  atualizarBotaoPapel();
+  exibir(document.getElementById("btn-trocar-papel"));
   modoPerfil(false);
   carregarAtividadesPerfil(usuario.uid);
   mostrarTela("tela-perfil");
 }
+
+// Mostra o rótulo do botão de troca de papel conforme o papel atual
+function atualizarBotaoPapel() {
+  const btn = document.getElementById("btn-trocar-papel");
+  if (!btn || !usuario) return;
+  btn.textContent = usuario.papel === "professor"
+    ? "🎒 Trocar para conta de estudante"
+    : "👩🏽‍🏫 Trocar para conta de professor(a)";
+}
+
+// Alterna entre professor e estudante mantendo os dados do perfil
+async function trocarPapel() {
+  if (!usuario) return;
+  const novo = usuario.papel === "professor" ? "estudante" : "professor";
+  const msg = novo === "estudante"
+    ? "Trocar para conta de estudante?\n\nSuas turmas continuam salvas. Para aparecer no ranking, entre numa turma com o código do professor."
+    : "Trocar para conta de professor(a)?\n\nVocê poderá criar turmas e acompanhar os estudantes.";
+  if (!confirm(msg)) return;
+  usuario.papel = novo;
+  await salvarUsuario(usuario.uid, { papel: novo }).catch(() => {});
+  atualizarBotaoPapel();
+  if (novo === "professor") {
+    if (!usuario.area || !usuario.disciplina) abrirEscolhaArea();
+    else abrirPainelProfessor();
+  } else {
+    abrirInicioEstudante();
+  }
+}
+
+document.getElementById("btn-trocar-papel").addEventListener("click", trocarPapel);
 
 // Mostra as atividades feitas (visível para o aluno e para o professor que abrir o perfil)
 async function carregarAtividadesPerfil(uid) {
@@ -1000,6 +1037,7 @@ async function carregarAtividadesPerfil(uid) {
 
 async function abrirPerfilDe(uid) {
   if (uid === usuario.uid) return abrirMeuPerfil();
+  perfilEhMeu = false;
   const p = await carregarUsuario(uid).catch(() => null);
   if (!p) return;
   preencherPerfil(p);
