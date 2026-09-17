@@ -60,6 +60,7 @@ aoMudarUsuario(async (user) => {
   const btnRevisoes = document.getElementById("btn-revisoes");
   const btnAtividades = document.getElementById("btn-atividades");
   const btnSimulado = document.getElementById("btn-simulado");
+  const btnBiblioteca = document.getElementById("btn-biblioteca");
   const btnInicio = document.getElementById("btn-inicio");
   const btnMenu = document.getElementById("btn-menu");
   const nomeTopo = document.getElementById("usuario-nome");
@@ -79,6 +80,7 @@ aoMudarUsuario(async (user) => {
     esconder(btnRevisoes);
     esconder(btnAtividades);
     esconder(btnSimulado);
+    esconder(btnBiblioteca);
     esconder(btnInicio);
     esconder(btnMenu);
     esconder(nomeTopo);
@@ -116,6 +118,7 @@ aoMudarUsuario(async (user) => {
   exibir(btnRevisoes);
   exibir(btnAtividades);
   exibir(btnSimulado);
+  exibir(btnBiblioteca);
   exibir(btnInicio);
   exibir(btnMenu);
 
@@ -4076,6 +4079,65 @@ function mostrarResultadoSimulado(temRedacao) {
   exibir(div);
   div.scrollIntoView({ behavior: "smooth" });
 }
+
+// ============================================================
+// BIBLIOTECA (obras de domínio público — Wikisource)
+// ============================================================
+const BIBLIOTECA = [
+  { titulo: "Dom Casmurro", autor: "Machado de Assis", ano: 1899, genero: "Romance", wiki: "Dom_Casmurro" },
+  { titulo: "Memórias Póstumas de Brás Cubas", autor: "Machado de Assis", ano: 1881, genero: "Romance", wiki: "Memórias_Póstumas_de_Brás_Cubas" },
+  { titulo: "O Alienista", autor: "Machado de Assis", ano: 1882, genero: "Novela", wiki: "O_Alienista" },
+  { titulo: "O Cortiço", autor: "Aluísio Azevedo", ano: 1890, genero: "Naturalismo", wiki: "O_Cortiço" },
+  { titulo: "Casa de Pensão", autor: "Aluísio Azevedo", ano: 1884, genero: "Naturalismo", wiki: "Casa_de_Pensão" },
+  { titulo: "Iracema", autor: "José de Alencar", ano: 1865, genero: "Romantismo", wiki: "Iracema" },
+  { titulo: "O Guarani", autor: "José de Alencar", ano: 1857, genero: "Romantismo", wiki: "O_Guarani" },
+  { titulo: "A Escrava Isaura", autor: "Bernardo Guimarães", ano: 1875, genero: "Romantismo", wiki: "A_Escrava_Isaura" },
+  { titulo: "A Moreninha", autor: "Joaquim Manuel de Macedo", ano: 1844, genero: "Romantismo", wiki: "A_Moreninha" },
+  { titulo: "Memórias de um Sargento de Milícias", autor: "Manuel Antônio de Almeida", ano: 1853, genero: "Romantismo", wiki: "Memórias_de_um_Sargento_de_Milícias" },
+  { titulo: "O Ateneu", autor: "Raul Pompeia", ano: 1888, genero: "Realismo", wiki: "O_Ateneu" },
+  { titulo: "Triste Fim de Policarpo Quaresma", autor: "Lima Barreto", ano: 1915, genero: "Pré-Modernismo", wiki: "Triste_Fim_de_Policarpo_Quaresma" },
+  { titulo: "O Navio Negreiro", autor: "Castro Alves", ano: 1869, genero: "Poesia", wiki: "O_Navio_Negreiro" },
+];
+
+function abrirBiblioteca() {
+  esconder(document.getElementById("leitor"));
+  const div = document.getElementById("biblioteca-lista");
+  div.innerHTML = BIBLIOTECA.map((b, i) => `
+    <div class="livro-card">
+      <div class="livro-info">
+        <span class="livro-titulo">${escaparHTML(b.titulo)}</span>
+        <span class="livro-autor">${escaparHTML(b.autor)} · ${b.ano}</span>
+        <span class="livro-genero">${escaparHTML(b.genero)}</span>
+      </div>
+      <button class="btn-principal compacto livro-ler" data-i="${i}">📖 Ler</button>
+    </div>
+  `).join("");
+  div.querySelectorAll(".livro-ler").forEach((btn) => {
+    btn.addEventListener("click", () => abrirLivro(BIBLIOTECA[parseInt(btn.dataset.i, 10)]));
+  });
+  mostrarTela("tela-biblioteca");
+}
+
+function abrirLivro(b) {
+  const url = `https://pt.wikisource.org/wiki/${encodeURIComponent(b.wiki)}`;
+  document.getElementById("leitor-titulo").textContent = `${b.titulo} — ${b.autor}`;
+  document.getElementById("leitor-frame").src = url;
+  document.getElementById("leitor-link").href = url;
+  exibir(document.getElementById("leitor"));
+  document.getElementById("leitor").scrollIntoView({ behavior: "smooth" });
+}
+
+document.getElementById("btn-biblioteca").addEventListener("click", abrirBiblioteca);
+document.getElementById("btn-voltar-biblioteca").addEventListener("click", () => {
+  esconder(document.getElementById("leitor"));
+  document.getElementById("leitor-frame").src = "";
+  if (usuario && usuario.papel === "professor") abrirPainelProfessor();
+  else abrirInicioEstudante();
+});
+document.getElementById("btn-fechar-leitor").addEventListener("click", () => {
+  esconder(document.getElementById("leitor"));
+  document.getElementById("leitor-frame").src = "";
+});
 
 // ---------- Eventos gerais ----------
 document.getElementById("btn-completo").addEventListener("click", () =>

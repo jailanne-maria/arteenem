@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="NINA — diagnóstico das 4 áreas do ENEM. Professores criam turmas, estudantes fazem o diagnóstico e disputam o ranking.">
   <title>NINA · Diagnóstico das 4 áreas</title>
-  <link rel="stylesheet" href="style.css?v=47">
+  <link rel="stylesheet" href="style.css?v=48">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
@@ -24,6 +24,7 @@
         <button id="btn-noticias" class="btn-ghost escondido">📰 Notícias</button>
         <button id="btn-menu" class="btn-ghost escondido">☰ Menu</button>
         <div id="menu-extra" class="menu-extra escondido">
+          <button id="btn-biblioteca" class="btn-ghost escondido">📚 Biblioteca</button>
           <button id="btn-simulado" class="btn-ghost escondido">📝 Simulado</button>
           <button id="btn-atividades" class="btn-ghost escondido">📋 Atividades</button>
           <button id="btn-sintese" class="btn-ghost escondido">⏱️ Síntese</button>
@@ -847,6 +848,27 @@
       <div id="simulado-resultado" class="escondido"></div>
     </section>
 
+    <!-- ===== BIBLIOTECA ===== -->
+    <section id="tela-biblioteca" class="tela">
+      <button id="btn-voltar-biblioteca" class="btn-ghost voltar">← Voltar</button>
+
+      <div class="hero">
+        <h1>📚 Biblioteca</h1>
+        <p>Clássicos da literatura de <strong>domínio público</strong> — leia direto no app, sem baixar nada!</p>
+      </div>
+
+      <div id="biblioteca-lista" class="biblioteca-lista"></div>
+
+      <div id="leitor" class="leitor escondido">
+        <div class="leitor-topo">
+          <strong id="leitor-titulo"></strong>
+          <button id="btn-fechar-leitor" class="btn-ghost">✖ Fechar</button>
+        </div>
+        <iframe id="leitor-frame" class="leitor-frame" title="Leitor do livro"></iframe>
+        <a id="leitor-link" class="btn-secundario" target="_blank" rel="noopener">Abrir em nova aba ↗</a>
+      </div>
+    </section>
+
     <!-- ===== MURAL (ORKUT) ===== -->
     <section id="tela-mural" class="tela">
       <button id="btn-voltar-mural" class="btn-ghost voltar">← Voltar</button>
@@ -967,12 +989,12 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
 
-  <script src="questoes.js?v=47"></script>
-  <script src="plano.js?v=47"></script>
-  <script src="explorar.js?v=47"></script>
-  <script src="figurinhas.js?v=47"></script>
-  <script src="curriculo.js?v=47"></script>
-  <script src="firebase-config.js?v=47"></script>
-  <script src="script.js?v=47"></script>
+  <script src="questoes.js?v=48"></script>
+  <script src="plano.js?v=48"></script>
+  <script src="explorar.js?v=48"></script>
+  <script src="figurinhas.js?v=48"></script>
+  <script src="curriculo.js?v=48"></script>
+  <script src="firebase-config.js?v=48"></script>
+  <script src="script.js?v=48"></script>
 </body>
 </html>
