@@ -3705,6 +3705,18 @@ h1, h2, h3, h4, .marca-nome, .btn-principal, .btn-secundario, .btn-google, .btn-
 }
 
 /* ===== SIMULADO ENEM ===== */
+.apoio img {
+  max-width: 100%;
+  height: auto;
+  border: 2px solid var(--black);
+  border-radius: 6px;
+  margin: 8px 0;
+}
+
+.apoio a {
+  color: var(--brand);
+}
+
 .idioma-opcoes {
   display: flex;
   gap: 12px;

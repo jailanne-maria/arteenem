@@ -3749,6 +3749,23 @@ document.getElementById("btn-sim-girar").addEventListener("click", () => {
   }, 4000);
 });
 
+// Converte o markdown simples das questões do ENEM em HTML (imagens e negrito)
+function renderApoioSimulado(texto) {
+  let t = escaparHTML(texto || "");
+  // imagens: ![alt](url)
+  t = t.replace(
+    /!\[[^\]]*\]\((https?:\/\/[^)]+)\)/g,
+    '<img src="$1" alt="" referrerpolicy="no-referrer" style="max-width:100%;height:auto;margin:8px 0;border:2px solid #14142b;border-radius:6px">'
+  );
+  // links markdown: [texto](url)
+  t = t.replace(/\[([^\]]+)\]\((https?:\/\/[^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
+  // negrito
+  t = t.replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
+  // quebras de linha
+  t = t.replace(/\n/g, "<br>");
+  return t;
+}
+
 function renderQuestaoSimulado() {
   const q = simFila[simIndice];
   simRespondido = false;
@@ -3758,10 +3775,13 @@ function renderQuestaoSimulado() {
     `${simIndice + 1}/${simFila.length} · ${simRespostas.filter((r) => r.acertou).length} acertos`;
   document.getElementById("sim-progresso-fill").style.width = `${(simIndice / simFila.length) * 100}%`;
 
-  // Imagem
+  const ctx = q.context || "";
+  const temImagemNoCtx = /!\[[^\]]*\]\(/.test(ctx);
+
+  // Imagens soltas (só quando o contexto não traz imagem em markdown)
   const imgDiv = document.getElementById("sim-imagem");
   const arquivos = Array.isArray(q.files) ? q.files : [];
-  if (arquivos.length) {
+  if (!temImagemNoCtx && arquivos.length) {
     imgDiv.innerHTML = arquivos.map((u) => `<img src="${u}" alt="" referrerpolicy="no-referrer" style="width:100%;height:auto">`).join("");
     exibir(imgDiv);
   } else {
@@ -3769,26 +3789,25 @@ function renderQuestaoSimulado() {
     esconder(imgDiv);
   }
 
-  // Texto de apoio (limpa markdown básico)
+  // Texto de apoio (com imagens em markdown renderizadas)
   const apoioDiv = document.getElementById("sim-apoio");
-  const ctx = (q.context || "").replace(/\*\*/g, "").trim();
   if (ctx) {
-    apoioDiv.textContent = ctx;
+    apoioDiv.innerHTML = renderApoioSimulado(ctx);
     exibir(apoioDiv);
   } else {
-    apoioDiv.textContent = "";
+    apoioDiv.innerHTML = "";
     esconder(apoioDiv);
   }
 
-  document.getElementById("sim-enunciado").textContent =
-    (q.alternativesIntroduction || "Analise as alternativas e escolha a correta.").replace(/\*\*/g, "");
+  document.getElementById("sim-enunciado").innerHTML =
+    renderApoioSimulado(q.alternativesIntroduction || "Analise as alternativas e escolha a correta.");
 
   const alts = document.getElementById("sim-alternativas");
   alts.innerHTML = "";
   (q.alternatives || []).forEach((a, i) => {
     const b = document.createElement("button");
     b.className = "alt";
-    b.innerHTML = `<span class="alt-letra">${a.letter || LETRAS[i]}</span><span>${escaparHTML(a.text || "")}${a.file ? `<img src="${a.file}" style="max-width:100%;margin-top:6px" alt="">` : ""}</span>`;
+    b.innerHTML = `<span class="alt-letra">${a.letter || LETRAS[i]}</span><span>${renderApoioSimulado(a.text || "")}${a.file ? `<img src="${a.file}" referrerpolicy="no-referrer" style="max-width:100%;height:auto;margin-top:6px" alt="">` : ""}</span>`;
     b.addEventListener("click", () => responderSimulado(i, a));
     alts.appendChild(b);
   });
