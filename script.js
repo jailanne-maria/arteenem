@@ -1682,7 +1682,27 @@ let jogoQuestaoAtual = null;
 let jogoRespondido = false;
 let setoresRoleta = [];
 let jogoUsadas = new Set();
-let jogoNivel = 1; // 1 = fácil, 2 = intermediário, 3 = difícil
+let jogoNivel = 2; // 1 = fácil, 2 = intermediário, 3 = difícil (padrão: intermediário)
+let jogoDisciplinaAtual = null;
+let enemPorArea = {}; // cache das questões reais do ENEM por área
+
+// Disciplinas cobradas no ENEM (para a roleta)
+const DISCIPLINAS_ROLETA = [
+  { id: "Arte", area: "linguagens", icone: "🎨" },
+  { id: "Língua Portuguesa", area: "linguagens", icone: "📖" },
+  { id: "Literatura", area: "linguagens", icone: "📚" },
+  { id: "Educação Física", area: "linguagens", icone: "🏃" },
+  { id: "Língua Inglesa", area: "linguagens", icone: "🇬🇧" },
+  { id: "Língua Espanhola", area: "linguagens", icone: "🇪🇸" },
+  { id: "História", area: "humanas", icone: "🏛️" },
+  { id: "Geografia", area: "humanas", icone: "🗺️" },
+  { id: "Filosofia", area: "humanas", icone: "💭" },
+  { id: "Sociologia", area: "humanas", icone: "👥" },
+  { id: "Biologia", area: "natureza", icone: "🧬" },
+  { id: "Física", area: "natureza", icone: "⚛️" },
+  { id: "Química", area: "natureza", icone: "🧪" },
+  { id: "Matemática", area: "matematica", icone: "📐" },
+];
 
 // Nível de dificuldade de cada questão fixa (1 fácil, 2 médio, 3 difícil)
 const NIVEIS = {
@@ -1751,26 +1771,17 @@ function pesosRoleta() {
   );
 }
 
-// Desenha a roleta com setores de tamanhos proporcionais aos pesos
+// Desenha a roleta com as DISCIPLINAS cobradas no ENEM
 function renderRoleta() {
-  const pesos = pesosRoleta();
-  const soma = pesos.reduce((a, b) => a + b, 0);
-  let acc = 0;
-  setoresRoleta = ORDEM_ROLETA.map((area, i) => {
-    const graus = (pesos[i] / soma) * 360;
-    const inicio = acc;
-    acc += graus;
-    return { area, inicio, fim: acc };
-  });
-
-  const partes = setoresRoleta.map((s) => `${CORES_AREA[s.area]} ${s.inicio}deg ${s.fim}deg`);
-  document.querySelector(".roleta-face").style.background = `conic-gradient(${partes.join(", ")})`;
-
-  const itens = document.querySelectorAll(".roleta-item");
-  itens.forEach((el, i) => {
-    const meio = (setoresRoleta[i].inicio + setoresRoleta[i].fim) / 2;
-    el.style.setProperty("--ang", meio + "deg");
-  });
+  const n = DISCIPLINAS_ROLETA.length;
+  const passo = 360 / n;
+  const partes = DISCIPLINAS_ROLETA.map((d, i) => `${CORES_AREA[d.area]} ${i * passo}deg ${(i + 1) * passo}deg`);
+  const face = document.getElementById("roleta-face");
+  face.style.background = `conic-gradient(${partes.join(", ")})`;
+  face.innerHTML = DISCIPLINAS_ROLETA.map((d, i) => {
+    const meio = i * passo + passo / 2;
+    return `<span class="roleta-item" style="--ang:${meio}deg" title="${escaparHTML(d.id)}">${d.icone}</span>`;
+  }).join("");
 }
 
 function abrirJogo() {
@@ -1793,18 +1804,11 @@ document.getElementById("btn-girar").addEventListener("click", () => {
   btn.disabled = true;
   btn.textContent = "🎡 Girando...";
 
-  // Sorteio ponderado (áreas com menos figurinhas saem mais)
-  const pesos = pesosRoleta();
-  const soma = pesos.reduce((a, b) => a + b, 0);
-  let r = Math.random() * soma;
-  let idx = 0;
-  for (let i = 0; i < pesos.length; i++) {
-    if (r < pesos[i]) { idx = i; break; }
-    r -= pesos[i];
-  }
-
-  const s = setoresRoleta[idx];
-  const p = s.inicio + Math.random() * (s.fim - s.inicio);
+  // Sorteia uma DISCIPLINA
+  const n = DISCIPLINAS_ROLETA.length;
+  const passo = 360 / n;
+  const idx = Math.floor(Math.random() * n);
+  const p = idx * passo + passo / 2;
   const alvo = (360 - p + 360) % 360;
   anguloRoleta += 5 * 360 + (((alvo - (anguloRoleta % 360)) % 360) + 360) % 360;
   document.getElementById("roleta").style.transform = `rotate(${anguloRoleta}deg)`;
@@ -1813,24 +1817,60 @@ document.getElementById("btn-girar").addEventListener("click", () => {
     girando = false;
     btn.disabled = false;
     btn.textContent = "🎡 Girar a roleta";
-    jogoAreaAtual = s.area;
-    mostrarPerguntaDaArea(s.area);
+    jogoDisciplinaAtual = DISCIPLINAS_ROLETA[idx];
+    mostrarPerguntaDaDisciplina(jogoDisciplinaAtual);
   }, 4200);
 });
+
+// Busca questões reais do ENEM por área (mais desafiadoras) — com cache
+async function carregarENEMArea(area) {
+  if (enemPorArea[area]) return enemPorArea[area];
+  const mapa = { linguagens: "linguagens", humanas: "ciencias-humanas", natureza: "ciencias-natureza", matematica: "matematica" };
+  const apiArea = mapa[area];
+  try {
+    let todas = [];
+    for (let offset = 0; offset < 200; offset += 50) {
+      const r = await fetch(`https://api.enem.dev/v1/exams/2023/questions?limit=50&offset=${offset}`);
+      if (!r.ok) break;
+      const data = await r.json();
+      todas = todas.concat((data.questions || []).filter((q) => q.discipline === apiArea));
+      if (!data.metadata || !data.metadata.hasMore) break;
+    }
+    const mapeadas = todas
+      .map((q, i) => ({
+        id: "enem_" + area + "_" + i,
+        area,
+        disciplina: null,
+        tema: "ENEM " + q.year,
+        apoio: q.context || "",
+        enunciado: q.alternativesIntroduction || "",
+        alternativas: (q.alternatives || []).map((a) => a.text || ""),
+        correta: (q.alternatives || []).findIndex((a) => a.letter === q.correctAlternative),
+        explicacao: "",
+      }))
+      .filter((q) => q.alternativas.length >= 4 && q.correta >= 0);
+    enemPorArea[area] = mapeadas;
+    return mapeadas;
+  } catch {
+    enemPorArea[area] = [];
+    return [];
+  }
+}
 
 function chaveQuestao(q) {
   return q.id || (q.enunciado || "").slice(0, 40);
 }
 
-function mostrarPerguntaDaArea(area) {
-  // Filtra por área e pelo nível escolhido
-  let banco = bancoDePerguntas().filter((q) => q.area === area && nivelDaQuestao(q) === jogoNivel);
+async function mostrarPerguntaDaDisciplina(disc) {
+  const area = disc.area;
+  // Banco local da disciplina (+ nível), complementado com questões reais do ENEM
+  let banco = bancoDePerguntas().filter((q) => disciplinaDaQuestao(q) === disc.id && nivelDaQuestao(q) === jogoNivel);
+  if (!banco.length) banco = bancoDePerguntas().filter((q) => disciplinaDaQuestao(q) === disc.id);
+  const enem = await carregarENEMArea(area);
+  banco = banco.concat(enem);
+  if (!banco.length) banco = bancoDePerguntas().filter((q) => q.area === area);
   if (!banco.length) {
-    // Se não houver perguntas nesse nível, usa todas da área
-    banco = bancoDePerguntas().filter((q) => q.area === area);
-  }
-  if (!banco.length) {
-    alert("Ainda não há perguntas dessa área.");
+    alert("Ainda não há perguntas dessa disciplina.");
     return;
   }
 
@@ -1843,12 +1883,11 @@ function mostrarPerguntaDaArea(area) {
   const escolhida = disponiveis[Math.floor(Math.random() * disponiveis.length)];
   jogoUsadas.add(chaveQuestao(escolhida));
 
-  // EMBARALHA as alternativas (corrige o bug de "todas são A")
+  // EMBARALHA as alternativas
   jogoQuestaoAtual = prepararQuestao(escolhida);
   jogoRespondido = false;
 
-  const info = AREAS[area] || { icone: "", curto: area };
-  document.getElementById("jogo-area-tag").textContent = `${info.icone} ${info.curto}`;
+  document.getElementById("jogo-area-tag").textContent = `${disc.icone} ${disc.id}`;
 
   // Imagem de apoio (se houver)
   const imgDiv = document.getElementById("jogo-imagem");
@@ -1860,24 +1899,24 @@ function mostrarPerguntaDaArea(area) {
     esconder(imgDiv);
   }
 
-  // Texto de apoio (se houver)
+  // Texto de apoio (com markdown: imagens, negrito)
   const apoioDiv = document.getElementById("jogo-apoio");
   if (jogoQuestaoAtual.apoio) {
-    apoioDiv.textContent = jogoQuestaoAtual.apoio;
+    apoioDiv.innerHTML = renderApoioSimulado(jogoQuestaoAtual.apoio);
     exibir(apoioDiv);
   } else {
-    apoioDiv.textContent = "";
+    apoioDiv.innerHTML = "";
     esconder(apoioDiv);
   }
 
-  document.getElementById("jogo-enunciado").textContent = jogoQuestaoAtual.enunciado;
+  document.getElementById("jogo-enunciado").innerHTML = renderApoioSimulado(jogoQuestaoAtual.enunciado);
 
   const alts = document.getElementById("jogo-alternativas");
   alts.innerHTML = "";
   jogoQuestaoAtual.alternativas.forEach((texto, i) => {
     const b = document.createElement("button");
     b.className = "alt";
-    b.innerHTML = `<span class="alt-letra">${LETRAS[i]}</span><span>${texto}</span>`;
+    b.innerHTML = `<span class="alt-letra">${LETRAS[i]}</span><span>${renderApoioSimulado(texto)}</span>`;
     b.addEventListener("click", () => responderJogo(i));
     alts.appendChild(b);
   });
