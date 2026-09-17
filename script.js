@@ -3299,26 +3299,24 @@ document.getElementById("btn-criar-atividade").addEventListener("click", async (
       const daSerie = (q) => serie === "todas" || serieDaQuestao(q) === serie;
       const doNivel = (q) => nivel === 0 || nivelDaQuestao(q) === nivel;
 
-      // 1) disciplina + série + nível
       if (usuario.disciplina) {
+        // SOMENTE a disciplina do professor (sem misturar outras)
         adicionar(todas.filter((q) => disciplinaDaQuestao(q) === usuario.disciplina && daSerie(q) && doNivel(q)));
-        // 2) disciplina + série
         adicionar(todas.filter((q) => disciplinaDaQuestao(q) === usuario.disciplina && daSerie(q)));
-        // 3) disciplina
         adicionar(todas.filter((q) => disciplinaDaQuestao(q) === usuario.disciplina));
-      }
-      // 4) série + nível
-      adicionar(todas.filter((q) => daSerie(q) && doNivel(q)));
-      // 5) série
-      adicionar(todas.filter(daSerie));
-      // 6) questões reais do ENEM da área
-      if (banco.length < qtd && usuario.area) {
-        const enem = await carregarENEMArea(usuario.area);
-        adicionar(enem);
+      } else {
+        // Sem disciplina definida: usa a área do professor
+        adicionar(todas.filter((q) => (area === "todas" || q.area === area) && daSerie(q) && doNivel(q)));
+        adicionar(todas.filter((q) => (area === "todas" || q.area === area) && daSerie(q)));
+        adicionar(todas.filter((q) => area === "todas" || q.area === area));
       }
 
       if (!banco.length) {
-        throw new Error("Não há questões com esse filtro.");
+        throw new Error(
+          usuario.disciplina
+            ? `Ainda não há questões de ${usuario.disciplina} no banco. Use o modo "Com IA" com um material.`
+            : "Não há questões com esse filtro."
+        );
       }
       embaralhar(banco);
       perguntas = banco.slice(0, qtd).map(prepararQuestao);
@@ -3352,7 +3350,14 @@ document.getElementById("btn-criar-atividade").addEventListener("click", async (
       turmas,
     });
     aviso.className = "aviso ok";
-    aviso.textContent = `✅ Atividade "${titulo}" com ${perguntas.length} questões enviada para ${turmas.length} turma(s)!`;
+    const pedidas = ativModo === "banco"
+      ? parseInt(document.getElementById("ativ-qtd").value, 10) || 5
+      : parseInt(document.getElementById("ativ-qtd-ia").value, 10) || 5;
+    aviso.textContent =
+      `✅ Atividade "${titulo}" com ${perguntas.length} questão(ões) enviada para ${turmas.length} turma(s)!` +
+      (perguntas.length < pedidas
+        ? ` ⚠️ Você pediu ${pedidas}, mas só havia ${perguntas.length} de ${usuario.disciplina || "sua área"} no banco. Use o modo "Com IA" para gerar mais.`
+        : "");
     exibir(aviso);
     document.getElementById("ativ-titulo").value = "";
     await carregarAtividadesProf();
