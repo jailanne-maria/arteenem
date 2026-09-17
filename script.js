@@ -26,9 +26,10 @@ let respostas = [];
 // Perguntas contribuídas por professores (carregadas do Firestore)
 let perguntasExtras = [];
 
-// Banco completo (fixas + contribuídas), usado no diagnóstico
+// Banco completo (fixas + Arte + contribuídas), usado no diagnóstico
 function bancoDePerguntas() {
-  return QUESTOES.concat(perguntasExtras);
+  const arte = typeof QUESTOES_ARTE !== "undefined" ? QUESTOES_ARTE : [];
+  return QUESTOES.concat(arte, perguntasExtras);
 }
 
 // ---------- Navegação ----------
