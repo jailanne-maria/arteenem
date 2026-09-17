@@ -1698,6 +1698,21 @@ function nivelDaQuestao(q) {
   return 1;
 }
 
+// Disciplina de cada questão fixa
+const DISCIPLINA_QUESTAO = {
+  lin1: "Arte", lin2: "Arte", lin3: "Literatura", lin4: "Língua Portuguesa", lin5: "Língua Inglesa", lin6: "Língua Portuguesa",
+  lin7: "Língua Espanhola", lin8: "Língua Espanhola", lin9: "Língua Espanhola", lin10: "Educação Física", lin11: "Educação Física", lin12: "Educação Física",
+  hum1: "História", hum2: "Geografia", hum3: "Filosofia", hum4: "Sociologia", hum5: "Sociologia", hum6: "Geografia",
+  nat1: "Biologia", nat2: "Física", nat3: "Química", nat4: "Biologia", nat5: "Física", nat6: "Química",
+  mat1: "Matemática", mat2: "Matemática", mat3: "Matemática", mat4: "Matemática", mat5: "Matemática", mat6: "Matemática",
+};
+
+function disciplinaDaQuestao(q) {
+  if (q.disciplina) return q.disciplina;
+  if (q.id && DISCIPLINA_QUESTAO[q.id]) return DISCIPLINA_QUESTAO[q.id];
+  return null;
+}
+
 document.querySelectorAll(".nivel-btn").forEach((b) => {
   b.addEventListener("click", () => {
     jogoNivel = parseInt(b.dataset.nivel, 10);
@@ -3107,12 +3122,25 @@ async function renderTurmasAtividade() {
 document.getElementById("btn-ir-atividades").addEventListener("click", abrirAtividadesProf);
 document.getElementById("btn-voltar-atividades").addEventListener("click", abrirPainelProfessor);
 
+let ativModo = "banco";
+document.querySelectorAll(".modo-opcao").forEach((b) => {
+  b.addEventListener("click", () => {
+    ativModo = b.dataset.modo;
+    document.querySelectorAll(".modo-opcao").forEach((x) => x.classList.toggle("ativa", x === b));
+    if (ativModo === "banco") {
+      exibir(document.getElementById("ativ-campos-banco"));
+      esconder(document.getElementById("ativ-campos-ia"));
+    } else {
+      esconder(document.getElementById("ativ-campos-banco"));
+      exibir(document.getElementById("ativ-campos-ia"));
+    }
+  });
+});
+
 document.getElementById("btn-criar-atividade").addEventListener("click", async () => {
   const aviso = document.getElementById("ativ-aviso");
+  const btn = document.getElementById("btn-criar-atividade");
   const titulo = (document.getElementById("ativ-titulo").value.trim()) || "Atividade";
-  const area = document.getElementById("ativ-area").value;
-  const nivel = parseInt(document.getElementById("ativ-nivel").value, 10);
-  const qtd = Math.max(1, Math.min(20, parseInt(document.getElementById("ativ-qtd").value, 10) || 5));
   const turmas = Array.from(document.querySelectorAll(".ativ-turma-check:checked")).map((c) => c.value);
 
   if (!turmas.length) {
@@ -3122,22 +3150,66 @@ document.getElementById("btn-criar-atividade").addEventListener("click", async (
     return;
   }
 
-  let banco = bancoDePerguntas().filter(
-    (q) => (area === "todas" || q.area === area) && (nivel === 0 || nivelDaQuestao(q) === nivel)
-  );
-  if (!banco.length) {
-    aviso.className = "aviso erro";
-    aviso.textContent = "Não há questões com esse filtro. Tente outra área ou dificuldade.";
-    exibir(aviso);
-    return;
-  }
-  embaralhar(banco);
-  const escolhidas = banco.slice(0, qtd).map(prepararQuestao);
-
+  btn.disabled = true;
+  btn.textContent = "⏳ Gerando...";
   try {
-    await criarAtividade(usuario, { titulo, area, nivel, perguntas: escolhidas, turmas });
+    let perguntas = [];
+    let area = usuario.area || "todas";
+
+    if (ativModo === "banco") {
+      const nivel = parseInt(document.getElementById("ativ-nivel").value, 10);
+      const qtd = Math.max(1, Math.min(20, parseInt(document.getElementById("ativ-qtd").value, 10) || 5));
+      area = document.getElementById("ativ-area").value;
+
+      // Prioriza a disciplina do professor
+      let banco = bancoDePerguntas().filter((q) => {
+        const disc = disciplinaDaQuestao(q);
+        const okDisc = usuario.disciplina ? disc === usuario.disciplina : true;
+        const okArea = area === "todas" || q.area === area;
+        const okNivel = nivel === 0 || nivelDaQuestao(q) === nivel;
+        return okDisc && okArea && okNivel;
+      });
+      // Se não houver da disciplina, amplia para a área
+      if (!banco.length) {
+        banco = bancoDePerguntas().filter(
+          (q) => (area === "todas" || q.area === area) && (nivel === 0 || nivelDaQuestao(q) === nivel)
+        );
+      }
+      if (!banco.length) {
+        throw new Error("Não há questões com esse filtro.");
+      }
+      embaralhar(banco);
+      perguntas = banco.slice(0, qtd).map(prepararQuestao);
+    } else {
+      // Modo IA: gera a partir do material enviado
+      const chave = document.getElementById("ativ-chave").value.trim() || localStorage.getItem(CHAVE_IA) || "";
+      const arquivos = Array.from(document.getElementById("ativ-arquivo").files || []);
+      const qtd = Math.max(1, Math.min(15, parseInt(document.getElementById("ativ-qtd-ia").value, 10) || 5));
+      if (!chave) throw new Error("Cole a chave da IA (Gemini).");
+      if (!arquivos.length) throw new Error("Envie um ou mais arquivos do material.");
+      localStorage.setItem(CHAVE_IA, chave);
+
+      aviso.className = "aviso ok";
+      aviso.textContent = "📖 Lendo o material...";
+      exibir(aviso);
+      let texto = "";
+      for (const arq of arquivos) {
+        aviso.textContent = `📖 Lendo ${arq.name}...`;
+        texto += "\n\n### " + arq.name + "\n" + (await extrairTextoArquivo(arq));
+      }
+      aviso.textContent = "🤖 Gerando questões com a IA...";
+      perguntas = await gerarQuestoesIA(chave, texto.replace(/\s+/g, " ").slice(0, 20000), qtd, usuario.disciplina, area);
+    }
+
+    await criarAtividade(usuario, {
+      titulo,
+      area,
+      disciplina: usuario.disciplina || null,
+      perguntas,
+      turmas,
+    });
     aviso.className = "aviso ok";
-    aviso.textContent = `✅ Atividade "${titulo}" enviada para ${turmas.length} turma(s)!`;
+    aviso.textContent = `✅ Atividade "${titulo}" com ${perguntas.length} questões enviada para ${turmas.length} turma(s)!`;
     exibir(aviso);
     document.getElementById("ativ-titulo").value = "";
     await carregarAtividadesProf();
@@ -3145,8 +3217,67 @@ document.getElementById("btn-criar-atividade").addEventListener("click", async (
     aviso.className = "aviso erro";
     aviso.textContent = "Erro: " + e.message;
     exibir(aviso);
+  } finally {
+    btn.disabled = false;
+    btn.textContent = "📋 Criar e enviar para as turmas";
   }
 });
+
+// Gera questões com IA a partir de um material (com texto de apoio)
+async function gerarQuestoesIA(chave, texto, qtd, disciplina, area) {
+  const prompt = `Você é um professor de ${disciplina || "Ensino Médio"}. Crie ${qtd} questões de múltipla escolha para estudantes do Ensino Médio, baseadas no material abaixo.
+Cada questão DEVE ter um texto de apoio ("apoio") com dados, fatos, leis ou citações que ajudem o estudante a interpretar.
+Responda em JSON puro, no formato:
+{"questoes":[{"apoio":"texto de apoio","enunciado":"pergunta","alternativas":["A","B","C","D","E"],"correta":0,"explicacao":"por que a correta está certa"}]}
+A "correta" é o índice (0 a 4) da alternativa correta.
+
+Material:
+${texto}`;
+
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent?key=${chave}`;
+  const corpo = JSON.stringify({
+    contents: [{ parts: [{ text: prompt }] }],
+    generationConfig: { maxOutputTokens: 5000 },
+  });
+
+  for (let tentativa = 1; tentativa <= 4; tentativa++) {
+    let resp;
+    try {
+      resp = await fetch(url, { method: "POST", headers: { "Content-Type": "application/json" }, body: corpo });
+    } catch {
+      await new Promise((r) => setTimeout(r, 1500 * tentativa));
+      continue;
+    }
+    if (resp.ok) {
+      const data = await resp.json();
+      let t = (data?.candidates?.[0]?.content?.parts || []).map((p) => p.text || "").join("");
+      t = t.replace(/```json|```/g, "").trim();
+      const i = t.indexOf("{");
+      const f = t.lastIndexOf("}");
+      if (i >= 0 && f > i) t = t.slice(i, f + 1);
+      const parsed = JSON.parse(t);
+      const questoes = (parsed.questoes || []).filter((q) => q.enunciado && Array.isArray(q.alternativas) && q.alternativas.length >= 4);
+      if (!questoes.length) throw new Error("A IA não gerou questões válidas.");
+      return questoes.map((q, idx) => ({
+        id: "ia_" + Date.now() + "_" + idx,
+        area: area && area !== "todas" ? area : (usuario.area || "linguagens"),
+        disciplina: disciplina || null,
+        tema: disciplina || "Atividade",
+        apoio: q.apoio || "",
+        enunciado: q.enunciado,
+        alternativas: q.alternativas,
+        correta: typeof q.correta === "number" ? q.correta : 0,
+        explicacao: q.explicacao || "",
+      }));
+    }
+    if (resp.status === 503 || resp.status === 429 || resp.status === 500) {
+      await new Promise((r) => setTimeout(r, 2000 * tentativa));
+      continue;
+    }
+    throw new Error("IA retornou erro " + resp.status);
+  }
+  throw new Error("A IA está sobrecarregada. Tente novamente em instantes.");
+}
 
 async function carregarAtividadesProf() {
   const div = document.getElementById("lista-atividades-prof");
@@ -3156,15 +3287,50 @@ async function carregarAtividadesProf() {
       div.innerHTML = "<p class='vazio'>Você ainda não criou atividades.</p>";
       return;
     }
-    div.innerHTML = atividades.map((a) => `
-      <details class="revisao-card">
-        <summary>📋 ${escaparHTML(a.titulo)} <small>· ${(a.perguntas || []).length} questões · ${(a.turmas || []).length} turma(s)</small></summary>
-        <div class="revisao-card-corpo" data-atividade="${a.id}"><p class="vazio">Carregando estatísticas…</p></div>
-      </details>
-    `).join("");
+    div.innerHTML = atividades.map((a) => {
+      const questoesHtml = (a.perguntas || []).map((q, i) => `
+        <div class="ativ-item">
+          <p class="ativ-pergunta"><strong>${i + 1}.</strong> ${escaparHTML(q.enunciado)}</p>
+          ${q.apoio ? `<div class="apoio">${escaparHTML(q.apoio)}</div>` : ""}
+          <div class="ativ-gabarito"><strong>Gabarito:</strong> ${LETRAS[q.correta] || "?"}) ${escaparHTML((q.alternativas && q.alternativas[q.correta]) || "")}</div>
+        </div>
+      `).join("");
+      return `
+        <details class="revisao-card">
+          <summary>
+            📋 ${escaparHTML(a.titulo)}
+            <small>· ${(a.perguntas || []).length} questões · ${(a.turmas || []).length} turma(s)</small>
+            <button class="ativ-excluir" data-id="${a.id}" title="Excluir atividade">🗑️ Excluir</button>
+          </summary>
+          <div class="revisao-card-corpo">
+            <h4 class="curriculo-sub">📝 Questões</h4>
+            <div class="ativ-lista">${questoesHtml || "<p class='vazio'>Sem questões.</p>"}</div>
+            <h4 class="curriculo-sub">📊 Estatísticas por turma</h4>
+            <div class="ativ-stats" data-atividade="${a.id}"><p class="vazio">Carregando…</p></div>
+          </div>
+        </details>
+      `;
+    }).join("");
+
+    // Botões de excluir
+    div.querySelectorAll(".ativ-excluir").forEach((btn) => {
+      btn.addEventListener("click", async (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        if (!confirm("Excluir esta atividade? Os estudantes não verão mais.")) return;
+        try {
+          await excluirAtividade(btn.dataset.id);
+          await carregarAtividadesProf();
+        } catch (err) {
+          alert("Erro ao excluir: " + err.message);
+        }
+      });
+    });
+
+    // Estatísticas
     for (const a of atividades) {
-      const corpo = div.querySelector(`.revisao-card-corpo[data-atividade="${a.id}"]`);
-      if (corpo) carregarEstatisticasAtividade(a, corpo);
+      const alvo = div.querySelector(`.ativ-stats[data-atividade="${a.id}"]`);
+      if (alvo) carregarEstatisticasAtividade(a, alvo);
     }
   } catch (e) {
     div.innerHTML = `<p class='vazio'>Erro: ${e.message}</p>`;

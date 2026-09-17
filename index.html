@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="NINA — diagnóstico das 4 áreas do ENEM. Professores criam turmas, estudantes fazem o diagnóstico e disputam o ranking.">
   <title>NINA · Diagnóstico das 4 áreas</title>
-  <link rel="stylesheet" href="style.css?v=38">
+  <link rel="stylesheet" href="style.css?v=39">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
@@ -689,10 +689,19 @@
 
       <div class="painel-bloco">
         <div class="campo">
-          <label class="perfil-rotulo" for="ativ-titulo">Título da atividade</label>
-          <input id="ativ-titulo" type="text" maxlength="80" placeholder="Ex.: Revisão de Arte — Modernismo">
+          <label class="perfil-rotulo">Como gerar as questões?</label>
+          <div class="modo-opcoes">
+            <button class="modo-opcao ativa" data-modo="banco">🎲 Do banco de questões</button>
+            <button class="modo-opcao" data-modo="ia">🤖 Com IA (a partir de um material)</button>
+          </div>
         </div>
-        <div class="linha-campos">
+
+        <div class="campo">
+          <label class="perfil-rotulo" for="ativ-titulo">Título da atividade</label>
+          <input id="ativ-titulo" type="text" maxlength="80" placeholder="Ex.: Arte — Revisão">
+        </div>
+
+        <div id="ativ-campos-banco" class="linha-campos">
           <div class="campo">
             <label class="perfil-rotulo" for="ativ-area">Área</label>
             <select id="ativ-area">
@@ -717,6 +726,25 @@
             <input id="ativ-qtd" type="number" min="1" max="20" value="5">
           </div>
         </div>
+
+        <div id="ativ-campos-ia" class="escondido">
+          <div class="campo">
+            <label class="perfil-rotulo" for="ativ-arquivo">📎 Material de apoio (PDF, Word ou texto) — pode enviar vários</label>
+            <input id="ativ-arquivo" type="file" accept=".pdf,.docx,.txt,.md" multiple>
+            <p class="perfil-termos">A IA vai gerar questões <strong>com texto de apoio</strong> baseadas neste material.</p>
+          </div>
+          <div class="linha-campos">
+            <div class="campo">
+              <label class="perfil-rotulo" for="ativ-chave">🔑 Chave da IA (Gemini)</label>
+              <input id="ativ-chave" type="password" placeholder="Cole sua chave">
+            </div>
+            <div class="campo">
+              <label class="perfil-rotulo" for="ativ-qtd-ia">Nº de questões</label>
+              <input id="ativ-qtd-ia" type="number" min="1" max="15" value="5">
+            </div>
+          </div>
+        </div>
+
         <div class="campo">
           <label class="perfil-rotulo">Turmas</label>
           <div id="ativ-turmas" class="turmas-checks"></div>
@@ -870,12 +898,12 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
 
-  <script src="questoes.js?v=38"></script>
-  <script src="plano.js?v=38"></script>
-  <script src="explorar.js?v=38"></script>
-  <script src="figurinhas.js?v=38"></script>
-  <script src="curriculo.js?v=38"></script>
-  <script src="firebase-config.js?v=38"></script>
-  <script src="script.js?v=38"></script>
+  <script src="questoes.js?v=39"></script>
+  <script src="plano.js?v=39"></script>
+  <script src="explorar.js?v=39"></script>
+  <script src="figurinhas.js?v=39"></script>
+  <script src="curriculo.js?v=39"></script>
+  <script src="firebase-config.js?v=39"></script>
+  <script src="script.js?v=39"></script>
 </body>
 </html>
