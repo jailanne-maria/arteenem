@@ -1,6 +1,6 @@
 // NINA — Figurinhas colecionáveis por área
 // Cada figurinha homenageia uma pessoa (ou coletivo) e conta um pouco da sua história.
-// Referências negras, indígenas e femininas valorizadas (Lei 11.645/08).
+// Referências negras, indígenas, femininas e brasileiras valorizadas (Lei 11.645/08).
 
 const FIGURINHAS = [
   // ================= LINGUAGENS =================
@@ -20,6 +20,14 @@ const FIGURINHAS = [
     historia: "Atriz e apresentadora. Primeira protagonista negra de novela na TV brasileira, é voz ativa pela representatividade racial." },
   { id: "lazaro", area: "linguagens", nome: "Lázaro Ramos", emoji: "🎥", raridade: "rara",
     historia: "Ator, diretor e escritor. Protagonista do cinema e da TV, é referência de representatividade negra no audiovisual." },
+  { id: "tarsila", area: "linguagens", nome: "Tarsila do Amaral", emoji: "🌴", raridade: "rara",
+    historia: "Pintora modernista. Sua obra 'Abaporu' inspirou o movimento antropofágico e é um marco da arte brasileira." },
+  { id: "anita", area: "linguagens", nome: "Anita Malfatti", emoji: "🖌️", raridade: "rara",
+    historia: "Pintora precursora do Modernismo no Brasil. Sua exposição de 1917 causou polêmica e abriu caminho para a Semana de 22." },
+  { id: "mario", area: "linguagens", nome: "Mário de Andrade", emoji: "📕", raridade: "lendaria",
+    historia: "Escritor e idealizador da Semana de Arte Moderna. Autor de 'Macunaíma', o 'herói sem nenhum caráter'." },
+  { id: "lima", area: "linguagens", nome: "Lima Barreto", emoji: "🖋️", raridade: "rara",
+    historia: "Escritor negro e crítico social. Em 'Triste Fim de Policarpo Quaresma' denunciou o racismo e a hipocrisia da República." },
   { id: "frida", area: "linguagens", nome: "Frida Kahlo", emoji: "🌺", raridade: "comum",
     historia: "Pintora mexicana que transformou dor e identidade em arte. Ícone do feminismo e da cultura latino-americana." },
   { id: "krenak", area: "linguagens", nome: "Ailton Krenak", emoji: "🌿", raridade: "lendaria",
@@ -38,10 +46,18 @@ const FIGURINHAS = [
     historia: "Antropólogo e educador. Defendeu a educação pública e os povos indígenas, e idealizou projetos de universidade." },
   { id: "freire", area: "humanas", nome: "Paulo Freire", emoji: "🎓", raridade: "rara",
     historia: "Educador pernambucano, patrono da educação brasileira. Criou a pedagogia libertadora: ensinar a ler o mundo." },
+  { id: "florestan", area: "humanas", nome: "Florestan Fernandes", emoji: "🔎", raridade: "rara",
+    historia: "Sociólogo. Estudou o racismo e a desigualdade no Brasil e lutou pela escola pública e pela ciência." },
+  { id: "josue", area: "humanas", nome: "Josué de Castro", emoji: "🍽️", raridade: "rara",
+    historia: "Médico e geógrafo. Autor de 'Geografia da Fome', denunciou a fome como problema social e político." },
+  { id: "fanon", area: "humanas", nome: "Frantz Fanon", emoji: "🧠", raridade: "lendaria",
+    historia: "Psiquiatra e filósofo. Autor de 'Peles Negras, Máscaras Brancas', estudou o racismo e a colonização." },
+  { id: "angela", area: "humanas", nome: "Angela Davis", emoji: "✊🏿", raridade: "lendaria",
+    historia: "Filósofa e ativista negra dos EUA. Referência mundial na luta contra o racismo, o machismo e o sistema carcerário." },
 
   // ================= NATUREZA =================
   { id: "chagas", area: "natureza", nome: "Carlos Chagas", emoji: "🔬", raridade: "rara",
-    historia: "Médico e cientista. Descreveu a doença de Chagas e seu transmissor, o barbeiro — façanha única na história da medicina." },
+    historia: "Médico e cientista. Descreveu a doença de Chagas e seu transmissor, o barbeiro — façanha única na medicina." },
   { id: "oswaldo", area: "natureza", nome: "Oswaldo Cruz", emoji: "💉", raridade: "comum",
     historia: "Médico sanitarista. Combateu a febre amarela e a varíola, e fundou o instituto que leva seu nome." },
   { id: "bertha", area: "natureza", nome: "Bertha Lutz", emoji: "🐸", raridade: "rara",
@@ -52,6 +68,14 @@ const FIGURINHAS = [
     historia: "Médico e pesquisador. Criou os soros antiofídicos e fundou o Instituto Butantan." },
   { id: "graziela", area: "natureza", nome: "Graziela Barroso", emoji: "🌻", raridade: "rara",
     historia: "Botânica, a 'primeira-dama da botânica brasileira'. Catalogou plantas e formou gerações de cientistas." },
+  { id: "nise", area: "natureza", nome: "Nise da Silveira", emoji: "🎨", raridade: "lendaria",
+    historia: "Psiquiatra. Revolucionou o tratamento em saúde mental, substituindo a violência por arte e afeto." },
+  { id: "mayana", area: "natureza", nome: "Mayana Zatz", emoji: "🧬", raridade: "rara",
+    historia: "Geneticista. Referência mundial em genética humana e doenças neuromusculares, e defensora da divulgação científica." },
+  { id: "jaqueline", area: "natureza", nome: "Jaqueline Goes", emoji: "🦠", raridade: "lendaria",
+    historia: "Biomédica negra que coordenou o sequenciamento do genoma do coronavírus no Brasil em tempo recorde." },
+  { id: "ester", area: "natureza", nome: "Ester Sabino", emoji: "🔭", raridade: "rara",
+    historia: "Cientista que liderou o sequenciamento do vírus da zika e do coronavírus, unindo ciência e saúde pública." },
 
   // ================= MATEMÁTICA =================
   { id: "pitagoras", area: "matematica", nome: "Pitágoras", emoji: "📐", raridade: "comum",
@@ -66,6 +90,14 @@ const FIGURINHAS = [
     historia: "Pseudônimo de Júlio César de Mello e Souza, professor que ensinava matemática com histórias, como 'O Homem que Calculava'." },
   { id: "tatiana", area: "matematica", nome: "Tatiana Roque", emoji: "🧮", raridade: "rara",
     historia: "Matemática brasileira, autora de 'História da Matemática' e voz ativa sobre ciência e sociedade." },
+  { id: "hipatia", area: "matematica", nome: "Hipátia de Alexandria", emoji: "📏", raridade: "lendaria",
+    historia: "Filósofa e matemática da Antiguidade. Ensinou astronomia e álgebra em Alexandria; é símbolo das mulheres na ciência." },
+  { id: "ada", area: "matematica", nome: "Ada Lovelace", emoji: "⚙️", raridade: "lendaria",
+    historia: "Matemática inglesa. Escreveu o primeiro algoritmo pensado para uma máquina — precursora da programação." },
+  { id: "emmy", area: "matematica", nome: "Emmy Noether", emoji: "➗", raridade: "rara",
+    historia: "Matemática alemã. Suas contribuições à álgebra e à física são fundamentais para a ciência moderna." },
+  { id: "bhaskara", area: "matematica", nome: "Bhaskara", emoji: "🧾", raridade: "comum",
+    historia: "Matemático indiano. A fórmula de Bhaskara, usada até hoje para resolver equações do 2º grau, leva seu nome." },
 ];
 
 // Ordem das áreas na roleta (começando no topo, sentido horário)
