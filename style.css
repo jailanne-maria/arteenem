@@ -3830,6 +3830,136 @@ h1, h2, h3, h4, .marca-nome, .btn-principal, .btn-secundario, .btn-google, .btn-
   width: calc(100% - 24px);
 }
 
+/* ===== CHAT DA ESCOLA ===== */
+.chat-caixa {
+  display: flex;
+  flex-direction: column;
+  background: var(--surface-2);
+  border: 4px solid var(--black);
+  box-shadow: var(--sombra);
+  border-radius: 12px;
+  overflow: hidden;
+  height: 65vh;
+}
+
+.chat-lista {
+  flex: 1;
+  overflow-y: auto;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.chat-msg {
+  max-width: 78%;
+  align-self: flex-start;
+  background: var(--surface);
+  border: 3px solid var(--black);
+  border-radius: 12px;
+  padding: 8px 12px;
+}
+
+.chat-msg.minha {
+  align-self: flex-end;
+  background: var(--yellow);
+}
+
+.chat-msg-topo {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  font-size: 0.82rem;
+  margin-bottom: 3px;
+}
+
+.chat-msg-topo span { opacity: 0.7; }
+.chat-msg p { margin: 0; font-size: 1.02rem; word-break: break-word; }
+
+.chat-envio {
+  display: flex;
+  gap: 8px;
+  padding: 10px;
+  border-top: 3px solid var(--black);
+  background: var(--surface);
+}
+
+.chat-envio input { flex: 1; min-width: 0; }
+
+/* ===== ADMINISTRAÇÃO ===== */
+.admin-abas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 16px 0;
+}
+
+.admin-aba {
+  background: var(--surface-2);
+  border: 3px solid var(--black);
+  border-radius: 999px;
+  padding: 7px 14px;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 0.95rem;
+}
+
+.admin-aba.ativa { background: var(--yellow); }
+
+.admin-conteudo {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.admin-resumo { font-weight: bold; margin: 0 0 4px; }
+
+.admin-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  background: var(--surface-2);
+  border: 3px solid var(--black);
+  box-shadow: 3px 3px 0 var(--black);
+  border-radius: 12px;
+  padding: 10px 14px;
+}
+
+.admin-item-info {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  flex: 1;
+  min-width: 200px;
+}
+
+.admin-sub { font-size: 0.88rem; opacity: 0.8; word-break: break-word; }
+.admin-acoes { display: flex; gap: 8px; flex-wrap: wrap; }
+
+/* ===== TOAST (aviso rápido) ===== */
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 24px;
+  transform: translate(-50%, 120%);
+  background: var(--black);
+  color: #fff;
+  border-radius: 10px;
+  padding: 12px 18px;
+  max-width: 90vw;
+  font-size: 0.95rem;
+  text-align: center;
+  z-index: 999;
+  opacity: 0;
+  transition: transform 0.25s ease, opacity 0.25s ease;
+  pointer-events: none;
+}
+
+.toast.visivel { transform: translate(-50%, 0); opacity: 1; }
+.toast.erro { background: #b3261e; }
+
 /* ===== MELHORIAS PARA CELULAR ===== */
 @media (max-width: 640px) {
   /* ===== TOPO ===== */

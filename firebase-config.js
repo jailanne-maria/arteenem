@@ -446,6 +446,76 @@ function listarRespostasQuizDoAluno(alunoId) {
     .then((snap) => snap.docs.map((d) => ({ id: d.id, ...d.data() })));
 }
 
+// ---------- Chat entre professores da mesma escola ----------
+function enviarMensagemEscola(usuario, texto) {
+  return firebase.firestore().collection("mensagens").add({
+    escola: usuario.escola,
+    uid: usuario.uid,
+    nome: usuario.nome,
+    foto: usuario.foto || "",
+    texto: texto.trim(),
+    criadoEm: firebase.firestore.FieldValue.serverTimestamp(),
+  });
+}
+
+function ouvirMensagensEscola(escola, callback) {
+  return firebase.firestore().collection("mensagens")
+    .where("escola", "==", escola)
+    .onSnapshot((snap) => {
+      const lista = snap.docs.map((d) => {
+        const data = d.data();
+        const ms = data.criadoEm && data.criadoEm.toMillis ? data.criadoEm.toMillis() : 0;
+        return { id: d.id, ...data, ms };
+      });
+      lista.sort((a, b) => a.ms - b.ms);
+      callback(lista);
+    }, () => callback(null));
+}
+
+function excluirMensagemEscola(id) {
+  return firebase.firestore().collection("mensagens").doc(id).delete();
+}
+
+// ---------- Administração / moderação ----------
+function listarTodosUsuarios() {
+  return firebase.firestore().collection("usuarios").get()
+    .then((snap) => snap.docs.map((d) => ({ uid: d.id, ...d.data() })));
+}
+
+function atualizarUsuarioAdmin(uid, dados) {
+  return firebase.firestore().collection("usuarios").doc(uid).set(dados, { merge: true });
+}
+
+function excluirUsuarioAdmin(uid) {
+  return firebase.firestore().collection("usuarios").doc(uid).delete();
+}
+
+function listarTodosDepoimentos() {
+  return firebase.firestore().collection("depoimentos").get()
+    .then((snap) => {
+      const lista = snap.docs.map((d) => {
+        const data = d.data();
+        const ms = data.criadoEm && data.criadoEm.toMillis ? data.criadoEm.toMillis() : 0;
+        return { id: d.id, ...data, ms };
+      });
+      lista.sort((a, b) => b.ms - a.ms);
+      return lista;
+    });
+}
+
+function listarTodasMensagens() {
+  return firebase.firestore().collection("mensagens").get()
+    .then((snap) => {
+      const lista = snap.docs.map((d) => {
+        const data = d.data();
+        const ms = data.criadoEm && data.criadoEm.toMillis ? data.criadoEm.toMillis() : 0;
+        return { id: d.id, ...data, ms };
+      });
+      lista.sort((a, b) => b.ms - a.ms);
+      return lista;
+    });
+}
+
 if (typeof module !== "undefined") {
   module.exports = { firebaseConfig };
 }

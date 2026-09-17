@@ -62,6 +62,8 @@ aoMudarUsuario(async (user) => {
   const btnAtividades = document.getElementById("btn-atividades");
   const btnSimulado = document.getElementById("btn-simulado");
   const btnBiblioteca = document.getElementById("btn-biblioteca");
+  const btnChat = document.getElementById("btn-chat");
+  const btnAdmin = document.getElementById("btn-admin");
   const btnInicio = document.getElementById("btn-inicio");
   const btnMenu = document.getElementById("btn-menu");
   const nomeTopo = document.getElementById("usuario-nome");
@@ -82,6 +84,8 @@ aoMudarUsuario(async (user) => {
     esconder(btnAtividades);
     esconder(btnSimulado);
     esconder(btnBiblioteca);
+    esconder(btnChat);
+    esconder(btnAdmin);
     esconder(btnInicio);
     esconder(btnMenu);
     esconder(nomeTopo);
@@ -105,6 +109,16 @@ aoMudarUsuario(async (user) => {
   }
 
   usuario = perfil;
+
+  // Usuário bloqueado pela moderação
+  if (usuario.bloqueado) {
+    usuario = null;
+    await logout().catch(() => {});
+    alert("Sua conta foi bloqueada pela moderação. Fale com a professora responsável.");
+    mostrarTela("tela-login");
+    return;
+  }
+
   nomeTopo.textContent = usuario.nome.split(" ")[0];
   exibir(nomeTopo);
   exibir(btnSair);
@@ -122,6 +136,11 @@ aoMudarUsuario(async (user) => {
   exibir(btnBiblioteca);
   exibir(btnInicio);
   exibir(btnMenu);
+
+  // Chat da escola (somente professores)
+  if (usuario.papel === "professor") exibir(btnChat); else esconder(btnChat);
+  // Painel de administração (somente e-mails autorizados)
+  if (ehAdmin()) exibir(btnAdmin); else esconder(btnAdmin);
 
   // Aviso do ECA a cada login (uma vez por sessão)
   mostrarAvisoECA();
@@ -171,6 +190,19 @@ async function abrirPainelProfessor() {
     : "Escolha sua área e disciplina.";
   document.getElementById("prof-saudacao").innerHTML =
     `Bem-vindo(a), <strong>${escaparHTML(usuario.nome.split(" ")[0])}</strong>!<br><span class="prof-area">${escaparHTML(areaInfo)}</span>`;
+
+  const resumo = document.getElementById("prof-escola-resumo");
+  if (resumo) {
+    const partes = [];
+    partes.push(usuario.escola
+      ? `Escola: <strong>${escaparHTML(usuario.escola)}</strong>`
+      : "Você ainda não informou o código da escola.");
+    if (Array.isArray(usuario.series) && usuario.series.length) {
+      partes.push(`Séries: ${escaparHTML(usuario.series.join(", "))}`);
+    }
+    resumo.innerHTML = partes.join(" · ");
+  }
+
   mostrarTela("tela-professor");
   await carregarTurmasProfessor();
 }
@@ -998,8 +1030,10 @@ async function trocarPapel() {
   if (novo === "professor") {
     if (!usuario.area || !usuario.disciplina) abrirEscolhaArea();
     else abrirPainelProfessor();
+    mostrarToast("Agora você está como professor(a).");
   } else {
     abrirInicioEstudante();
+    mostrarToast("Agora você está como estudante. Entre numa turma com o código do professor para ver o ranking.");
   }
 }
 
@@ -3718,14 +3752,39 @@ const DISCIPLINAS = {
 
 let areaEscolhida = null;
 let disciplinaEscolhida = null;
+const SERIES_ENSINO = ["1ª", "2ª", "3ª"];
+let seriesEscolhidas = [];
+
+// Padroniza o código da escola (ex.: "eefm ac 01" -> "EEFM-AC-01")
+function normalizarEscola(txt) {
+  return (txt || "").trim().toUpperCase().replace(/\s+/g, "-");
+}
 
 function abrirEscolhaArea() {
   areaEscolhida = usuario.area || null;
   disciplinaEscolhida = usuario.disciplina || null;
+  seriesEscolhidas = Array.isArray(usuario.series) ? usuario.series.slice() : [];
+  document.getElementById("prof-escola").value = usuario.escola || "";
   renderAreaOpcoes();
   renderDisciplinaOpcoes();
+  renderSeriesOpcoes();
   esconder(document.getElementById("area-aviso"));
   mostrarTela("tela-area-professor");
+}
+
+function renderSeriesOpcoes() {
+  const div = document.getElementById("series-opcoes");
+  div.innerHTML = SERIES_ENSINO.map((s) => `
+    <button class="disciplina-opcao ${seriesEscolhidas.includes(s) ? "ativa" : ""}" data-serie="${s}">${s} série</button>
+  `).join("");
+  div.querySelectorAll(".disciplina-opcao").forEach((b) => {
+    b.addEventListener("click", () => {
+      const s = b.dataset.serie;
+      if (seriesEscolhidas.includes(s)) seriesEscolhidas = seriesEscolhidas.filter((x) => x !== s);
+      else seriesEscolhidas.push(s);
+      renderSeriesOpcoes();
+    });
+  });
 }
 
 function renderAreaOpcoes() {
@@ -3766,15 +3825,35 @@ function renderDisciplinaOpcoes() {
 
 document.getElementById("btn-salvar-area").addEventListener("click", async () => {
   const aviso = document.getElementById("area-aviso");
+  const escola = normalizarEscola(document.getElementById("prof-escola").value);
   if (!areaEscolhida || !disciplinaEscolhida) {
     aviso.className = "aviso erro";
     aviso.textContent = "Escolha a área e a disciplina.";
     exibir(aviso);
     return;
   }
+  if (!escola) {
+    aviso.className = "aviso erro";
+    aviso.textContent = "Informe o código da escola (ex.: EEFM-AC-01).";
+    exibir(aviso);
+    return;
+  }
+  if (!seriesEscolhidas.length) {
+    aviso.className = "aviso erro";
+    aviso.textContent = "Escolha pelo menos uma série que você dá aula.";
+    exibir(aviso);
+    return;
+  }
   usuario.area = areaEscolhida;
   usuario.disciplina = disciplinaEscolhida;
-  await salvarUsuario(usuario.uid, { area: areaEscolhida, disciplina: disciplinaEscolhida }).catch(() => {});
+  usuario.escola = escola;
+  usuario.series = seriesEscolhidas.slice();
+  await salvarUsuario(usuario.uid, {
+    area: areaEscolhida,
+    disciplina: disciplinaEscolhida,
+    escola,
+    series: seriesEscolhidas.slice(),
+  }).catch(() => {});
   abrirPainelProfessor();
 });
 
@@ -4186,6 +4265,271 @@ document.getElementById("btn-refazer").addEventListener("click", () =>
   iniciarQuiz(Object.keys(AREAS))
 );
 document.getElementById("btn-voltar").addEventListener("click", () => {
+  if (usuario && usuario.papel === "professor") abrirPainelProfessor();
+  else abrirInicioEstudante();
+});
+
+// ============================================================
+// AVISO RÁPIDO (toast)
+// ============================================================
+let toastTimer = null;
+function mostrarToast(msg, tipo) {
+  let el = document.getElementById("nina-toast");
+  if (!el) {
+    el = document.createElement("div");
+    el.id = "nina-toast";
+    el.className = "toast";
+    document.body.appendChild(el);
+  }
+  el.textContent = msg;
+  el.className = "toast visivel" + (tipo ? " " + tipo : "");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => el.classList.remove("visivel"), 4000);
+}
+
+// ============================================================
+// CHAT DA ESCOLA (professores da mesma escola)
+// ============================================================
+let chatUnsub = null;
+
+function abrirChat() {
+  if (!usuario || usuario.papel !== "professor") return;
+  const nomeEscola = document.getElementById("chat-escola-nome");
+  const btnConfig = document.getElementById("btn-chat-config");
+  const lista = document.getElementById("chat-lista");
+
+  if (!usuario.escola) {
+    nomeEscola.textContent = "Você ainda não definiu sua escola.";
+    lista.innerHTML = `<p class="vazio">Defina o <strong>código da escola</strong> para conversar com os colegas.</p>`;
+    if (btnConfig) exibir(btnConfig);
+    mostrarTela("tela-chat");
+    return;
+  }
+
+  if (btnConfig) esconder(btnConfig);
+  nomeEscola.innerHTML =
+    `Escola: <strong>${escaparHTML(usuario.escola)}</strong> — conversa entre os professores da mesma escola.`;
+  mostrarTela("tela-chat");
+  ouvirChat();
+}
+
+function ouvirChat() {
+  if (chatUnsub) { chatUnsub(); chatUnsub = null; }
+  const lista = document.getElementById("chat-lista");
+  lista.innerHTML = `<p class="vazio">Carregando mensagens...</p>`;
+  chatUnsub = ouvirMensagensEscola(usuario.escola, (msgs) => {
+    if (!msgs) {
+      lista.innerHTML = `<p class="vazio">Não foi possível carregar o chat agora.</p>`;
+      return;
+    }
+    if (!msgs.length) {
+      lista.innerHTML = `<p class="vazio">Nenhuma mensagem ainda. Comece a conversa!</p>`;
+      return;
+    }
+    lista.innerHTML = msgs.map((m) => {
+      const meu = m.uid === usuario.uid;
+      const hora = m.ms
+        ? new Date(m.ms).toLocaleString("pt-BR", { day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" })
+        : "";
+      return `<div class="chat-msg ${meu ? "minha" : ""}">
+        <div class="chat-msg-topo"><strong>${escaparHTML(meu ? "Você" : (m.nome || "Professor"))}</strong><span>${hora}</span></div>
+        <p>${escaparHTML(m.texto || "")}</p>
+      </div>`;
+    }).join("");
+    lista.scrollTop = lista.scrollHeight;
+  });
+}
+
+function fecharChat() {
+  if (chatUnsub) { chatUnsub(); chatUnsub = null; }
+}
+
+async function enviarChat() {
+  const input = document.getElementById("chat-input");
+  const texto = input.value.trim();
+  if (!texto || !usuario || !usuario.escola) return;
+  input.value = "";
+  try {
+    await enviarMensagemEscola(usuario, texto);
+  } catch (e) {
+    mostrarToast("Erro ao enviar: " + e.message, "erro");
+    input.value = texto;
+  }
+}
+
+document.getElementById("btn-chat").addEventListener("click", abrirChat);
+document.getElementById("btn-voltar-chat").addEventListener("click", () => {
+  fecharChat();
+  if (usuario && usuario.papel === "professor") abrirPainelProfessor();
+  else abrirInicioEstudante();
+});
+document.getElementById("btn-chat-enviar").addEventListener("click", enviarChat);
+document.getElementById("chat-input").addEventListener("keydown", (e) => {
+  if (e.key === "Enter") { e.preventDefault(); enviarChat(); }
+});
+document.getElementById("btn-chat-config").addEventListener("click", () => {
+  fecharChat();
+  abrirEscolhaArea();
+});
+document.getElementById("btn-ir-escola").addEventListener("click", abrirEscolhaArea);
+
+// ============================================================
+// ADMINISTRAÇÃO / MODERAÇÃO
+// ============================================================
+let adminAba = "usuarios";
+let adminDados = { usuarios: [], mural: [], perguntas: [], mensagens: [] };
+
+function abrirAdmin() {
+  if (!ehAdmin()) return;
+  document.querySelectorAll(".admin-aba").forEach((b) => b.classList.toggle("ativa", b.dataset.admin === adminAba));
+  mostrarTela("tela-admin");
+  carregarAdmin();
+}
+
+async function carregarAdmin() {
+  const div = document.getElementById("admin-conteudo");
+  div.innerHTML = `<p class="vazio">Carregando...</p>`;
+  try {
+    if (adminAba === "usuarios") adminDados.usuarios = await listarTodosUsuarios();
+    else if (adminAba === "mural") adminDados.mural = await listarTodosDepoimentos();
+    else if (adminAba === "perguntas") adminDados.perguntas = await listarPerguntas();
+    else adminDados.mensagens = await listarTodasMensagens();
+  } catch (e) {
+    div.innerHTML = `<p class="vazio">Erro ao carregar: ${escaparHTML(e.message)}</p>`;
+    return;
+  }
+  renderAdmin();
+}
+
+function renderAdmin() {
+  const div = document.getElementById("admin-conteudo");
+  if (adminAba === "usuarios") return renderAdminUsuarios(div);
+  if (adminAba === "mural") return renderAdminMural(div);
+  if (adminAba === "perguntas") return renderAdminPerguntas(div);
+  return renderAdminMensagens(div);
+}
+
+function renderAdminUsuarios(div) {
+  const lista = adminDados.usuarios.slice().sort((a, b) => (a.nome || "").localeCompare(b.nome || ""));
+  const profs = lista.filter((u) => u.papel === "professor").length;
+  const alunos = lista.filter((u) => u.papel === "estudante").length;
+  const escolas = new Set(lista.map((u) => u.escola).filter(Boolean)).size;
+  div.innerHTML = `
+    <p class="admin-resumo">${lista.length} usuário(s) · ${profs} professor(es) · ${alunos} estudante(s) · ${escolas} escola(s)</p>
+    ${lista.map((u) => `
+      <div class="admin-item">
+        <div class="admin-item-info">
+          <strong>${escaparHTML(u.nome || "Sem nome")}${u.bloqueado ? " 🚫" : ""}</strong>
+          <span class="admin-sub">${escaparHTML(u.email || "")} · ${u.papel === "professor" ? "Professor(a)" : "Estudante"}${u.escola ? " · 🏫 " + escaparHTML(u.escola) : ""}${Array.isArray(u.series) && u.series.length ? " · " + escaparHTML(u.series.join(", ")) : ""}</span>
+        </div>
+        <div class="admin-acoes">
+          <button class="btn-ghost compacto" data-acao="bloquear" data-id="${u.uid}" data-valor="${u.bloqueado ? "0" : "1"}">${u.bloqueado ? "✅ Desbloquear" : "🚫 Bloquear"}</button>
+          <button class="btn-ghost compacto" data-acao="excluir-usuario" data-id="${u.uid}">🗑️ Excluir</button>
+        </div>
+      </div>
+    `).join("") || `<p class="vazio">Nenhum usuário ainda.</p>`}
+  `;
+}
+
+function renderAdminMural(div) {
+  const lista = adminDados.mural;
+  div.innerHTML = `
+    <p class="admin-resumo">${lista.length} mensagem(ns) no mural</p>
+    ${lista.map((d) => `
+      <div class="admin-item">
+        <div class="admin-item-info">
+          <strong>${escaparHTML(d.nome || "Anônimo")}${d.fixado ? " 📌" : ""}</strong>
+          <span class="admin-sub">${d.turma ? "Turma " + escaparHTML(d.turma) : "Mural coletivo"} · ${escaparHTML((d.texto || "").slice(0, 140))}</span>
+        </div>
+        <div class="admin-acoes">
+          <button class="btn-ghost compacto" data-acao="excluir-depoimento" data-id="${d.id}">🗑️ Apagar</button>
+        </div>
+      </div>
+    `).join("") || `<p class="vazio">Nenhuma mensagem no mural.</p>`}
+  `;
+}
+
+function renderAdminPerguntas(div) {
+  const lista = adminDados.perguntas;
+  div.innerHTML = `
+    <p class="admin-resumo">${lista.length} pergunta(s) contribuída(s)</p>
+    ${lista.map((p) => `
+      <div class="admin-item">
+        <div class="admin-item-info">
+          <strong>${escaparHTML((p.enunciado || "Sem enunciado").slice(0, 120))}</strong>
+          <span class="admin-sub">${escaparHTML(p.autorNome || "Autor desconhecido")}${p.tema ? " · " + escaparHTML(p.tema) : ""}</span>
+        </div>
+        <div class="admin-acoes">
+          <button class="btn-ghost compacto" data-acao="excluir-pergunta" data-id="${p.id}">🗑️ Excluir</button>
+        </div>
+      </div>
+    `).join("") || `<p class="vazio">Nenhuma pergunta contribuída ainda.</p>`}
+  `;
+}
+
+function renderAdminMensagens(div) {
+  const lista = adminDados.mensagens;
+  div.innerHTML = `
+    <p class="admin-resumo">${lista.length} mensagem(ns) no chat</p>
+    ${lista.map((m) => `
+      <div class="admin-item">
+        <div class="admin-item-info">
+          <strong>${escaparHTML(m.nome || "Professor")} · 🏫 ${escaparHTML(m.escola || "—")}</strong>
+          <span class="admin-sub">${escaparHTML((m.texto || "").slice(0, 140))}</span>
+        </div>
+        <div class="admin-acoes">
+          <button class="btn-ghost compacto" data-acao="excluir-mensagem" data-id="${m.id}">🗑️ Apagar</button>
+        </div>
+      </div>
+    `).join("") || `<p class="vazio">Nenhuma mensagem no chat ainda.</p>`}
+  `;
+}
+
+document.querySelectorAll(".admin-aba").forEach((b) => {
+  b.addEventListener("click", () => {
+    adminAba = b.dataset.admin;
+    document.querySelectorAll(".admin-aba").forEach((x) => x.classList.toggle("ativa", x === b));
+    carregarAdmin();
+  });
+});
+
+document.getElementById("admin-conteudo").addEventListener("click", async (e) => {
+  const btn = e.target.closest("button[data-acao]");
+  if (!btn) return;
+  const acao = btn.dataset.acao;
+  const id = btn.dataset.id;
+  try {
+    if (acao === "bloquear") {
+      const bloquear = btn.dataset.valor === "1";
+      await atualizarUsuarioAdmin(id, { bloqueado: bloquear });
+      mostrarToast(bloquear ? "Usuário bloqueado." : "Usuário desbloqueado.");
+    } else if (acao === "excluir-usuario") {
+      if (!confirm("Excluir o perfil deste usuário? Ele perderá o acesso aos dados.")) return;
+      await excluirUsuarioAdmin(id);
+      mostrarToast("Usuário excluído.");
+    } else if (acao === "excluir-depoimento") {
+      if (!confirm("Apagar esta mensagem do mural?")) return;
+      await excluirDepoimento(id);
+      mostrarToast("Mensagem do mural apagada.");
+    } else if (acao === "excluir-pergunta") {
+      if (!confirm("Excluir esta pergunta do banco?")) return;
+      await excluirPergunta(id);
+      mostrarToast("Pergunta excluída.");
+    } else if (acao === "excluir-mensagem") {
+      if (!confirm("Apagar esta mensagem do chat?")) return;
+      await excluirMensagemEscola(id);
+      mostrarToast("Mensagem do chat apagada.");
+    } else {
+      return;
+    }
+    await carregarAdmin();
+  } catch (err) {
+    mostrarToast("Erro: " + err.message, "erro");
+  }
+});
+
+document.getElementById("btn-admin").addEventListener("click", abrirAdmin);
+document.getElementById("btn-voltar-admin").addEventListener("click", () => {
   if (usuario && usuario.papel === "professor") abrirPainelProfessor();
   else abrirInicioEstudante();
 });

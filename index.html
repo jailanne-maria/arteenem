@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="NINA — diagnóstico das 4 áreas do ENEM. Professores criam turmas, estudantes fazem o diagnóstico e disputam o ranking.">
   <title>NINA · Diagnóstico das 4 áreas</title>
-  <link rel="stylesheet" href="style.css?v=50">
+  <link rel="stylesheet" href="style.css?v=51">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
@@ -35,6 +35,8 @@
           <button id="btn-eca" class="btn-ghost escondido">📜 ECA</button>
           <button id="btn-perfil" class="btn-ghost escondido">👤 Perfil</button>
           <button id="btn-mural" class="btn-ghost escondido">💬 Mural</button>
+          <button id="btn-chat" class="btn-ghost escondido">💬 Chat da escola</button>
+          <button id="btn-admin" class="btn-ghost escondido">🛡️ Admin</button>
           <button id="btn-sair" class="btn-ghost escondido">Sair</button>
         </div>
       </div>
@@ -95,6 +97,17 @@
           <div id="disciplina-opcoes" class="disciplina-opcoes"></div>
         </div>
 
+        <div class="campo">
+          <label class="perfil-rotulo" for="prof-escola">🏫 Código da escola</label>
+          <input id="prof-escola" type="text" maxlength="30" placeholder="Ex.: EEFM-AC-01">
+          <p class="perfil-termos">Combine com seus colegas: quem usar o <strong>mesmo código</strong> entra no mesmo chat da escola.</p>
+        </div>
+
+        <div class="campo">
+          <label class="perfil-rotulo">🎓 Séries que você dá aula</label>
+          <div id="series-opcoes" class="disciplina-opcoes"></div>
+        </div>
+
         <div id="area-aviso" class="aviso escondido"></div>
         <button id="btn-salvar-area" class="btn-principal">✅ Confirmar</button>
       </div>
@@ -121,6 +134,12 @@
         <button id="btn-organizar" class="btn-ghost">↕️ Organizar</button>
       </div>
       <div id="lista-turmas-prof" class="turmas-lista"></div>
+
+      <div class="painel-bloco" style="margin-top:24px">
+        <h3 class="secao-titulo">🏫 Minha escola e séries</h3>
+        <p class="texto-ajuda" id="prof-escola-resumo"></p>
+        <button id="btn-ir-escola" class="btn-principal">🏫 Editar escola e séries</button>
+      </div>
 
       <div class="painel-bloco" style="margin-top:24px">
         <h3 class="secao-titulo">📝 Contribuir com perguntas</h3>
@@ -325,6 +344,39 @@
           <div id="perfil-atividades-lista"></div>
         </div>
       </div>
+    </section>
+
+    <!-- ===== CHAT DA ESCOLA ===== -->
+    <section id="tela-chat" class="tela">
+      <button id="btn-voltar-chat" class="btn-ghost voltar">← Voltar</button>
+      <div class="hero esquerda">
+        <h1>💬 Chat da escola</h1>
+        <p id="chat-escola-nome"></p>
+      </div>
+      <button id="btn-chat-config" class="btn-principal escondido">🏫 Definir escola e séries</button>
+      <div class="chat-caixa">
+        <div id="chat-lista" class="chat-lista"></div>
+        <div class="chat-envio">
+          <input id="chat-input" type="text" maxlength="500" placeholder="Escreva uma mensagem para os colegas...">
+          <button id="btn-chat-enviar" class="btn-principal compacto">Enviar</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== ADMINISTRAÇÃO ===== -->
+    <section id="tela-admin" class="tela">
+      <button id="btn-voltar-admin" class="btn-ghost voltar">← Voltar</button>
+      <div class="hero esquerda">
+        <h1>🛡️ Administração</h1>
+        <p>Moderação de usuários, mural, perguntas e chat.</p>
+      </div>
+      <div class="admin-abas">
+        <button class="admin-aba ativa" data-admin="usuarios">👥 Usuários</button>
+        <button class="admin-aba" data-admin="mural">💬 Mural</button>
+        <button class="admin-aba" data-admin="perguntas">📝 Perguntas</button>
+        <button class="admin-aba" data-admin="mensagens">✉️ Mensagens</button>
+      </div>
+      <div id="admin-conteudo" class="admin-conteudo"></div>
     </section>
 
     <!-- ===== EXPLORAR (MAPA DO JOGO) ===== -->
@@ -990,13 +1042,13 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
 
-  <script src="questoes.js?v=50"></script>
-  <script src="questoes-arte.js?v=50"></script>
-  <script src="plano.js?v=50"></script>
-  <script src="explorar.js?v=50"></script>
-  <script src="figurinhas.js?v=50"></script>
-  <script src="curriculo.js?v=50"></script>
-  <script src="firebase-config.js?v=50"></script>
-  <script src="script.js?v=50"></script>
+  <script src="questoes.js?v=51"></script>
+  <script src="questoes-arte.js?v=51"></script>
+  <script src="plano.js?v=51"></script>
+  <script src="explorar.js?v=51"></script>
+  <script src="figurinhas.js?v=51"></script>
+  <script src="curriculo.js?v=51"></script>
+  <script src="firebase-config.js?v=51"></script>
+  <script src="script.js?v=51"></script>
 </body>
 </html>
