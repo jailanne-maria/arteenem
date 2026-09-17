@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="NINA — diagnóstico das 4 áreas do ENEM. Professores criam turmas, estudantes fazem o diagnóstico e disputam o ranking.">
   <title>NINA · Diagnóstico das 4 áreas</title>
-  <link rel="stylesheet" href="style.css?v=37">
+  <link rel="stylesheet" href="style.css?v=38">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
@@ -72,6 +72,29 @@
           <span class="papel-nome">Sou Estudante</span>
           <span class="papel-desc">Entrar numa turma, fazer o diagnóstico e ver sua posição.</span>
         </button>
+      </div>
+    </section>
+
+    <!-- ===== ÁREA E DISCIPLINA DO PROFESSOR ===== -->
+    <section id="tela-area-professor" class="tela">
+      <div class="hero">
+        <h1>Qual a sua <span class="destaque">área</span>?</h1>
+        <p>Escolha a área do conhecimento e a disciplina que você ministra. Isso define suas atividades.</p>
+      </div>
+
+      <div class="painel-bloco">
+        <div class="campo">
+          <label class="perfil-rotulo">Área do conhecimento</label>
+          <div id="area-opcoes" class="area-opcoes"></div>
+        </div>
+
+        <div class="campo escondido" id="disciplina-campo">
+          <label class="perfil-rotulo">Disciplina</label>
+          <div id="disciplina-opcoes" class="disciplina-opcoes"></div>
+        </div>
+
+        <div id="area-aviso" class="aviso escondido"></div>
+        <button id="btn-salvar-area" class="btn-principal">✅ Confirmar</button>
       </div>
     </section>
 
@@ -661,6 +684,7 @@
       <div class="hero esquerda">
         <h1>📋 Criar <span class="destaque">atividade</span></h1>
         <p>Monte uma atividade com questões do banco, envie para as turmas e veja as estatísticas. A correção é automática.</p>
+        <p id="ativ-prof-info" class="prof-area"></p>
       </div>
 
       <div class="painel-bloco">
@@ -846,12 +870,12 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
 
-  <script src="questoes.js?v=37"></script>
-  <script src="plano.js?v=37"></script>
-  <script src="explorar.js?v=37"></script>
-  <script src="figurinhas.js?v=37"></script>
-  <script src="curriculo.js?v=37"></script>
-  <script src="firebase-config.js?v=37"></script>
-  <script src="script.js?v=37"></script>
+  <script src="questoes.js?v=38"></script>
+  <script src="plano.js?v=38"></script>
+  <script src="explorar.js?v=38"></script>
+  <script src="figurinhas.js?v=38"></script>
+  <script src="curriculo.js?v=38"></script>
+  <script src="firebase-config.js?v=38"></script>
+  <script src="script.js?v=38"></script>
 </body>
 </html>

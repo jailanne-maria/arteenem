@@ -127,7 +127,8 @@ aoMudarUsuario(async (user) => {
   if (!usuario.papel) {
     mostrarTela("tela-papel");
   } else if (usuario.papel === "professor") {
-    abrirPainelProfessor();
+    if (!usuario.area || !usuario.disciplina) abrirEscolhaArea();
+    else abrirPainelProfessor();
   } else {
     abrirInicioEstudante();
   }
@@ -149,7 +150,7 @@ document.querySelectorAll(".papel-card").forEach((card) => {
     const papel = card.dataset.papel;
     usuario.papel = papel;
     await salvarUsuario(usuario.uid, { papel }).catch(() => {});
-    if (papel === "professor") abrirPainelProfessor();
+    if (papel === "professor") abrirEscolhaArea();
     else abrirInicioEstudante();
   });
 });
@@ -158,8 +159,11 @@ document.querySelectorAll(".papel-card").forEach((card) => {
 // PROFESSOR
 // ============================================================
 async function abrirPainelProfessor() {
-  document.getElementById("prof-saudacao").textContent =
-    `Gerencie suas turmas e acompanhe o desempenho da turma, ${usuario.nome.split(" ")[0]}.`;
+  const areaInfo = usuario.area && AREAS[usuario.area]
+    ? `Área: ${AREAS[usuario.area].curto}${usuario.disciplina ? " · " + usuario.disciplina : ""}`
+    : "Escolha sua área e disciplina.";
+  document.getElementById("prof-saudacao").innerHTML =
+    `Bem-vindo(a), <strong>${escaparHTML(usuario.nome.split(" ")[0])}</strong>!<br><span class="prof-area">${escaparHTML(areaInfo)}</span>`;
   mostrarTela("tela-professor");
   await carregarTurmasProfessor();
 }
@@ -895,7 +899,8 @@ let perfilEmEdicao = false;
 
 function preencherPerfil(p) {
   document.getElementById("perfil-nome").textContent = p.nome || "Usuário";
-  const papel = p.papel === "professor" ? "👩🏽‍🏫 Professor(a)" : "🎒 Estudante";
+  let papel = p.papel === "professor" ? "👩🏽‍🏫 Professor(a)" : "🎒 Estudante";
+  if (p.papel === "professor" && p.disciplina) papel += ` · ${p.disciplina}`;
   document.getElementById("perfil-papel").textContent = papel;
 
   // Estrelas de bonificação
@@ -3069,6 +3074,19 @@ let atividadesCache = [];
 async function abrirAtividadesProf() {
   esconder(document.getElementById("ativ-aviso"));
   document.getElementById("lista-atividades-prof").innerHTML = "<p class='vazio'>Carregando…</p>";
+
+  // Pré-seleciona a área e mostra a disciplina do professor
+  const info = document.getElementById("ativ-prof-info");
+  if (info) {
+    info.textContent = usuario.area && AREAS[usuario.area]
+      ? `Sua área: ${AREAS[usuario.area].curto}${usuario.disciplina ? " · " + usuario.disciplina : ""}`
+      : "";
+  }
+  const selArea = document.getElementById("ativ-area");
+  if (selArea && usuario.area) selArea.value = usuario.area;
+  const tituloInput = document.getElementById("ativ-titulo");
+  if (tituloInput && usuario.disciplina) tituloInput.placeholder = `Ex.: ${usuario.disciplina} — Revisão`;
+
   mostrarTela("tela-atividades-prof");
   await renderTurmasAtividade();
   await carregarAtividadesProf();
@@ -3330,6 +3348,78 @@ async function finalizarAtividade() {
 document.getElementById("btn-atividades").addEventListener("click", () => {
   if (usuario.papel === "professor") abrirAtividadesProf();
   else abrirAtividadesAluno();
+});
+
+// ============================================================
+// ÁREA E DISCIPLINA DO PROFESSOR
+// ============================================================
+const DISCIPLINAS = {
+  linguagens: ["Arte", "Língua Portuguesa", "Literatura", "Educação Física", "Língua Inglesa", "Língua Espanhola"],
+  humanas: ["História", "Geografia", "Filosofia", "Sociologia"],
+  natureza: ["Biologia", "Física", "Química"],
+  matematica: ["Matemática"],
+};
+
+let areaEscolhida = null;
+let disciplinaEscolhida = null;
+
+function abrirEscolhaArea() {
+  areaEscolhida = usuario.area || null;
+  disciplinaEscolhida = usuario.disciplina || null;
+  renderAreaOpcoes();
+  renderDisciplinaOpcoes();
+  esconder(document.getElementById("area-aviso"));
+  mostrarTela("tela-area-professor");
+}
+
+function renderAreaOpcoes() {
+  const div = document.getElementById("area-opcoes");
+  div.innerHTML = Object.entries(AREAS).map(([chave, a]) => `
+    <button class="area-opcao ${areaEscolhida === chave ? "ativa" : ""}" data-area="${chave}">
+      <span class="area-opcao-icone">${a.icone}</span>
+      <span class="area-opcao-nome">${escaparHTML(a.curto)}</span>
+      <span class="area-opcao-desc">${escaparHTML(a.nome)}</span>
+    </button>
+  `).join("");
+  div.querySelectorAll(".area-opcao").forEach((b) => {
+    b.addEventListener("click", () => {
+      areaEscolhida = b.dataset.area;
+      disciplinaEscolhida = null;
+      renderAreaOpcoes();
+      renderDisciplinaOpcoes();
+    });
+  });
+}
+
+function renderDisciplinaOpcoes() {
+  const campo = document.getElementById("disciplina-campo");
+  const div = document.getElementById("disciplina-opcoes");
+  if (!areaEscolhida) { campo.classList.add("escondido"); return; }
+  campo.classList.remove("escondido");
+  const lista = DISCIPLINAS[areaEscolhida] || [];
+  div.innerHTML = lista.map((d) => `
+    <button class="disciplina-opcao ${disciplinaEscolhida === d ? "ativa" : ""}" data-disciplina="${escaparHTML(d)}">${escaparHTML(d)}</button>
+  `).join("");
+  div.querySelectorAll(".disciplina-opcao").forEach((b) => {
+    b.addEventListener("click", () => {
+      disciplinaEscolhida = b.dataset.disciplina;
+      renderDisciplinaOpcoes();
+    });
+  });
+}
+
+document.getElementById("btn-salvar-area").addEventListener("click", async () => {
+  const aviso = document.getElementById("area-aviso");
+  if (!areaEscolhida || !disciplinaEscolhida) {
+    aviso.className = "aviso erro";
+    aviso.textContent = "Escolha a área e a disciplina.";
+    exibir(aviso);
+    return;
+  }
+  usuario.area = areaEscolhida;
+  usuario.disciplina = disciplinaEscolhida;
+  await salvarUsuario(usuario.uid, { area: areaEscolhida, disciplina: disciplinaEscolhida }).catch(() => {});
+  abrirPainelProfessor();
 });
 
 // ---------- Eventos gerais ----------

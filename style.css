@@ -3590,6 +3590,77 @@ h1, h2, h3, h4, .marca-nome, .btn-principal, .btn-secundario, .btn-google, .btn-
   color: var(--green-dark);
 }
 
+/* ===== ÁREA E DISCIPLINA DO PROFESSOR ===== */
+.area-opcoes {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.area-opcao {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  background: var(--surface-2);
+  border: 3px solid var(--black);
+  box-shadow: 3px 3px 0 var(--black);
+  border-radius: 10px;
+  padding: 14px;
+  cursor: pointer;
+  text-align: left;
+  font-family: inherit;
+  color: inherit;
+}
+
+.area-opcao.ativa {
+  background: var(--yellow);
+}
+
+.area-opcao-icone {
+  font-size: 1.6rem;
+}
+
+.area-opcao-nome {
+  font-family: var(--pixel);
+  font-size: 0.55rem;
+  line-height: 1.7;
+}
+
+.area-opcao-desc {
+  font-size: 0.95rem;
+  color: var(--muted);
+}
+
+.disciplina-opcoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.disciplina-opcao {
+  background: var(--surface);
+  border: 3px solid var(--black);
+  box-shadow: 3px 3px 0 var(--black);
+  border-radius: 999px;
+  padding: 10px 16px;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 1.05rem;
+  color: var(--black);
+}
+
+.disciplina-opcao.ativa {
+  background: var(--green);
+  color: var(--white);
+}
+
+.prof-area {
+  color: var(--yellow);
+  text-shadow: 2px 2px 0 var(--black);
+  font-weight: 700;
+  margin-top: 8px;
+}
+
 /* ===== MELHORIAS PARA CELULAR ===== */
 @media (max-width: 640px) {
   /* ===== TOPO ===== */
