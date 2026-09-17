@@ -1770,6 +1770,21 @@ function disciplinaDaQuestao(q) {
   return null;
 }
 
+// Série sugerida de cada questão (segundo as competências/habilidades da BNCC)
+const SERIE_QUESTAO = {
+  lin1: "3ª", lin2: "3ª", lin3: "2ª", lin4: "1ª", lin5: "1ª", lin6: "1ª",
+  lin7: "1ª", lin8: "2ª", lin9: "2ª", lin10: "1ª", lin11: "2ª", lin12: "3ª",
+  hum1: "1ª", hum2: "2ª", hum3: "3ª", hum4: "1ª", hum5: "2ª", hum6: "2ª",
+  nat1: "1ª", nat2: "1ª", nat3: "1ª", nat4: "2ª", nat5: "3ª", nat6: "2ª",
+  mat1: "1ª", mat2: "1ª", mat3: "1ª", mat4: "2ª", mat5: "2ª", mat6: "1ª",
+};
+
+function serieDaQuestao(q) {
+  if (q.serie) return q.serie;
+  if (q.id && SERIE_QUESTAO[q.id]) return SERIE_QUESTAO[q.id];
+  return "1ª";
+}
+
 document.querySelectorAll(".nivel-btn").forEach((b) => {
   b.addEventListener("click", () => {
     jogoNivel = parseInt(b.dataset.nivel, 10);
@@ -3208,8 +3223,6 @@ async function abrirAtividadesProf() {
       ? `Sua área: ${AREAS[usuario.area].curto}${usuario.disciplina ? " · " + usuario.disciplina : ""}`
       : "";
   }
-  const selArea = document.getElementById("ativ-area");
-  if (selArea && usuario.area) selArea.value = usuario.area;
   const tituloInput = document.getElementById("ativ-titulo");
   if (tituloInput && usuario.disciplina) tituloInput.placeholder = `Ex.: ${usuario.disciplina} — Revisão`;
 
@@ -3266,11 +3279,13 @@ document.getElementById("btn-criar-atividade").addEventListener("click", async (
   try {
     let perguntas = [];
     let area = usuario.area || "todas";
+    let serie = "todas";
 
     if (ativModo === "banco") {
       const nivel = parseInt(document.getElementById("ativ-nivel").value, 10);
       const qtd = Math.max(1, Math.min(20, parseInt(document.getElementById("ativ-qtd").value, 10) || 5));
-      area = document.getElementById("ativ-area").value;
+      serie = document.getElementById("ativ-serie").value;
+      area = usuario.area || "todas";
 
       const todas = bancoDePerguntas();
       const ids = new Set();
@@ -3281,24 +3296,25 @@ document.getElementById("btn-criar-atividade").addEventListener("click", async (
           if (!ids.has(k)) { ids.add(k); banco.push(q); }
         }
       };
+      const daSerie = (q) => serie === "todas" || serieDaQuestao(q) === serie;
+      const doNivel = (q) => nivel === 0 || nivelDaQuestao(q) === nivel;
 
-      // 1) disciplina do professor + nível
+      // 1) disciplina + série + nível
       if (usuario.disciplina) {
-        adicionar(todas.filter((q) => disciplinaDaQuestao(q) === usuario.disciplina && (nivel === 0 || nivelDaQuestao(q) === nivel)));
-        // 2) disciplina (qualquer nível)
+        adicionar(todas.filter((q) => disciplinaDaQuestao(q) === usuario.disciplina && daSerie(q) && doNivel(q)));
+        // 2) disciplina + série
+        adicionar(todas.filter((q) => disciplinaDaQuestao(q) === usuario.disciplina && daSerie(q)));
+        // 3) disciplina
         adicionar(todas.filter((q) => disciplinaDaQuestao(q) === usuario.disciplina));
       }
-      // 3) área selecionada + nível
-      adicionar(todas.filter((q) => (area === "todas" || q.area === area) && (nivel === 0 || nivelDaQuestao(q) === nivel)));
-      // 4) área selecionada (qualquer nível)
-      adicionar(todas.filter((q) => area === "todas" || q.area === area));
-      // 5) questões reais do ENEM da área do professor
-      if (banco.length < qtd) {
-        const areaENEM = usuario.area || (area !== "todas" ? area : null);
-        if (areaENEM) {
-          const enem = await carregarENEMArea(areaENEM);
-          adicionar(enem);
-        }
+      // 4) série + nível
+      adicionar(todas.filter((q) => daSerie(q) && doNivel(q)));
+      // 5) série
+      adicionar(todas.filter(daSerie));
+      // 6) questões reais do ENEM da área
+      if (banco.length < qtd && usuario.area) {
+        const enem = await carregarENEMArea(usuario.area);
+        adicionar(enem);
       }
 
       if (!banco.length) {
@@ -3330,6 +3346,7 @@ document.getElementById("btn-criar-atividade").addEventListener("click", async (
     await criarAtividade(usuario, {
       titulo,
       area,
+      serie,
       disciplina: usuario.disciplina || null,
       perguntas,
       turmas,
@@ -3425,7 +3442,7 @@ async function carregarAtividadesProf() {
         <details class="revisao-card">
           <summary>
             📋 ${escaparHTML(a.titulo)}
-            <small>· ${(a.perguntas || []).length} questões · ${(a.turmas || []).length} turma(s)</small>
+            <small>· ${(a.perguntas || []).length} questões${a.serie && a.serie !== "todas" ? " · " + a.serie + " série" : ""} · ${(a.turmas || []).length} turma(s)</small>
             <button class="ativ-excluir" data-id="${a.id}" title="Excluir atividade">🗑️ Excluir</button>
           </summary>
           <div class="revisao-card-corpo">
