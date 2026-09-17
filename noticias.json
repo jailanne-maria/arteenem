@@ -1,87 +1,27 @@
 {
-  "atualizadoEm": "2026-09-16T14:25:13.377Z",
+  "atualizadoEm": "2026-09-17T14:30:06.324Z",
   "fontes": [
     "MEC",
     "Agência Brasil"
   ],
   "noticias": [
     {
-      "titulo": "Pesquisa da UFC usa tecnologia para prevenir quedas de idosos",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/setembro/pesquisa-da-ufc-usa-tecnologia-para-prevenir-quedas-de-idosos",
-      "fonte": "MEC",
-      "data": "setembro/2026"
+      "titulo": "Andes lança documentário sobre a importância da educação e ciência",
+      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-09/andes-lanca-documentario-sobre-importancia-da-educacao-e-ciencia",
+      "fonte": "Agência Brasil",
+      "data": "16/09"
     },
     {
-      "titulo": "Universidades e residência: MEC regulamenta habilitação para sanitaristas",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/setembro/universidades-e-residencia-mec-regulamenta-habilitacao-para-sanitaristas",
-      "fonte": "MEC",
-      "data": "setembro/2026"
+      "titulo": "Número de professores jovens cai 31% em dez anos, aponta pesquisa",
+      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-09/numero-de-professores-jovens-cai-31-em-dez-anos-aponta-pesquisa",
+      "fonte": "Agência Brasil",
+      "data": "16/09"
     },
     {
-      "titulo": "Curso do MEC fortalece formação de coordenadores pedagógicos da rede pública",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/setembro/curso-do-mec-fortalece-formacao-de-coordenadores-pedagogicos-da-rede-publica",
-      "fonte": "MEC",
-      "data": "setembro/2026"
-    },
-    {
-      "titulo": "Saiba como revalidar diploma estrangeiro no Brasil",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/setembro/saiba-como-revalidar-diploma-estrangeiro-no-brasil",
-      "fonte": "MEC",
-      "data": "setembro/2026"
-    },
-    {
-      "titulo": "PND 2026: participantes devem consultar local de prova com antecedência",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/setembro/pnd-2026-participantes-devem-consultar-local-de-prova-com-antecedencia",
-      "fonte": "MEC",
-      "data": "setembro/2026"
-    },
-    {
-      "titulo": "Educação de jovens e adultos é tema de episódio do PodMEC",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/setembro/educacao-de-jovens-e-adultos-e-tema-de-episodio-do-podmec",
-      "fonte": "MEC",
-      "data": "setembro/2026"
-    },
-    {
-      "titulo": "MEC participa de abertura virtual de formação de moçambicanos",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/setembro/mec-participa-de-abertura-virtual-de-formacao-de-mocambicanos",
-      "fonte": "MEC",
-      "data": "setembro/2026"
-    },
-    {
-      "titulo": "Campus Maricá do IFF oferece formação sobre Direitos de Meninas e Mulheres",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/setembro/campus-marica-do-iff-oferece-formacao-sobre-direitos-de-meninas-e-mulheres",
-      "fonte": "MEC",
-      "data": "setembro/2026"
-    },
-    {
-      "titulo": "Fórum prevê criação de Rede de Correição da Educação",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/setembro/forum-preve-criacao-de-rede-de-correicao-da-educacao",
-      "fonte": "MEC",
-      "data": "setembro/2026"
-    },
-    {
-      "titulo": "MEC disponibiliza painel com dados do Ideb para análise da aprendizagem",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/setembro/mec-disponibiliza-painel-com-dados-do-ideb-para-analise-da-aprendizagem",
-      "fonte": "MEC",
-      "data": "setembro/2026"
-    },
-    {
-      "titulo": "Prouni: hoje (14) é o último dia para comprovar informações da lista de espera",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/setembro/prouni-hoje-14-e-o-ultimo-dia-para-comprovar-informacoes-da-lista-de-espera",
-      "fonte": "MEC",
-      "data": "setembro/2026"
-    },
-    {
-      "titulo": "MEC Livros organiza acervo com best-sellers e 26 categorias",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/setembro/mec-livros-organiza-acervo-com-best-sellers-e-26-categorias",
-      "fonte": "MEC",
-      "data": "setembro/2026"
-    },
-    {
-      "titulo": "Inscrições para curso em Direitos Humanos no IFCE termina nesta sexta (11)",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/setembro/inscricoes-para-curso-em-direitos-humanos-no-ifce-termina-nesta-sexta-11",
-      "fonte": "MEC",
-      "data": "setembro/2026"
+      "titulo": "Prazo para recursos do Enamed 2026 e Revalida 2026/2 vai até quinta",
+      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-09/prazo-para-recursos-do-enamed-2026-e-revalida-20262-vai-ate-quinta",
+      "fonte": "Agência Brasil",
+      "data": "16/09"
     },
     {
       "titulo": "PND 2026: participantes farão prova neste domingo em todo o país",
@@ -126,28 +66,64 @@
       "data": "11/09"
     },
     {
-      "titulo": "Inep divulga relação final dos aprovados no Revalida 2025/2",
-      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-09/inep-divulga-relacao-final-dos-aprovados-no-revalida-20252",
+      "titulo": "PF faz ação para combater entrada clandestina de eletrônicos no Brasil",
+      "link": "https://agenciabrasil.ebc.com.br/geral/noticia/2026-09/pf-faz-acao-para-combater-entrada-clandestina-de-eletronicos-no-brasil",
       "fonte": "Agência Brasil",
-      "data": "11/09"
+      "data": "17/09"
     },
     {
-      "titulo": "MEC aprova regras para as férias escolares na Copa do Mundo Feminina",
-      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-09/mec-aprova-regras-para-ferias-escolares-na-copa-do-mundo-feminina",
+      "titulo": "Operação combate infiltração do PCC no transporte público em São Paulo",
+      "link": "https://agenciabrasil.ebc.com.br/geral/noticia/2026-09/operacao-combate-infiltracao-do-pcc-no-transporte-publico-em-sao-paulo",
       "fonte": "Agência Brasil",
-      "data": "10/09"
+      "data": "17/09"
     },
     {
-      "titulo": "Enem 2026: candidatos terão transporte gratuito no Rio",
-      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-09/enem-2026-candidatos-terao-transporte-gratuito-no-rio",
+      "titulo": "Inmet prevê final de semana de chuvas nas regiões Sul e Sudeste",
+      "link": "https://agenciabrasil.ebc.com.br/geral/noticia/2026-09/inmet-preve-final-de-semana-de-chuvas-nas-regioes-sul-e-sudeste",
       "fonte": "Agência Brasil",
-      "data": "10/09"
+      "data": "17/09"
+    },
+    {
+      "titulo": "Mega-Sena sorteia prêmio acumulado de R$ 102 milhões nesta quinta",
+      "link": "https://agenciabrasil.ebc.com.br/geral/noticia/2026-09/mega-sena-sorteia-premio-acumulado-de-r-102-milhoes-nesta-quinta",
+      "fonte": "Agência Brasil",
+      "data": "17/09"
+    },
+    {
+      "titulo": "PRF estabelece regras para evitar bloqueios nas eleições de 2026",
+      "link": "https://agenciabrasil.ebc.com.br/geral/noticia/2026-09/prf-estabelece-regras-para-evitar-bloqueios-nas-eleicoes-de-2026",
+      "fonte": "Agência Brasil",
+      "data": "16/09"
     },
     {
       "titulo": "Lotofácil da Independência: 72 apostas faturam R$ 4,4 milhões cada",
       "link": "https://agenciabrasil.ebc.com.br/geral/noticia/2026-09/lotofacil-da-independencia-72-apostas-faturam-r-44-milhoes-cada",
       "fonte": "Agência Brasil",
       "data": "16/09"
+    },
+    {
+      "titulo": "Mega-Sena acumula para R$ 102 milhões; confira os números sorteados",
+      "link": "https://agenciabrasil.ebc.com.br/geral/noticia/2026-09/mega-sena-acumula-para-r-102-milhoes-confira-os-numeros-sorteados",
+      "fonte": "Agência Brasil",
+      "data": "16/09"
+    },
+    {
+      "titulo": "Mega-Sena sorteia prêmio de R$ 95 milhões nesta terça-feira",
+      "link": "https://agenciabrasil.ebc.com.br/geral/noticia/2026-09/mega-sena-sorteia-premio-de-r-95-milhoes-nesta-terca-feira",
+      "fonte": "Agência Brasil",
+      "data": "15/09"
+    },
+    {
+      "titulo": "Cacique Raoni, de 94 anos, recebe cuidados paliativos em Mato Grosso",
+      "link": "https://agenciabrasil.ebc.com.br/geral/noticia/2026-09/cacique-raoni-de-94-anos-recebe-cuidados-paliativos-em-mato-grosso",
+      "fonte": "Agência Brasil",
+      "data": "15/09"
+    },
+    {
+      "titulo": "Greve nos Correios: TST determina manutenção de 80% do efetivo",
+      "link": "https://agenciabrasil.ebc.com.br/geral/noticia/2026-09/greve-nos-correios-tst-determina-manutencao-de-80-do-efetivo",
+      "fonte": "Agência Brasil",
+      "data": "14/09"
     }
   ],
   "temasRedacao": []
