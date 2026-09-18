@@ -4199,45 +4199,202 @@ function mostrarResultadoSimulado(temRedacao) {
 }
 
 // ============================================================
-// BIBLIOTECA (obras de domínio público — Wikisource)
+// BIBLIOTECA — estante virtual
+// Clássicos e modernos: Wikisource (domínio público)
+// Artigos: Wikipédia (textos de estudo)
 // ============================================================
-const BIBLIOTECA = [
-  { titulo: "Dom Casmurro", autor: "Machado de Assis", ano: 1899, genero: "Romance", wiki: "Dom_Casmurro" },
-  { titulo: "Memórias Póstumas de Brás Cubas", autor: "Machado de Assis", ano: 1881, genero: "Romance", wiki: "Memórias_Póstumas_de_Brás_Cubas" },
-  { titulo: "O Alienista", autor: "Machado de Assis", ano: 1882, genero: "Novela", wiki: "O_Alienista" },
-  { titulo: "O Cortiço", autor: "Aluísio Azevedo", ano: 1890, genero: "Naturalismo", wiki: "O_Cortiço" },
-  { titulo: "Casa de Pensão", autor: "Aluísio Azevedo", ano: 1884, genero: "Naturalismo", wiki: "Casa_de_Pensão" },
-  { titulo: "Iracema", autor: "José de Alencar", ano: 1865, genero: "Romantismo", wiki: "Iracema" },
-  { titulo: "O Guarani", autor: "José de Alencar", ano: 1857, genero: "Romantismo", wiki: "O_Guarani" },
-  { titulo: "A Escrava Isaura", autor: "Bernardo Guimarães", ano: 1875, genero: "Romantismo", wiki: "A_Escrava_Isaura" },
-  { titulo: "A Moreninha", autor: "Joaquim Manuel de Macedo", ano: 1844, genero: "Romantismo", wiki: "A_Moreninha" },
-  { titulo: "Memórias de um Sargento de Milícias", autor: "Manuel Antônio de Almeida", ano: 1853, genero: "Romantismo", wiki: "Memórias_de_um_Sargento_de_Milícias" },
-  { titulo: "O Ateneu", autor: "Raul Pompeia", ano: 1888, genero: "Realismo", wiki: "O_Ateneu" },
-  { titulo: "Triste Fim de Policarpo Quaresma", autor: "Lima Barreto", ano: 1915, genero: "Pré-Modernismo", wiki: "Triste_Fim_de_Policarpo_Quaresma" },
-  { titulo: "O Navio Negreiro", autor: "Castro Alves", ano: 1869, genero: "Poesia", wiki: "O_Navio_Negreiro" },
+const ESTANTES = [
+  {
+    id: "classicos",
+    nome: "📜 Clássicos",
+    desc: "Literatura brasileira e portuguesa em domínio público — do Romantismo ao Realismo.",
+    cor: "#8b5e3c",
+    itens: [
+      { titulo: "Dom Casmurro", autor: "Machado de Assis", ano: 1899, genero: "Romance", wiki: "Dom Casmurro" },
+      { titulo: "Memórias Póstumas de Brás Cubas", autor: "Machado de Assis", ano: 1881, genero: "Romance", wiki: "Memórias Póstumas de Brás Cubas" },
+      { titulo: "O Alienista", autor: "Machado de Assis", ano: 1882, genero: "Novela", wiki: "O Alienista" },
+      { titulo: "Quincas Borba", autor: "Machado de Assis", ano: 1891, genero: "Romance", wiki: "Quincas Borba" },
+      { titulo: "Helena", autor: "Machado de Assis", ano: 1876, genero: "Romance", wiki: "Helena" },
+      { titulo: "Esaú e Jacó", autor: "Machado de Assis", ano: 1904, genero: "Romance", wiki: "Esaú e Jacó" },
+      { titulo: "A Mão e a Luva", autor: "Machado de Assis", ano: 1874, genero: "Romance", wiki: "A mão e a luva" },
+      { titulo: "Conto de Escola", autor: "Machado de Assis", ano: 1884, genero: "Conto", wiki: "Conto de Escola" },
+      { titulo: "O Cortiço", autor: "Aluísio Azevedo", ano: 1890, genero: "Naturalismo", wiki: "O Cortiço" },
+      { titulo: "Casa de Pensão", autor: "Aluísio Azevedo", ano: 1884, genero: "Naturalismo", wiki: "Casa de Pensão" },
+      { titulo: "O Mulato", autor: "Aluísio Azevedo", ano: 1881, genero: "Naturalismo", wiki: "O Mulato" },
+      { titulo: "Iracema", autor: "José de Alencar", ano: 1865, genero: "Romantismo", wiki: "Iracema" },
+      { titulo: "O Guarani", autor: "José de Alencar", ano: 1857, genero: "Romantismo", wiki: "O Guarani" },
+      { titulo: "Senhora", autor: "José de Alencar", ano: 1875, genero: "Romantismo", wiki: "Senhora" },
+      { titulo: "Lucíola", autor: "José de Alencar", ano: 1862, genero: "Romantismo", wiki: "Lucíola" },
+      { titulo: "Diva", autor: "José de Alencar", ano: 1864, genero: "Romantismo", wiki: "Diva" },
+      { titulo: "Til", autor: "José de Alencar", ano: 1872, genero: "Romantismo", wiki: "Til" },
+      { titulo: "Ubirajara", autor: "José de Alencar", ano: 1874, genero: "Romantismo", wiki: "Ubirajara" },
+      { titulo: "As Minas de Prata", autor: "José de Alencar", ano: 1865, genero: "Romantismo", wiki: "As Minas de Prata" },
+      { titulo: "O Sertanejo", autor: "José de Alencar", ano: 1875, genero: "Romantismo", wiki: "O Sertanejo" },
+      { titulo: "O Gaúcho", autor: "José de Alencar", ano: 1870, genero: "Romantismo", wiki: "O Gaúcho" },
+      { titulo: "A Escrava Isaura", autor: "Bernardo Guimarães", ano: 1875, genero: "Romantismo", wiki: "A escrava Isaura" },
+      { titulo: "A Moreninha", autor: "Joaquim M. de Macedo", ano: 1844, genero: "Romantismo", wiki: "A Moreninha" },
+      { titulo: "Memórias de um Sargento de Milícias", autor: "Manuel Antônio de Almeida", ano: 1853, genero: "Romantismo", wiki: "Memórias de um Sargento de Milícias" },
+      { titulo: "O Ateneu", autor: "Raul Pompeia", ano: 1888, genero: "Realismo", wiki: "O Ateneu" },
+      { titulo: "A Carne", autor: "Júlio Ribeiro", ano: 1888, genero: "Naturalismo", wiki: "A Carne" },
+      { titulo: "Bom Crioulo", autor: "Adolfo Caminha", ano: 1895, genero: "Naturalismo", wiki: "Bom Crioulo" },
+      { titulo: "Úrsula", autor: "Maria Firmina dos Reis", ano: 1859, genero: "Romantismo", wiki: "Úrsula" },
+      { titulo: "O Navio Negreiro", autor: "Castro Alves", ano: 1869, genero: "Poesia", wiki: "O Navio Negreiro" },
+      { titulo: "Os Escravos", autor: "Castro Alves", ano: 1870, genero: "Poesia", wiki: "Os Escravos" },
+      { titulo: "Espumas Flutuantes", autor: "Castro Alves", ano: 1870, genero: "Poesia", wiki: "Espumas Flutuantes (1913)" },
+      { titulo: "O Primo Basílio", autor: "Eça de Queirós", ano: 1878, genero: "Realismo", wiki: "O Primo Basílio" },
+      { titulo: "Os Maias", autor: "Eça de Queirós", ano: 1888, genero: "Realismo", wiki: "Os Maias" },
+      { titulo: "O Crime do Padre Amaro", autor: "Eça de Queirós", ano: 1875, genero: "Realismo", wiki: "O Crime do Padre Amaro" },
+      { titulo: "A Cidade e as Serras", autor: "Eça de Queirós", ano: 1901, genero: "Realismo", wiki: "A cidade e as serras" },
+      { titulo: "Amor de Perdição", autor: "Camilo Castelo Branco", ano: 1862, genero: "Romantismo", wiki: "Amor de Perdição" },
+      { titulo: "Os Lusíadas", autor: "Luís de Camões", ano: 1572, genero: "Épico", wiki: "Os Lusíadas" },
+      { titulo: "Auto da Barca do Inferno", autor: "Gil Vicente", ano: 1517, genero: "Teatro", wiki: "Auto da Barca do Inferno" },
+    ],
+  },
+  {
+    id: "modernos",
+    nome: "✨ Modernos e Contemporâneos",
+    desc: "Obras do século XX já em domínio público — Pré-Modernismo, Modernismo e Regionalismo.",
+    cor: "#6b3fd4",
+    itens: [
+      { titulo: "Macunaíma", autor: "Mário de Andrade", ano: 1928, genero: "Modernismo", wiki: "Macunaíma" },
+      { titulo: "Vidas Secas", autor: "Graciliano Ramos", ano: 1938, genero: "Regionalismo", wiki: "Vidas Secas" },
+      { titulo: "Os Sertões", autor: "Euclides da Cunha", ano: 1902, genero: "Pré-Modernismo", wiki: "Os Sertões" },
+      { titulo: "À Margem da História", autor: "Euclides da Cunha", ano: 1909, genero: "Pré-Modernismo", wiki: "À Margem da História" },
+      { titulo: "Triste Fim de Policarpo Quaresma", autor: "Lima Barreto", ano: 1915, genero: "Pré-Modernismo", wiki: "Triste Fim de Policarpo Quaresma" },
+      { titulo: "Recordações do Escrivão Isaías Caminha", autor: "Lima Barreto", ano: 1909, genero: "Pré-Modernismo", wiki: "Recordações do Escrivão Isaías Caminha" },
+      { titulo: "Clara dos Anjos", autor: "Lima Barreto", ano: 1948, genero: "Pré-Modernismo", wiki: "Clara dos Anjos" },
+      { titulo: "Urupês", autor: "Monteiro Lobato", ano: 1918, genero: "Contos", wiki: "Urupês" },
+      { titulo: "Negrinha", autor: "Monteiro Lobato", ano: 1920, genero: "Contos", wiki: "Negrinha" },
+      { titulo: "Cidades Mortas", autor: "Monteiro Lobato", ano: 1919, genero: "Contos", wiki: "Cidades Mortas" },
+    ],
+  },
+  {
+    id: "artigos",
+    nome: "📰 Artigos e textos",
+    desc: "Textos sobre arte, história, cultura e educação para aprofundar os estudos e as aulas.",
+    cor: "#1b7ea6",
+    itens: [
+      { titulo: "Semana de Arte Moderna", autor: "Wikipédia", genero: "Modernismo", wiki: "Semana de Arte Moderna" },
+      { titulo: "Modernismo no Brasil", autor: "Wikipédia", genero: "Modernismo", wiki: "Modernismo no Brasil" },
+      { titulo: "Vanguarda", autor: "Wikipédia", genero: "Vanguardas", wiki: "Vanguarda" },
+      { titulo: "Arte moderna", autor: "Wikipédia", genero: "Vanguardas", wiki: "Arte moderna" },
+      { titulo: "Cubismo", autor: "Wikipédia", genero: "Vanguardas", wiki: "Cubismo" },
+      { titulo: "Futurismo", autor: "Wikipédia", genero: "Vanguardas", wiki: "Futurismo" },
+      { titulo: "Dadaísmo", autor: "Wikipédia", genero: "Vanguardas", wiki: "Dadaísmo" },
+      { titulo: "Surrealismo", autor: "Wikipédia", genero: "Vanguardas", wiki: "Surrealismo" },
+      { titulo: "Expressionismo", autor: "Wikipédia", genero: "Vanguardas", wiki: "Expressionismo" },
+      { titulo: "Expressionismo alemão", autor: "Wikipédia", genero: "Cinema", wiki: "Expressionismo alemão" },
+      { titulo: "Arte contemporânea", autor: "Wikipédia", genero: "Contemporânea", wiki: "Arte contemporânea" },
+      { titulo: "Arte conceptual", autor: "Wikipédia", genero: "Contemporânea", wiki: "Arte conceptual" },
+      { titulo: "Pop art", autor: "Wikipédia", genero: "Contemporânea", wiki: "Pop art" },
+      { titulo: "Minimalismo", autor: "Wikipédia", genero: "Contemporânea", wiki: "Minimalismo" },
+      { titulo: "Fluxus", autor: "Wikipédia", genero: "Contemporânea", wiki: "Fluxus" },
+      { titulo: "Neoconcretismo", autor: "Wikipédia", genero: "Contemporânea", wiki: "Neoconcretismo" },
+      { titulo: "Arte cinética", autor: "Wikipédia", genero: "Contemporânea", wiki: "Arte cinética" },
+      { titulo: "Instalação (arte)", autor: "Wikipédia", genero: "Contemporânea", wiki: "Instalação (arte)" },
+      { titulo: "Arte digital", autor: "Wikipédia", genero: "Arte digital", wiki: "Arte digital" },
+      { titulo: "Grafite", autor: "Wikipédia", genero: "Arte urbana", wiki: "Grafite" },
+      { titulo: "Hip-hop", autor: "Wikipédia", genero: "Arte urbana", wiki: "Hip-hop" },
+      { titulo: "Tarsila do Amaral", autor: "Wikipédia", genero: "Artistas", wiki: "Tarsila do Amaral" },
+      { titulo: "Anita Malfatti", autor: "Wikipédia", genero: "Artistas", wiki: "Anita Malfatti" },
+      { titulo: "Di Cavalcanti", autor: "Wikipédia", genero: "Artistas", wiki: "Di Cavalcanti" },
+      { titulo: "Candido Portinari", autor: "Wikipédia", genero: "Artistas", wiki: "Candido Portinari" },
+      { titulo: "Lygia Clark", autor: "Wikipédia", genero: "Artistas", wiki: "Lygia Clark" },
+      { titulo: "Hélio Oiticica", autor: "Wikipédia", genero: "Artistas", wiki: "Hélio Oiticica" },
+      { titulo: "Aleijadinho", autor: "Wikipédia", genero: "Artistas", wiki: "Aleijadinho" },
+      { titulo: "Heitor Villa-Lobos", autor: "Wikipédia", genero: "Artistas", wiki: "Heitor Villa-Lobos" },
+      { titulo: "Abaporu", autor: "Wikipédia", genero: "Obras", wiki: "Abaporu" },
+      { titulo: "O Grito", autor: "Wikipédia", genero: "Obras", wiki: "O Grito" },
+      { titulo: "Guernica", autor: "Wikipédia", genero: "Obras", wiki: "Guernica (quadro)" },
+      { titulo: "Arte pré-colombiana", autor: "Wikipédia", genero: "América Latina", wiki: "Arte pré-colombiana" },
+      { titulo: "Civilização asteca", autor: "Wikipédia", genero: "América Latina", wiki: "Civilização asteca" },
+      { titulo: "Civilização maia", autor: "Wikipédia", genero: "América Latina", wiki: "Civilização maia" },
+      { titulo: "Olmecas", autor: "Wikipédia", genero: "América Latina", wiki: "Olmecas" },
+      { titulo: "Dia dos Mortos", autor: "Wikipédia", genero: "América Latina", wiki: "Dia dos Mortos" },
+      { titulo: "Muralismo", autor: "Wikipédia", genero: "América Latina", wiki: "Muralismo" },
+      { titulo: "Frida Kahlo", autor: "Wikipédia", genero: "América Latina", wiki: "Frida Kahlo" },
+      { titulo: "Arte de África", autor: "Wikipédia", genero: "África e diáspora", wiki: "Arte de África" },
+      { titulo: "Arte indígena brasileira", autor: "Wikipédia", genero: "Povos originários", wiki: "Arte indígena brasileira" },
+      { titulo: "Arte plumária", autor: "Wikipédia", genero: "Povos originários", wiki: "Arte plumária" },
+      { titulo: "Racismo ambiental", autor: "Wikipédia", genero: "Arte e sociedade", wiki: "Racismo ambiental" },
+      { titulo: "Teatro do oprimido", autor: "Wikipédia", genero: "Arte e sociedade", wiki: "Teatro do oprimido" },
+      { titulo: "Barroco no Brasil", autor: "Wikipédia", genero: "Arte brasileira", wiki: "Barroco no Brasil" },
+      { titulo: "Literatura de cordel", autor: "Wikipédia", genero: "Arte brasileira", wiki: "Literatura de cordel" },
+      { titulo: "Tropicália", autor: "Wikipédia", genero: "Arte brasileira", wiki: "Tropicália" },
+      { titulo: "Bossa nova", autor: "Wikipédia", genero: "Arte brasileira", wiki: "Bossa nova" },
+      { titulo: "Cinema Novo", autor: "Wikipédia", genero: "Cinema", wiki: "Cinema Novo" },
+      { titulo: "Cinema do Brasil", autor: "Wikipédia", genero: "Cinema", wiki: "Cinema do Brasil" },
+      { titulo: "Fotografia", autor: "Wikipédia", genero: "Linguagens", wiki: "Fotografia" },
+      { titulo: "História da arte", autor: "Wikipédia", genero: "Estudos", wiki: "História da arte" },
+      { titulo: "Artes visuais", autor: "Wikipédia", genero: "Estudos", wiki: "Artes visuais" },
+      { titulo: "Ensino de arte", autor: "Wikipédia", genero: "Educação", wiki: "Ensino de arte" },
+      { titulo: "Museu de Arte Moderna de São Paulo", autor: "Wikipédia", genero: "Museus", wiki: "Museu de Arte Moderna de São Paulo" },
+      { titulo: "Bienal de São Paulo", autor: "Wikipédia", genero: "Museus", wiki: "Bienal de São Paulo" },
+    ],
+  },
 ];
 
 function abrirBiblioteca() {
   esconder(document.getElementById("leitor"));
-  const div = document.getElementById("biblioteca-lista");
-  div.innerHTML = BIBLIOTECA.map((b, i) => `
-    <div class="livro-card">
-      <div class="livro-info">
-        <span class="livro-titulo">${escaparHTML(b.titulo)}</span>
-        <span class="livro-autor">${escaparHTML(b.autor)} · ${b.ano}</span>
-        <span class="livro-genero">${escaparHTML(b.genero)}</span>
-      </div>
-      <button class="btn-principal compacto livro-ler" data-i="${i}">📖 Ler</button>
-    </div>
-  `).join("");
-  div.querySelectorAll(".livro-ler").forEach((btn) => {
-    btn.addEventListener("click", () => abrirLivro(BIBLIOTECA[parseInt(btn.dataset.i, 10)]));
-  });
+  const busca = document.getElementById("biblioteca-busca");
+  if (busca) busca.value = "";
+  renderEstantes("");
   mostrarTela("tela-biblioteca");
 }
 
+// Desenha as estantes (com filtro opcional pela busca)
+function renderEstantes(termo) {
+  const div = document.getElementById("biblioteca-lista");
+  const t = (termo || "").trim().toLowerCase();
+
+  const filtradas = ESTANTES.map((e, ei) => {
+    const itens = e.itens
+      .map((b, i) => ({ b, i }))
+      .filter(({ b }) => !t || (b.titulo + " " + b.autor + " " + (b.genero || "")).toLowerCase().includes(t));
+    return { e, ei, itens };
+  }).filter((x) => x.itens.length);
+
+  if (!filtradas.length) {
+    div.innerHTML = `<p class="vazio">Nenhuma obra encontrada para "${escaparHTML(termo)}".</p>`;
+    return;
+  }
+
+  div.innerHTML = filtradas.map(({ e, ei, itens }) => `
+    <section class="estante">
+      <div class="estante-topo">
+        <div>
+          <h3 class="estante-titulo">${e.nome}</h3>
+          <p class="estante-desc">${e.desc}</p>
+        </div>
+        <span class="estante-contador">${itens.length} ${itens.length === 1 ? "obra" : "obras"}</span>
+      </div>
+      <div class="estante-prateleira">
+        ${itens.map(({ b, i }) => `
+          <button class="livro" data-estante="${ei}" data-i="${i}" style="--lombada:${e.cor}">
+            <span class="livro-titulo">${escaparHTML(b.titulo)}</span>
+            <span class="livro-autor">${escaparHTML(b.autor)}${b.ano ? " · " + b.ano : ""}</span>
+            <span class="livro-genero">${escaparHTML(b.genero || "")}</span>
+          </button>
+        `).join("")}
+      </div>
+    </section>
+  `).join("");
+
+  div.querySelectorAll(".livro").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const e = ESTANTES[parseInt(btn.dataset.estante, 10)];
+      abrirLivro(e.itens[parseInt(btn.dataset.i, 10)]);
+    });
+  });
+}
+
+document.getElementById("biblioteca-busca").addEventListener("input", (e) => renderEstantes(e.target.value));
+
 function abrirLivro(b) {
-  const url = `https://pt.wikisource.org/wiki/${encodeURIComponent(b.wiki)}`;
+  const base = b.fonte === "wikipedia" || b.autor === "Wikipédia"
+    ? "https://pt.wikipedia.org/wiki/"
+    : "https://pt.wikisource.org/wiki/";
+  const url = base + encodeURIComponent(b.wiki);
   document.getElementById("leitor-titulo").textContent = `${b.titulo} — ${b.autor}`;
   document.getElementById("leitor-frame").src = url;
   document.getElementById("leitor-link").href = url;

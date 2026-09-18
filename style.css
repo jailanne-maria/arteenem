@@ -3746,51 +3746,101 @@ h1, h2, h3, h4, .marca-nome, .btn-principal, .btn-secundario, .btn-google, .btn-
   background: var(--yellow);
 }
 
-/* ===== BIBLIOTECA ===== */
+/* ===== BIBLIOTECA (estante virtual) ===== */
+.biblioteca-busca {
+  width: 100%;
+  margin: 16px 0 22px;
+}
+
 .biblioteca-lista {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-  gap: 14px;
-}
-
-.livro-card {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  background: var(--surface-2);
-  border: 3px solid var(--black);
-  box-shadow: 3px 3px 0 var(--black);
-  border-radius: 12px;
-  padding: 14px 16px;
-}
-
-.livro-info {
   display: flex;
   flex-direction: column;
-  gap: 3px;
-  flex: 1;
+  gap: 28px;
 }
+
+.estante { display: flex; flex-direction: column; }
+
+.estante-topo {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.estante-titulo {
+  font-family: var(--pixel);
+  font-size: 0.62rem;
+  line-height: 1.8;
+  margin: 0 0 6px;
+}
+
+.estante-desc { margin: 0; font-size: 0.95rem; opacity: 0.85; }
+
+.estante-contador {
+  flex-shrink: 0;
+  background: var(--yellow);
+  border: 2px solid var(--black);
+  border-radius: 999px;
+  padding: 3px 12px;
+  font-size: 0.85rem;
+  white-space: nowrap;
+}
+
+/* prateleira de madeira */
+.estante-prateleira {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(158px, 1fr));
+  gap: 14px;
+  padding: 16px 16px 22px;
+  background: repeating-linear-gradient(
+    180deg,
+    var(--surface-3),
+    var(--surface-3) 6px,
+    #f2d98a 6px,
+    #f2d98a 12px
+  );
+  border: 4px solid var(--black);
+  border-bottom-width: 14px;
+  border-radius: 10px;
+  box-shadow: var(--sombra);
+}
+
+.livro {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-height: 152px;
+  text-align: left;
+  cursor: pointer;
+  padding: 12px 12px 12px 16px;
+  background: var(--surface-2);
+  border: 3px solid var(--black);
+  border-left: 12px solid var(--lombada, var(--roxo));
+  border-radius: 6px 10px 10px 6px;
+  box-shadow: 3px 3px 0 var(--black);
+  font-family: inherit;
+  transition: transform 0.12s ease;
+}
+
+.livro:hover { transform: translateY(-4px); }
 
 .livro-titulo {
   font-family: var(--pixel);
-  font-size: 0.55rem;
-  line-height: 1.7;
+  font-size: 0.5rem;
+  line-height: 1.9;
 }
 
-.livro-autor {
-  font-size: 1rem;
-  color: var(--on-surface-2);
-}
+.livro-autor { font-size: 0.95rem; opacity: 0.85; }
 
 .livro-genero {
   align-self: flex-start;
   background: var(--yellow);
   border: 2px solid var(--black);
   border-radius: 999px;
-  padding: 2px 10px;
-  font-size: 0.82rem;
-  margin-top: 4px;
+  padding: 2px 9px;
+  font-size: 0.78rem;
+  margin-top: auto;
 }
 
 .leitor {
