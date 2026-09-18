@@ -1,10 +1,112 @@
 {
-  "atualizadoEm": "2026-09-17T14:30:06.324Z",
+  "atualizadoEm": "2026-09-18T13:56:22.488Z",
   "fontes": [
     "MEC",
     "Agência Brasil"
   ],
   "noticias": [
+    {
+      "titulo": "O que você precisa saber para fazer a PND",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/setembro/o-que-voce-precisa-saber-para-fazer-a-pnd",
+      "fonte": "MEC",
+      "data": "setembro/2026"
+    },
+    {
+      "titulo": "Últimos dias para inscrição no curso de licenciatura intercultural indígena",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/setembro/ultimos-dias-para-inscricao-no-curso-de-licenciatura-intercultural-indigena",
+      "fonte": "MEC",
+      "data": "setembro/2026"
+    },
+    {
+      "titulo": "Do clássico à literatura contemporânea: MEC Livros reúne autores negros de diferentes gerações",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/setembro/do-classico-a-literatura-contemporanea-mec-livros-reune-autores-negros-de-diferentes-geracoes",
+      "fonte": "MEC",
+      "data": "setembro/2026"
+    },
+    {
+      "titulo": "Fundeb-VAAR: análise das condicionalidades começa após envio das informações",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/setembro/fundeb-vaar-analise-das-condicionalidades-comeca-apos-envio-das-informacoes",
+      "fonte": "MEC",
+      "data": "setembro/2026"
+    },
+    {
+      "titulo": "PND 2026: entenda como funciona a prova",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/setembro/pnd-2026-entenda-como-funciona-a-prova",
+      "fonte": "MEC",
+      "data": "setembro/2026"
+    },
+    {
+      "titulo": "Educação escolar quilombola avança na Região Sudeste",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/setembro/educacao-escolar-quilombola-avanca-na-regiao-sudeste",
+      "fonte": "MEC",
+      "data": "setembro/2026"
+    },
+    {
+      "titulo": "Educação escolar quilombola avança no Centro-Oeste",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/setembro/educacao-escolar-quilombola-avanca-no-centro-oeste",
+      "fonte": "MEC",
+      "data": "setembro/2026"
+    },
+    {
+      "titulo": "Educação escolar quilombola avança na Região Sul",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/setembro/educacao-escolar-quilombola-avanca-na-regiao-sul",
+      "fonte": "MEC",
+      "data": "setembro/2026"
+    },
+    {
+      "titulo": "Educação escolar quilombola avança na Região Nordeste",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/setembro/educacao-escolar-quilombola-avanca-na-regiao-nordeste",
+      "fonte": "MEC",
+      "data": "setembro/2026"
+    },
+    {
+      "titulo": "Educação escolar quilombola avança na Região Norte",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/setembro/educacao-escolar-quilombola-avanca-na-regiao-norte",
+      "fonte": "MEC",
+      "data": "setembro/2026"
+    },
+    {
+      "titulo": "Pesquisa da UFC usa tecnologia para prevenir quedas de idosos",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/setembro/pesquisa-da-ufc-usa-tecnologia-para-prevenir-quedas-de-idosos",
+      "fonte": "MEC",
+      "data": "setembro/2026"
+    },
+    {
+      "titulo": "Universidades e residência: MEC regulamenta habilitação para sanitaristas",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/setembro/universidades-e-residencia-mec-regulamenta-habilitacao-para-sanitaristas",
+      "fonte": "MEC",
+      "data": "setembro/2026"
+    },
+    {
+      "titulo": "Curso do MEC fortalece formação de coordenadores pedagógicos da rede pública",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/setembro/curso-do-mec-fortalece-formacao-de-coordenadores-pedagogicos-da-rede-publica",
+      "fonte": "MEC",
+      "data": "setembro/2026"
+    },
+    {
+      "titulo": "Saiba como revalidar diploma estrangeiro no Brasil",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/setembro/saiba-como-revalidar-diploma-estrangeiro-no-brasil",
+      "fonte": "MEC",
+      "data": "setembro/2026"
+    },
+    {
+      "titulo": "PND 2026: candidato deve responder questionário até sábado",
+      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-09/pnd-2026-candidato-deve-responder-questionario-ate-sabado",
+      "fonte": "Agência Brasil",
+      "data": "18/09"
+    },
+    {
+      "titulo": "Escolas da Bahia e do Pará vencem prêmio nacional de sustentabilidade",
+      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-09/escolas-da-bahia-e-do-para-vencem-premio-nacional-de-sustentabilidade",
+      "fonte": "Agência Brasil",
+      "data": "17/09"
+    },
+    {
+      "titulo": "PND 2026 tem adesão de 2.007 municípios e 23 estados",
+      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-09/pnd-2026-tem-adesao-de-2007-municipios-e-23-estados",
+      "fonte": "Agência Brasil",
+      "data": "17/09"
+    },
     {
       "titulo": "Andes lança documentário sobre a importância da educação e ciência",
       "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-09/andes-lanca-documentario-sobre-importancia-da-educacao-e-ciencia",
@@ -46,84 +148,6 @@
       "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-09/enamed-2026-prova-que-avalia-formacao-medica-sera-neste-domingo",
       "fonte": "Agência Brasil",
       "data": "11/09"
-    },
-    {
-      "titulo": "Aulas serão suspensas no DF nas sextas-feiras antes das eleições",
-      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-09/aulas-serao-suspensas-no-df-nas-sextas-feiras-antes-das-eleicoes",
-      "fonte": "Agência Brasil",
-      "data": "11/09"
-    },
-    {
-      "titulo": "Prazo para optar por seguir na lista de espera do CNU 1 termina hoje",
-      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-09/prazo-para-optar-por-seguir-na-lista-de-espera-do-cnu-1-termina-hoje",
-      "fonte": "Agência Brasil",
-      "data": "11/09"
-    },
-    {
-      "titulo": "Prazo para escolas escolherem livros didáticos para 2027 termina hoje",
-      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-09/prazo-para-escolas-escolherem-livros-didaticos-para-2027-termina-hoje",
-      "fonte": "Agência Brasil",
-      "data": "11/09"
-    },
-    {
-      "titulo": "PF faz ação para combater entrada clandestina de eletrônicos no Brasil",
-      "link": "https://agenciabrasil.ebc.com.br/geral/noticia/2026-09/pf-faz-acao-para-combater-entrada-clandestina-de-eletronicos-no-brasil",
-      "fonte": "Agência Brasil",
-      "data": "17/09"
-    },
-    {
-      "titulo": "Operação combate infiltração do PCC no transporte público em São Paulo",
-      "link": "https://agenciabrasil.ebc.com.br/geral/noticia/2026-09/operacao-combate-infiltracao-do-pcc-no-transporte-publico-em-sao-paulo",
-      "fonte": "Agência Brasil",
-      "data": "17/09"
-    },
-    {
-      "titulo": "Inmet prevê final de semana de chuvas nas regiões Sul e Sudeste",
-      "link": "https://agenciabrasil.ebc.com.br/geral/noticia/2026-09/inmet-preve-final-de-semana-de-chuvas-nas-regioes-sul-e-sudeste",
-      "fonte": "Agência Brasil",
-      "data": "17/09"
-    },
-    {
-      "titulo": "Mega-Sena sorteia prêmio acumulado de R$ 102 milhões nesta quinta",
-      "link": "https://agenciabrasil.ebc.com.br/geral/noticia/2026-09/mega-sena-sorteia-premio-acumulado-de-r-102-milhoes-nesta-quinta",
-      "fonte": "Agência Brasil",
-      "data": "17/09"
-    },
-    {
-      "titulo": "PRF estabelece regras para evitar bloqueios nas eleições de 2026",
-      "link": "https://agenciabrasil.ebc.com.br/geral/noticia/2026-09/prf-estabelece-regras-para-evitar-bloqueios-nas-eleicoes-de-2026",
-      "fonte": "Agência Brasil",
-      "data": "16/09"
-    },
-    {
-      "titulo": "Lotofácil da Independência: 72 apostas faturam R$ 4,4 milhões cada",
-      "link": "https://agenciabrasil.ebc.com.br/geral/noticia/2026-09/lotofacil-da-independencia-72-apostas-faturam-r-44-milhoes-cada",
-      "fonte": "Agência Brasil",
-      "data": "16/09"
-    },
-    {
-      "titulo": "Mega-Sena acumula para R$ 102 milhões; confira os números sorteados",
-      "link": "https://agenciabrasil.ebc.com.br/geral/noticia/2026-09/mega-sena-acumula-para-r-102-milhoes-confira-os-numeros-sorteados",
-      "fonte": "Agência Brasil",
-      "data": "16/09"
-    },
-    {
-      "titulo": "Mega-Sena sorteia prêmio de R$ 95 milhões nesta terça-feira",
-      "link": "https://agenciabrasil.ebc.com.br/geral/noticia/2026-09/mega-sena-sorteia-premio-de-r-95-milhoes-nesta-terca-feira",
-      "fonte": "Agência Brasil",
-      "data": "15/09"
-    },
-    {
-      "titulo": "Cacique Raoni, de 94 anos, recebe cuidados paliativos em Mato Grosso",
-      "link": "https://agenciabrasil.ebc.com.br/geral/noticia/2026-09/cacique-raoni-de-94-anos-recebe-cuidados-paliativos-em-mato-grosso",
-      "fonte": "Agência Brasil",
-      "data": "15/09"
-    },
-    {
-      "titulo": "Greve nos Correios: TST determina manutenção de 80% do efetivo",
-      "link": "https://agenciabrasil.ebc.com.br/geral/noticia/2026-09/greve-nos-correios-tst-determina-manutencao-de-80-do-efetivo",
-      "fonte": "Agência Brasil",
-      "data": "14/09"
     }
   ],
   "temasRedacao": []
