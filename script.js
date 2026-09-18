@@ -4411,23 +4411,39 @@ function renderAdmin() {
 
 function renderAdminUsuarios(div) {
   const lista = adminDados.usuarios.slice().sort((a, b) => (a.nome || "").localeCompare(b.nome || ""));
-  const profs = lista.filter((u) => u.papel === "professor").length;
-  const alunos = lista.filter((u) => u.papel === "estudante").length;
+  const profs = lista.filter((u) => u.papel === "professor");
+  const alunos = lista.filter((u) => u.papel === "estudante");
+  const outros = lista.filter((u) => u.papel !== "professor" && u.papel !== "estudante");
   const escolas = new Set(lista.map((u) => u.escola).filter(Boolean)).size;
-  div.innerHTML = `
-    <p class="admin-resumo">${lista.length} usuário(s) · ${profs} professor(es) · ${alunos} estudante(s) · ${escolas} escola(s)</p>
-    ${lista.map((u) => `
+
+  const card = (u) => `
       <div class="admin-item">
         <div class="admin-item-info">
           <strong>${escaparHTML(u.nome || "Sem nome")}${u.bloqueado ? " 🚫" : ""}</strong>
-          <span class="admin-sub">${escaparHTML(u.email || "")} · ${u.papel === "professor" ? "Professor(a)" : "Estudante"}${u.escola ? " · 🏫 " + escaparHTML(u.escola) : ""}${Array.isArray(u.series) && u.series.length ? " · " + escaparHTML(u.series.join(", ")) : ""}</span>
+          <span class="admin-sub">${escaparHTML(u.email || "")}${u.escola ? " · 🏫 " + escaparHTML(u.escola) : ""}${Array.isArray(u.series) && u.series.length ? " · " + escaparHTML(u.series.join(", ")) : ""}</span>
         </div>
         <div class="admin-acoes">
           <button class="btn-ghost compacto" data-acao="bloquear" data-id="${u.uid}" data-valor="${u.bloqueado ? "0" : "1"}">${u.bloqueado ? "✅ Desbloquear" : "🚫 Bloquear"}</button>
           <button class="btn-ghost compacto" data-acao="excluir-usuario" data-id="${u.uid}">🗑️ Excluir</button>
         </div>
+      </div>`;
+
+  div.innerHTML = `
+    <p class="admin-resumo">${lista.length} usuário(s) · ${profs.length} professor(es) · ${alunos.length} estudante(s) · ${escolas} escola(s)</p>
+    <div class="admin-colunas">
+      <div class="admin-coluna">
+        <h4 class="admin-coluna-titulo">🎒 Estudantes <span>${alunos.length}</span></h4>
+        <div class="admin-lista">${alunos.map(card).join("") || `<p class="vazio">Nenhum estudante ainda.</p>`}</div>
       </div>
-    `).join("") || `<p class="vazio">Nenhum usuário ainda.</p>`}
+      <div class="admin-coluna">
+        <h4 class="admin-coluna-titulo">👩🏽‍🏫 Professores <span>${profs.length}</span></h4>
+        <div class="admin-lista">${profs.map(card).join("") || `<p class="vazio">Nenhum professor ainda.</p>`}</div>
+      </div>
+    </div>
+    ${outros.length ? `
+      <h4 class="admin-coluna-titulo">❓ Sem papel definido <span>${outros.length}</span></h4>
+      <div class="admin-lista">${outros.map(card).join("")}</div>
+    ` : ""}
   `;
 }
 
