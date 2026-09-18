@@ -4205,6 +4205,27 @@ function mostrarResultadoSimulado(temRedacao) {
 // ============================================================
 const ESTANTES = [
   {
+    id: "regional",
+    nome: "🌳 Regional — Amazônia e Acre",
+    desc: "Revistas científicas da UFAC sobre arte, história, cultura e povos da floresta — acesso livre e gratuito.",
+    cor: "#2e7d32",
+    unidade: "revista",
+    itens: [
+      { titulo: "Revista Das Amazônias", autor: "UFAC · História", genero: "História da Amazônia", url: "https://periodicos.ufac.br/index.php/amazonicas" },
+      { titulo: "Revista TXAI", autor: "UFAC · Artes Cênicas", genero: "Teatro e performance", url: "https://periodicos.ufac.br/index.php/txai" },
+      { titulo: "NAWA", autor: "UFAC · Extensão e Cultura", genero: "Arte e cultura", url: "https://periodicos.ufac.br/index.php/nawa" },
+      { titulo: "Muiraquitã", autor: "UFAC · Letras e Humanidades", genero: "Literatura e artes", url: "https://periodicos.ufac.br/index.php/mui" },
+      { titulo: "Em Favor de Igualdade Racial", autor: "UFAC · Educação", genero: "Educação antirracista", url: "https://periodicos.ufac.br/index.php/RFIR" },
+      { titulo: "SHUBUÃ Pesquisas Indígenas", autor: "UFAC · Licenciatura Indígena", genero: "Povos originários", url: "https://periodicos.ufac.br/index.php/shubua" },
+      { titulo: "TROPOS", autor: "UFAC · Comunicação e Cultura", genero: "Comunicação e cultura", url: "https://periodicos.ufac.br/index.php/tropos" },
+      { titulo: "Jamaxi", autor: "UFAC · História e Humanidades", genero: "História", url: "https://periodicos.ufac.br/index.php/jamaxi" },
+      { titulo: "Anthesis", autor: "UFAC · Ensino e Linguagens", genero: "Ensino e educação", url: "https://periodicos.ufac.br/index.php/anthesis" },
+      { titulo: "UÁQUIRI", autor: "UFAC · Geografia", genero: "Geografia da Amazônia", url: "https://periodicos.ufac.br/index.php/Uaquiri" },
+      { titulo: "Communitas", autor: "UFAC · Educação", genero: "Educação", url: "https://periodicos.ufac.br/index.php/COMMUNITAS" },
+      { titulo: "Portal de Periódicos da UFAC", autor: "UFAC · todas as revistas", genero: "Acervo completo", url: "https://periodicos.ufac.br/" },
+    ],
+  },
+  {
     id: "classicos",
     nome: "📜 Clássicos",
     desc: "Literatura brasileira e portuguesa em domínio público — do Romantismo ao Realismo.",
@@ -4366,7 +4387,7 @@ function renderEstantes(termo) {
           <h3 class="estante-titulo">${e.nome}</h3>
           <p class="estante-desc">${e.desc}</p>
         </div>
-        <span class="estante-contador">${itens.length} ${itens.length === 1 ? "obra" : "obras"}</span>
+        <span class="estante-contador">${itens.length} ${itens.length === 1 ? (e.unidade || "obra") : (e.unidade ? e.unidade + "s" : "obras")}</span>
       </div>
       <div class="estante-prateleira">
         ${itens.map(({ b, i }) => `
@@ -4391,10 +4412,15 @@ function renderEstantes(termo) {
 document.getElementById("biblioteca-busca").addEventListener("input", (e) => renderEstantes(e.target.value));
 
 function abrirLivro(b) {
-  const base = b.fonte === "wikipedia" || b.autor === "Wikipédia"
-    ? "https://pt.wikipedia.org/wiki/"
-    : "https://pt.wikisource.org/wiki/";
-  const url = base + encodeURIComponent(b.wiki);
+  let url;
+  if (b.url) {
+    url = b.url;
+  } else {
+    const base = b.autor === "Wikipédia"
+      ? "https://pt.wikipedia.org/wiki/"
+      : "https://pt.wikisource.org/wiki/";
+    url = base + encodeURIComponent(b.wiki);
+  }
   document.getElementById("leitor-titulo").textContent = `${b.titulo} — ${b.autor}`;
   document.getElementById("leitor-frame").src = url;
   document.getElementById("leitor-link").href = url;
