@@ -21,8 +21,8 @@ messaging.onBackgroundMessage((payload) => {
   const dados = payload.data || {};
   self.registration.showNotification(n.title || "NINA", {
     body: n.body || "Tem novidade no NINA!",
-    icon: "img/nina-logo.png",
-    badge: "img/nina-logo.png",
+    icon: "img/icon-512.png",
+    badge: "img/icon-192.png",
     tag: dados.tag || "nina",
     data: { url: dados.url || "./" },
   });

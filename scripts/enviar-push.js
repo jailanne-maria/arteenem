@@ -27,7 +27,7 @@ const crypto = require("crypto");
 
 const PROJECT_ID = "arteenem-1691d";
 const APP_URL = "https://jailanne-maria.github.io/arteenem/";
-const ICONE = APP_URL + "img/nina-logo.png";
+const ICONE = APP_URL + "img/icon-512.png";
 const ARQUIVO_CONTROLE = path.join(__dirname, "..", "ultimo-push.json");
 
 function b64url(input) {
