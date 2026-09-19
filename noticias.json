@@ -1,10 +1,46 @@
 {
-  "atualizadoEm": "2026-09-18T13:56:22.488Z",
+  "atualizadoEm": "2026-09-19T13:31:19.424Z",
   "fontes": [
     "MEC",
     "Agência Brasil"
   ],
   "noticias": [
+    {
+      "titulo": "Edital cria rede nacional de pesquisa em Educação Especial Inclusiva",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/setembro/edital-cria-rede-nacional-de-pesquisa-em-educacao-especial-inclusiva",
+      "fonte": "MEC",
+      "data": "setembro/2026"
+    },
+    {
+      "titulo": "UFPR oferece 3 mil vagas para formação em Direitos Humanos",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/setembro/ufpr-oferece-3-mil-vagas-para-formacao-em-direitos-humanos",
+      "fonte": "MEC",
+      "data": "setembro/2026"
+    },
+    {
+      "titulo": "IFSC oferece capacitações, mentorias e estruturação de modelos de negócio",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/setembro/ifsc-oferece-capacitacoes-mentorias-e-estruturacao-de-modelos-de-negocio",
+      "fonte": "MEC",
+      "data": "setembro/2026"
+    },
+    {
+      "titulo": "Último dia para enviar projetos de extensão da Rede de EPT",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/setembro/ultimo-dia-para-enviar-projetos-de-extensao-da-rede-de-ept",
+      "fonte": "MEC",
+      "data": "setembro/2026"
+    },
+    {
+      "titulo": "Exposição do MAB reúne móveis históricos restaurados pelo IFB",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/setembro/exposicao-do-mab-reune-moveis-historicos-restaurados-pelo-ifb",
+      "fonte": "MEC",
+      "data": "setembro/2026"
+    },
+    {
+      "titulo": "Enem 2026: cartilha da redação está disponível",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/setembro/enem-2026-cartilha-da-redacao-esta-disponivel",
+      "fonte": "MEC",
+      "data": "setembro/2026"
+    },
     {
       "titulo": "O que você precisa saber para fazer a PND",
       "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/setembro/o-que-voce-precisa-saber-para-fazer-a-pnd",
@@ -60,34 +96,22 @@
       "data": "setembro/2026"
     },
     {
-      "titulo": "Educação escolar quilombola avança na Região Norte",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/setembro/educacao-escolar-quilombola-avanca-na-regiao-norte",
-      "fonte": "MEC",
-      "data": "setembro/2026"
+      "titulo": "Pesquisa identifica oito planetas candidatos a ter vida extraterrestre",
+      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-09/pesquisa-identifica-oito-planetas-candidatos-ter-vida-extraterrestre",
+      "fonte": "Agência Brasil",
+      "data": "19/09"
     },
     {
-      "titulo": "Pesquisa da UFC usa tecnologia para prevenir quedas de idosos",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/setembro/pesquisa-da-ufc-usa-tecnologia-para-prevenir-quedas-de-idosos",
-      "fonte": "MEC",
-      "data": "setembro/2026"
+      "titulo": "Cartilha reúne orientações para a redação do Enem 2026",
+      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-09/cartilha-reune-orientacoes-para-redacao-do-enem-2026",
+      "fonte": "Agência Brasil",
+      "data": "18/09"
     },
     {
-      "titulo": "Universidades e residência: MEC regulamenta habilitação para sanitaristas",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/setembro/universidades-e-residencia-mec-regulamenta-habilitacao-para-sanitaristas",
-      "fonte": "MEC",
-      "data": "setembro/2026"
-    },
-    {
-      "titulo": "Curso do MEC fortalece formação de coordenadores pedagógicos da rede pública",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/setembro/curso-do-mec-fortalece-formacao-de-coordenadores-pedagogicos-da-rede-publica",
-      "fonte": "MEC",
-      "data": "setembro/2026"
-    },
-    {
-      "titulo": "Saiba como revalidar diploma estrangeiro no Brasil",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/setembro/saiba-como-revalidar-diploma-estrangeiro-no-brasil",
-      "fonte": "MEC",
-      "data": "setembro/2026"
+      "titulo": "Analfabetismo entre jovens e adultos com deficiência é 12 vezes maior",
+      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-09/analfabetismo-entre-jovens-e-adultos-com-deficiencia-e-12-vezes-maior",
+      "fonte": "Agência Brasil",
+      "data": "18/09"
     },
     {
       "titulo": "PND 2026: candidato deve responder questionário até sábado",
@@ -124,30 +148,6 @@
       "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-09/prazo-para-recursos-do-enamed-2026-e-revalida-20262-vai-ate-quinta",
       "fonte": "Agência Brasil",
       "data": "16/09"
-    },
-    {
-      "titulo": "PND 2026: participantes farão prova neste domingo em todo o país",
-      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-09/pnd-2026-participantes-farao-prova-neste-domingo-em-todo-o-pais",
-      "fonte": "Agência Brasil",
-      "data": "15/09"
-    },
-    {
-      "titulo": "Revalida 2026/2: prazo de envio de diploma médico termina dia 19",
-      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-09/revalida-20262-prazo-de-envio-de-diploma-medico-termina-dia-19",
-      "fonte": "Agência Brasil",
-      "data": "15/09"
-    },
-    {
-      "titulo": "Prova que avalia formação médica ocorre neste domingo em todo país",
-      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-09/prova-que-avalia-formacao-medica-ocorre-neste-domingo-em-todo-pais",
-      "fonte": "Agência Brasil",
-      "data": "13/09"
-    },
-    {
-      "titulo": "Enamed 2026: prova que avalia formação médica será neste domingo",
-      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-09/enamed-2026-prova-que-avalia-formacao-medica-sera-neste-domingo",
-      "fonte": "Agência Brasil",
-      "data": "11/09"
     }
   ],
   "temasRedacao": []
