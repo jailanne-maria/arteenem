@@ -443,6 +443,7 @@ async function abrirInicioEstudante() {
   document.getElementById("aluno-nome").textContent = usuario.nome.split(" ")[0];
   renderAreas();
   renderAnterior();
+  carregarCursoDoUsuario();
   await carregarTurmasEstudante();
   mostrarTela("tela-inicio");
 }
@@ -747,7 +748,7 @@ async function finalizar() {
 
   // Plano de estudos personalizado
   const areasMapa = ordenadas.reduce((acc, o) => ({ ...acc, [o.k]: Math.round(o.pct) }), {});
-  const plano = gerarPlano({ pct: pctGeral, areas: areasMapa });
+  const plano = gerarPlano({ pct: pctGeral, areas: areasMapa }, cursoEscolhido);
   renderPlano(document.getElementById("plano-estudos"), plano);
 
   // Salva localmente
@@ -817,15 +818,134 @@ function renderPlano(container, plano) {
     .join("");
 
   container.innerHTML = `
+    ${plano.curso ? `
+      <div class="plano-objetivo">
+        🎯 Objetivo: <strong>${plano.curso.icone} ${escaparHTML(plano.curso.nome)}</strong>
+        — as áreas de maior peso aparecem primeiro.
+      </div>` : `
+      <div class="plano-objetivo vazio-objetivo">
+        🎯 Você ainda não escolheu um curso. <strong>Escolha seu objetivo</strong> para o plano ficar personalizado!
+      </div>`}
     <p class="plano-intro">Seu roteiro foi montado a partir do seu desempenho: comece pelas áreas com prioridade mais alta.</p>
     <div class="plano-grid">${prioridades}</div>
+    ${plano.redacaoPeso === 3 ? `
+      <div class="plano-area" style="border-left:4px solid #6b3fd4">
+        <div class="plano-area-topo">
+          <span class="plano-area-nome">✍️ Redação</span>
+          <span class="plano-tag" style="background:#6b3fd4">⭐ Peso máximo</span>
+        </div>
+        <ul class="plano-topicos">
+          <li><strong>Treine toda semana</strong> — escreva pelo menos 1 redação por semana.<br><em>💡 Use os temas de redação do NINA (aba Notícias) e os textos motivadores.</em></li>
+          <li><strong>As 5 competências</strong> — domínio da norma culta, compreensão do tema, argumentação, coesão e proposta de intervenção.<br><em>💡 Decore o que cada competência pede e revise sua redação com a lista.</em></li>
+          <li><strong>Repertório sociocultural</strong> — use dados, leis, obras de arte e fatos históricos.<br><em>💡 Anote 3 repertórios por tema que você estudar.</em></li>
+        </ul>
+        <div class="plano-recursos">
+          <a class="recurso-link" href="https://www.gov.br/inep/pt-br/areas-de-atuacao/avaliacao-e-exames-educacionais/enem" target="_blank" rel="noopener">INEP — Cartilha do participante ↗</a>
+        </div>
+      </div>` : ""}
     <h4 class="plano-subtitulo">🗓️ Sugestão de rotina semanal</h4>
     <div class="cronograma">${cronograma}</div>
   `;
 }
 
-function renderRanking(container, ranking, uidAtual) {
-  if (!ranking.length) {
+// ============================================================
+// CURSOS / OBJETIVO DO ESTUDANTE
+// ============================================================
+let cursoEscolhido = null;
+
+function carregarCursoDoUsuario() {
+  const id = usuario && usuario.curso;
+  cursoEscolhido = (typeof CURSOS !== "undefined" && CURSOS.find((c) => c.id === id)) || null;
+  renderCursoEscolhido();
+}
+
+function renderCursoEscolhido() {
+  const div = document.getElementById("curso-escolhido");
+  if (!div) return;
+  if (!cursoEscolhido) {
+    div.innerHTML = `<p class="vazio">Você ainda não escolheu um curso.</p>`;
+    return;
+  }
+  const areas = areasDePeso(cursoEscolhido).filter((a) => a.peso >= 2);
+  div.innerHTML = `
+    <div class="curso-card ativo">
+      <span class="curso-icone">${cursoEscolhido.icone}</span>
+      <div class="curso-dados">
+        <strong>${escaparHTML(cursoEscolhido.nome)}</strong>
+        <span class="curso-desc">${escaparHTML(cursoEscolhido.descricao || "")}</span>
+        <div class="curso-pesos">
+          ${areas.map((a) => `<span class="peso-tag peso-${a.peso}">${escaparHTML(a.nome)} ${"⭐".repeat(a.peso)}</span>`).join("")}
+        </div>
+      </div>
+    </div>`;
+}
+
+function abrirCursos() {
+  mostrarTela("tela-cursos");
+  const busca = document.getElementById("cursos-busca");
+  if (busca) busca.value = "";
+  renderCursos("");
+}
+
+function renderCursos(termo) {
+  const div = document.getElementById("cursos-lista");
+  if (!div) return;
+  const t = (termo || "").trim().toLowerCase();
+  const grupos = {};
+  CURSOS
+    .filter((c) => !t || (c.nome + " " + (c.descricao || "") + " " + c.grupo).toLowerCase().includes(t))
+    .forEach((c) => { (grupos[c.grupo] = grupos[c.grupo] || []).push(c); });
+
+  if (!Object.keys(grupos).length) {
+    div.innerHTML = `<p class="vazio">Nenhum curso encontrado para "${escaparHTML(termo)}".</p>`;
+    return;
+  }
+
+  div.innerHTML = GRUPOS_CURSOS.filter((g) => grupos[g]).map((g) => `
+    <h4 class="curriculo-sub">${escaparHTML(g)}</h4>
+    <div class="cursos-grid">
+      ${grupos[g].map((c) => `
+        <button class="curso-card ${cursoEscolhido && cursoEscolhido.id === c.id ? "ativo" : ""}" data-curso="${c.id}" type="button">
+          <span class="curso-icone">${c.icone}</span>
+          <div class="curso-dados">
+            <strong>${escaparHTML(c.nome)}</strong>
+            <span class="curso-desc">${escaparHTML(c.descricao || "")}</span>
+            <div class="curso-pesos">
+              ${areasDePeso(c).filter((a) => a.peso === 3).map((a) => `<span class="peso-tag peso-3">${escaparHTML(a.nome)} ⭐⭐⭐</span>`).join("")}
+            </div>
+          </div>
+        </button>
+      `).join("")}
+    </div>
+  `).join("");
+
+  div.querySelectorAll(".curso-card").forEach((b) => {
+    b.addEventListener("click", () => escolherCurso(b.dataset.curso));
+  });
+}
+
+async function escolherCurso(id) {
+  const c = CURSOS.find((x) => x.id === id);
+  if (!c) return;
+  cursoEscolhido = c;
+  if (usuario) {
+    usuario.curso = id;
+    await salvarUsuario(usuario.uid, { curso: id }).catch(() => {});
+  }
+  renderCursoEscolhido();
+  const busca = document.getElementById("cursos-busca");
+  renderCursos(busca ? busca.value : "");
+  mostrarToast(`Objetivo: ${c.nome} 🎯`);
+}
+
+document.getElementById("btn-escolher-curso").addEventListener("click", abrirCursos);
+document.getElementById("btn-voltar-cursos").addEventListener("click", () => {
+  if (usuario && usuario.papel === "professor") abrirPainelProfessor();
+  else abrirInicioEstudante();
+});
+document.getElementById("cursos-busca").addEventListener("input", (e) => renderCursos(e.target.value));
+
+function renderRanking(container, ranking, uidAtual) {  if (!ranking.length) {
     container.innerHTML = "<p class='vazio'>Ainda não há resultados nesta turma.</p>";
     return;
   }
@@ -4987,11 +5107,45 @@ function pushSuportado() {
     !!firebase.messaging;
 }
 
+function estaEmNavegadorDeApp() {
+  const ua = navigator.userAgent || "";
+  if (/FBAN|FBAV|Instagram|Line\/|WhatsApp|Twitter|LinkedInApp|Snapchat|Pinterest/i.test(ua)) return true;
+  return /Android/i.test(ua) && /;\s*wv\)/i.test(ua);
+}
+
+function ehIOS() {
+  return /iPhone|iPad|iPod/i.test(navigator.userAgent || "") ||
+    (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+}
+
+function estaInstaladoComoApp() {
+  return (window.matchMedia && window.matchMedia("(display-mode: standalone)").matches) ||
+    navigator.standalone === true;
+}
+
+function motivoSemPush() {
+  if (typeof firebase === "undefined" || !firebase.messaging) return "sdk";
+  if (typeof Notification === "undefined" || !("serviceWorker" in navigator)) {
+    if (estaEmNavegadorDeApp()) return "app";
+    if (ehIOS() && !estaInstaladoComoApp()) return "ios";
+    return "navegador";
+  }
+  return "ok";
+}
+
+function textoBotaoPush() {
+  const motivo = motivoSemPush();
+  if (motivo === "app") return "📲 Abra o NINA no Chrome para ativar as notificações";
+  if (motivo === "ios") return "📲 Instale o NINA na Tela de Início para ativar";
+  if (motivo === "sdk") return "🔕 Notificações indisponíveis agora — atualize a página";
+  return "🔕 Este navegador não suporta notificações";
+}
+
 function atualizarStatusPush() {
   const btn = document.getElementById("btn-ativar-push");
   if (!btn) return;
   if (!pushSuportado()) {
-    btn.textContent = "🔕 Este navegador não suporta notificações";
+    btn.textContent = textoBotaoPush();
     btn.disabled = true;
     return;
   }
@@ -5013,7 +5167,13 @@ function atualizarStatusPush() {
 
 async function ativarNotificacoes() {
   if (!pushSuportado()) {
-    mostrarToast("Este navegador não suporta notificações.", "erro");
+    const motivo = motivoSemPush();
+    const aviso = motivo === "app"
+      ? "Abra o NINA no Chrome para ativar as notificações."
+      : motivo === "ios"
+        ? "No iPhone, instale o NINA na Tela de Início e abra por lá para ativar."
+        : "Este navegador não suporta notificações.";
+    mostrarToast(aviso, "erro");
     return;
   }
   if (typeof VAPID_KEY === "undefined" || !VAPID_KEY) {

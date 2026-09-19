@@ -1,0 +1,156 @@
+// NINA — catálogo de cursos e pesos das áreas do ENEM
+// Peso: 3 = prioridade máxima | 2 = média | 1 = baixa
+
+const CURSOS = [
+  // ---------- Comunicação e Artes ----------
+  { id: "jornalismo", nome: "Jornalismo", icone: "📰", grupo: "Comunicação e Artes",
+    pesos: { linguagens: 3, humanas: 2, natureza: 1, matematica: 1, redacao: 3 },
+    descricao: "Escrita, atualidades, interpretação de texto e argumentação." },
+  { id: "letras", nome: "Letras", icone: "📖", grupo: "Comunicação e Artes",
+    pesos: { linguagens: 3, humanas: 2, natureza: 1, matematica: 1, redacao: 3 },
+    descricao: "Literatura, gramática, leitura e produção de texto." },
+  { id: "artes-visuais", nome: "Artes Visuais", icone: "🎨", grupo: "Comunicação e Artes",
+    pesos: { linguagens: 3, humanas: 2, natureza: 1, matematica: 1, redacao: 2 },
+    descricao: "Leitura de imagens, história da arte e criação." },
+  { id: "publicidade", nome: "Publicidade e Propaganda", icone: "📢", grupo: "Comunicação e Artes",
+    pesos: { linguagens: 3, humanas: 2, natureza: 1, matematica: 1, redacao: 3 },
+    descricao: "Criatividade, comunicação, texto e comportamento." },
+  { id: "cinema", nome: "Cinema e Audiovisual", icone: "🎬", grupo: "Comunicação e Artes",
+    pesos: { linguagens: 3, humanas: 2, natureza: 1, matematica: 1, redacao: 2 },
+    descricao: "Narrativa, imagem, som e cultura." },
+  { id: "teatro", nome: "Teatro", icone: "🎭", grupo: "Comunicação e Artes",
+    pesos: { linguagens: 3, humanas: 2, natureza: 1, matematica: 1, redacao: 2 },
+    descricao: "Expressão, corpo, texto dramático e cultura." },
+  { id: "musica", nome: "Música", icone: "🎵", grupo: "Comunicação e Artes",
+    pesos: { linguagens: 2, humanas: 2, natureza: 1, matematica: 1, redacao: 1 },
+    descricao: "Percepção sonora, história da música e prática." },
+  { id: "design", nome: "Design", icone: "🖌️", grupo: "Comunicação e Artes",
+    pesos: { linguagens: 2, humanas: 1, natureza: 1, matematica: 2, redacao: 1 },
+    descricao: "Criatividade, forma, cor e tecnologia." },
+  { id: "moda", nome: "Moda", icone: "👗", grupo: "Comunicação e Artes",
+    pesos: { linguagens: 2, humanas: 2, natureza: 1, matematica: 2, redacao: 1 },
+    descricao: "Criação, cultura, história e materiais." },
+
+  // ---------- Humanas e Sociais ----------
+  { id: "direito", nome: "Direito", icone: "⚖️", grupo: "Humanas e Sociais",
+    pesos: { linguagens: 3, humanas: 3, natureza: 1, matematica: 1, redacao: 3 },
+    descricao: "Argumentação, atualidades, história e leitura." },
+  { id: "psicologia", nome: "Psicologia", icone: "🧠", grupo: "Humanas e Sociais",
+    pesos: { linguagens: 2, humanas: 3, natureza: 2, matematica: 1, redacao: 2 },
+    descricao: "Comportamento, ciências humanas e biológicas." },
+  { id: "historia", nome: "História", icone: "🏛️", grupo: "Humanas e Sociais",
+    pesos: { linguagens: 2, humanas: 3, natureza: 1, matematica: 1, redacao: 2 },
+    descricao: "Contextos históricos, fontes e interpretação." },
+  { id: "geografia", nome: "Geografia", icone: "🗺️", grupo: "Humanas e Sociais",
+    pesos: { linguagens: 2, humanas: 3, natureza: 2, matematica: 1, redacao: 1 },
+    descricao: "Espaço, clima, mapas e questões socioambientais." },
+  { id: "pedagogia", nome: "Pedagogia", icone: "👩‍🏫", grupo: "Humanas e Sociais",
+    pesos: { linguagens: 3, humanas: 3, natureza: 1, matematica: 1, redacao: 2 },
+    descricao: "Educação, leitura, escrita e sociedade." },
+  { id: "servico-social", nome: "Serviço Social", icone: "🤝", grupo: "Humanas e Sociais",
+    pesos: { linguagens: 2, humanas: 3, natureza: 1, matematica: 1, redacao: 2 },
+    descricao: "Questões sociais, políticas públicas e direitos." },
+  { id: "relacoes-internacionais", nome: "Relações Internacionais", icone: "🌐", grupo: "Humanas e Sociais",
+    pesos: { linguagens: 3, humanas: 3, natureza: 1, matematica: 1, redacao: 2 },
+    descricao: "Idiomas, geopolítica, atualidades e redação." },
+  { id: "filosofia", nome: "Filosofia", icone: "🤔", grupo: "Humanas e Sociais",
+    pesos: { linguagens: 2, humanas: 3, natureza: 1, matematica: 1, redacao: 3 },
+    descricao: "Pensamento crítico, argumentação e ética." },
+  { id: "sociologia", nome: "Sociologia", icone: "👥", grupo: "Humanas e Sociais",
+    pesos: { linguagens: 2, humanas: 3, natureza: 1, matematica: 1, redacao: 2 },
+    descricao: "Sociedade, movimentos sociais e cidadania." },
+
+  // ---------- Saúde e Natureza ----------
+  { id: "medicina", nome: "Medicina", icone: "🩺", grupo: "Saúde e Natureza",
+    pesos: { linguagens: 1, humanas: 1, natureza: 3, matematica: 3, redacao: 2 },
+    descricao: "Biologia, química, física e raciocínio lógico." },
+  { id: "enfermagem", nome: "Enfermagem", icone: "💉", grupo: "Saúde e Natureza",
+    pesos: { linguagens: 1, humanas: 2, natureza: 3, matematica: 2, redacao: 1 },
+    descricao: "Ciências da saúde, biologia e cuidado." },
+  { id: "odontologia", nome: "Odontologia", icone: "🦷", grupo: "Saúde e Natureza",
+    pesos: { linguagens: 1, humanas: 1, natureza: 3, matematica: 2, redacao: 1 },
+    descricao: "Biologia, química e ciências da saúde." },
+  { id: "fisioterapia", nome: "Fisioterapia", icone: "🦴", grupo: "Saúde e Natureza",
+    pesos: { linguagens: 1, humanas: 2, natureza: 3, matematica: 2, redacao: 1 },
+    descricao: "Corpo humano, movimento e reabilitação." },
+  { id: "nutricao", nome: "Nutrição", icone: "🥗", grupo: "Saúde e Natureza",
+    pesos: { linguagens: 1, humanas: 2, natureza: 3, matematica: 1, redacao: 1 },
+    descricao: "Alimentação, biologia e química." },
+  { id: "farmacia", nome: "Farmácia", icone: "💊", grupo: "Saúde e Natureza",
+    pesos: { linguagens: 1, humanas: 1, natureza: 3, matematica: 2, redacao: 1 },
+    descricao: "Química, biologia e saúde." },
+  { id: "biomedicina", nome: "Biomedicina", icone: "🔬", grupo: "Saúde e Natureza",
+    pesos: { linguagens: 1, humanas: 1, natureza: 3, matematica: 2, redacao: 1 },
+    descricao: "Pesquisa, biologia e análises clínicas." },
+  { id: "veterinaria", nome: "Medicina Veterinária", icone: "🐾", grupo: "Saúde e Natureza",
+    pesos: { linguagens: 1, humanas: 2, natureza: 3, matematica: 2, redacao: 1 },
+    descricao: "Animais, biologia e saúde." },
+  { id: "biologia", nome: "Ciências Biológicas", icone: "🧬", grupo: "Saúde e Natureza",
+    pesos: { linguagens: 1, humanas: 2, natureza: 3, matematica: 1, redacao: 1 },
+    descricao: "Vida, ecologia e pesquisa científica." },
+  { id: "educacao-fisica", nome: "Educação Física", icone: "🏃", grupo: "Saúde e Natureza",
+    pesos: { linguagens: 2, humanas: 2, natureza: 2, matematica: 1, redacao: 1 },
+    descricao: "Corpo, saúde, esporte e sociedade." },
+
+  // ---------- Exatas, Tecnologia e Gestão ----------
+  { id: "eng-civil", nome: "Engenharia Civil", icone: "🏗️", grupo: "Exatas, Tecnologia e Gestão",
+    pesos: { linguagens: 1, humanas: 1, natureza: 2, matematica: 3, redacao: 1 },
+    descricao: "Cálculo, física e construção." },
+  { id: "eng-computacao", nome: "Engenharia da Computação", icone: "💻", grupo: "Exatas, Tecnologia e Gestão",
+    pesos: { linguagens: 1, humanas: 1, natureza: 2, matematica: 3, redacao: 1 },
+    descricao: "Matemática, lógica e tecnologia." },
+  { id: "ciencia-computacao", nome: "Ciência da Computação", icone: "🖥️", grupo: "Exatas, Tecnologia e Gestão",
+    pesos: { linguagens: 2, humanas: 1, natureza: 1, matematica: 3, redacao: 1 },
+    descricao: "Lógica, matemática e programação." },
+  { id: "sistemas", nome: "Sistemas de Informação", icone: "📊", grupo: "Exatas, Tecnologia e Gestão",
+    pesos: { linguagens: 2, humanas: 1, natureza: 1, matematica: 3, redacao: 1 },
+    descricao: "Tecnologia, dados e gestão." },
+  { id: "administracao", nome: "Administração", icone: "📈", grupo: "Exatas, Tecnologia e Gestão",
+    pesos: { linguagens: 2, humanas: 2, natureza: 1, matematica: 3, redacao: 2 },
+    descricao: "Gestão, matemática e comunicação." },
+  { id: "economia", nome: "Economia", icone: "💰", grupo: "Exatas, Tecnologia e Gestão",
+    pesos: { linguagens: 2, humanas: 3, natureza: 1, matematica: 3, redacao: 2 },
+    descricao: "Matemática, história e atualidades." },
+  { id: "contabilidade", nome: "Ciências Contábeis", icone: "🧾", grupo: "Exatas, Tecnologia e Gestão",
+    pesos: { linguagens: 2, humanas: 2, natureza: 1, matematica: 3, redacao: 1 },
+    descricao: "Números, organização e finanças." },
+  { id: "estatistica", nome: "Estatística", icone: "📉", grupo: "Exatas, Tecnologia e Gestão",
+    pesos: { linguagens: 1, humanas: 1, natureza: 1, matematica: 3, redacao: 1 },
+    descricao: "Dados, probabilidade e análise." },
+  { id: "fisica", nome: "Física", icone: "⚛️", grupo: "Exatas, Tecnologia e Gestão",
+    pesos: { linguagens: 1, humanas: 1, natureza: 3, matematica: 3, redacao: 1 },
+    descricao: "Fenômenos, cálculo e experimentação." },
+  { id: "matematica", nome: "Matemática", icone: "➗", grupo: "Exatas, Tecnologia e Gestão",
+    pesos: { linguagens: 1, humanas: 1, natureza: 1, matematica: 3, redacao: 1 },
+    descricao: "Raciocínio lógico, álgebra e geometria." },
+  { id: "arquitetura", nome: "Arquitetura e Urbanismo", icone: "📐", grupo: "Exatas, Tecnologia e Gestão",
+    pesos: { linguagens: 2, humanas: 2, natureza: 2, matematica: 3, redacao: 1 },
+    descricao: "Desenho, matemática, arte e cidade." },
+];
+
+const GRUPOS_CURSOS = [
+  "Comunicação e Artes",
+  "Humanas e Sociais",
+  "Saúde e Natureza",
+  "Exatas, Tecnologia e Gestão",
+];
+
+const ROTULOS_PESO = {
+  linguagens: "Linguagens",
+  humanas: "Humanas",
+  natureza: "Natureza",
+  matematica: "Matemática",
+  redacao: "Redação",
+};
+
+// Lista as áreas de maior peso de um curso (3 primeiro, depois 2)
+function areasDePeso(curso) {
+  if (!curso || !curso.pesos) return [];
+  return Object.entries(curso.pesos)
+    .sort((a, b) => b[1] - a[1])
+    .map(([area, peso]) => ({ area, peso, nome: ROTULOS_PESO[area] || area }));
+}
+
+if (typeof module !== "undefined") {
+  module.exports = { CURSOS, GRUPOS_CURSOS, ROTULOS_PESO, areasDePeso };
+}

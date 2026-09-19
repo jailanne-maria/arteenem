@@ -65,15 +65,21 @@ const CONTEUDOS = {
 };
 
 // Gera o plano personalizado a partir do resultado do diagnóstico
-// resultado: { pct, areas: { linguagens: 70, ... }, erros: [temas...] }
-function gerarPlano(resultado) {
-  const itens = Object.entries(resultado.areas || {})
-    .map(([area, pct]) => ({ area, pct }))
-    .sort((a, b) => a.pct - b.pct); // pior primeiro
+// resultado: { pct, areas: { linguagens: 70, ... } }
+// curso (opcional): { nome, pesos: { linguagens: 3, redacao: 3, ... } }
+function gerarPlano(resultado, curso) {
+  const pesos = (curso && curso.pesos) || {};
 
-  const prioridades = itens.map(({ area, pct }) => {
+  const itens = Object.entries(resultado.areas || {})
+    .map(([area, pct]) => ({ area, pct, peso: pesos[area] || 2 }));
+
+  // Ordena: área de MAIOR PESO primeiro; empate desempata por pior desempenho
+  itens.sort((a, b) => (b.peso - a.peso) || (a.pct - b.pct));
+
+  const prioridades = itens.map(({ area, pct, peso }) => {
     let nivel, cor, etiqueta;
-    if (pct < 50) { nivel = 1; cor = "#d95d39"; etiqueta = "Prioridade alta"; }
+    if (peso === 3 && pct < 75) { nivel = 1; cor = "#d95d39"; etiqueta = "⭐ Peso máximo"; }
+    else if (pct < 50) { nivel = 1; cor = "#d95d39"; etiqueta = "Prioridade alta"; }
     else if (pct < 75) { nivel = 2; cor = "#e0a94f"; etiqueta = "Prioridade média"; }
     else { nivel = 3; cor = "#81b29a"; etiqueta = "Manutenção"; }
 
@@ -81,6 +87,7 @@ function gerarPlano(resultado) {
     return {
       area,
       pct,
+      peso,
       nivel,
       cor,
       etiqueta,
@@ -89,18 +96,26 @@ function gerarPlano(resultado) {
     };
   });
 
-  // Cronograma semanal: distribui as áreas prioritárias ao longo da semana
-  const focos = prioridades.filter((p) => p.nivel <= 2).map((p) => p.area);
-  const listaFocos = focos.length ? focos : prioridades.map((p) => p.area);
+  // Cronograma: áreas de maior peso aparecem mais vezes na semana
+  const pool = [];
+  prioridades.forEach((p) => {
+    const vezes = Math.max(1, p.peso || 1);
+    for (let i = 0; i < vezes; i++) pool.push(p.area);
+  });
+  const lista = pool.length ? pool : prioridades.map((p) => p.area);
   const dias = ["Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado", "Domingo"];
+  let k = 0;
   const cronograma = dias.map((dia, i) => {
     if (i === 6) return { dia, foco: "Revisão geral e descanso" };
-    const area = listaFocos[i % listaFocos.length];
+    const area = lista[k % lista.length];
+    k++;
     const rot = ROTULOS_AREAS[area];
     return { dia, foco: rot ? `${rot.icone} ${rot.curto}` : area };
   });
 
-  return { prioridades, cronograma };
+  const redacaoPeso = pesos.redacao || 0;
+
+  return { prioridades, cronograma, redacaoPeso, curso: curso || null };
 }
 
 if (typeof module !== "undefined") {
