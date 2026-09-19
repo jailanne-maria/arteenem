@@ -14,6 +14,11 @@ const firebaseConfig = {
 
 let _app = null;
 
+// Chave pública de Web Push (Firebase Console > Configurações do projeto >
+// Cloud Messaging > Certificados push da Web > gerar par de chaves).
+// Cole a chave aqui para ativar as notificações push.
+const VAPID_KEY = "";
+
 function fb() {
   if (!_app) _app = firebase.initializeApp(firebaseConfig);
   return _app;
@@ -639,6 +644,32 @@ function listarNovidades() {
 
 function excluirNovidade(id) {
   return firebase.firestore().collection("novidades").doc(id).delete();
+}
+
+// ---------- Notificações push (Firebase Cloud Messaging) ----------
+function salvarTokenPush(uid, token) {
+  const campo = firebase.firestore.FieldValue;
+  return firebase.firestore().collection("usuarios").doc(uid)
+    .set({ pushTokens: campo.arrayUnion(token), pushAtivo: true }, { merge: true });
+}
+
+function removerTokenPush(uid, token) {
+  const campo = firebase.firestore.FieldValue;
+  return firebase.firestore().collection("usuarios").doc(uid)
+    .set({ pushTokens: campo.arrayRemove(token), pushAtivo: false }, { merge: true });
+}
+
+// Todos os tokens de push cadastrados (usado pelo script de envio)
+function listarTokensPush() {
+  return firebase.firestore().collection("usuarios").get()
+    .then((snap) => {
+      const tokens = [];
+      snap.docs.forEach((d) => {
+        const t = d.data().pushTokens;
+        if (Array.isArray(t)) tokens.push(...t);
+      });
+      return [...new Set(tokens)];
+    });
 }
 
 if (typeof module !== "undefined") {

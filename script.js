@@ -160,6 +160,8 @@ aoMudarUsuario(async (user) => {
 
   // Novidades (avisos para todos os usuários)
   carregarNovidades(true);
+  // Registra o token de push se a permissão já foi concedida antes
+  registrarPushSilencioso();
 
   if (!usuario.papel) {
     mostrarTela("tela-papel");
@@ -4891,6 +4893,7 @@ async function abrirNovidades() {
   esconderBannerNovidades();
   const div = document.getElementById("novidades-lista");
   mostrarTela("tela-novidades");
+  atualizarStatusPush();
   div.innerHTML = "<p class='vazio'>Carregando novidades...</p>";
   try {
     novidadesCache = await listarNovidades();
@@ -4932,6 +4935,91 @@ document.getElementById("btn-voltar-novidades").addEventListener("click", () => 
   if (usuario && usuario.papel === "professor") abrirPainelProfessor();
   else abrirInicioEstudante();
 });
+
+// ============================================================
+// NOTIFICAÇÕES PUSH (Firebase Cloud Messaging)
+// ============================================================
+let pushTokenAtual = null;
+
+function pushSuportado() {
+  return typeof Notification !== "undefined" &&
+    "serviceWorker" in navigator &&
+    typeof firebase !== "undefined" &&
+    !!firebase.messaging;
+}
+
+function atualizarStatusPush() {
+  const btn = document.getElementById("btn-ativar-push");
+  if (!btn) return;
+  if (!pushSuportado()) {
+    btn.textContent = "🔕 Este navegador não suporta notificações";
+    btn.disabled = true;
+    return;
+  }
+  btn.disabled = false;
+  if (Notification.permission === "denied") {
+    btn.textContent = "🔕 Notificações bloqueadas — libere nas configurações do navegador";
+    return;
+  }
+  if (Notification.permission === "granted" && pushTokenAtual) {
+    btn.textContent = "🔔 Notificações ativadas ✅";
+    btn.classList.remove("btn-principal");
+    btn.classList.add("btn-secundario");
+  } else {
+    btn.textContent = "🔔 Ativar notificações";
+    btn.classList.remove("btn-secundario");
+    btn.classList.add("btn-principal");
+  }
+}
+
+async function ativarNotificacoes() {
+  if (!pushSuportado()) {
+    mostrarToast("Este navegador não suporta notificações.", "erro");
+    return;
+  }
+  if (typeof VAPID_KEY === "undefined" || !VAPID_KEY) {
+    mostrarToast("A chave VAPID ainda não foi configurada no app.", "erro");
+    return;
+  }
+  try {
+    const permissao = await Notification.requestPermission();
+    if (permissao !== "granted") {
+      mostrarToast("Permissão de notificação não concedida.", "erro");
+      atualizarStatusPush();
+      return;
+    }
+    const reg = await navigator.serviceWorker.register("firebase-messaging-sw.js");
+    const messaging = firebase.messaging();
+    const token = await messaging.getToken({ vapidKey: VAPID_KEY, serviceWorkerRegistration: reg });
+    if (!token) {
+      mostrarToast("Não foi possível gerar o token de notificação.", "erro");
+      return;
+    }
+    pushTokenAtual = token;
+    await salvarTokenPush(usuario.uid, token).catch(() => {});
+    atualizarStatusPush();
+    mostrarToast("Notificações ativadas! Você vai receber os avisos. 🔔");
+  } catch (e) {
+    mostrarToast("Erro ao ativar: " + e.message, "erro");
+  }
+}
+
+// Tenta registrar o token silenciosamente (só se a permissão já foi dada)
+async function registrarPushSilencioso() {
+  if (!pushSuportado() || Notification.permission !== "granted") return;
+  if (typeof VAPID_KEY === "undefined" || !VAPID_KEY) return;
+  try {
+    const reg = await navigator.serviceWorker.register("firebase-messaging-sw.js");
+    const messaging = firebase.messaging();
+    const token = await messaging.getToken({ vapidKey: VAPID_KEY, serviceWorkerRegistration: reg });
+    if (token) {
+      pushTokenAtual = token;
+      await salvarTokenPush(usuario.uid, token).catch(() => {});
+    }
+  } catch {}
+}
+
+document.getElementById("btn-ativar-push").addEventListener("click", ativarNotificacoes);
 
 // ============================================================
 // ADMINISTRAÇÃO / MODERAÇÃO

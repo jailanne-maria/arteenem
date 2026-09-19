@@ -1,0 +1,7 @@
+# Nunca subir chaves privadas
+serviceAccount.json
+service-account*.json
+*serviceAccount*.json
+config.local.js
+.env
+.env.*
