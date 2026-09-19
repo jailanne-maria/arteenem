@@ -118,6 +118,66 @@ function gerarPlano(resultado, curso) {
   return { prioridades, cronograma, redacaoPeso, curso: curso || null };
 }
 
+// ============================================================
+// PLANO PARA ALCANÇAR O OBJETIVO (passar no curso)
+// ============================================================
+// Meta de acerto por área, conforme o peso dela no curso
+const METAS_POR_PESO = { 3: 80, 2: 70, 1: 60 };
+
+function gerarPlanoObjetivo(areasMapa, curso) {
+  const pesos = (curso && curso.pesos) || {};
+
+  const areas = Object.entries(areasMapa || {}).map(([area, pct]) => {
+    const peso = pesos[area] || 2;
+    const meta = METAS_POR_PESO[peso] || 70;
+    const falta = Math.max(0, meta - pct);
+
+    let situacao, cor, emoji;
+    if (pct >= meta) { situacao = "Meta batida!"; cor = "#2e7d32"; emoji = "✅"; }
+    else if (pct >= meta - 10) { situacao = "Quase lá"; cor = "#e0a94f"; emoji = "🟡"; }
+    else { situacao = "Precisa focar"; cor = "#d95d39"; emoji = "🔴"; }
+
+    const conteudo = CONTEUDOS[area] || { topicos: [], recursos: [] };
+    return {
+      area, pct, peso, meta, falta, situacao, cor, emoji,
+      topicos: conteudo.topicos,
+      recursos: conteudo.recursos,
+    };
+  });
+
+  // Prioridade: maior peso primeiro; empate desempata por maior distância da meta
+  areas.sort((a, b) => (b.peso - a.peso) || (b.falta - a.falta));
+
+  // Prontidão: quanto o estudante já se aproximou da meta (ponderado pelo peso)
+  let somaPeso = 0;
+  let somaAproveitamento = 0;
+  areas.forEach((a) => {
+    const aproveitamento = a.meta ? Math.min(1, a.pct / a.meta) : 1;
+    somaPeso += a.peso;
+    somaAproveitamento += aproveitamento * a.peso;
+  });
+  const prontidao = somaPeso ? Math.round((somaAproveitamento / somaPeso) * 100) : 0;
+
+  // Rotina semanal: áreas de maior peso ganham mais dias
+  const pool = [];
+  areas.forEach((a) => {
+    for (let i = 0; i < Math.max(1, a.peso); i++) pool.push(a.area);
+  });
+  const dias = ["Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado", "Domingo"];
+  let k = 0;
+  const cronograma = dias.map((dia, i) => {
+    if (i === 6) return { dia, foco: "Revisão geral e descanso" };
+    const area = pool.length ? pool[k % pool.length] : null;
+    k++;
+    const rot = ROTULOS_AREAS[area];
+    return { dia, foco: rot ? `${rot.icone} ${rot.curto}` : area };
+  });
+
+  const redacaoPeso = pesos.redacao || 0;
+
+  return { areas, prontidao, cronograma, curso: curso || null, redacaoPeso };
+}
+
 if (typeof module !== "undefined") {
-  module.exports = { CONTEUDOS, gerarPlano };
+  module.exports = { CONTEUDOS, gerarPlano, gerarPlanoObjetivo, METAS_POR_PESO };
 }

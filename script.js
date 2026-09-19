@@ -939,11 +939,129 @@ async function escolherCurso(id) {
 }
 
 document.getElementById("btn-escolher-curso").addEventListener("click", abrirCursos);
+document.getElementById("btn-meu-plano").addEventListener("click", abrirPlanoObjetivo);
+document.getElementById("btn-voltar-plano").addEventListener("click", () => {
+  if (usuario && usuario.papel === "professor") abrirPainelProfessor();
+  else abrirInicioEstudante();
+});
 document.getElementById("btn-voltar-cursos").addEventListener("click", () => {
   if (usuario && usuario.papel === "professor") abrirPainelProfessor();
   else abrirInicioEstudante();
 });
 document.getElementById("cursos-busca").addEventListener("input", (e) => renderCursos(e.target.value));
+
+// ============================================================
+// PLANO PARA ALCANÇAR O OBJETIVO
+// ============================================================
+function abrirPlanoObjetivo() {
+  mostrarTela("tela-plano-objetivo");
+  renderPlanoObjetivo();
+}
+
+function renderPlanoObjetivo() {
+  const div = document.getElementById("plano-objetivo-conteudo");
+  const sub = document.getElementById("plano-objetivo-sub");
+  if (!div) return;
+
+  let salvo = null;
+  try { salvo = JSON.parse(localStorage.getItem(CHAVE_RESULTADO)); } catch {}
+
+  if (!cursoEscolhido) {
+    if (sub) sub.textContent = "";
+    div.innerHTML = `
+      <div class="plano-objetivo vazio-objetivo">🎯 Escolha primeiro o seu curso para eu montar o plano.</div>
+      <button class="btn-principal" id="btn-ir-escolher">🎯 Escolher meu curso</button>`;
+    const b = document.getElementById("btn-ir-escolher");
+    if (b) b.addEventListener("click", abrirCursos);
+    return;
+  }
+
+  if (sub) sub.innerHTML = `Objetivo: <strong>${cursoEscolhido.icone} ${escaparHTML(cursoEscolhido.nome)}</strong>`;
+
+  if (!salvo || !salvo.areas) {
+    div.innerHTML = `
+      <div class="plano-objetivo vazio-objetivo">
+        📝 Faça o <strong>diagnóstico</strong> primeiro — ele mostra sua nota atual em cada área
+        e eu monto o caminho até a meta.
+      </div>
+      <button class="btn-principal" id="btn-ir-diag">🚀 Fazer o diagnóstico</button>`;
+    const b = document.getElementById("btn-ir-diag");
+    if (b) b.addEventListener("click", abrirInicioEstudante);
+    return;
+  }
+
+  const areasMapa = {};
+  salvo.areas.forEach((a) => { areasMapa[a.area] = a.pct; });
+
+  const plano = gerarPlanoObjetivo(areasMapa, cursoEscolhido);
+
+  const cards = plano.areas.map((a) => {
+    const are = AREAS[a.area] || { icone: "", curto: a.area };
+    const topicos = a.topicos.slice(0, 3)
+      .map((t) => `<li><strong>${escaparHTML(t.nome)}</strong> — ${escaparHTML(t.desc)}<br><em>💡 ${escaparHTML(t.dica)}</em></li>`)
+      .join("");
+    const recursos = a.recursos
+      .map((r) => `<a class="recurso-link" href="${r.url}" target="_blank" rel="noopener">${escaparHTML(r.nome)} ↗</a>`)
+      .join("");
+    return `
+      <div class="objetivo-card" style="border-left:6px solid ${a.cor}">
+        <div class="objetivo-topo">
+          <span class="objetivo-area">${are.icone} ${escaparHTML(are.curto)}</span>
+          <span class="peso-tag peso-${a.peso}">peso ${a.peso}</span>
+        </div>
+        <div class="objetivo-barra">
+          <div class="objetivo-barra-fill" style="width:${Math.min(100, a.pct)}%;background:${a.cor}"></div>
+          <div class="objetivo-meta" style="left:${a.meta}%" title="Meta ${a.meta}%"></div>
+        </div>
+        <div class="objetivo-numeros">
+          <span>Sua nota: <strong>${a.pct}%</strong></span>
+          <span>Meta: <strong>${a.meta}%</strong></span>
+          <span style="color:${a.cor}">${a.emoji} ${a.situacao}${a.falta > 0 ? ` · faltam ${a.falta} pts` : ""}</span>
+        </div>
+        <ul class="plano-topicos">${topicos}</ul>
+        <div class="plano-recursos">${recursos}</div>
+      </div>`;
+  }).join("");
+
+  const cardRedacao = plano.redacaoPeso >= 2 ? `
+    <div class="objetivo-card" style="border-left:6px solid #6b3fd4">
+      <div class="objetivo-topo">
+        <span class="objetivo-area">✍️ Redação</span>
+        <span class="peso-tag peso-${plano.redacaoPeso}">peso ${plano.redacaoPeso}</span>
+      </div>
+      <div class="objetivo-numeros">
+        <span style="color:#6b3fd4">⭐ Sua redação vale muito neste curso</span>
+      </div>
+      <ul class="plano-topicos">
+        <li><strong>Escreva 1 redação por semana</strong> — treino constante é o que faz diferença.</li>
+        <li><strong>Domine as 5 competências</strong> — norma culta, tema, argumentação, coesão e intervenção.</li>
+        <li><strong>Monte um repertório</strong> — 3 referências por tema (dados, leis, arte, história).</li>
+      </ul>
+      <div class="plano-recursos">
+        <a class="recurso-link" href="https://www.gov.br/inep/pt-br/areas-de-atuacao/avaliacao-e-exames-educacionais/enem" target="_blank" rel="noopener">INEP — Cartilha do participante ↗</a>
+      </div>
+    </div>` : "";
+
+  const frase = plano.prontidao >= 80
+    ? "Você está muito perto! Mantenha o ritmo. 💪"
+    : plano.prontidao >= 50
+      ? "Você está no caminho. Foque nas áreas de maior peso! 🎯"
+      : "Vamos começar! Priorize as áreas de peso máximo. 🚀";
+
+  div.innerHTML = `
+    <div class="prontidao">
+      <div class="prontidao-num">${plano.prontidao}%</div>
+      <div class="prontidao-txt">
+        <strong>Prontidão para ${escaparHTML(cursoEscolhido.nome)}</strong>
+        <p>${frase}</p>
+      </div>
+    </div>
+    <p class="plano-intro">As áreas estão na ordem de prioridade para o seu objetivo. A linha marca a <strong>meta</strong> de cada uma.</p>
+    <div class="objetivo-lista">${cards}${cardRedacao}</div>
+    <h4 class="plano-subtitulo">🗓️ Rotina semanal sugerida</h4>
+    <div class="cronograma">${plano.cronograma.map((c) => `<div class="crono-dia"><span class="crono-nome">${c.dia}</span><span class="crono-foco">${c.foco}</span></div>`).join("")}</div>
+  `;
+}
 
 function renderRanking(container, ranking, uidAtual) {  if (!ranking.length) {
     container.innerHTML = "<p class='vazio'>Ainda não há resultados nesta turma.</p>";

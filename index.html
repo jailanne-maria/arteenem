@@ -10,7 +10,7 @@
   <link rel="apple-touch-icon" href="img/icon-192.png">
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#5c94fc">
-  <link rel="stylesheet" href="style.css?v=65">
+  <link rel="stylesheet" href="style.css?v=66">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
@@ -213,7 +213,10 @@
         <h3 class="secao-titulo">🎯 Meu objetivo</h3>
         <p class="texto-ajuda">Escolha o curso que você quer fazer. O NINA monta um plano com as <strong>disciplinas de maior peso</strong> para você se destacar.</p>
         <div id="curso-escolhido"></div>
-        <button id="btn-escolher-curso" class="btn-principal">🎯 Escolher meu curso</button>
+        <div class="form-linha">
+          <button id="btn-escolher-curso" class="btn-principal compacto">🎯 Escolher meu curso</button>
+          <button id="btn-meu-plano" class="btn-secundario compacto">📚 Meu plano</button>
+        </div>
       </div>
 
       <h3 class="secao-titulo">Fazer o diagnóstico</h3>
@@ -360,6 +363,16 @@
           <div id="perfil-atividades-lista"></div>
         </div>
       </div>
+    </section>
+
+    <!-- ===== PLANO DO OBJETIVO ===== -->
+    <section id="tela-plano-objetivo" class="tela">
+      <button id="btn-voltar-plano" class="btn-ghost voltar">← Voltar</button>
+      <div class="hero esquerda">
+        <h1>📚 Plano para o meu objetivo</h1>
+        <p id="plano-objetivo-sub"></p>
+      </div>
+      <div id="plano-objetivo-conteudo"></div>
     </section>
 
     <!-- ===== ESCOLHER CURSO ===== -->
@@ -1149,14 +1162,14 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
 
-  <script src="questoes.js?v=65"></script>
-  <script src="questoes-arte.js?v=65"></script>
-  <script src="plano.js?v=65"></script>
-  <script src="explorar.js?v=65"></script>
-  <script src="figurinhas.js?v=65"></script>
-  <script src="curriculo.js?v=65"></script>
-  <script src="cursos.js?v=65"></script>
-  <script src="firebase-config.js?v=65"></script>
-  <script src="script.js?v=65"></script>
+  <script src="questoes.js?v=66"></script>
+  <script src="questoes-arte.js?v=66"></script>
+  <script src="plano.js?v=66"></script>
+  <script src="explorar.js?v=66"></script>
+  <script src="figurinhas.js?v=66"></script>
+  <script src="curriculo.js?v=66"></script>
+  <script src="cursos.js?v=66"></script>
+  <script src="firebase-config.js?v=66"></script>
+  <script src="script.js?v=66"></script>
 </body>
 </html>
