@@ -4271,6 +4271,21 @@ h1, h2, h3, h4, .marca-nome, .btn-principal, .btn-secundario, .btn-google, .btn-
   font-size: 1rem;
 }
 
+/* ===== AVISO DE SEM INTERNET ===== */
+.offline-banner {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: var(--red);
+  color: #fff;
+  text-align: center;
+  padding: 8px 12px;
+  font-size: 0.95rem;
+  border-bottom: 3px solid var(--black);
+}
+
 /* ===== MELHORIAS PARA CELULAR ===== */
 @media (max-width: 640px) {
   /* ===== TOPO ===== */

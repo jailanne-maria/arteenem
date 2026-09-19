@@ -4951,6 +4951,31 @@ document.getElementById("btn-voltar-novidades").addEventListener("click", () => 
 });
 
 // ============================================================
+// SERVICE WORKER (offline + notificações)
+// ============================================================
+let swRegistro = null;
+
+async function registrarSW() {
+  if (!("serviceWorker" in navigator)) return null;
+  try {
+    swRegistro = swRegistro || await navigator.serviceWorker.register("sw.js");
+    return swRegistro;
+  } catch {
+    return null;
+  }
+}
+
+// Aviso de "sem internet"
+function atualizarStatusRede() {
+  const aviso = document.getElementById("offline-banner");
+  if (!aviso) return;
+  if (navigator.onLine) esconder(aviso);
+  else exibir(aviso);
+}
+window.addEventListener("online", atualizarStatusRede);
+window.addEventListener("offline", atualizarStatusRede);
+
+// ============================================================
 // NOTIFICAÇÕES PUSH (Firebase Cloud Messaging)
 // ============================================================
 let pushTokenAtual = null;
@@ -5002,7 +5027,7 @@ async function ativarNotificacoes() {
       atualizarStatusPush();
       return;
     }
-    const reg = await navigator.serviceWorker.register("firebase-messaging-sw.js");
+    const reg = await registrarSW();
     const messaging = firebase.messaging();
     const token = await messaging.getToken({ vapidKey: VAPID_KEY, serviceWorkerRegistration: reg });
     if (!token) {
@@ -5023,7 +5048,7 @@ async function registrarPushSilencioso() {
   if (!pushSuportado() || Notification.permission !== "granted") return;
   if (typeof VAPID_KEY === "undefined" || !VAPID_KEY) return;
   try {
-    const reg = await navigator.serviceWorker.register("firebase-messaging-sw.js");
+    const reg = await registrarSW();
     const messaging = firebase.messaging();
     const token = await messaging.getToken({ vapidKey: VAPID_KEY, serviceWorkerRegistration: reg });
     if (token) {
@@ -5305,3 +5330,9 @@ document.getElementById("btn-voltar-admin").addEventListener("click", () => {
   if (usuario && usuario.papel === "professor") abrirPainelProfessor();
   else abrirInicioEstudante();
 });
+
+// ============================================================
+// MODO OFFLINE
+// ============================================================
+// Registra o service worker assim que o app abre (deixa o app funcionar sem internet)
+registrarSW().then(() => atualizarStatusRede());

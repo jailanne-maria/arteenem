@@ -20,7 +20,11 @@ let _app = null;
 const VAPID_KEY = "BNnHFmXkHL44gw2u84mXzI1Gq_RUe8_o2LDQ_aV7coe7lOFH5VPREOy4fUmE1CWKEIBqg3ZJgj7QZB3y3LAZMi0";
 
 function fb() {
-  if (!_app) _app = firebase.initializeApp(firebaseConfig);
+  if (!_app) {
+    _app = firebase.initializeApp(firebaseConfig);
+    // Guarda os dados no aparelho: o que já foi carregado continua visível offline
+    firebase.firestore().enablePersistence({ synchronizeTabs: true }).catch(() => {});
+  }
   return _app;
 }
 
