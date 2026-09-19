@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="NINA — diagnóstico das 4 áreas do ENEM. Professores criam turmas, estudantes fazem o diagnóstico e disputam o ranking.">
   <title>NINA · Diagnóstico das 4 áreas</title>
-  <link rel="stylesheet" href="style.css?v=56">
+  <link rel="stylesheet" href="style.css?v=57">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
@@ -22,6 +22,7 @@
         <span id="usuario-nome" class="usuario-nome escondido"></span>
         <button id="btn-inicio" class="btn-ghost escondido">🏠 Início</button>
         <button id="btn-noticias" class="btn-ghost escondido">📰 Notícias</button>
+        <button id="btn-novidades" class="btn-ghost escondido">🔔 Novidades <span id="novidades-badge" class="badge escondido"></span></button>
         <button id="btn-menu" class="btn-ghost escondido">☰ Menu</button>
         <div id="menu-extra" class="menu-extra escondido">
           <button id="btn-biblioteca" class="btn-ghost escondido">📚 Biblioteca</button>
@@ -348,6 +349,16 @@
       </div>
     </section>
 
+    <!-- ===== NOVIDADES ===== -->
+    <section id="tela-novidades" class="tela">
+      <button id="btn-voltar-novidades" class="btn-ghost voltar">← Voltar</button>
+      <div class="hero esquerda">
+        <h1>🔔 Novidades</h1>
+        <p>O que mudou no NINA — avisos e melhorias para professores e estudantes.</p>
+      </div>
+      <div id="novidades-lista" class="novidades-lista"></div>
+    </section>
+
     <!-- ===== CHAT DA ESCOLA ===== -->
     <section id="tela-chat" class="tela">
       <button id="btn-voltar-chat" class="btn-ghost voltar">← Voltar</button>
@@ -394,6 +405,7 @@
         <button class="admin-aba" data-admin="perguntas">📝 Perguntas</button>
         <button class="admin-aba" data-admin="mensagens">✉️ Mensagens</button>
         <button class="admin-aba" data-admin="mensagensTurma">👥 Chat da turma</button>
+        <button class="admin-aba" data-admin="novidades">🔔 Novidades</button>
       </div>
       <div id="admin-conteudo" class="admin-conteudo"></div>
     </section>
@@ -1062,6 +1074,13 @@
     <p class="rodape-sub">NINA · Diagnóstico educacional das 4 áreas do ENEM</p>
   </footer>
 
+  <!-- Banner de novidades -->
+  <div id="novidades-banner" class="novidades-banner escondido">
+    <span id="novidades-banner-texto">🆕 Novidades no NINA!</span>
+    <button id="btn-ver-novidades" class="btn-principal compacto">Ver</button>
+    <button id="btn-fechar-novidades" class="btn-ghost compacto">✖</button>
+  </div>
+
   <!-- Firebase (compat) -->
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
@@ -1071,13 +1090,13 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
 
-  <script src="questoes.js?v=56"></script>
-  <script src="questoes-arte.js?v=56"></script>
-  <script src="plano.js?v=56"></script>
-  <script src="explorar.js?v=56"></script>
-  <script src="figurinhas.js?v=56"></script>
-  <script src="curriculo.js?v=56"></script>
-  <script src="firebase-config.js?v=56"></script>
-  <script src="script.js?v=56"></script>
+  <script src="questoes.js?v=57"></script>
+  <script src="questoes-arte.js?v=57"></script>
+  <script src="plano.js?v=57"></script>
+  <script src="explorar.js?v=57"></script>
+  <script src="figurinhas.js?v=57"></script>
+  <script src="curriculo.js?v=57"></script>
+  <script src="firebase-config.js?v=57"></script>
+  <script src="script.js?v=57"></script>
 </body>
 </html>

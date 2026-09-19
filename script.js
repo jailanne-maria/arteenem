@@ -57,6 +57,7 @@ aoMudarUsuario(async (user) => {
   const btnEca = document.getElementById("btn-eca");
   const btnJogo = document.getElementById("btn-jogo");
   const btnNoticias = document.getElementById("btn-noticias");
+  const btnNovidades = document.getElementById("btn-novidades");
   const btnSintese = document.getElementById("btn-sintese");
   const btnCurriculo = document.getElementById("btn-curriculo");
   const btnRevisoes = document.getElementById("btn-revisoes");
@@ -80,6 +81,7 @@ aoMudarUsuario(async (user) => {
     esconder(btnEca);
     esconder(btnJogo);
     esconder(btnNoticias);
+    esconder(btnNovidades);
     esconder(btnSintese);
     esconder(btnCurriculo);
     esconder(btnRevisoes);
@@ -131,6 +133,7 @@ aoMudarUsuario(async (user) => {
   exibir(btnEca);
   exibir(btnJogo);
   exibir(btnNoticias);
+  exibir(btnNovidades);
   exibir(btnSintese);
   exibir(btnCurriculo);
   exibir(btnRevisoes);
@@ -154,6 +157,9 @@ aoMudarUsuario(async (user) => {
   listarPerguntas()
     .then((ps) => { perguntasExtras = ps; })
     .catch(() => {});
+
+  // Novidades (avisos para todos os usuários)
+  carregarNovidades(true);
 
   if (!usuario.papel) {
     mostrarTela("tela-papel");
@@ -4836,10 +4842,102 @@ document.getElementById("chat-turma-input").addEventListener("keydown", (e) => {
 });
 
 // ============================================================
+// NOVIDADES (avisos para todos os usuários)
+// ============================================================
+let novidadesCache = [];
+let novidadesNaoLidas = 0;
+
+async function carregarNovidades(mostrarBanner) {
+  try {
+    novidadesCache = await listarNovidades();
+  } catch {
+    novidadesCache = [];
+  }
+  const visto = (usuario && usuario.novidadeVistaMs) || 0;
+  novidadesNaoLidas = novidadesCache.filter((n) => n.ms > visto).length;
+  atualizarBadgeNovidades();
+  if (mostrarBanner && novidadesNaoLidas > 0) mostrarBannerNovidades();
+}
+
+function atualizarBadgeNovidades() {
+  const badge = document.getElementById("novidades-badge");
+  if (!badge) return;
+  if (novidadesNaoLidas > 0) {
+    badge.textContent = novidadesNaoLidas;
+    badge.classList.remove("escondido");
+  } else {
+    badge.classList.add("escondido");
+  }
+}
+
+function mostrarBannerNovidades() {
+  const b = document.getElementById("novidades-banner");
+  const t = document.getElementById("novidades-banner-texto");
+  if (!b) return;
+  if (t) {
+    t.innerHTML = novidadesNaoLidas === 1
+      ? "🆕 <strong>1 novidade</strong> no NINA!"
+      : `🆕 <strong>${novidadesNaoLidas} novidades</strong> no NINA!`;
+  }
+  exibir(b);
+}
+
+function esconderBannerNovidades() {
+  const b = document.getElementById("novidades-banner");
+  if (b) esconder(b);
+}
+
+async function abrirNovidades() {
+  esconderBannerNovidades();
+  const div = document.getElementById("novidades-lista");
+  mostrarTela("tela-novidades");
+  div.innerHTML = "<p class='vazio'>Carregando novidades...</p>";
+  try {
+    novidadesCache = await listarNovidades();
+  } catch {
+    div.innerHTML = "<p class='vazio'>Não foi possível carregar agora.</p>";
+    return;
+  }
+  if (!novidadesCache.length) {
+    div.innerHTML = "<p class='vazio'>Nenhuma novidade publicada ainda.</p>";
+    return;
+  }
+  div.innerHTML = novidadesCache.map((n) => `
+    <div class="novidade-card">
+      <div class="novidade-topo">
+        <strong>${escaparHTML(n.titulo || "Novidade")}</strong>
+        <span>${n.ms ? new Date(n.ms).toLocaleDateString("pt-BR") : ""}</span>
+      </div>
+      <p>${escaparHTML(n.texto || "")}</p>
+      ${n.link ? `<a class="btn-secundario compacto" href="${escaparHTML(n.link)}" target="_blank" rel="noopener">Abrir link ↗</a>` : ""}
+      <small class="novidade-autor">por ${escaparHTML(n.autorNome || "equipe NINA")}</small>
+    </div>
+  `).join("");
+  await marcarNovidadesVistas();
+}
+
+async function marcarNovidadesVistas() {
+  if (!usuario || !novidadesCache.length) return;
+  const maiorMs = novidadesCache[0].ms || Date.now();
+  usuario.novidadeVistaMs = maiorMs;
+  novidadesNaoLidas = 0;
+  atualizarBadgeNovidades();
+  await salvarUsuario(usuario.uid, { novidadeVistaMs: maiorMs }).catch(() => {});
+}
+
+document.getElementById("btn-novidades").addEventListener("click", abrirNovidades);
+document.getElementById("btn-ver-novidades").addEventListener("click", abrirNovidades);
+document.getElementById("btn-fechar-novidades").addEventListener("click", esconderBannerNovidades);
+document.getElementById("btn-voltar-novidades").addEventListener("click", () => {
+  if (usuario && usuario.papel === "professor") abrirPainelProfessor();
+  else abrirInicioEstudante();
+});
+
+// ============================================================
 // ADMINISTRAÇÃO / MODERAÇÃO
 // ============================================================
 let adminAba = "usuarios";
-let adminDados = { usuarios: [], mural: [], perguntas: [], mensagens: [], mensagensTurma: [] };
+let adminDados = { usuarios: [], mural: [], perguntas: [], mensagens: [], mensagensTurma: [], novidades: [] };
 
 function abrirAdmin() {
   if (!ehAdmin()) return;
@@ -4856,6 +4954,7 @@ async function carregarAdmin() {
     else if (adminAba === "mural") adminDados.mural = await listarTodosDepoimentos();
     else if (adminAba === "perguntas") adminDados.perguntas = await listarPerguntas();
     else if (adminAba === "mensagensTurma") adminDados.mensagensTurma = await listarTodasMensagensTurma();
+    else if (adminAba === "novidades") adminDados.novidades = await listarNovidades();
     else adminDados.mensagens = await listarTodasMensagens();
   } catch (e) {
     div.innerHTML = `<p class="vazio">Erro ao carregar: ${escaparHTML(e.message)}</p>`;
@@ -4870,6 +4969,7 @@ function renderAdmin() {
   if (adminAba === "mural") return renderAdminMural(div);
   if (adminAba === "perguntas") return renderAdminPerguntas(div);
   if (adminAba === "mensagensTurma") return renderAdminMensagensTurma(div);
+  if (adminAba === "novidades") return renderAdminNovidades(div);
   return renderAdminMensagens(div);
 }
 
@@ -4983,6 +5083,70 @@ function renderAdminMensagensTurma(div) {
   `;
 }
 
+function renderAdminNovidades(div) {
+  const lista = adminDados.novidades;
+  div.innerHTML = `
+    <div class="painel-bloco">
+      <h3 class="secao-titulo">📢 Publicar novidade</h3>
+      <p class="texto-ajuda">Todos os usuários verão um aviso e uma bolinha no menu até abrirem as novidades.</p>
+      <div class="campo">
+        <label class="perfil-rotulo" for="nov-titulo">Título</label>
+        <input id="nov-titulo" type="text" maxlength="80" placeholder="Ex.: Novo: flash cards nas revisões!">
+      </div>
+      <div class="campo">
+        <label class="perfil-rotulo" for="nov-texto">Mensagem</label>
+        <textarea id="nov-texto" rows="3" maxlength="600" placeholder="Explique a novidade em poucas palavras..."></textarea>
+      </div>
+      <div class="campo">
+        <label class="perfil-rotulo" for="nov-link">Link (opcional)</label>
+        <input id="nov-link" type="text" maxlength="300" placeholder="https://...">
+      </div>
+      <div id="nov-aviso" class="aviso escondido"></div>
+      <button id="btn-publicar-novidade" class="btn-principal">📢 Publicar para todos</button>
+    </div>
+    <p class="admin-resumo">${lista.length} novidade(s) publicada(s)</p>
+    ${lista.map((n) => `
+      <div class="admin-item">
+        <div class="admin-item-info">
+          <strong>${escaparHTML(n.titulo || "Novidade")}</strong>
+          <span class="admin-sub">${escaparHTML((n.texto || "").slice(0, 140))}${n.link ? " · 🔗 tem link" : ""}</span>
+        </div>
+        <div class="admin-acoes">
+          <button class="btn-ghost compacto" data-acao="excluir-novidade" data-id="${n.id}">🗑️ Apagar</button>
+        </div>
+      </div>
+    `).join("") || `<p class="vazio">Nenhuma novidade publicada ainda.</p>`}
+  `;
+
+  const btn = document.getElementById("btn-publicar-novidade");
+  if (btn) {
+    btn.addEventListener("click", async () => {
+      const aviso = document.getElementById("nov-aviso");
+      const titulo = document.getElementById("nov-titulo").value.trim();
+      const texto = document.getElementById("nov-texto").value.trim();
+      const link = document.getElementById("nov-link").value.trim();
+      if (!titulo || !texto) {
+        aviso.className = "aviso erro";
+        aviso.textContent = "Preencha o título e a mensagem.";
+        exibir(aviso);
+        return;
+      }
+      btn.disabled = true;
+      try {
+        await publicarNovidade(usuario, { titulo, texto, link });
+        mostrarToast("Novidade publicada para todos! 🎉");
+        await carregarAdmin();
+        carregarNovidades(false);
+      } catch (e) {
+        aviso.className = "aviso erro";
+        aviso.textContent = "Erro ao publicar: " + e.message;
+        exibir(aviso);
+        btn.disabled = false;
+      }
+    });
+  }
+}
+
 document.querySelectorAll(".admin-aba").forEach((b) => {
   b.addEventListener("click", () => {
     adminAba = b.dataset.admin;
@@ -5021,6 +5185,10 @@ document.getElementById("admin-conteudo").addEventListener("click", async (e) =>
       if (!confirm("Apagar esta mensagem do chat da turma?")) return;
       await excluirMensagemTurma(id);
       mostrarToast("Mensagem do chat da turma apagada.");
+    } else if (acao === "excluir-novidade") {
+      if (!confirm("Apagar esta novidade?")) return;
+      await excluirNovidade(id);
+      mostrarToast("Novidade apagada.");
     } else {
       return;
     }

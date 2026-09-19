@@ -106,5 +106,11 @@ service cloud.firestore {
       allow delete: if logado() && (resource.data.uid == request.auth.uid || ehAdmin());
       allow update: if false;
     }
+
+    // ---------- Novidades (avisos para todos os usuários) ----------
+    match /novidades/{id} {
+      allow read: if logado();
+      allow create, update, delete: if ehAdmin();
+    }
   }
 }

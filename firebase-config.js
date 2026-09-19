@@ -612,6 +612,35 @@ function listarTodasMensagensTurma() {
     });
 }
 
+// ---------- Novidades (avisos para todos os usuários) ----------
+function publicarNovidade(autor, dados) {
+  return firebase.firestore().collection("novidades").add({
+    titulo: (dados.titulo || "").trim(),
+    texto: (dados.texto || "").trim(),
+    link: (dados.link || "").trim(),
+    autorId: autor.uid,
+    autorNome: autor.nome,
+    criadoEm: firebase.firestore.FieldValue.serverTimestamp(),
+  });
+}
+
+function listarNovidades() {
+  return firebase.firestore().collection("novidades").get()
+    .then((snap) => {
+      const lista = snap.docs.map((d) => {
+        const data = d.data();
+        const ms = data.criadoEm && data.criadoEm.toMillis ? data.criadoEm.toMillis() : 0;
+        return { id: d.id, ...data, ms };
+      });
+      lista.sort((a, b) => b.ms - a.ms);
+      return lista;
+    });
+}
+
+function excluirNovidade(id) {
+  return firebase.firestore().collection("novidades").doc(id).delete();
+}
+
 if (typeof module !== "undefined") {
   module.exports = { firebaseConfig };
 }
