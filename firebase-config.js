@@ -17,7 +17,7 @@ let _app = null;
 // Chave pública de Web Push (Firebase Console > Configurações do projeto >
 // Cloud Messaging > Certificados push da Web > gerar par de chaves).
 // Cole a chave aqui para ativar as notificações push.
-const VAPID_KEY = "";
+const VAPID_KEY = "BNnHFmXkHL44gw2u84mXzI1Gq_RUe8_o2LDQ_aV7coe7lOFH5VPREOy4fUmE1CWKEIBqg3ZJgj7QZB3y3LAZMi0";
 
 function fb() {
   if (!_app) _app = firebase.initializeApp(firebaseConfig);
