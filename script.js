@@ -5222,7 +5222,7 @@ function renderAdminNovidades(div) {
       btn.disabled = true;
       try {
         await publicarNovidade(usuario, { titulo, texto, link });
-        mostrarToast("Novidade publicada para todos! 🎉");
+        mostrarToast("Novidade publicada! 🔔 O push sai automaticamente em alguns minutos.");
         await carregarAdmin();
         carregarNovidades(false);
       } catch (e) {
