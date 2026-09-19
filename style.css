@@ -685,9 +685,9 @@ h1, h2, h3, h4, .marca-nome, .btn-principal, .btn-secundario, .btn-google, .btn-
 
 .rodape-logo {
   display: block;
-  margin: 10px auto 0;
-  width: 230px;
-  max-width: 76%;
+  margin: 12px auto 0;
+  width: 100%;
+  max-width: 620px;
   border: 4px solid var(--black);
   border-radius: 12px;
   box-shadow: 4px 4px 0 var(--black);
