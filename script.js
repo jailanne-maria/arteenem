@@ -1057,18 +1057,22 @@ async function ganharEstrela() {
 function modoPerfil(editando) {
   perfilEmEdicao = editando;
   const btnPapel = document.getElementById("btn-trocar-papel");
+  const btnApoiador = document.getElementById("btn-apoiador");
+  const ehProf = usuario && usuario.papel === "professor";
   if (editando) {
     exibir(document.getElementById("perfil-edit"));
     esconder(document.getElementById("perfil-view"));
     exibir(document.getElementById("btn-editar-perfil"));
     document.getElementById("btn-editar-perfil").textContent = "Cancelar";
     if (btnPapel) esconder(btnPapel);
+    if (btnApoiador) esconder(btnApoiador);
   } else {
     esconder(document.getElementById("perfil-edit"));
     exibir(document.getElementById("perfil-view"));
     exibir(document.getElementById("btn-editar-perfil"));
     document.getElementById("btn-editar-perfil").textContent = "✏️ Editar perfil";
     if (btnPapel) { if (perfilEhMeu) exibir(btnPapel); else esconder(btnPapel); }
+    if (btnApoiador) { if (perfilEhMeu && ehProf) exibir(btnApoiador); else esconder(btnApoiador); }
   }
 }
 
@@ -1078,6 +1082,8 @@ function abrirMeuPerfil() {
   exibir(document.getElementById("btn-editar-perfil"));
   atualizarBotaoPapel();
   exibir(document.getElementById("btn-trocar-papel"));
+  if (usuario.papel === "professor") exibir(document.getElementById("btn-apoiador"));
+  else esconder(document.getElementById("btn-apoiador"));
   modoPerfil(false);
   carregarAtividadesPerfil(usuario.uid);
   mostrarTela("tela-perfil");
@@ -1114,6 +1120,14 @@ async function trocarPapel() {
 }
 
 document.getElementById("btn-trocar-papel").addEventListener("click", trocarPapel);
+
+// Tela do apoiador (professor)
+document.getElementById("btn-apoiador").addEventListener("click", () => {
+  mostrarTela("tela-apoiador");
+});
+document.getElementById("btn-voltar-apoiador").addEventListener("click", () => {
+  mostrarTela("tela-perfil");
+});
 
 // Mostra as atividades feitas (visível para o aluno e para o professor que abrir o perfil)
 async function carregarAtividadesPerfil(uid) {
