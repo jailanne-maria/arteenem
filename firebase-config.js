@@ -156,6 +156,51 @@ function listarTurmasDoAluno(uid) {
   });
 }
 
+// Busca várias turmas pelos códigos (o aluno pode estar em mais de uma)
+function listarTurmasPorCodigos(codigos) {
+  const lista = (codigos || []).filter(Boolean).slice(0, 30);
+  if (!lista.length) return Promise.resolve([]);
+  return Promise.all(
+    lista.map((c) => buscarTurma(c).catch(() => null))
+  ).then((turmas) => turmas.filter(Boolean));
+}
+
+// Revisões de várias turmas de uma vez (array-contains-any aceita até 10)
+function listarRevisoesDasTurmas(codigos) {
+  const lista = (codigos || []).filter(Boolean).slice(0, 10);
+  if (!lista.length) return Promise.resolve([]);
+  return firebase.firestore().collection("revisoes")
+    .where("turmas", "array-contains-any", lista)
+    .get()
+    .then((snap) => {
+      const out = snap.docs.map((d) => {
+        const data = d.data();
+        const ms = data.criadoEm && data.criadoEm.toMillis ? data.criadoEm.toMillis() : 0;
+        return { id: d.id, ...data, ms };
+      });
+      out.sort((a, b) => b.ms - a.ms);
+      return out;
+    });
+}
+
+// Atividades de várias turmas de uma vez
+function listarAtividadesDasTurmas(codigos) {
+  const lista = (codigos || []).filter(Boolean).slice(0, 10);
+  if (!lista.length) return Promise.resolve([]);
+  return firebase.firestore().collection("atividades")
+    .where("turmas", "array-contains-any", lista)
+    .get()
+    .then((snap) => {
+      const out = snap.docs.map((d) => {
+        const data = d.data();
+        const ms = data.criadaEm && data.criadaEm.toMillis ? data.criadaEm.toMillis() : 0;
+        return { id: d.id, ...data, ms };
+      });
+      out.sort((a, b) => b.ms - a.ms);
+      return out;
+    });
+}
+
 // ---------- Resultados e ranking ----------
 // Doc id: {codigoTurma}_{uid} — guarda o melhor resultado do aluno na turma
 function salvarResultado(codigo, aluno, resultado) {
@@ -476,6 +521,44 @@ function excluirMensagemEscola(id) {
   return firebase.firestore().collection("mensagens").doc(id).delete();
 }
 
+// ---------- Chat da turma (professor + estudantes) ----------
+function enviarMensagemTurma(usuario, turma, texto) {
+  return firebase.firestore().collection("mensagensTurma").add({
+    turma,
+    uid: usuario.uid,
+    nome: usuario.nome,
+    foto: usuario.foto || "",
+    papel: usuario.papel || "",
+    texto: texto.trim(),
+    criadoEm: firebase.firestore.FieldValue.serverTimestamp(),
+  });
+}
+
+function ouvirMensagensTurma(turma, callback) {
+  return firebase.firestore().collection("mensagensTurma")
+    .where("turma", "==", turma)
+    .onSnapshot((snap) => {
+      const lista = snap.docs.map((d) => {
+        const data = d.data();
+        const ms = data.criadoEm && data.criadoEm.toMillis ? data.criadoEm.toMillis() : 0;
+        return { id: d.id, ...data, ms };
+      });
+      lista.sort((a, b) => a.ms - b.ms);
+      callback(lista);
+    }, () => callback(null));
+}
+
+function excluirMensagemTurma(id) {
+  return firebase.firestore().collection("mensagensTurma").doc(id).delete();
+}
+
+// ---------- Feedback do professor nas atividades ----------
+function salvarComentarioQuiz(atividadeId, alunoId, comentario) {
+  const id = `${atividadeId}_${alunoId}`;
+  return firebase.firestore().collection("respostasQuiz").doc(id)
+    .set({ comentario: comentario || "", comentadoEm: firebase.firestore.FieldValue.serverTimestamp() }, { merge: true });
+}
+
 // ---------- Administração / moderação ----------
 function listarTodosUsuarios() {
   return firebase.firestore().collection("usuarios").get()
@@ -505,6 +588,19 @@ function listarTodosDepoimentos() {
 
 function listarTodasMensagens() {
   return firebase.firestore().collection("mensagens").get()
+    .then((snap) => {
+      const lista = snap.docs.map((d) => {
+        const data = d.data();
+        const ms = data.criadoEm && data.criadoEm.toMillis ? data.criadoEm.toMillis() : 0;
+        return { id: d.id, ...data, ms };
+      });
+      lista.sort((a, b) => b.ms - a.ms);
+      return lista;
+    });
+}
+
+function listarTodasMensagensTurma() {
+  return firebase.firestore().collection("mensagensTurma").get()
     .then((snap) => {
       const lista = snap.docs.map((d) => {
         const data = d.data();

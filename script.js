@@ -16,6 +16,7 @@ function ehAdmin() {
 // ---------- Estado global ----------
 let usuario = null;       // { uid, nome, email, foto, papel }
 let minhaTurma = null;    // { id, nome, codigo } do estudante
+let minhasTurmas = [];    // todas as turmas do estudante
 let turmaAtualProf = null; // turma aberta no painel do professor
 
 // Quiz
@@ -63,6 +64,7 @@ aoMudarUsuario(async (user) => {
   const btnSimulado = document.getElementById("btn-simulado");
   const btnBiblioteca = document.getElementById("btn-biblioteca");
   const btnChat = document.getElementById("btn-chat");
+  const btnChatTurma = document.getElementById("btn-chat-turma");
   const btnAdmin = document.getElementById("btn-admin");
   const btnInicio = document.getElementById("btn-inicio");
   const btnMenu = document.getElementById("btn-menu");
@@ -85,6 +87,7 @@ aoMudarUsuario(async (user) => {
     esconder(btnSimulado);
     esconder(btnBiblioteca);
     esconder(btnChat);
+    esconder(btnChatTurma);
     esconder(btnAdmin);
     esconder(btnInicio);
     esconder(btnMenu);
@@ -139,6 +142,8 @@ aoMudarUsuario(async (user) => {
 
   // Chat da escola (somente professores)
   if (usuario.papel === "professor") exibir(btnChat); else esconder(btnChat);
+  // Chat da turma (professor e estudantes)
+  exibir(btnChatTurma);
   // Painel de administração (somente e-mails autorizados)
   if (ehAdmin()) exibir(btnAdmin); else esconder(btnAdmin);
 
@@ -430,47 +435,105 @@ async function abrirInicioEstudante() {
   document.getElementById("aluno-nome").textContent = usuario.nome.split(" ")[0];
   renderAreas();
   renderAnterior();
-  await carregarTurmaEstudante();
+  await carregarTurmasEstudante();
   mostrarTela("tela-inicio");
 }
 
-async function carregarTurmaEstudante() {
+// Códigos das turmas do estudante (para buscar revisões/atividades de todas)
+function codigosDasMinhasTurmas() {
+  return (minhasTurmas || []).map((t) => t.codigo);
+}
+
+// Carrega TODAS as turmas do estudante (ele pode participar de várias)
+async function carregarTurmasEstudante() {
+  // migra do modelo antigo (turmaAtual única) para lista de turmas
+  if (!Array.isArray(usuario.turmas)) {
+    usuario.turmas = usuario.turmaAtual ? [usuario.turmaAtual] : [];
+    await salvarUsuario(usuario.uid, { turmas: usuario.turmas }).catch(() => {});
+  }
+
+  const lista = await listarTurmasPorCodigos(usuario.turmas);
+  minhasTurmas = lista;
+
+  // limpa códigos de turmas que não existem mais
+  const validos = lista.map((t) => t.codigo);
+  if (validos.length !== usuario.turmas.length) {
+    usuario.turmas = validos;
+    await salvarUsuario(usuario.uid, { turmas: validos }).catch(() => {});
+  }
+
+  // turma ativa (usada no mural, ranking e chat)
+  const sel = usuario.turmaAtual && validos.includes(usuario.turmaAtual)
+    ? usuario.turmaAtual
+    : (validos[0] || null);
+  usuario.turmaAtual = sel;
+  minhaTurma = lista.find((t) => t.codigo === sel) || null;
+
+  renderTurmasAluno();
+}
+
+function renderTurmasAluno() {
   const blocoInfo = document.getElementById("bloco-turma-aluno");
   const blocoEntrar = document.getElementById("bloco-entrar-turma");
+  const info = document.getElementById("turma-aluno-info");
+  if (!info) return;
 
-  if (usuario.turmaAtual) {
-    const turma = await buscarTurma(usuario.turmaAtual).catch(() => null);
-    if (turma) {
-      minhaTurma = turma;
-      document.getElementById("turma-aluno-info").innerHTML = `
-        <div class="turma-aluno">
-          <div>
-            <strong>${turma.nome}</strong><br>
-            <span class="turma-cod">${turma.codigo}</span>
-          </div>
-          <button class="btn-sair-turma" id="btn-sair-turma">🚪 Sair da turma</button>
-        </div>
-      `;
-      document.getElementById("btn-sair-turma").addEventListener("click", sairDaTurma);
-      exibir(blocoInfo);
-      esconder(blocoEntrar);
-      return;
-    }
+  if (!minhasTurmas.length) {
+    esconder(blocoInfo);
+    exibir(blocoEntrar);
+    return;
   }
-  minhaTurma = null;
-  esconder(blocoInfo);
+
+  info.innerHTML = minhasTurmas.map((t) => {
+    const ativa = t.codigo === usuario.turmaAtual;
+    return `
+      <div class="turma-aluno ${ativa ? "ativa" : ""}">
+        <div class="turma-aluno-dados">
+          <strong>${escaparHTML(t.nome)}</strong><br>
+          <span class="turma-cod">${escaparHTML(t.codigo)}</span>
+        </div>
+        <div class="turma-aluno-acoes">
+          ${ativa
+            ? `<span class="turma-selo">✔ ativa</span>`
+            : `<button class="btn-secundario compacto btn-usar-turma" data-cod="${escaparHTML(t.codigo)}">Usar esta</button>`}
+          <button class="btn-ghost compacto btn-sair-turma" data-cod="${escaparHTML(t.codigo)}">🚪 Sair</button>
+        </div>
+      </div>`;
+  }).join("");
+
+  info.querySelectorAll(".btn-usar-turma").forEach((b) =>
+    b.addEventListener("click", () => selecionarTurma(b.dataset.cod))
+  );
+  info.querySelectorAll(".btn-sair-turma").forEach((b) =>
+    b.addEventListener("click", () => sairDaTurma(b.dataset.cod))
+  );
+
+  exibir(blocoInfo);
   exibir(blocoEntrar);
 }
 
-async function sairDaTurma() {
-  if (!minhaTurma) return;
-  if (!confirm(`Sair da turma "${minhaTurma.nome}"?`)) return;
+// Define qual turma está ativa (mural, ranking, chat)
+async function selecionarTurma(codigo) {
+  usuario.turmaAtual = codigo;
+  minhaTurma = minhasTurmas.find((t) => t.codigo === codigo) || null;
+  await salvarUsuario(usuario.uid, { turmaAtual: codigo }).catch(() => {});
+  renderTurmasAluno();
+  mostrarToast(`Turma ativa: ${minhaTurma ? minhaTurma.nome : codigo}`);
+}
+
+async function sairDaTurma(codigo) {
+  const t = minhasTurmas.find((x) => x.codigo === codigo);
+  if (!t) return;
+  if (!confirm(`Sair da turma "${t.nome}"?`)) return;
   try {
-    await removerMembro(minhaTurma.codigo, usuario.uid);
-    usuario.turmaAtual = null;
-    await salvarUsuario(usuario.uid, { turmaAtual: null }).catch(() => {});
-    minhaTurma = null;
-    await carregarTurmaEstudante();
+    await removerMembro(t.codigo, usuario.uid);
+    usuario.turmas = (usuario.turmas || []).filter((c) => c !== t.codigo);
+    if (usuario.turmaAtual === t.codigo) usuario.turmaAtual = usuario.turmas[0] || null;
+    await salvarUsuario(usuario.uid, {
+      turmas: usuario.turmas,
+      turmaAtual: usuario.turmaAtual,
+    }).catch(() => {});
+    await carregarTurmasEstudante();
   } catch (e) {
     alert("Erro ao sair da turma: " + e.message);
   }
@@ -482,14 +545,19 @@ document.getElementById("btn-entrar-turma").addEventListener("click", async () =
   if (!codigo) return;
   try {
     const turma = await entrarNaTurma(codigo, usuario);
+    usuario.turmas = Array.isArray(usuario.turmas) ? usuario.turmas.slice() : [];
+    if (!usuario.turmas.includes(turma.codigo)) usuario.turmas.push(turma.codigo);
     usuario.turmaAtual = turma.codigo;
-    await salvarUsuario(usuario.uid, { turmaAtual: turma.codigo }).catch(() => {});
+    await salvarUsuario(usuario.uid, {
+      turmas: usuario.turmas,
+      turmaAtual: turma.codigo,
+    }).catch(() => {});
     minhaTurma = turma;
     aviso.className = "aviso ok";
     aviso.textContent = `✅ Você entrou na turma ${turma.nome}!`;
     exibir(aviso);
     document.getElementById("input-codigo").value = "";
-    await carregarTurmaEstudante();
+    await carregarTurmasEstudante();
   } catch (e) {
     aviso.className = "aviso erro";
     aviso.textContent = e.message;
@@ -2915,9 +2983,11 @@ Responda em JSON puro, no formato:
 {
   "mapa": [{"conceito":"conceito principal","relacoes":["relação com outro conceito","..."]}],
   "revisao": ["tópico essencial 1","tópico 2"],
+  "flashcards": [{"conceito":"termo ou pergunta curta","explicacao":"explicação clara em 1 ou 2 frases"}],
   "atividade": [{"pergunta":"...","resposta":"..."}]
 }
-Inclua de 6 a 10 conceitos no mapa, 5 a 8 tópicos na revisão e 5 questões na atividade (com gabarito).
+Inclua de 6 a 10 conceitos no mapa, 5 a 8 tópicos na revisão, de 6 a 10 flash cards (um lado o conceito, o outro a explicação) e 5 questões na atividade (com gabarito).
+Nos flash cards, o "conceito" deve ser curto (máx. 60 caracteres) e a "explicacao" deve ser objetiva e completa.
 
 Conteúdo:
 ${texto}`;
@@ -2959,7 +3029,51 @@ ${texto}`;
   throw new Error("A IA está sobrecarregada no momento. Aguarde alguns instantes e tente novamente.");
 }
 
+// Monta os flash cards (um lado o conceito, o outro a explicação)
+function montarFlashcards(lista) {
+  return (lista || []).map((f, i) => {
+    const conceito = f.conceito || f.frente || "";
+    const explicacao = f.explicacao || f.verso || "";
+    if (!conceito && !explicacao) return "";
+    return `<button class="flash-card" data-flash="${i}" type="button">
+      <span class="flash-num">${i + 1}</span>
+      <span class="flash-conteudo">
+        <span class="flash-frente">${escaparHTML(conceito)}</span>
+        <span class="flash-verso escondido">${escaparHTML(explicacao)}</span>
+      </span>
+      <span class="flash-dica">toque para virar 🔄</span>
+    </button>`;
+  }).join("");
+}
+
+// Vira o flash card ao clicar
+document.addEventListener("click", (e) => {
+  const card = e.target.closest(".flash-card");
+  if (!card) return;
+  const frente = card.querySelector(".flash-frente");
+  const verso = card.querySelector(".flash-verso");
+  const virado = !card.classList.contains("virado");
+  card.classList.toggle("virado", virado);
+  if (frente) frente.classList.toggle("escondido", virado);
+  if (verso) verso.classList.toggle("escondido", !virado);
+});
+
 let revisaoAtual = null;
+
+// Envia o feedback do professor para o estudante (nas atividades)
+document.addEventListener("click", async (e) => {
+  const btn = e.target.closest(".feedback-enviar");
+  if (!btn) return;
+  const item = btn.closest(".rank-item");
+  const input = item ? item.querySelector(".feedback-input") : null;
+  const texto = input ? input.value.trim() : "";
+  try {
+    await salvarComentarioQuiz(btn.dataset.atividade, btn.dataset.aluno, texto);
+    mostrarToast("Feedback enviado ao estudante! ✅");
+  } catch (err) {
+    mostrarToast("Erro ao enviar: " + err.message, "erro");
+  }
+});
 
 async function renderRevisao(r) {
   revisaoAtual = r;
@@ -2971,6 +3085,7 @@ async function renderRevisao(r) {
     </div>
   `).join("");
   const revisao = (r.revisao || []).map((x) => `<li>${escaparHTML(x)}</li>`).join("");
+  const flashcardsHtml = montarFlashcards(r.flashcards);
   const atividade = (r.atividade || []).map((a, i) => `
     <div class="ativ-item">
       <p class="ativ-pergunta"><strong>${i + 1}.</strong> ${escaparHTML(a.pergunta)}</p>
@@ -2999,6 +3114,11 @@ async function renderRevisao(r) {
       <ul class="revisao-lista">${revisao || "<li>—</li>"}</ul>
     </div>
     <div class="painel-bloco">
+      <h3 class="secao-titulo">🃏 Flash cards</h3>
+      <p class="texto-ajuda">Um lado traz o <strong>conceito</strong>, o outro a <strong>explicação</strong>. Clique para virar.</p>
+      <div class="flash-lista">${flashcardsHtml || "<p class='vazio'>—</p>"}</div>
+    </div>
+    <div class="painel-bloco">
       <h3 class="secao-titulo">✍️ Atividade de fixação</h3>
       <div class="ativ-lista">${atividade || "<p class='vazio'>—</p>"}</div>
     </div>
@@ -3007,6 +3127,13 @@ async function renderRevisao(r) {
       <div class="campo">
         <label class="perfil-rotulo" for="revisao-titulo-input">Título da revisão</label>
         <input id="revisao-titulo-input" type="text" maxlength="80" placeholder="Ex.: Modernismo — Arte">
+      </div>
+      <div class="campo">
+        <label class="perfil-rotulo" for="revisao-tipo">Organizar como</label>
+        <select id="revisao-tipo">
+          <option value="atividade">📋 Atividade (entrega / avaliação)</option>
+          <option value="exercicio">✏️ Exercício (treino e revisão)</option>
+        </select>
       </div>
       <div class="turmas-checks">${turmasHtml}</div>
       <div id="revisao-pub-aviso" class="aviso escondido"></div>
@@ -3030,11 +3157,15 @@ async function publicarRevisaoAtual() {
     return;
   }
   const titulo = (document.getElementById("revisao-titulo-input").value.trim()) || "Revisão";
+  const campoTipo = document.getElementById("revisao-tipo");
+  const tipo = campoTipo ? campoTipo.value : "atividade";
   try {
     await publicarRevisao(usuario, {
       titulo,
+      tipo,
       mapa: revisaoAtual.mapa || [],
       revisao: revisaoAtual.revisao || [],
+      flashcards: revisaoAtual.flashcards || [],
       atividade: revisaoAtual.atividade || [],
       turmas: marcadas,
     });
@@ -3059,8 +3190,8 @@ async function abrirRevisoes() {
     let revisoes = [];
     if (usuario.papel === "professor") {
       revisoes = await listarRevisoesDoProfessor(usuario.uid);
-    } else if (minhaTurma && minhaTurma.codigo) {
-      revisoes = await listarRevisoesDaTurma(minhaTurma.codigo);
+    } else if (codigosDasMinhasTurmas().length) {
+      revisoes = await listarRevisoesDasTurmas(codigosDasMinhasTurmas());
     }
     if (!revisoes.length) {
       div.innerHTML = `<p class='vazio'>${usuario.papel === "professor" ? "Você ainda não publicou revisões." : "Nenhuma revisão publicada para sua turma ainda."}</p>`;
@@ -3085,6 +3216,8 @@ function renderRevisaoCard(r) {
       <ul>${(m.relacoes || []).map((x) => `<li>${escaparHTML(x)}</li>`).join("")}</ul>
     </div>`).join("");
   const revisao = (r.revisao || []).map((x) => `<li>${escaparHTML(x)}</li>`).join("");
+  const flashcardsHtml = montarFlashcards(r.flashcards);
+  const tipoBadge = r.tipo === "exercicio" ? "✏️ Exercício" : "📋 Atividade";
 
   const atividade = (r.atividade || []).map((a, i) => {
     if (ehProf) {
@@ -3112,12 +3245,16 @@ function renderRevisaoCard(r) {
 
   return `
     <details class="revisao-card">
-      <summary>📖 ${escaparHTML(r.titulo || "Revisão")} <small>· ${escaparHTML(r.professorNome || "")}</small></summary>
+      <summary>📖 ${escaparHTML(r.titulo || "Revisão")} <small>· ${escaparHTML(r.professorNome || "")}</small> <span class="tipo-badge">${tipoBadge}</span></summary>
       <div class="revisao-card-corpo">
         <h4 class="curriculo-sub">🧠 Mapa conceitual</h4>
         <div class="mapa-lista">${mapa || "<p class='vazio'>—</p>"}</div>
         <h4 class="curriculo-sub">📖 Revisão</h4>
         <ul class="revisao-lista">${revisao || "<li>—</li>"}</ul>
+        ${flashcardsHtml ? `
+          <h4 class="curriculo-sub">🃏 Flash cards</h4>
+          <p class="texto-ajuda">Um lado traz o <strong>conceito</strong>, o outro a <strong>explicação</strong>. Toque para virar.</p>
+          <div class="flash-lista">${flashcardsHtml}</div>` : ""}
         <h4 class="curriculo-sub">✍️ Atividade</h4>
         <div class="ativ-lista">${atividade || "<p class='vazio'>—</p>"}</div>
         ${blocoRespostas}
@@ -3419,6 +3556,7 @@ document.getElementById("btn-criar-atividade").addEventListener("click", async (
 
     await criarAtividade(usuario, {
       titulo,
+      tipo: (document.getElementById("ativ-tipo") || {}).value || "atividade",
       area,
       serie,
       disciplina: usuario.disciplina || null,
@@ -3586,7 +3724,12 @@ async function carregarEstatisticasAtividade(atividade, corpo) {
         const pct = r.total ? Math.round((r.acertos / r.total) * 100) : 0;
         const medalha = i === 0 ? "🥇" : i === 1 ? "🥈" : i === 2 ? "🥉" : i + 1 + "º";
         const estrela = r.total && r.acertos === r.total ? " ⭐" : "";
-        return `<div class="rank-item"><span class="rank-pos">${medalha}</span><div class="rank-info"><div class="rank-nome">${escaparHTML(r.alunoNome)}${estrela}</div><div class="rank-areas">${r.acertos}/${r.total} acertos</div></div><span class="rank-pct">${pct}%</span></div>`;
+        return `<div class="rank-item"><span class="rank-pos">${medalha}</span><div class="rank-info"><div class="rank-nome">${escaparHTML(r.alunoNome)}${estrela}</div><div class="rank-areas">${r.acertos}/${r.total} acertos</div>
+          <div class="feedback-box">
+            <input class="feedback-input" type="text" maxlength="300" placeholder="Escreva um feedback para o estudante..." value="${escaparHTML(r.comentario || "")}">
+            <button class="btn-secundario compacto feedback-enviar" data-atividade="${atividade.id}" data-aluno="${r.alunoId}">💬 Enviar</button>
+          </div>
+        </div><span class="rank-pct">${pct}%</span></div>`;
       }).join("");
       html += `</div>`;
     }
@@ -3605,8 +3748,8 @@ async function abrirAtividadesAluno() {
   div.innerHTML = "<p class='vazio'>Carregando atividades…</p>";
   try {
     let atividades = [];
-    if (minhaTurma && minhaTurma.codigo) {
-      atividades = await listarAtividadesDaTurma(minhaTurma.codigo);
+    if (codigosDasMinhasTurmas().length) {
+      atividades = await listarAtividadesDasTurmas(codigosDasMinhasTurmas());
     }
     if (!atividades.length) {
       div.innerHTML = "<p class='vazio'>Nenhuma atividade para sua turma ainda.</p>";
@@ -3617,7 +3760,7 @@ async function abrirAtividadesAluno() {
     minhas.forEach((r) => (feitas[r.atividadeId] = r));
     atividadesCache = atividades;
 
-    div.innerHTML = atividades.map((a) => {
+    const cardAtividade = (a) => {
       const feita = feitas[a.id];
       const pct = feita && feita.total ? Math.round((feita.acertos / feita.total) * 100) : null;
       const estrela = pct === 100 ? " ⭐" : "";
@@ -3626,10 +3769,22 @@ async function abrirAtividadesAluno() {
           <strong>${escaparHTML(a.titulo)}</strong>
           <small>${(a.perguntas || []).length} questões · ${escaparHTML(a.professorNome || "")}</small>
           ${feita ? `<span class="atividade-feita">✅ Feita: ${feita.acertos}/${feita.total} (${pct}%)${estrela}</span>` : ""}
+          ${feita && feita.comentario ? `<div class="feedback-prof">💬 <strong>Feedback da professora:</strong> ${escaparHTML(feita.comentario)}</div>` : ""}
         </div>
         <button class="btn-principal compacto ativ-responder" data-id="${a.id}" ${feita ? "disabled" : ""}>${feita ? "Respondida" : "Responder"}</button>
       </div>`;
-    }).join("");
+    };
+
+    const listaAtividades = atividades.filter((a) => a.tipo !== "exercicio");
+    const listaExercicios = atividades.filter((a) => a.tipo === "exercicio");
+    let htmlLista = "";
+    if (listaAtividades.length) {
+      htmlLista += `<h4 class="curriculo-sub">📋 Atividades</h4>` + listaAtividades.map(cardAtividade).join("");
+    }
+    if (listaExercicios.length) {
+      htmlLista += `<h4 class="curriculo-sub">✏️ Exercícios</h4>` + listaExercicios.map(cardAtividade).join("");
+    }
+    div.innerHTML = htmlLista || "<p class='vazio'>Nenhuma atividade para sua turma ainda.</p>";
   } catch (e) {
     div.innerHTML = `<p class='vazio'>Erro: ${e.message}</p>`;
   }
@@ -4586,10 +4741,105 @@ document.getElementById("btn-chat-config").addEventListener("click", () => {
 document.getElementById("btn-ir-escola").addEventListener("click", abrirEscolhaArea);
 
 // ============================================================
+// CHAT DA TURMA (professor + estudantes da turma)
+// ============================================================
+let chatTurmaUnsub = null;
+let chatTurmaCodigo = null;
+
+// Código da turma ativa (do professor ou do estudante)
+function codigoDaTurmaAtiva() {
+  if (!usuario) return null;
+  if (usuario.papel === "professor") return turmaAtualProf ? turmaAtualProf.codigo : null;
+  return minhaTurma ? minhaTurma.codigo : null;
+}
+
+function abrirChatTurma() {
+  if (!usuario) return;
+  const codigo = codigoDaTurmaAtiva();
+  const nome = document.getElementById("chat-turma-nome");
+  const lista = document.getElementById("chat-turma-lista");
+
+  if (!codigo) {
+    nome.textContent = "Nenhuma turma ativa.";
+    lista.innerHTML = `<p class="vazio">${usuario.papel === "professor"
+      ? "Abra uma turma no painel para conversar com os estudantes."
+      : "Entre numa turma para conversar com a turma."}</p>`;
+    mostrarTela("tela-chat-turma");
+    return;
+  }
+
+  const nomeTurma = usuario.papel === "professor"
+    ? (turmaAtualProf && turmaAtualProf.nome)
+    : (minhaTurma && minhaTurma.nome);
+  nome.innerHTML = `<strong>${escaparHTML(nomeTurma || "")}</strong> · ${escaparHTML(codigo)}`;
+  mostrarTela("tela-chat-turma");
+  ouvirChatTurma(codigo);
+}
+
+function ouvirChatTurma(codigo) {
+  if (chatTurmaUnsub) { chatTurmaUnsub(); chatTurmaUnsub = null; }
+  chatTurmaCodigo = codigo;
+  const lista = document.getElementById("chat-turma-lista");
+  lista.innerHTML = `<p class="vazio">Carregando mensagens...</p>`;
+  chatTurmaUnsub = ouvirMensagensTurma(codigo, (msgs) => {
+    if (!msgs) {
+      lista.innerHTML = `<p class="vazio">Não foi possível carregar o chat agora.</p>`;
+      return;
+    }
+    if (!msgs.length) {
+      lista.innerHTML = `<p class="vazio">Nenhuma mensagem ainda. Comece a conversa!</p>`;
+      return;
+    }
+    lista.innerHTML = msgs.map((m) => {
+      const meu = m.uid === usuario.uid;
+      const ehProf = m.papel === "professor";
+      const hora = m.ms
+        ? new Date(m.ms).toLocaleString("pt-BR", { day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" })
+        : "";
+      return `<div class="chat-msg ${meu ? "minha" : ""} ${ehProf ? "prof" : ""}">
+        <div class="chat-msg-topo"><strong>${escaparHTML(meu ? "Você" : (m.nome || "Usuário"))}${ehProf ? " 👩🏽‍🏫" : ""}</strong><span>${hora}</span></div>
+        <p>${escaparHTML(m.texto || "")}</p>
+      </div>`;
+    }).join("");
+    lista.scrollTop = lista.scrollHeight;
+  });
+}
+
+function fecharChatTurma() {
+  if (chatTurmaUnsub) { chatTurmaUnsub(); chatTurmaUnsub = null; }
+  chatTurmaCodigo = null;
+}
+
+async function enviarChatTurma() {
+  const input = document.getElementById("chat-turma-input");
+  const texto = input.value.trim();
+  const codigo = chatTurmaCodigo || codigoDaTurmaAtiva();
+  if (!texto || !codigo) return;
+  input.value = "";
+  try {
+    await enviarMensagemTurma(usuario, codigo, texto);
+  } catch (e) {
+    mostrarToast("Erro ao enviar: " + e.message, "erro");
+    input.value = texto;
+  }
+}
+
+document.getElementById("btn-chat-turma").addEventListener("click", abrirChatTurma);
+document.getElementById("btn-voltar-chat-turma").addEventListener("click", () => {
+  fecharChatTurma();
+  if (usuario && usuario.papel === "professor") abrirPainelProfessor();
+  else abrirInicioEstudante();
+});
+document.getElementById("btn-chat-turma-enviar").addEventListener("click", enviarChatTurma);
+document.getElementById("chat-turma-input").addEventListener("keydown", (e) => {
+  if (e.key === "Enter") { e.preventDefault(); enviarChatTurma(); }
+});
+
+// ============================================================
 // ADMINISTRAÇÃO / MODERAÇÃO
 // ============================================================
 let adminAba = "usuarios";
-let adminDados = { usuarios: [], mural: [], perguntas: [], mensagens: [] };
+let adminDados = { usuarios: [], mural: [], perguntas: [], mensagens: [], mensagensTurma: [] };
 
 function abrirAdmin() {
   if (!ehAdmin()) return;
@@ -4605,6 +4855,7 @@ async function carregarAdmin() {
     if (adminAba === "usuarios") adminDados.usuarios = await listarTodosUsuarios();
     else if (adminAba === "mural") adminDados.mural = await listarTodosDepoimentos();
     else if (adminAba === "perguntas") adminDados.perguntas = await listarPerguntas();
+    else if (adminAba === "mensagensTurma") adminDados.mensagensTurma = await listarTodasMensagensTurma();
     else adminDados.mensagens = await listarTodasMensagens();
   } catch (e) {
     div.innerHTML = `<p class="vazio">Erro ao carregar: ${escaparHTML(e.message)}</p>`;
@@ -4618,6 +4869,7 @@ function renderAdmin() {
   if (adminAba === "usuarios") return renderAdminUsuarios(div);
   if (adminAba === "mural") return renderAdminMural(div);
   if (adminAba === "perguntas") return renderAdminPerguntas(div);
+  if (adminAba === "mensagensTurma") return renderAdminMensagensTurma(div);
   return renderAdminMensagens(div);
 }
 
@@ -4713,6 +4965,24 @@ function renderAdminMensagens(div) {
   `;
 }
 
+function renderAdminMensagensTurma(div) {
+  const lista = adminDados.mensagensTurma;
+  div.innerHTML = `
+    <p class="admin-resumo">${lista.length} mensagem(ns) no chat das turmas</p>
+    ${lista.map((m) => `
+      <div class="admin-item">
+        <div class="admin-item-info">
+          <strong>${escaparHTML(m.nome || "Usuário")} · 👥 ${escaparHTML(m.turma || "—")}</strong>
+          <span class="admin-sub">${escaparHTML((m.texto || "").slice(0, 140))}</span>
+        </div>
+        <div class="admin-acoes">
+          <button class="btn-ghost compacto" data-acao="excluir-mensagem-turma" data-id="${m.id}">🗑️ Apagar</button>
+        </div>
+      </div>
+    `).join("") || `<p class="vazio">Nenhuma mensagem no chat das turmas ainda.</p>`}
+  `;
+}
+
 document.querySelectorAll(".admin-aba").forEach((b) => {
   b.addEventListener("click", () => {
     adminAba = b.dataset.admin;
@@ -4747,6 +5017,10 @@ document.getElementById("admin-conteudo").addEventListener("click", async (e) =>
       if (!confirm("Apagar esta mensagem do chat?")) return;
       await excluirMensagemEscola(id);
       mostrarToast("Mensagem do chat apagada.");
+    } else if (acao === "excluir-mensagem-turma") {
+      if (!confirm("Apagar esta mensagem do chat da turma?")) return;
+      await excluirMensagemTurma(id);
+      mostrarToast("Mensagem do chat da turma apagada.");
     } else {
       return;
     }

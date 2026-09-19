@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="NINA — diagnóstico das 4 áreas do ENEM. Professores criam turmas, estudantes fazem o diagnóstico e disputam o ranking.">
   <title>NINA · Diagnóstico das 4 áreas</title>
-  <link rel="stylesheet" href="style.css?v=55">
+  <link rel="stylesheet" href="style.css?v=56">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
@@ -36,6 +36,7 @@
           <button id="btn-perfil" class="btn-ghost escondido">👤 Perfil</button>
           <button id="btn-mural" class="btn-ghost escondido">💬 Mural</button>
           <button id="btn-chat" class="btn-ghost escondido">💬 Chat da escola</button>
+          <button id="btn-chat-turma" class="btn-ghost escondido">👥 Chat da turma</button>
           <button id="btn-admin" class="btn-ghost escondido">🛡️ Admin</button>
           <button id="btn-sair" class="btn-ghost escondido">Sair</button>
         </div>
@@ -188,12 +189,13 @@
       </div>
 
       <div id="bloco-turma-aluno" class="painel-bloco escondido">
-        <h3 class="secao-titulo">Minha turma</h3>
+        <h3 class="secao-titulo">Minhas turmas</h3>
+        <p class="texto-ajuda">Você pode participar de várias turmas. A turma <strong>ativa</strong> define o mural, o ranking e o chat.</p>
         <div id="turma-aluno-info"></div>
       </div>
 
       <div id="bloco-entrar-turma" class="painel-bloco">
-        <h3 class="secao-titulo">Entrar numa turma</h3>
+        <h3 class="secao-titulo">Entrar em outra turma</h3>
         <div class="form-linha">
           <input id="input-codigo" type="text" placeholder="Código da turma (ex.: ABC123)" maxlength="6" style="text-transform:uppercase">
           <button id="btn-entrar-turma" class="btn-principal compacto">Entrar</button>
@@ -363,6 +365,22 @@
       </div>
     </section>
 
+    <!-- ===== CHAT DA TURMA ===== -->
+    <section id="tela-chat-turma" class="tela">
+      <button id="btn-voltar-chat-turma" class="btn-ghost voltar">← Voltar</button>
+      <div class="hero esquerda">
+        <h1>👥 Chat da turma</h1>
+        <p id="chat-turma-nome"></p>
+      </div>
+      <div class="chat-caixa">
+        <div id="chat-turma-lista" class="chat-lista"></div>
+        <div class="chat-envio">
+          <input id="chat-turma-input" type="text" maxlength="500" placeholder="Escreva uma mensagem para a turma...">
+          <button id="btn-chat-turma-enviar" class="btn-principal compacto">Enviar</button>
+        </div>
+      </div>
+    </section>
+
     <!-- ===== ADMINISTRAÇÃO ===== -->
     <section id="tela-admin" class="tela">
       <button id="btn-voltar-admin" class="btn-ghost voltar">← Voltar</button>
@@ -375,6 +393,7 @@
         <button class="admin-aba" data-admin="mural">💬 Mural</button>
         <button class="admin-aba" data-admin="perguntas">📝 Perguntas</button>
         <button class="admin-aba" data-admin="mensagens">✉️ Mensagens</button>
+        <button class="admin-aba" data-admin="mensagensTurma">👥 Chat da turma</button>
       </div>
       <div id="admin-conteudo" class="admin-conteudo"></div>
     </section>
@@ -753,6 +772,14 @@
           <input id="ativ-titulo" type="text" maxlength="80" placeholder="Ex.: Arte — Revisão">
         </div>
 
+        <div class="campo">
+          <label class="perfil-rotulo" for="ativ-tipo">Organizar como</label>
+          <select id="ativ-tipo">
+            <option value="atividade">📋 Atividade (entrega / avaliação)</option>
+            <option value="exercicio">✏️ Exercício (treino e revisão)</option>
+          </select>
+        </div>
+
         <div id="ativ-campos-banco" class="linha-campos">
           <div class="campo">
             <label class="perfil-rotulo" for="ativ-serie">Série</label>
@@ -1044,13 +1071,13 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
 
-  <script src="questoes.js?v=55"></script>
-  <script src="questoes-arte.js?v=55"></script>
-  <script src="plano.js?v=55"></script>
-  <script src="explorar.js?v=55"></script>
-  <script src="figurinhas.js?v=55"></script>
-  <script src="curriculo.js?v=55"></script>
-  <script src="firebase-config.js?v=55"></script>
-  <script src="script.js?v=55"></script>
+  <script src="questoes.js?v=56"></script>
+  <script src="questoes-arte.js?v=56"></script>
+  <script src="plano.js?v=56"></script>
+  <script src="explorar.js?v=56"></script>
+  <script src="figurinhas.js?v=56"></script>
+  <script src="curriculo.js?v=56"></script>
+  <script src="firebase-config.js?v=56"></script>
+  <script src="script.js?v=56"></script>
 </body>
 </html>

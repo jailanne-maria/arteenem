@@ -1078,6 +1078,35 @@ h1, h2, h3, h4, .marca-nome, .btn-principal, .btn-secundario, .btn-google, .btn-
   justify-content: space-between;
   gap: 12px;
   flex-wrap: wrap;
+  background: var(--surface-2);
+  border: 3px solid var(--black);
+  border-radius: 12px;
+  padding: 10px 14px;
+  margin-bottom: 10px;
+}
+
+.turma-aluno.ativa {
+  border-color: var(--green-dark);
+  box-shadow: 0 0 0 3px rgba(46, 125, 50, 0.18);
+}
+
+.turma-aluno-dados {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.turma-aluno-acoes {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.turma-selo {
+  color: var(--green-dark);
+  font-weight: bold;
+  font-size: 0.95rem;
 }
 
 .turma-aluno .turma-cod {
@@ -3915,6 +3944,11 @@ h1, h2, h3, h4, .marca-nome, .btn-principal, .btn-secundario, .btn-google, .btn-
   background: var(--yellow);
 }
 
+.chat-msg.prof {
+  border-color: var(--roxo);
+  box-shadow: 0 0 0 3px rgba(107, 63, 212, 0.18);
+}
+
 .chat-msg-topo {
   display: flex;
   justify-content: space-between;
@@ -4061,6 +4095,101 @@ h1, h2, h3, h4, .marca-nome, .btn-principal, .btn-secundario, .btn-google, .btn-
 
 .toast.visivel { transform: translate(-50%, 0); opacity: 1; }
 .toast.erro { background: #b3261e; }
+
+/* ===== FLASH CARDS (revisão) ===== */
+.flash-lista {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 12px;
+}
+
+.flash-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+  min-height: 156px;
+  text-align: left;
+  cursor: pointer;
+  padding: 16px;
+  background: var(--surface-2);
+  border: 4px solid var(--black);
+  border-radius: 12px;
+  box-shadow: 4px 4px 0 var(--black);
+  font-family: inherit;
+  transition: background 0.2s ease, transform 0.12s ease;
+}
+
+.flash-card:hover { transform: translateY(-3px); }
+.flash-card.virado { background: var(--surface-3); }
+
+.flash-num {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  font-size: 0.8rem;
+  opacity: 0.5;
+}
+
+.flash-frente {
+  display: block;
+  font-family: var(--pixel);
+  font-size: 0.55rem;
+  line-height: 1.9;
+}
+
+.flash-verso {
+  display: block;
+  font-size: 1.05rem;
+  line-height: 1.45;
+}
+
+.flash-dica {
+  font-size: 0.8rem;
+  opacity: 0.55;
+  margin-top: auto;
+}
+
+.tipo-badge {
+  background: var(--yellow);
+  border: 2px solid var(--black);
+  border-radius: 999px;
+  padding: 1px 8px;
+  font-size: 0.72rem;
+  font-family: var(--texto);
+  white-space: nowrap;
+}
+
+/* ===== FEEDBACK DO PROFESSOR (atividades) ===== */
+.feedback-box {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.feedback-input {
+  flex: 1;
+  min-width: 170px;
+  border: 2px solid var(--black);
+  border-radius: 8px;
+  padding: 6px 10px;
+  font-family: var(--texto);
+  font-size: 1rem;
+  background: var(--surface-2);
+}
+
+.feedback-prof {
+  margin-top: 8px;
+  background: var(--surface-3);
+  border: 2px dashed var(--black);
+  border-radius: 10px;
+  padding: 8px 12px;
+  font-size: 1rem;
+  line-height: 1.4;
+}
 
 /* ===== MELHORIAS PARA CELULAR ===== */
 @media (max-width: 640px) {

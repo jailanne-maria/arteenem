@@ -98,5 +98,13 @@ service cloud.firestore {
       allow delete: if logado() && (resource.data.uid == request.auth.uid || ehAdmin());
       allow update: if false;
     }
+
+    // ---------- Chat da turma (professor + estudantes) ----------
+    match /mensagensTurma/{id} {
+      allow read: if logado();
+      allow create: if logado();
+      allow delete: if logado() && (resource.data.uid == request.auth.uid || ehAdmin());
+      allow update: if false;
+    }
   }
 }
