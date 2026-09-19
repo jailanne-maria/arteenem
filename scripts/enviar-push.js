@@ -1,6 +1,6 @@
 /* ===== Enviar notificação push para todos os usuários do NINA =====
  *
- * COMO USAR:
+ * COMO USAR (no seu computador):
  *   1) Baixe a chave de serviço no Firebase Console:
  *      Configurações do projeto > Contas de serviço > Gerar nova chave privada
  *      Salve como "serviceAccount.json" nesta pasta (scripts/).
@@ -12,8 +12,13 @@
  *      Ou envie uma mensagem personalizada:
  *        node scripts/enviar-push.js "Título" "Mensagem"
  *
- *   3) Opcional: link que abre ao clicar (padrão: o app do NINA)
+ *      Opcional: link que abre ao clicar
  *        node scripts/enviar-push.js "Título" "Mensagem" "https://..."
+ *
+ * MODO AUTOMÁTICO (usado pelo GitHub Action):
+ *      node scripts/enviar-push.js --auto
+ *   Envia só se houver uma novidade NOVA (guarda o controle em ultimo-push.json).
+ *   A chave de serviço vem da variável de ambiente NINA_SERVICE_ACCOUNT.
  */
 
 const fs = require("fs");
@@ -23,8 +28,7 @@ const crypto = require("crypto");
 const PROJECT_ID = "arteenem-1691d";
 const APP_URL = "https://jailanne-maria.github.io/arteenem/";
 const ICONE = APP_URL + "img/nina-logo.png";
-
-const CAMINHO_CHAVE = process.env.NINA_CHAVE || path.join(__dirname, "serviceAccount.json");
+const ARQUIVO_CONTROLE = path.join(__dirname, "..", "ultimo-push.json");
 
 function b64url(input) {
   return Buffer.from(input)
@@ -32,6 +36,20 @@ function b64url(input) {
     .replace(/\+/g, "-")
     .replace(/\//g, "_")
     .replace(/=+$/, "");
+}
+
+function carregarChave() {
+  if (process.env.NINA_SERVICE_ACCOUNT) {
+    return JSON.parse(process.env.NINA_SERVICE_ACCOUNT);
+  }
+  const caminho = process.env.NINA_CHAVE || path.join(__dirname, "serviceAccount.json");
+  if (!fs.existsSync(caminho)) {
+    console.error(`\n❌ Chave de serviço não encontrada em:\n   ${caminho}\n`);
+    console.error("Baixe no Firebase Console > Configurações do projeto > Contas de serviço");
+    console.error("> Gerar nova chave privada, e salve como scripts/serviceAccount.json\n");
+    process.exit(1);
+  }
+  return JSON.parse(fs.readFileSync(caminho, "utf8"));
 }
 
 // Gera um JWT assinado (RS256) com a chave de serviço
@@ -69,7 +87,9 @@ async function lerTokens(accessToken) {
   const tokens = [];
   let pageToken = "";
   do {
-    const url = pageToken ? `${base}?pageSize=300&pageToken=${encodeURIComponent(pageToken)}` : `${base}?pageSize=300`;
+    const url = pageToken
+      ? `${base}?pageSize=300&pageToken=${encodeURIComponent(pageToken)}`
+      : `${base}?pageSize=300`;
     const r = await fetch(url, { headers: { Authorization: "Bearer " + accessToken } });
     if (!r.ok) throw new Error("Falha ao ler usuários: " + (await r.text()));
     const d = await r.json();
@@ -101,10 +121,12 @@ async function lerUltimaNovidade(accessToken) {
   });
   if (!r.ok) throw new Error("Falha ao ler novidades: " + (await r.text()));
   const linhas = await r.json();
-  const doc = linhas.find((l) => l.document);
-  if (!doc) return null;
-  const f = doc.document.fields || {};
+  const item = linhas.find((l) => l.document);
+  if (!item) return null;
+  const f = item.document.fields || {};
+  const partes = item.document.name.split("/");
   return {
+    id: partes[partes.length - 1],
     titulo: (f.titulo && f.titulo.stringValue) || "Novidade no NINA",
     texto: (f.texto && f.texto.stringValue) || "Abra o app para ver o que mudou.",
     link: (f.link && f.link.stringValue) || APP_URL,
@@ -131,23 +153,77 @@ async function enviarUma(accessToken, token, titulo, corpo, link) {
   return r.ok;
 }
 
-(async () => {
-  if (!fs.existsSync(CAMINHO_CHAVE)) {
-    console.error(`\n❌ Chave de serviço não encontrada em:\n   ${CAMINHO_CHAVE}\n`);
-    console.error("Baixe no Firebase Console > Configurações do projeto > Contas de serviço > Gerar nova chave privada");
-    console.error("e salve como scripts/serviceAccount.json\n");
-    process.exit(1);
+async function enviarParaTodos(accessToken, titulo, corpo, link) {
+  console.log("📱 Lendo dispositivos cadastrados...");
+  const tokens = await lerTokens(accessToken);
+  if (!tokens.length) {
+    console.log("⚠️  Nenhum dispositivo cadastrado ainda.");
+    console.log("   Peça para os usuários abrirem Novidades > Ativar notificações.");
+    return 0;
   }
+  console.log(`   ${tokens.length} dispositivo(s) encontrado(s).`);
+  console.log("🚀 Enviando...");
+  let ok = 0, falha = 0;
+  for (const t of tokens) {
+    try {
+      if (await enviarUma(accessToken, t, titulo, corpo, link)) ok++;
+      else falha++;
+    } catch {
+      falha++;
+    }
+  }
+  console.log(`\n✅ Enviadas: ${ok}   ❌ Falhas: ${falha}`);
+  console.log(`   Título: ${titulo}`);
+  console.log(`   Corpo:  ${corpo}\n`);
+  return ok;
+}
 
-  const chave = JSON.parse(fs.readFileSync(CAMINHO_CHAVE, "utf8"));
+function lerControle() {
+  try { return JSON.parse(fs.readFileSync(ARQUIVO_CONTROLE, "utf8")); } catch { return {}; }
+}
+
+function salvarControle(dados) {
+  fs.writeFileSync(ARQUIVO_CONTROLE, JSON.stringify(dados, null, 2) + "\n", "utf8");
+}
+
+(async () => {
+  const chave = carregarChave();
   const escopos = [
     "https://www.googleapis.com/auth/datastore",
     "https://www.googleapis.com/auth/firebase.messaging",
   ];
 
+  const modoAuto = process.argv.includes("--auto");
+
   console.log("🔐 Autenticando...");
   const accessToken = await obterToken(chave, escopos);
 
+  // ---------- MODO AUTOMÁTICO ----------
+  if (modoAuto) {
+    const novidade = await lerUltimaNovidade(accessToken);
+    if (!novidade) {
+      console.log("ℹ️  Nenhuma novidade publicada ainda. Nada a enviar.");
+      process.exit(0);
+    }
+    const controle = lerControle();
+    if (controle.ultimoId === novidade.id) {
+      console.log(`ℹ️  A novidade "${novidade.titulo}" já foi notificada. Nada a enviar.`);
+      process.exit(0);
+    }
+    console.log(`🆕 Novidade nova: "${novidade.titulo}"`);
+    const enviadas = await enviarParaTodos(accessToken, novidade.titulo, novidade.texto, novidade.link);
+    if (enviadas > 0) {
+      salvarControle({
+        ultimoId: novidade.id,
+        titulo: novidade.titulo,
+        enviadoEm: new Date().toISOString(),
+      });
+      console.log("📝 Controle atualizado (ultimo-push.json).");
+    }
+    process.exit(0);
+  }
+
+  // ---------- MODO MANUAL ----------
   let titulo = process.argv[2];
   let corpo = process.argv[3];
   let link = process.argv[4];
@@ -167,29 +243,7 @@ async function enviarUma(accessToken, token, titulo, corpo, link) {
   link = link || APP_URL;
   corpo = corpo || "Abra o app para ver o que mudou.";
 
-  console.log("📱 Lendo dispositivos cadastrados...");
-  const tokens = await lerTokens(accessToken);
-  if (!tokens.length) {
-    console.log("⚠️  Nenhum dispositivo cadastrado ainda.");
-    console.log("   Peça para os usuários abrirem Novidades > Ativar notificações.");
-    process.exit(0);
-  }
-  console.log(`   ${tokens.length} dispositivo(s) encontrado(s).`);
-
-  console.log("🚀 Enviando...");
-  let ok = 0, falha = 0;
-  for (const t of tokens) {
-    try {
-      if (await enviarUma(accessToken, t, titulo, corpo, link)) ok++;
-      else falha++;
-    } catch {
-      falha++;
-    }
-  }
-
-  console.log(`\n✅ Enviadas: ${ok}   ❌ Falhas: ${falha}`);
-  console.log(`   Título: ${titulo}`);
-  console.log(`   Corpo:  ${corpo}\n`);
+  await enviarParaTodos(accessToken, titulo, corpo, link);
   process.exit(0);
 })().catch((e) => {
   console.error("❌ Erro:", e.message);
