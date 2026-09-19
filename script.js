@@ -852,11 +852,56 @@ function renderPlano(container, plano) {
 // CURSOS / OBJETIVO DO ESTUDANTE
 // ============================================================
 let cursoEscolhido = null;
+let filtroUfac = false;
+let topicosFeitos = [];   // ex.: ["linguagens:Interpretação de texto", ...]
 
 function carregarCursoDoUsuario() {
   const id = usuario && usuario.curso;
   cursoEscolhido = (typeof CURSOS !== "undefined" && CURSOS.find((c) => c.id === id)) || null;
+  topicosFeitos = (usuario && Array.isArray(usuario.topicosFeitos)) ? usuario.topicosFeitos.slice() : [];
   renderCursoEscolhido();
+}
+
+// Marca/desmarca um tópico estudado
+async function marcarTopico(el, chave, feito) {  if (feito) {
+    if (!topicosFeitos.includes(chave)) topicosFeitos.push(chave);
+  } else {
+    topicosFeitos = topicosFeitos.filter((x) => x !== chave);
+  }
+  if (el) {
+    const li = el.closest("li");
+    if (li) li.classList.toggle("feito", feito);
+  }
+  if (usuario) await salvarUsuario(usuario.uid, { topicosFeitos }).catch(() => {});
+}
+
+// Mostra o objetivo (curso + prontidão) no perfil do estudante
+function renderPerfilObjetivo(mostrar) {
+  const div = document.getElementById("perfil-objetivo");
+  if (!div) return;
+  if (!mostrar || !cursoEscolhido) { esconder(div); return; }
+
+  let salvo = null;
+  try { salvo = JSON.parse(localStorage.getItem(CHAVE_RESULTADO)); } catch {}
+  const areasMapa = {};
+  if (salvo && salvo.areas) salvo.areas.forEach((a) => { areasMapa[a.area] = a.pct; });
+  const plano = Object.keys(areasMapa).length ? gerarPlanoObjetivo(areasMapa, cursoEscolhido) : null;
+
+  div.innerHTML = `
+    <h4 class="perfil-rotulo">🎯 Meu objetivo</h4>
+    <div class="perfil-objetivo-card">
+      <span class="curso-icone">${cursoEscolhido.icone}</span>
+      <div class="perfil-objetivo-dados">
+        <strong>${escaparHTML(cursoEscolhido.nome)}</strong>
+        <span class="curso-meta">${cursoEscolhido.ufac
+          ? `🎓 UFAC · ${escaparHTML(cursoEscolhido.campus || "")}`
+          : "🏫 Outra universidade"}</span>
+        <span class="perfil-prontidao">${plano
+          ? `Prontidão: <strong>${plano.prontidao}%</strong>`
+          : "Faça o diagnóstico para ver sua prontidão"}</span>
+      </div>
+    </div>`;
+  exibir(div);
 }
 
 function renderCursoEscolhido() {
@@ -893,11 +938,12 @@ function renderCursos(termo) {
   const t = (termo || "").trim().toLowerCase();
   const grupos = {};
   CURSOS
-    .filter((c) => !t || (c.nome + " " + (c.descricao || "") + " " + c.grupo).toLowerCase().includes(t))
+    .filter((c) => !filtroUfac || c.ufac)
+    .filter((c) => !t || (c.nome + " " + (c.descricao || "") + " " + c.grupo + " " + (c.campus || "") + " " + (c.grau || "")).toLowerCase().includes(t))
     .forEach((c) => { (grupos[c.grupo] = grupos[c.grupo] || []).push(c); });
 
   if (!Object.keys(grupos).length) {
-    div.innerHTML = `<p class="vazio">Nenhum curso encontrado para "${escaparHTML(termo)}".</p>`;
+    div.innerHTML = `<p class="vazio">Nenhum curso encontrado${filtroUfac ? " na UFAC" : ""}.</p>`;
     return;
   }
 
@@ -909,6 +955,10 @@ function renderCursos(termo) {
           <span class="curso-icone">${c.icone}</span>
           <div class="curso-dados">
             <strong>${escaparHTML(c.nome)}</strong>
+            <span class="curso-meta">
+              ${c.ufac ? `🎓 UFAC · ${escaparHTML(c.campus || "")}` : "🏫 Outra universidade"}
+              ${c.grau ? ` · ${escaparHTML(c.grau)}` : ""}
+            </span>
             <span class="curso-desc">${escaparHTML(c.descricao || "")}</span>
             <div class="curso-pesos">
               ${areasDePeso(c).filter((a) => a.peso === 3).map((a) => `<span class="peso-tag peso-3">${escaparHTML(a.nome)} ⭐⭐⭐</span>`).join("")}
@@ -943,6 +993,16 @@ document.getElementById("btn-meu-plano").addEventListener("click", abrirPlanoObj
 document.getElementById("btn-voltar-plano").addEventListener("click", () => {
   if (usuario && usuario.papel === "professor") abrirPainelProfessor();
   else abrirInicioEstudante();
+});
+
+// Filtro "só UFAC"
+document.querySelectorAll(".filtro-btn").forEach((b) => {
+  b.addEventListener("click", () => {
+    filtroUfac = b.dataset.filtro === "ufac";
+    document.querySelectorAll(".filtro-btn").forEach((x) => x.classList.toggle("ativa", x === b));
+    const busca = document.getElementById("cursos-busca");
+    renderCursos(busca ? busca.value : "");
+  });
 });
 document.getElementById("btn-voltar-cursos").addEventListener("click", () => {
   if (usuario && usuario.papel === "professor") abrirPainelProfessor();
@@ -998,7 +1058,16 @@ function renderPlanoObjetivo() {
   const cards = plano.areas.map((a) => {
     const are = AREAS[a.area] || { icone: "", curto: a.area };
     const topicos = a.topicos.slice(0, 3)
-      .map((t) => `<li><strong>${escaparHTML(t.nome)}</strong> — ${escaparHTML(t.desc)}<br><em>💡 ${escaparHTML(t.dica)}</em></li>`)
+      .map((t) => {
+        const chave = `${a.area}:${t.nome}`;
+        const feito = topicosFeitos.includes(chave);
+        return `<li class="${feito ? "feito" : ""}">
+          <label class="topico-check">
+            <input type="checkbox" class="topico-box" data-chave="${escaparHTML(chave)}" ${feito ? "checked" : ""}>
+            <span><strong>${escaparHTML(t.nome)}</strong> — ${escaparHTML(t.desc)}<br><em>💡 ${escaparHTML(t.dica)}</em></span>
+          </label>
+        </li>`;
+      })
       .join("");
     const recursos = a.recursos
       .map((r) => `<a class="recurso-link" href="${r.url}" target="_blank" rel="noopener">${escaparHTML(r.nome)} ↗</a>`)
@@ -1060,7 +1129,13 @@ function renderPlanoObjetivo() {
     <div class="objetivo-lista">${cards}${cardRedacao}</div>
     <h4 class="plano-subtitulo">🗓️ Rotina semanal sugerida</h4>
     <div class="cronograma">${plano.cronograma.map((c) => `<div class="crono-dia"><span class="crono-nome">${c.dia}</span><span class="crono-foco">${c.foco}</span></div>`).join("")}</div>
+    <p class="dica">✅ Marque os tópicos que você já estudou — fica salvo no seu perfil.</p>
   `;
+
+  // Checklist de tópicos estudados
+  div.querySelectorAll(".topico-box").forEach((cb) => {
+    cb.addEventListener("change", () => marcarTopico(cb, cb.dataset.chave, cb.checked));
+  });
 }
 
 function renderRanking(container, ranking, uidAtual) {  if (!ranking.length) {
@@ -1322,6 +1397,7 @@ function abrirMeuPerfil() {
   exibir(document.getElementById("btn-trocar-papel"));
   if (usuario.papel === "professor") exibir(document.getElementById("btn-apoiador"));
   else esconder(document.getElementById("btn-apoiador"));
+  renderPerfilObjetivo(true);
   modoPerfil(false);
   carregarAtividadesPerfil(usuario.uid);
   mostrarTela("tela-perfil");

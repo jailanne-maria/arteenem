@@ -4334,6 +4334,67 @@ h1, h2, h3, h4, .marca-nome, .btn-principal, .btn-secundario, .btn-google, .btn-
 .peso-tag.peso-2 { background: #d8e6ff; }
 .peso-tag.peso-1 { background: #eee; }
 
+.curso-meta {
+  font-size: 0.82rem;
+  opacity: 0.78;
+}
+
+/* ===== FILTROS DE CURSOS ===== */
+.cursos-filtros {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.filtro-btn {
+  background: var(--surface-2);
+  border: 3px solid var(--black);
+  border-radius: 999px;
+  padding: 7px 14px;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 0.95rem;
+}
+
+.filtro-btn.ativa { background: var(--yellow); }
+
+/* ===== CHECKLIST DE TÓPICOS ===== */
+.topico-check {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  cursor: pointer;
+}
+
+.topico-box {
+  width: 20px;
+  height: 20px;
+  margin-top: 4px;
+  accent-color: var(--green);
+  flex-shrink: 0;
+}
+
+.plano-topicos li.feito { opacity: 0.55; }
+.plano-topicos li.feito strong { text-decoration: line-through; }
+
+/* ===== OBJETIVO NO PERFIL ===== */
+.perfil-objetivo { margin-top: 18px; }
+
+.perfil-objetivo-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--surface-3);
+  border: 3px solid var(--black);
+  border-radius: 12px;
+  padding: 12px 14px;
+  margin-top: 8px;
+}
+
+.perfil-objetivo-dados { display: flex; flex-direction: column; gap: 3px; }
+.perfil-prontidao { font-size: 0.92rem; color: var(--green-dark); font-weight: bold; }
+
 .plano-objetivo {
   background: var(--surface-3);
   border: 3px solid var(--black);
