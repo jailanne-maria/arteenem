@@ -683,6 +683,16 @@ h1, h2, h3, h4, .marca-nome, .btn-principal, .btn-secundario, .btn-google, .btn-
   opacity: 0.85;
 }
 
+.rodape-logo {
+  display: block;
+  margin: 10px auto 0;
+  width: 230px;
+  max-width: 76%;
+  border: 4px solid var(--black);
+  border-radius: 12px;
+  box-shadow: 4px 4px 0 var(--black);
+}
+
 /* ===== LOGIN ===== */
 .login-card {
   max-width: 420px;
