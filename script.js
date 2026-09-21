@@ -5028,6 +5028,8 @@ function abrirBiblioteca() {
   const busca = document.getElementById("biblioteca-busca");
   if (busca) busca.value = "";
   renderEstantes("");
+  renderAcreanesLetras();
+  renderAcreanes();
   mostrarTela("tela-biblioteca");
   if (typeof renderMascote === "function") renderMascote("mascote-biblioteca", "biblioteca");
 }
@@ -5325,15 +5327,6 @@ document.getElementById("chat-turma-input").addEventListener("keydown", (e) => {
 // ============================================================
 let letraGlossario = "";
 let buscaGlossario = "";
-let glossarioAba = "ia";
-
-// Junta os dois glossários no mesmo formato
-function itensGlossario() {
-  if (glossarioAba === "acreanes" && typeof ACREANES !== "undefined") {
-    return ACREANES.map((a) => ({ termo: a.p, en: a.c, def: a.d }));
-  }
-  return GLOSSARIO.map((g) => ({ termo: g.termo, en: g.en, def: g.def }));
-}
 
 function abrirGlossario() {
   mostrarTela("tela-glossario");
@@ -5341,42 +5334,15 @@ function abrirGlossario() {
   if (busca) busca.value = "";
   buscaGlossario = "";
   letraGlossario = "";
-  atualizarAbasGlossario();
   renderLetrasGlossario();
   renderGlossario();
   if (typeof renderMascote === "function") renderMascote("mascote-glossario", "curriculo");
 }
 
-function atualizarAbasGlossario() {
-  document.querySelectorAll(".glossario-aba").forEach((b) =>
-    b.classList.toggle("ativa", b.dataset.gloss === glossarioAba)
-  );
-  const busca = document.getElementById("glossario-busca");
-  if (busca) {
-    busca.placeholder = glossarioAba === "acreanes"
-      ? "🔎 Buscar palavra acreanesa..."
-      : "🔎 Buscar termo de IA...";
-  }
-}
-
-document.querySelectorAll(".glossario-aba").forEach((b) => {
-  b.addEventListener("click", () => {
-    glossarioAba = b.dataset.gloss;
-    letraGlossario = "";
-    buscaGlossario = "";
-    const busca = document.getElementById("glossario-busca");
-    if (busca) busca.value = "";
-    atualizarAbasGlossario();
-    renderLetrasGlossario();
-    renderGlossario();
-  });
-});
-
 function renderLetrasGlossario() {
   const div = document.getElementById("glossario-letras");
   if (!div) return;
-  const itens = itensGlossario();
-  const usadas = new Set(itens.map((g) => letraDoTermo(g)));
+  const usadas = new Set(GLOSSARIO.map((g) => letraDoTermo(g)));
   div.innerHTML =
     `<button class="letra-btn ${letraGlossario === "" ? "ativa" : ""}" data-letra="" type="button">Todos</button>` +
     LETRAS_GLOSSARIO.map((l) =>
@@ -5395,7 +5361,7 @@ function renderGlossario() {
   const div = document.getElementById("glossario-lista");
   if (!div) return;
   const t = buscaGlossario.trim().toLowerCase();
-  const itens = itensGlossario().filter((g) => {
+  const itens = GLOSSARIO.filter((g) => {
     if (letraGlossario && letraDoTermo(g) !== letraGlossario) return false;
     if (!t) return true;
     return (g.termo + " " + (g.en || "") + " " + g.def).toLowerCase().includes(t);
@@ -5427,6 +5393,56 @@ document.getElementById("glossario-busca").addEventListener("input", (e) => {
   buscaGlossario = e.target.value;
   renderGlossario();
 });
+
+// ============================================================
+// DICIONÁRIO ACREANÊS (dentro da Biblioteca)
+// ============================================================
+let letraAcreanes = "";
+
+function renderAcreanesLetras() {
+  const div = document.getElementById("acreanes-letras");
+  if (!div || typeof ACREANES === "undefined") return;
+  const usadas = new Set(ACREANES.map((a) => letraDoTermo({ termo: a.p })));
+  div.innerHTML = LETRAS_GLOSSARIO.map((l) =>
+    `<button class="letra-btn ${letraAcreanes === l ? "ativa" : ""} ${usadas.has(l) ? "" : "vazia"}" data-letra="${l}" type="button">${l}</button>`
+  ).join("");
+  div.querySelectorAll(".letra-btn").forEach((b) => {
+    b.addEventListener("click", () => {
+      letraAcreanes = b.dataset.letra;
+      renderAcreanesLetras();
+      renderAcreanes();
+      const lista = document.getElementById("acreanes-lista");
+      if (lista) lista.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    });
+  });
+}
+
+function renderAcreanes() {
+  const div = document.getElementById("acreanes-lista");
+  if (!div || typeof ACREANES === "undefined") return;
+
+  if (!letraAcreanes) {
+    div.innerHTML = `<p class="vazio">👆 Escolha uma letra acima para ver as palavras acreanesas.</p>`;
+    return;
+  }
+
+  const itens = ACREANES.filter((a) => letraDoTermo({ termo: a.p }) === letraAcreanes);
+  if (!itens.length) {
+    div.innerHTML = `<p class="vazio">Nenhuma palavra com a letra ${letraAcreanes}.</p>`;
+    return;
+  }
+
+  div.innerHTML = itens.map((a) => `
+    <details class="glossario-card">
+      <summary>
+        <span class="glossario-letra">${letraAcreanes}</span>
+        <span class="glossario-termo">${escaparHTML(a.p)}</span>
+        ${a.c ? `<span class="glossario-en">${escaparHTML(a.c)}</span>` : ""}
+      </summary>
+      <p>${escaparHTML(a.d)}</p>
+    </details>
+  `).join("");
+}
 
 // ============================================================
 // FALAR COM A PROFESSORA (mensagens diretas)

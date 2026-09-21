@@ -64,6 +64,58 @@
   padding: 6px 10px;
 }
 
+/* No modo escuro, quem tem fundo colorido (amarelo etc.) mantém o texto escuro */
+[data-tema="escuro"] .btn-secundario,
+[data-tema="escuro"] .btn-ghost:hover,
+[data-tema="escuro"] .anterior,
+[data-tema="escuro"] .alt:hover:not(.travada),
+[data-tema="escuro"] .btn-google:hover,
+[data-tema="escuro"] .mover:hover:not(:disabled),
+[data-tema="escuro"] .turma-card .turma-cod,
+[data-tema="escuro"] .turma-editar:hover,
+[data-tema="escuro"] .rank-item.eu,
+[data-tema="escuro"] .recurso-link:hover,
+[data-tema="escuro"] .mural-aba.ativa,
+[data-tema="escuro"] .perfil-estrelas,
+[data-tema="escuro"] .recado-fixar:hover,
+[data-tema="escuro"] .avatar-opcao:hover,
+[data-tema="escuro"] .mario-node,
+[data-tema="escuro"] .duelo-colega:hover,
+[data-tema="escuro"] .tema-eixo,
+[data-tema="escuro"] .area-btn.ativa,
+[data-tema="escuro"] .respostas-contador,
+[data-tema="escuro"] .revisao-card[open] summary,
+[data-tema="escuro"] .nivel-btn.ativa,
+[data-tema="escuro"] .modo-opcao.ativa,
+[data-tema="escuro"] .area-opcao.ativa,
+[data-tema="escuro"] .idioma-opcao.ativa,
+[data-tema="escuro"] .estante-contador,
+[data-tema="escuro"] .livro-genero,
+[data-tema="escuro"] .leitor-topo,
+[data-tema="escuro"] .chat-msg.minha,
+[data-tema="escuro"] .admin-aba.ativa,
+[data-tema="escuro"] .admin-coluna-titulo span,
+[data-tema="escuro"] .tipo-badge,
+[data-tema="escuro"] .novidades-banner,
+[data-tema="escuro"] .peso-tag,
+[data-tema="escuro"] .filtro-btn.ativa,
+[data-tema="escuro"] .mascote-nome,
+[data-tema="escuro"] .mascote-acao,
+[data-tema="escuro"] .glossario-aba.ativa,
+[data-tema="escuro"] .letra-btn.ativa,
+[data-tema="escuro"] .glossario-letra {
+  color: #14142b;
+}
+
+/* No modo escuro, superfícies claras fixas viram tons escuros */
+[data-tema="escuro"] .peso-tag.peso-2 { background: #2a3a5c; color: #dce8ff; }
+[data-tema="escuro"] .peso-tag.peso-1 { background: #33334f; color: #d6d6e8; }
+[data-tema="escuro"] .objetivo-barra { background: #2e2e4a; }
+[data-tema="escuro"] .feedback-prof { background: #33334f; }
+[data-tema="escuro"] .mascote-balao::after { border-right-color: var(--surface-2); }
+[data-tema="escuro"] .tour-destaque { background: var(--surface-2); }
+[data-tema="escuro"] .leitor-frame { background: #fff; }
+
 * {
   margin: 0;
   padding: 0;
@@ -4675,6 +4727,15 @@ h1, h2, h3, h4, .marca-nome, .btn-principal, .btn-secundario, .btn-google, .btn-
 }
 
 /* ===== GLOSSÁRIO DE IA ===== */
+.acreanes-bloco {
+  background: var(--surface-2);
+  border: 3px solid var(--black);
+  border-radius: 12px;
+  box-shadow: 3px 3px 0 var(--black);
+  padding: 16px;
+  margin-bottom: 26px;
+}
+
 .glossario-abas {
   display: flex;
   flex-wrap: wrap;
