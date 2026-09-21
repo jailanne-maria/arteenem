@@ -69,15 +69,23 @@ function renderMascote(idContainer, chave, textoForcado) {
   const div = document.getElementById(idContainer);
   if (!div) return;
   const texto = textoForcado || falaDoMascote(chave);
+  const podeFalar = typeof ehAdmin === "function" ? !ehAdmin() : true;
   div.innerHTML = `
     <img class="mascote-img" src="${MASCOTE_IMG}" alt="${MASCOTE_NOME}, o mascote do NINA" loading="lazy">
     <div class="mascote-balao">
       <span class="mascote-nome">${MASCOTE_NOME}</span>
       <p>${escaparHTML(texto)}</p>
+      ${podeFalar ? `<button class="mascote-acao" type="button">💬 Falar com a professora</button>` : ""}
       <button class="mascote-fechar" type="button" aria-label="Fechar">✖</button>
     </div>`;
   const fechar = div.querySelector(".mascote-fechar");
   if (fechar) fechar.addEventListener("click", () => esconder(div));
+  const falar = div.querySelector(".mascote-acao");
+  if (falar) {
+    falar.addEventListener("click", () => {
+      if (typeof abrirSuporte === "function") abrirSuporte();
+    });
+  }
   exibir(div);
 }
 

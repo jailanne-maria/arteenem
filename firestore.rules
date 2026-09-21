@@ -21,10 +21,14 @@ service cloud.firestore {
 
     // ---------- Perfis ----------
     match /usuarios/{uid} {
-      allow read: if logado();
+      // qualquer pessoa logada pode abrir UM perfil (get),
+      // mas só o admin pode LISTAR todos os participantes do app
+      allow get: if logado();
+      allow list: if ehAdmin();
       allow create: if logado() && request.auth.uid == uid;
-      // o próprio dono edita; admin pode bloquear/excluir
+      // o próprio dono edita; admin pode bloquear
       allow update: if (logado() && request.auth.uid == uid) || ehAdmin();
+      // só o admin exclui pessoas
       allow delete: if ehAdmin();
     }
 

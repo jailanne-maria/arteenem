@@ -4654,6 +4654,21 @@ h1, h2, h3, h4, .marca-nome, .btn-principal, .btn-secundario, .btn-google, .btn-
 
 .mascote-fechar:hover { opacity: 1; }
 
+.mascote-acao {
+  display: inline-block;
+  margin-top: 10px;
+  background: var(--yellow);
+  border: 3px solid var(--black);
+  border-radius: 999px;
+  box-shadow: 3px 3px 0 var(--black);
+  padding: 7px 14px;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 0.95rem;
+}
+
+.mascote-acao:hover { transform: translateY(-2px); }
+
 @media (max-width: 640px) {
   .mascote-img { width: 84px; }
   .mascote-balao p { font-size: 0.98rem; }
