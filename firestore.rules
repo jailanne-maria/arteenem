@@ -112,5 +112,19 @@ service cloud.firestore {
       allow read: if logado();
       allow create, update, delete: if ehAdmin();
     }
+
+    // ---------- Mensagens diretas (falar com a professora) ----------
+    match /suporte/{uid} {
+      allow read: if logado() && (request.auth.uid == uid || ehAdmin());
+      allow create, update: if logado() && (request.auth.uid == uid || ehAdmin());
+      allow delete: if ehAdmin();
+
+      match /mensagens/{id} {
+        allow read: if logado() && (request.auth.uid == uid || ehAdmin());
+        allow create: if logado() && (request.auth.uid == uid || ehAdmin());
+        allow delete: if ehAdmin();
+        allow update: if false;
+      }
+    }
   }
 }
