@@ -228,6 +228,7 @@ async function abrirPainelProfessor() {
   }
 
   mostrarTela("tela-professor");
+  if (typeof renderMascote === "function") renderMascote("mascote-prof", "inicio");
   await carregarTurmasProfessor();
 }
 
@@ -457,6 +458,7 @@ async function abrirInicioEstudante() {
   carregarCursoDoUsuario();
   await carregarTurmasEstudante();
   mostrarTela("tela-inicio");
+  if (typeof renderMascote === "function") renderMascote("mascote-inicio", "inicio");
 }
 
 // Códigos das turmas do estudante (para buscar revisões/atividades de todas)
@@ -4995,6 +4997,7 @@ function abrirBiblioteca() {
   if (busca) busca.value = "";
   renderEstantes("");
   mostrarTela("tela-biblioteca");
+  if (typeof renderMascote === "function") renderMascote("mascote-biblioteca", "biblioteca");
 }
 
 // Desenha as estantes (com filtro opcional pela busca)
