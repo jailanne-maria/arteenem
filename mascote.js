@@ -69,7 +69,9 @@ function renderMascote(idContainer, chave, textoForcado) {
   const div = document.getElementById(idContainer);
   if (!div) return;
   const texto = textoForcado || falaDoMascote(chave);
-  const podeFalar = typeof ehAdmin === "function" ? !ehAdmin() : true;
+  // O botão "Falar com a professora" aparece para todo mundo,
+  // menos para a própria professora-admin (que não vai falar consigo mesma)
+  const podeFalar = typeof podeAdministrar === "function" ? !podeAdministrar() : true;
   div.innerHTML = `
     <img class="mascote-img" src="${MASCOTE_IMG}" alt="${MASCOTE_NOME}, o mascote do NINA" loading="lazy">
     <div class="mascote-balao">
