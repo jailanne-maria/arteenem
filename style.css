@@ -637,6 +637,15 @@ h1, h2, h3, h4, .marca-nome, .btn-principal, .btn-secundario, .btn-google, .btn-
   text-shadow: 3px 3px 0 var(--black);
 }
 
+/* Dentro dos cartões, o título precisa de cor que apareça no fundo claro */
+.painel-bloco .secao-titulo,
+.acreanes-bloco .secao-titulo,
+.revisao-card .secao-titulo,
+.turma-card .secao-titulo {
+  color: var(--on-surface);
+  text-shadow: none;
+}
+
 .barras {
   display: flex;
   flex-direction: column;

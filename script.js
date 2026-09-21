@@ -5759,7 +5759,13 @@ let conversaUid = null;
 let conversaUnsub = null;
 
 function abrirAdmin() {
-  if (!ehAdmin()) return;
+  // SOMENTE os e-mails de administração entram aqui
+  if (!ehAdmin()) {
+    const btn = document.getElementById("btn-admin");
+    if (btn) esconder(btn);
+    mostrarToast("Acesso restrito à administração.", "erro");
+    return;
+  }
   document.querySelectorAll(".admin-aba").forEach((b) => b.classList.toggle("ativa", b.dataset.admin === adminAba));
   mostrarTela("tela-admin");
   carregarAdmin();
