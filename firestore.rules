@@ -1,10 +1,5 @@
 rules_version = '2';
 
-// ===== Regras do Firestore do NINA (ArteENEM) =====
-// Publique no Console do Firebase > Firestore Database > Regras.
-// O que mudou: o chat entre professores (coleção "mensagens")
-// e os poderes de moderação para os e-mails de administração.
-
 service cloud.firestore {
   match /databases/{database}/documents {
 
@@ -19,116 +14,57 @@ service cloud.firestore {
       ];
     }
 
-    // ---------- Perfis ----------
+    // ---- Perfis ----
     match /usuarios/{uid} {
-      // qualquer pessoa logada pode abrir UM perfil (get),
-      // mas só o admin pode LISTAR todos os participantes do app
       allow get: if logado();
       allow list: if ehAdmin();
       allow create: if logado() && request.auth.uid == uid;
-      // o próprio dono edita; admin pode bloquear
-      allow update: if (logado() && request.auth.uid == uid) || ehAdmin();
-      // só o admin exclui pessoas
+      allow update: if logado() && (request.auth.uid == uid || ehAdmin());
       allow delete: if ehAdmin();
     }
 
-    // ---------- Turmas ----------
+    // ---- Turmas e membros ----
     match /turmas/{codigo} {
-      allow read: if logado();
-      allow create: if logado();
-      allow update, delete: if logado() && (resource.data.professorId == request.auth.uid || ehAdmin());
-
+      allow read, write: if logado();
       match /membros/{uid} {
-        allow read: if logado();
-        allow create, delete: if logado();
+        allow read, write: if logado();
       }
     }
 
-    // ---------- Resultados / ranking ----------
-    match /resultados/{id} {
-      allow read, write: if logado();
+    // ---- Mensagens diretas (falar com a professora) ----
+    match /suporte/{uid} {
+      allow read, write: if logado() && (request.auth.uid == uid || ehAdmin());
+      match /mensagens/{id} {
+        allow read, write: if logado() && (request.auth.uid == uid || ehAdmin());
+      }
     }
 
-    // ---------- Mural ----------
-    match /depoimentos/{id} {
-      allow read: if logado();
-      allow create: if logado();
-      allow update: if logado();
-      allow delete: if logado();
-    }
-
-    // ---------- Banco de perguntas ----------
-    match /perguntas/{id} {
-      allow read: if logado();
-      allow create: if logado();
-      allow update: if logado();
-      allow delete: if logado();
-    }
-
-    // ---------- Duelos ----------
-    match /duelos/{id} {
-      allow read, write: if logado();
-    }
-
-    // ---------- Revisões ----------
-    match /revisoes/{id} {
-      allow read: if logado();
-      allow create: if logado();
-      allow update: if logado();
-      allow delete: if logado();
-    }
-
-    match /respostasAtividade/{id} {
-      allow read, write: if logado();
-    }
-
-    // ---------- Atividades ----------
-    match /atividades/{id} {
-      allow read: if logado();
-      allow create: if logado();
-      allow update: if logado();
-      allow delete: if logado();
-    }
-
-    match /respostasQuiz/{id} {
-      allow read, write: if logado();
-    }
-
-    // ---------- Chat entre professores da mesma escola (NOVO) ----------
+    // ---- Chats (o autor apaga a própria; admin apaga qualquer uma) ----
     match /mensagens/{id} {
       allow read: if logado();
       allow create: if logado();
-      // o autor apaga a própria mensagem; admin apaga qualquer uma
       allow delete: if logado() && (resource.data.uid == request.auth.uid || ehAdmin());
-      allow update: if false;
     }
-
-    // ---------- Chat da turma (professor + estudantes) ----------
     match /mensagensTurma/{id} {
       allow read: if logado();
       allow create: if logado();
       allow delete: if logado() && (resource.data.uid == request.auth.uid || ehAdmin());
-      allow update: if false;
     }
 
-    // ---------- Novidades (avisos para todos os usuários) ----------
+    // ---- Novidades (só o admin publica) ----
     match /novidades/{id} {
       allow read: if logado();
-      allow create, update, delete: if ehAdmin();
+      allow write: if ehAdmin();
     }
 
-    // ---------- Mensagens diretas (falar com a professora) ----------
-    match /suporte/{uid} {
-      allow read: if logado() && (request.auth.uid == uid || ehAdmin());
-      allow create, update: if logado() && (request.auth.uid == uid || ehAdmin());
-      allow delete: if ehAdmin();
-
-      match /mensagens/{id} {
-        allow read: if logado() && (request.auth.uid == uid || ehAdmin());
-        allow create: if logado() && (request.auth.uid == uid || ehAdmin());
-        allow delete: if ehAdmin();
-        allow update: if false;
-      }
-    }
+    // ---- Resto do app ----
+    match /resultados/{id} { allow read, write: if logado(); }
+    match /depoimentos/{id} { allow read, write: if logado(); }
+    match /perguntas/{id} { allow read, write: if logado(); }
+    match /duelos/{id} { allow read, write: if logado(); }
+    match /revisoes/{id} { allow read, write: if logado(); }
+    match /respostasAtividade/{id} { allow read, write: if logado(); }
+    match /atividades/{id} { allow read, write: if logado(); }
+    match /respostasQuiz/{id} { allow read, write: if logado(); }
   }
 }
