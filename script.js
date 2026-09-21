@@ -67,7 +67,6 @@ aoMudarUsuario(async (user) => {
   const btnChat = document.getElementById("btn-chat");
   const btnChatTurma = document.getElementById("btn-chat-turma");
   const btnSuporte = document.getElementById("btn-suporte");
-  const btnGlossario = document.getElementById("btn-glossario");
   const btnAdmin = document.getElementById("btn-admin");
   const btnInicio = document.getElementById("btn-inicio");
   const btnMenu = document.getElementById("btn-menu");
@@ -93,7 +92,6 @@ aoMudarUsuario(async (user) => {
     esconder(btnChat);
     esconder(btnChatTurma);
     esconder(btnSuporte);
-    esconder(btnGlossario);
     esconder(btnAdmin);
     esconder(btnInicio);
     esconder(btnMenu);
@@ -153,8 +151,6 @@ aoMudarUsuario(async (user) => {
   exibir(btnChatTurma);
   // Falar com a professora (todos, menos a própria admin)
   if (ehAdmin()) esconder(btnSuporte); else exibir(btnSuporte);
-  // Glossário de IA (todos)
-  exibir(btnGlossario);
   // Painel de administração (somente e-mails autorizados)
   if (ehAdmin()) exibir(btnAdmin); else esconder(btnAdmin);
 
@@ -866,6 +862,31 @@ function renderPlano(container, plano) {
 }
 
 // ============================================================
+// TEMA CLARO / ESCURO
+// ============================================================
+function temaAtual() {
+  try { return localStorage.getItem("nina_tema") || "claro"; } catch { return "claro"; }
+}
+
+function aplicarTema(tema) {
+  const escuro = tema === "escuro";
+  document.documentElement.setAttribute("data-tema", escuro ? "escuro" : "");
+  const btn = document.getElementById("btn-tema");
+  if (btn) {
+    btn.textContent = escuro ? "☀️" : "🌙";
+    btn.title = escuro ? "Mudar para o modo claro" : "Mudar para o modo escuro";
+  }
+  try { localStorage.setItem("nina_tema", tema); } catch {}
+}
+
+document.getElementById("btn-tema").addEventListener("click", () => {
+  aplicarTema(temaAtual() === "escuro" ? "claro" : "escuro");
+});
+
+// aplica o tema salvo assim que a página abre
+aplicarTema(temaAtual());
+
+// ============================================================
 // TOUR DE PRIMEIRO ACESSO
 // ============================================================
 const TOUR_ESTUDANTE = [
@@ -1499,6 +1520,8 @@ function modoPerfil(editando) {
     document.getElementById("btn-editar-perfil").textContent = "Cancelar";
     if (btnPapel) esconder(btnPapel);
     if (btnApoiador) esconder(btnApoiador);
+    const btnGloss = document.getElementById("btn-glossario-perfil");
+    if (btnGloss) esconder(btnGloss);
   } else {
     esconder(document.getElementById("perfil-edit"));
     exibir(document.getElementById("perfil-view"));
@@ -1506,6 +1529,8 @@ function modoPerfil(editando) {
     document.getElementById("btn-editar-perfil").textContent = "✏️ Editar perfil";
     if (btnPapel) { if (perfilEhMeu) exibir(btnPapel); else esconder(btnPapel); }
     if (btnApoiador) { if (perfilEhMeu && ehProf) exibir(btnApoiador); else esconder(btnApoiador); }
+    const btnGloss = document.getElementById("btn-glossario-perfil");
+    if (btnGloss) { if (perfilEhMeu && ehProf) exibir(btnGloss); else esconder(btnGloss); }
   }
 }
 
@@ -1517,6 +1542,9 @@ function abrirMeuPerfil() {
   exibir(document.getElementById("btn-trocar-papel"));
   if (usuario.papel === "professor") exibir(document.getElementById("btn-apoiador"));
   else esconder(document.getElementById("btn-apoiador"));
+  // Glossários: só para professores
+  if (usuario.papel === "professor") exibir(document.getElementById("btn-glossario-perfil"));
+  else esconder(document.getElementById("btn-glossario-perfil"));
   renderPerfilObjetivo(true);
   modoPerfil(false);
   carregarAtividadesPerfil(usuario.uid);
@@ -5297,21 +5325,58 @@ document.getElementById("chat-turma-input").addEventListener("keydown", (e) => {
 // ============================================================
 let letraGlossario = "";
 let buscaGlossario = "";
+let glossarioAba = "ia";
+
+// Junta os dois glossários no mesmo formato
+function itensGlossario() {
+  if (glossarioAba === "acreanes" && typeof ACREANES !== "undefined") {
+    return ACREANES.map((a) => ({ termo: a.p, en: a.c, def: a.d }));
+  }
+  return GLOSSARIO.map((g) => ({ termo: g.termo, en: g.en, def: g.def }));
+}
 
 function abrirGlossario() {
   mostrarTela("tela-glossario");
   const busca = document.getElementById("glossario-busca");
   if (busca) busca.value = "";
   buscaGlossario = "";
+  letraGlossario = "";
+  atualizarAbasGlossario();
   renderLetrasGlossario();
   renderGlossario();
   if (typeof renderMascote === "function") renderMascote("mascote-glossario", "curriculo");
 }
 
+function atualizarAbasGlossario() {
+  document.querySelectorAll(".glossario-aba").forEach((b) =>
+    b.classList.toggle("ativa", b.dataset.gloss === glossarioAba)
+  );
+  const busca = document.getElementById("glossario-busca");
+  if (busca) {
+    busca.placeholder = glossarioAba === "acreanes"
+      ? "🔎 Buscar palavra acreanesa..."
+      : "🔎 Buscar termo de IA...";
+  }
+}
+
+document.querySelectorAll(".glossario-aba").forEach((b) => {
+  b.addEventListener("click", () => {
+    glossarioAba = b.dataset.gloss;
+    letraGlossario = "";
+    buscaGlossario = "";
+    const busca = document.getElementById("glossario-busca");
+    if (busca) busca.value = "";
+    atualizarAbasGlossario();
+    renderLetrasGlossario();
+    renderGlossario();
+  });
+});
+
 function renderLetrasGlossario() {
   const div = document.getElementById("glossario-letras");
   if (!div) return;
-  const usadas = new Set(GLOSSARIO.map(letraDoTermo));
+  const itens = itensGlossario();
+  const usadas = new Set(itens.map((g) => letraDoTermo(g)));
   div.innerHTML =
     `<button class="letra-btn ${letraGlossario === "" ? "ativa" : ""}" data-letra="" type="button">Todos</button>` +
     LETRAS_GLOSSARIO.map((l) =>
@@ -5330,7 +5395,7 @@ function renderGlossario() {
   const div = document.getElementById("glossario-lista");
   if (!div) return;
   const t = buscaGlossario.trim().toLowerCase();
-  const itens = GLOSSARIO.filter((g) => {
+  const itens = itensGlossario().filter((g) => {
     if (letraGlossario && letraDoTermo(g) !== letraGlossario) return false;
     if (!t) return true;
     return (g.termo + " " + (g.en || "") + " " + g.def).toLowerCase().includes(t);
@@ -5353,9 +5418,9 @@ function renderGlossario() {
   `).join("");
 }
 
-document.getElementById("btn-glossario").addEventListener("click", abrirGlossario);
+document.getElementById("btn-glossario-perfil").addEventListener("click", abrirGlossario);
 document.getElementById("btn-voltar-glossario").addEventListener("click", () => {
-  if (usuario && usuario.papel === "professor") abrirPainelProfessor();
+  if (usuario && usuario.papel === "professor") abrirMeuPerfil();
   else abrirInicioEstudante();
 });
 document.getElementById("glossario-busca").addEventListener("input", (e) => {
