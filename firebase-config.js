@@ -676,6 +676,74 @@ function listarTokensPush() {
     });
 }
 
+// ---------- Mensagens diretas (falar com a professora) ----------
+function enviarMensagemSuporte(usuario, texto) {
+  const db = firebase.firestore();
+  const ref = db.collection("suporte").doc(usuario.uid);
+  return ref.set({
+    uid: usuario.uid,
+    nome: usuario.nome || "",
+    email: usuario.email || "",
+    papel: usuario.papel || "sem-papel",
+    atualizadoEm: firebase.firestore.FieldValue.serverTimestamp(),
+    ultimaTexto: texto.slice(0, 90),
+    ultimoDe: "usuario",
+  }, { merge: true }).then(() =>
+    ref.collection("mensagens").add({
+      de: "usuario",
+      texto,
+      em: firebase.firestore.FieldValue.serverTimestamp(),
+    })
+  );
+}
+
+function responderSuporte(uid, texto) {
+  const db = firebase.firestore();
+  const ref = db.collection("suporte").doc(uid);
+  return ref.set({
+    atualizadoEm: firebase.firestore.FieldValue.serverTimestamp(),
+    ultimaTexto: texto.slice(0, 90),
+    ultimoDe: "professora",
+  }, { merge: true }).then(() =>
+    ref.collection("mensagens").add({
+      de: "professora",
+      texto,
+      em: firebase.firestore.FieldValue.serverTimestamp(),
+    })
+  );
+}
+
+function ouvirMinhasMensagens(uid, callback) {
+  return firebase.firestore().collection("suporte").doc(uid).collection("mensagens")
+    .onSnapshot((snap) => {
+      const lista = snap.docs.map((d) => {
+        const data = d.data();
+        const ms = data.em && data.em.toMillis ? data.em.toMillis() : 0;
+        return { id: d.id, ...data, ms };
+      });
+      lista.sort((a, b) => a.ms - b.ms);
+      callback(lista);
+    }, () => callback(null));
+}
+
+function listarConversasSuporte() {
+  return firebase.firestore().collection("suporte").get()
+    .then((snap) => {
+      const lista = snap.docs.map((d) => {
+        const data = d.data();
+        const ms = data.atualizadoEm && data.atualizadoEm.toMillis ? data.atualizadoEm.toMillis() : 0;
+        return { id: d.id, ...data, ms };
+      });
+      lista.sort((a, b) => b.ms - a.ms);
+      return lista;
+    });
+}
+
+function excluirConversaSuporte(uid) {
+  const db = firebase.firestore();
+  return db.collection("suporte").doc(uid).delete();
+}
+
 if (typeof module !== "undefined") {
   module.exports = { firebaseConfig };
 }

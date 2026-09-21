@@ -66,6 +66,7 @@ aoMudarUsuario(async (user) => {
   const btnBiblioteca = document.getElementById("btn-biblioteca");
   const btnChat = document.getElementById("btn-chat");
   const btnChatTurma = document.getElementById("btn-chat-turma");
+  const btnSuporte = document.getElementById("btn-suporte");
   const btnAdmin = document.getElementById("btn-admin");
   const btnInicio = document.getElementById("btn-inicio");
   const btnMenu = document.getElementById("btn-menu");
@@ -90,6 +91,7 @@ aoMudarUsuario(async (user) => {
     esconder(btnBiblioteca);
     esconder(btnChat);
     esconder(btnChatTurma);
+    esconder(btnSuporte);
     esconder(btnAdmin);
     esconder(btnInicio);
     esconder(btnMenu);
@@ -147,6 +149,8 @@ aoMudarUsuario(async (user) => {
   if (usuario.papel === "professor") exibir(btnChat); else esconder(btnChat);
   // Chat da turma (professor e estudantes)
   exibir(btnChatTurma);
+  // Falar com a professora (todos, menos a própria admin)
+  if (ehAdmin()) esconder(btnSuporte); else exibir(btnSuporte);
   // Painel de administração (somente e-mails autorizados)
   if (ehAdmin()) exibir(btnAdmin); else esconder(btnAdmin);
 
@@ -170,6 +174,13 @@ aoMudarUsuario(async (user) => {
     else abrirPainelProfessor();
   } else {
     abrirInicioEstudante();
+  }
+
+  // Tour de primeiro acesso (só na primeira vez)
+  if (!usuario.tourVisto && usuario.papel) {
+    setTimeout(() => {
+      iniciarTour(usuario.papel === "professor" ? TOUR_PROFESSOR : TOUR_ESTUDANTE);
+    }, 1400);
   }
 });
 
@@ -847,6 +858,109 @@ function renderPlano(container, plano) {
     <div class="cronograma">${cronograma}</div>
   `;
 }
+
+// ============================================================
+// TOUR DE PRIMEIRO ACESSO
+// ============================================================
+const TOUR_ESTUDANTE = [
+  { alvo: "#bloco-objetivo", titulo: "🎯 Meu objetivo", texto: "Escolha o curso que você quer fazer. O NINA monta um plano com as disciplinas de maior peso pra você se destacar!" },
+  { alvo: "#lista-areas", titulo: "📝 Diagnóstico", texto: "Comece por aqui: responda questões das 4 áreas do ENEM e descubra onde você está forte e onde precisa melhorar." },
+  { alvo: "#btn-novidades", titulo: "🔔 Novidades", texto: "Aqui aparecem os avisos e as melhorias do NINA. Toque para ativar as notificações no seu celular." },
+  { alvo: "#btn-menu", titulo: "☰ Menu", texto: "No menu tem o jogo, a biblioteca, o simulado, o mural e muito mais. Explore tudo!" },
+];
+
+const TOUR_PROFESSOR = [
+  { alvo: "#input-nome-turma", titulo: "👩‍🏫 Criar turma", texto: "Comece criando uma turma. O NINA gera um código — seus estudantes usam esse código para entrar." },
+  { alvo: "#lista-turmas-prof", titulo: "🏆 Suas turmas", texto: "Aqui ficam suas turmas. Clique em uma para ver o ranking, as dificuldades e os estudantes." },
+  { alvo: "#btn-ir-atividades", titulo: "📋 Atividades", texto: "Crie atividades e exercícios com o banco de questões ou geradas por IA a partir do seu material." },
+  { alvo: "#btn-ir-revisao", titulo: "📖 Revisão com IA", texto: "Suba um material de aula e a IA gera mapa conceitual, revisão, flash cards e atividade." },
+  { alvo: "#btn-novidades", titulo: "🔔 Novidades", texto: "Publique avisos para todos os usuários do NINA. O push chega no celular de cada um." },
+];
+
+let tourPassos = [];
+let tourIndice = 0;
+let tourEl = null;
+
+function iniciarTour(passos) {
+  if (!passos || !passos.length) return;
+  tourPassos = passos.filter((p) => document.querySelector(p.alvo));
+  if (!tourPassos.length) return;
+  tourIndice = 0;
+  criarElementosTour();
+  mostrarPassoTour();
+}
+
+function criarElementosTour() {
+  if (document.getElementById("tour-overlay")) return;
+  const overlay = document.createElement("div");
+  overlay.id = "tour-overlay";
+  overlay.className = "tour-overlay";
+  overlay.innerHTML = `
+    <div id="tour-balao" class="tour-balao">
+      <h4 id="tour-titulo"></h4>
+      <p id="tour-texto"></p>
+      <div class="tour-acoes">
+        <span id="tour-contador" class="tour-contador"></span>
+        <button id="tour-pular" class="btn-ghost compacto" type="button">Pular</button>
+        <button id="tour-proximo" class="btn-principal compacto" type="button">Próximo →</button>
+      </div>
+    </div>`;
+  document.body.appendChild(overlay);
+  document.getElementById("tour-pular").addEventListener("click", encerrarTour);
+  document.getElementById("tour-proximo").addEventListener("click", proximoPassoTour);
+}
+
+function mostrarPassoTour() {
+  const passo = tourPassos[tourIndice];
+  const alvo = document.querySelector(passo.alvo);
+  if (!alvo) return proximoPassoTour();
+
+  alvo.scrollIntoView({ behavior: "smooth", block: "center" });
+
+  setTimeout(() => {
+    if (tourEl) tourEl.classList.remove("tour-destaque");
+    tourEl = alvo;
+    alvo.classList.add("tour-destaque");
+
+    const r = alvo.getBoundingClientRect();
+    const balao = document.getElementById("tour-balao");
+    const largura = Math.min(340, window.innerWidth - 32);
+
+    document.getElementById("tour-titulo").textContent = passo.titulo;
+    document.getElementById("tour-texto").textContent = passo.texto;
+    document.getElementById("tour-contador").textContent = `${tourIndice + 1} de ${tourPassos.length}`;
+    document.getElementById("tour-proximo").textContent =
+      tourIndice === tourPassos.length - 1 ? "Concluir ✅" : "Próximo →";
+
+    balao.style.width = largura + "px";
+    let top = r.bottom + 14;
+    if (top + 210 > window.innerHeight) top = Math.max(14, r.top - 210);
+    let left = Math.min(Math.max(16, r.left), window.innerWidth - largura - 16);
+    balao.style.top = top + "px";
+    balao.style.left = left + "px";
+  }, 380);
+}
+
+function proximoPassoTour() {
+  tourIndice++;
+  if (tourIndice >= tourPassos.length) return encerrarTour();
+  mostrarPassoTour();
+}
+
+async function encerrarTour() {
+  if (tourEl) { tourEl.classList.remove("tour-destaque"); tourEl = null; }
+  const overlay = document.getElementById("tour-overlay");
+  if (overlay) overlay.remove();
+  if (usuario) {
+    usuario.tourVisto = true;
+    await salvarUsuario(usuario.uid, { tourVisto: true }).catch(() => {});
+  }
+}
+
+// Botão "ver o tour de novo" (no perfil)
+document.getElementById("btn-ver-tour").addEventListener("click", () => {
+  iniciarTour(usuario && usuario.papel === "professor" ? TOUR_PROFESSOR : TOUR_ESTUDANTE);
+});
 
 // ============================================================
 // CURSOS / OBJETIVO DO ESTUDANTE
@@ -5172,6 +5286,69 @@ document.getElementById("chat-turma-input").addEventListener("keydown", (e) => {
 });
 
 // ============================================================
+// FALAR COM A PROFESSORA (mensagens diretas)
+// ============================================================
+let suporteUnsub = null;
+
+function abrirSuporte() {
+  if (!usuario) return;
+  mostrarTela("tela-suporte");
+  ouvirSuporte();
+}
+
+function ouvirSuporte() {
+  if (suporteUnsub) { suporteUnsub(); suporteUnsub = null; }
+  const lista = document.getElementById("suporte-lista");
+  lista.innerHTML = `<p class="vazio">Carregando mensagens...</p>`;
+  suporteUnsub = ouvirMinhasMensagens(usuario.uid, (msgs) => {
+    if (!msgs) { lista.innerHTML = `<p class="vazio">Não foi possível carregar agora.</p>`; return; }
+    if (!msgs.length) {
+      lista.innerHTML = `<p class="vazio">Nenhuma mensagem ainda. Escreva a primeira! 👇</p>`;
+      return;
+    }
+    lista.innerHTML = msgs.map((m) => {
+      const daProf = m.de === "professora";
+      const hora = m.ms
+        ? new Date(m.ms).toLocaleString("pt-BR", { day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" })
+        : "";
+      return `<div class="chat-msg ${daProf ? "prof" : "minha"}">
+        <div class="chat-msg-topo"><strong>${daProf ? "👩🏽‍🏫 Professora" : "Você"}</strong><span>${hora}</span></div>
+        <p>${escaparHTML(m.texto || "")}</p>
+      </div>`;
+    }).join("");
+    lista.scrollTop = lista.scrollHeight;
+  });
+}
+
+function fecharSuporte() {
+  if (suporteUnsub) { suporteUnsub(); suporteUnsub = null; }
+}
+
+async function enviarSuporte() {
+  const input = document.getElementById("suporte-input");
+  const texto = input.value.trim();
+  if (!texto || !usuario) return;
+  input.value = "";
+  try {
+    await enviarMensagemSuporte(usuario, texto);
+  } catch (e) {
+    mostrarToast("Erro ao enviar: " + e.message, "erro");
+    input.value = texto;
+  }
+}
+
+document.getElementById("btn-suporte").addEventListener("click", abrirSuporte);
+document.getElementById("btn-voltar-suporte").addEventListener("click", () => {
+  fecharSuporte();
+  if (usuario && usuario.papel === "professor") abrirPainelProfessor();
+  else abrirInicioEstudante();
+});
+document.getElementById("btn-suporte-enviar").addEventListener("click", enviarSuporte);
+document.getElementById("suporte-input").addEventListener("keydown", (e) => {
+  if (e.key === "Enter") { e.preventDefault(); enviarSuporte(); }
+});
+
+// ============================================================
 // NOVIDADES (avisos para todos os usuários)
 // ============================================================
 let novidadesCache = [];
@@ -5418,7 +5595,9 @@ document.getElementById("btn-ativar-push").addEventListener("click", ativarNotif
 // ADMINISTRAÇÃO / MODERAÇÃO
 // ============================================================
 let adminAba = "usuarios";
-let adminDados = { usuarios: [], mural: [], perguntas: [], mensagens: [], mensagensTurma: [], novidades: [] };
+let adminDados = { usuarios: [], mural: [], perguntas: [], mensagens: [], mensagensTurma: [], novidades: [], conversas: [] };
+let conversaUid = null;
+let conversaUnsub = null;
 
 function abrirAdmin() {
   if (!ehAdmin()) return;
@@ -5436,6 +5615,7 @@ async function carregarAdmin() {
     else if (adminAba === "perguntas") adminDados.perguntas = await listarPerguntas();
     else if (adminAba === "mensagensTurma") adminDados.mensagensTurma = await listarTodasMensagensTurma();
     else if (adminAba === "novidades") adminDados.novidades = await listarNovidades();
+    else if (adminAba === "conversas") adminDados.conversas = await listarConversasSuporte();
     else adminDados.mensagens = await listarTodasMensagens();
   } catch (e) {
     div.innerHTML = `<p class="vazio">Erro ao carregar: ${escaparHTML(e.message)}</p>`;
@@ -5451,7 +5631,87 @@ function renderAdmin() {
   if (adminAba === "perguntas") return renderAdminPerguntas(div);
   if (adminAba === "mensagensTurma") return renderAdminMensagensTurma(div);
   if (adminAba === "novidades") return renderAdminNovidades(div);
+  if (adminAba === "conversas") return renderAdminConversas(div);
   return renderAdminMensagens(div);
+}
+
+function renderAdminConversas(div) {
+  if (conversaUid) return renderConversaDetalhe(div);
+  const lista = adminDados.conversas || [];
+  div.innerHTML = `
+    <p class="admin-resumo">${lista.length} conversa(s)</p>
+    ${lista.map((c) => {
+      const papelTxt = c.papel === "professor" ? "👩🏽‍🏫 Professor(a)"
+        : c.papel === "estudante" ? "🎒 Estudante"
+        : "❓ Sem papel definido";
+      return `
+        <div class="admin-item">
+          <div class="admin-item-info">
+            <strong>${escaparHTML(c.nome || "Sem nome")} · ${papelTxt}</strong>
+            <span class="admin-sub">${escaparHTML(c.email || "")} · ${escaparHTML(c.ultimaTexto || "")}</span>
+          </div>
+          <div class="admin-acoes">
+            <button class="btn-ghost compacto" data-acao="abrir-conversa" data-id="${c.uid}">💬 Abrir</button>
+            <button class="btn-ghost compacto" data-acao="excluir-conversa" data-id="${c.uid}">🗑️</button>
+          </div>
+        </div>`;
+    }).join("") || `<p class="vazio">Nenhuma conversa ainda.</p>`}
+  `;
+}
+
+function renderConversaDetalhe(div) {
+  const c = (adminDados.conversas || []).find((x) => x.uid === conversaUid);
+  div.innerHTML = `
+    <button class="btn-ghost compacto" data-acao="voltar-conversas" type="button">← Voltar para as conversas</button>
+    <p class="admin-resumo">Conversa com <strong>${escaparHTML(c ? c.nome : "")}</strong> ${c && c.email ? "· " + escaparHTML(c.email) : ""}</p>
+    <div id="admin-conversa-msgs" class="chat-lista admin-chat"></div>
+    <div class="chat-envio">
+      <input id="admin-conversa-input" type="text" maxlength="600" placeholder="Responder ao estudante...">
+      <button id="admin-conversa-enviar" class="btn-principal compacto" type="button">Enviar</button>
+    </div>
+  `;
+
+  const enviar = async () => {
+    const input = document.getElementById("admin-conversa-input");
+    const texto = input.value.trim();
+    if (!texto) return;
+    input.value = "";
+    try {
+      await responderSuporte(conversaUid, texto);
+      carregarConversaMsgs();
+    } catch (e) {
+      mostrarToast("Erro: " + e.message, "erro");
+    }
+  };
+
+  document.getElementById("admin-conversa-enviar").addEventListener("click", enviar);
+  document.getElementById("admin-conversa-input").addEventListener("keydown", (e) => {
+    if (e.key === "Enter") { e.preventDefault(); enviar(); }
+  });
+
+  carregarConversaMsgs();
+}
+
+function carregarConversaMsgs() {
+  if (conversaUnsub) { conversaUnsub(); conversaUnsub = null; }
+  const div = document.getElementById("admin-conversa-msgs");
+  if (!div || !conversaUid) return;
+  div.innerHTML = `<p class="vazio">Carregando...</p>`;
+  conversaUnsub = ouvirMinhasMensagens(conversaUid, (msgs) => {
+    if (!msgs) { div.innerHTML = `<p class="vazio">Erro ao carregar.</p>`; return; }
+    if (!msgs.length) { div.innerHTML = `<p class="vazio">Sem mensagens.</p>`; return; }
+    div.innerHTML = msgs.map((m) => {
+      const daProf = m.de === "professora";
+      const hora = m.ms
+        ? new Date(m.ms).toLocaleString("pt-BR", { day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" })
+        : "";
+      return `<div class="chat-msg ${daProf ? "minha" : ""}">
+        <div class="chat-msg-topo"><strong>${daProf ? "Você (professora)" : "Usuário"}</strong><span>${hora}</span></div>
+        <p>${escaparHTML(m.texto || "")}</p>
+      </div>`;
+    }).join("");
+    div.scrollTop = div.scrollHeight;
+  });
 }
 
 function renderAdminUsuarios(div) {
@@ -5670,6 +5930,19 @@ document.getElementById("admin-conteudo").addEventListener("click", async (e) =>
       if (!confirm("Apagar esta novidade?")) return;
       await excluirNovidade(id);
       mostrarToast("Novidade apagada.");
+    } else if (acao === "abrir-conversa") {
+      conversaUid = id;
+      renderAdmin();
+      return;
+    } else if (acao === "voltar-conversas") {
+      if (conversaUnsub) { conversaUnsub(); conversaUnsub = null; }
+      conversaUid = null;
+      renderAdmin();
+      return;
+    } else if (acao === "excluir-conversa") {
+      if (!confirm("Apagar esta conversa e todas as mensagens?")) return;
+      await excluirConversaSuporte(id);
+      mostrarToast("Conversa apagada.");
     } else {
       return;
     }
