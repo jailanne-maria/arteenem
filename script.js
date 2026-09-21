@@ -13,6 +13,11 @@ function ehAdmin() {
   return !!usuario && ADMIN_EMAILS.includes((usuario.email || "").toLowerCase());
 }
 
+// Só administra quem é admin E não está com o papel de estudante
+function podeAdministrar() {
+  return ehAdmin() && !!usuario && usuario.papel !== "estudante";
+}
+
 // ---------- Estado global ----------
 let usuario = null;       // { uid, nome, email, foto, papel }
 let minhaTurma = null;    // { id, nome, codigo } do estudante
@@ -151,8 +156,8 @@ aoMudarUsuario(async (user) => {
   exibir(btnChatTurma);
   // Falar com a professora (todos, menos a própria admin)
   if (ehAdmin()) esconder(btnSuporte); else exibir(btnSuporte);
-  // Painel de administração (somente e-mails autorizados)
-  if (ehAdmin()) exibir(btnAdmin); else esconder(btnAdmin);
+  // Painel de administração (SOMENTE os e-mails autorizados e fora do papel de estudante)
+  if (podeAdministrar()) exibir(btnAdmin); else esconder(btnAdmin);
 
   // Aviso do ECA a cada login (uma vez por sessão)
   mostrarAvisoECA();
@@ -1372,7 +1377,7 @@ function renderRecado(d) {
   const avatar = d.foto
     ? `<img src="${d.foto}" alt="" referrerpolicy="no-referrer">`
     : "🙂";
-  const admin = ehAdmin();
+  const admin = podeAdministrar();
   const botaoFixar = admin
     ? `<button class="recado-fixar" data-id="${d.id}" data-fixado="${d.fixado ? "1" : "0"}">${d.fixado ? "📌 Desafixar" : "📌 Fixar"}</button>`
     : "";
@@ -5759,8 +5764,8 @@ let conversaUid = null;
 let conversaUnsub = null;
 
 function abrirAdmin() {
-  // SOMENTE os e-mails de administração entram aqui
-  if (!ehAdmin()) {
+  // SOMENTE os e-mails de administração (e fora do papel de estudante) entram aqui
+  if (!podeAdministrar()) {
     const btn = document.getElementById("btn-admin");
     if (btn) esconder(btn);
     mostrarToast("Acesso restrito à administração.", "erro");
@@ -5772,6 +5777,7 @@ function abrirAdmin() {
 }
 
 async function carregarAdmin() {
+  if (!podeAdministrar()) return;
   const div = document.getElementById("admin-conteudo");
   div.innerHTML = `<p class="vazio">Carregando...</p>`;
   try {
@@ -6064,6 +6070,11 @@ document.querySelectorAll(".admin-aba").forEach((b) => {
 document.getElementById("admin-conteudo").addEventListener("click", async (e) => {
   const btn = e.target.closest("button[data-acao]");
   if (!btn) return;
+  // Trava de segurança: só admin (fora do papel de estudante) executa ações
+  if (!podeAdministrar()) {
+    mostrarToast("Acesso restrito à administração.", "erro");
+    return;
+  }
   const acao = btn.dataset.acao;
   const id = btn.dataset.id;
   try {
