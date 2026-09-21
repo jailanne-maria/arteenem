@@ -32,6 +32,7 @@
   --texto: 'VT323', 'Segoe UI Emoji', 'Apple Color Emoji', 'Noto Color Emoji', monospace;
 
   --sombra: 5px 5px 0 var(--black);
+  --sombra-texto: #14142b;
 }
 
 /* ===== TEMA ESCURO ===== */
@@ -50,6 +51,7 @@
   --white: #f2f2fa;
   --brown: #2a1f2e;
   --border: #e6e6f5;
+  --sombra-texto: #000000;
 }
 
 [data-tema="escuro"] body {
@@ -242,7 +244,7 @@ h1, h2, h3, h4, .marca-nome, .btn-principal, .btn-secundario, .btn-google, .btn-
   line-height: 1.8;
   margin-bottom: 16px;
   color: var(--white);
-  text-shadow: 3px 3px 0 var(--black);
+  text-shadow: 3px 3px 0 var(--sombra-texto);
 }
 
 .destaque {
@@ -251,7 +253,7 @@ h1, h2, h3, h4, .marca-nome, .btn-principal, .btn-secundario, .btn-google, .btn-
 
 .hero p {
   color: var(--white);
-  text-shadow: 2px 2px 0 var(--black);
+  text-shadow: 2px 2px 0 var(--sombra-texto);
   max-width: 560px;
   margin: 0 auto;
 }
@@ -376,7 +378,7 @@ h1, h2, h3, h4, .marca-nome, .btn-principal, .btn-secundario, .btn-google, .btn-
 .dica {
   text-align: center;
   color: var(--white);
-  text-shadow: 2px 2px 0 var(--black);
+  text-shadow: 2px 2px 0 var(--sombra-texto);
   font-size: 1.05rem;
   margin-top: 14px;
 }
@@ -403,7 +405,7 @@ h1, h2, h3, h4, .marca-nome, .btn-principal, .btn-secundario, .btn-google, .btn-
   justify-content: space-between;
   font-size: 1.05rem;
   color: var(--white);
-  text-shadow: 2px 2px 0 var(--black);
+  text-shadow: 2px 2px 0 var(--sombra-texto);
   margin-bottom: 8px;
 }
 
@@ -578,12 +580,12 @@ h1, h2, h3, h4, .marca-nome, .btn-principal, .btn-secundario, .btn-google, .btn-
   font-size: 1rem;
   margin-bottom: 10px;
   color: var(--white);
-  text-shadow: 3px 3px 0 var(--black);
+  text-shadow: 3px 3px 0 var(--sombra-texto);
 }
 
 .resultado-header p {
   color: var(--white);
-  text-shadow: 2px 2px 0 var(--black);
+  text-shadow: 2px 2px 0 var(--sombra-texto);
 }
 
 .score-geral {
@@ -634,7 +636,7 @@ h1, h2, h3, h4, .marca-nome, .btn-principal, .btn-secundario, .btn-google, .btn-
   font-size: 0.8rem;
   margin: 0 0 14px;
   color: var(--white);
-  text-shadow: 3px 3px 0 var(--black);
+  text-shadow: 3px 3px 0 var(--sombra-texto);
 }
 
 /* Dentro dos cartões, o título precisa de cor que apareça no fundo claro */
@@ -752,7 +754,7 @@ h1, h2, h3, h4, .marca-nome, .btn-principal, .btn-secundario, .btn-google, .btn-
   text-align: center;
   padding: 22px;
   color: var(--white);
-  text-shadow: 2px 2px 0 var(--black);
+  text-shadow: 2px 2px 0 var(--sombra-texto);
   font-size: 1.05rem;
   border-top: 4px solid var(--black);
   background: var(--brown);
@@ -807,7 +809,7 @@ h1, h2, h3, h4, .marca-nome, .btn-principal, .btn-secundario, .btn-google, .btn-
   font-size: 1.4rem;
   margin-bottom: 16px;
   color: var(--red);
-  text-shadow: 2px 2px 0 var(--black);
+  text-shadow: 2px 2px 0 var(--sombra-texto);
 }
 
 .login-card h1 strong {
@@ -1066,7 +1068,7 @@ h1, h2, h3, h4, .marca-nome, .btn-principal, .btn-secundario, .btn-google, .btn-
   font-family: var(--pixel);
   font-size: 0.85rem;
   color: var(--yellow);
-  text-shadow: 2px 2px 0 var(--black);
+  text-shadow: 2px 2px 0 var(--sombra-texto);
 }
 
 .turma-stats {
@@ -1224,7 +1226,7 @@ h1, h2, h3, h4, .marca-nome, .btn-principal, .btn-secundario, .btn-google, .btn-
 
 .plano-intro {
   color: var(--white);
-  text-shadow: 2px 2px 0 var(--black);
+  text-shadow: 2px 2px 0 var(--sombra-texto);
   font-size: 1.1rem;
   margin-bottom: 16px;
 }
@@ -1316,7 +1318,7 @@ h1, h2, h3, h4, .marca-nome, .btn-principal, .btn-secundario, .btn-google, .btn-
   font-size: 0.72rem;
   margin: 22px 0 12px;
   color: var(--white);
-  text-shadow: 2px 2px 0 var(--black);
+  text-shadow: 2px 2px 0 var(--sombra-texto);
 }
 
 .cronograma {
@@ -1396,13 +1398,13 @@ h1, h2, h3, h4, .marca-nome, .btn-principal, .btn-secundario, .btn-google, .btn-
 .mural-topo h1 {
   font-size: 0.95rem;
   color: var(--white);
-  text-shadow: 3px 3px 0 var(--black);
+  text-shadow: 3px 3px 0 var(--sombra-texto);
   margin-bottom: 10px;
 }
 
 .mural-topo p {
   color: var(--white);
-  text-shadow: 2px 2px 0 var(--black);
+  text-shadow: 2px 2px 0 var(--sombra-texto);
 }
 
 .mural-abas {
@@ -1923,13 +1925,13 @@ h1, h2, h3, h4, .marca-nome, .btn-principal, .btn-secundario, .btn-google, .btn-
 .eca-topo h1 {
   font-size: 1.2rem;
   color: var(--white);
-  text-shadow: 3px 3px 0 var(--black);
+  text-shadow: 3px 3px 0 var(--sombra-texto);
   margin-bottom: 10px;
 }
 
 .eca-topo p {
   color: var(--white);
-  text-shadow: 2px 2px 0 var(--black);
+  text-shadow: 2px 2px 0 var(--sombra-texto);
   max-width: 620px;
   margin: 0 auto;
 }
@@ -2107,13 +2109,13 @@ h1, h2, h3, h4, .marca-nome, .btn-principal, .btn-secundario, .btn-google, .btn-
 .explorar-topo h1 {
   font-size: 1.2rem;
   color: var(--white);
-  text-shadow: 3px 3px 0 var(--black);
+  text-shadow: 3px 3px 0 var(--sombra-texto);
   margin-bottom: 12px;
 }
 
 .explorar-topo p {
   color: var(--white);
-  text-shadow: 2px 2px 0 var(--black);
+  text-shadow: 2px 2px 0 var(--sombra-texto);
 }
 
 .avatar-bloco {
@@ -2295,7 +2297,7 @@ h1, h2, h3, h4, .marca-nome, .btn-principal, .btn-secundario, .btn-google, .btn-
 .mario-legenda {
   text-align: center;
   color: var(--white);
-  text-shadow: 2px 2px 0 var(--black);
+  text-shadow: 2px 2px 0 var(--sombra-texto);
   font-size: 1rem;
   margin-bottom: 20px;
 }
@@ -2375,7 +2377,7 @@ h1, h2, h3, h4, .marca-nome, .btn-principal, .btn-secundario, .btn-google, .btn-
   font-family: var(--pixel);
   font-size: 0.5rem;
   color: var(--yellow);
-  text-shadow: 2px 2px 0 var(--black);
+  text-shadow: 2px 2px 0 var(--sombra-texto);
   display: block;
   margin-bottom: 8px;
 }
@@ -2383,7 +2385,7 @@ h1, h2, h3, h4, .marca-nome, .btn-principal, .btn-secundario, .btn-google, .btn-
 .fase-cabeca h1 {
   font-size: 0.9rem;
   color: var(--white);
-  text-shadow: 3px 3px 0 var(--black);
+  text-shadow: 3px 3px 0 var(--sombra-texto);
 }
 
 .fase-vidas {
@@ -2428,7 +2430,7 @@ h1, h2, h3, h4, .marca-nome, .btn-principal, .btn-secundario, .btn-google, .btn-
 #fase-progresso-texto {
   font-size: 1.05rem;
   color: var(--white);
-  text-shadow: 2px 2px 0 var(--black);
+  text-shadow: 2px 2px 0 var(--sombra-texto);
   display: block;
   margin-bottom: 6px;
 }
@@ -2615,7 +2617,7 @@ h1, h2, h3, h4, .marca-nome, .btn-principal, .btn-secundario, .btn-google, .btn-
   font-size: 2rem;
   color: var(--red);
   z-index: 5;
-  text-shadow: 2px 2px 0 var(--black);
+  text-shadow: 2px 2px 0 var(--sombra-texto);
 }
 
 .roleta {
@@ -2695,7 +2697,7 @@ h1, h2, h3, h4, .marca-nome, .btn-principal, .btn-secundario, .btn-google, .btn-
 /* ===== ÁLBUM DE FIGURINHAS ===== */
 .album-resumo {
   color: var(--white);
-  text-shadow: 2px 2px 0 var(--black);
+  text-shadow: 2px 2px 0 var(--sombra-texto);
   margin-bottom: 16px;
   font-size: 1.1rem;
 }
@@ -2891,7 +2893,7 @@ h1, h2, h3, h4, .marca-nome, .btn-principal, .btn-secundario, .btn-google, .btn-
 .noticias-atualizado {
   text-align: center;
   color: var(--white);
-  text-shadow: 2px 2px 0 var(--black);
+  text-shadow: 2px 2px 0 var(--sombra-texto);
   font-size: 1rem;
   margin-bottom: 18px;
 }
@@ -2941,7 +2943,7 @@ h1, h2, h3, h4, .marca-nome, .btn-principal, .btn-secundario, .btn-google, .btn-
 
 .noticias-dica {
   color: var(--white);
-  text-shadow: 2px 2px 0 var(--black);
+  text-shadow: 2px 2px 0 var(--sombra-texto);
   font-size: 1.05rem;
   margin-bottom: 16px;
 }
@@ -3061,7 +3063,7 @@ h1, h2, h3, h4, .marca-nome, .btn-principal, .btn-secundario, .btn-google, .btn-
 
 .sintese-dica {
   color: var(--white);
-  text-shadow: 2px 2px 0 var(--black);
+  text-shadow: 2px 2px 0 var(--sombra-texto);
   font-size: 1.05rem;
   text-align: center;
 }
@@ -3103,14 +3105,14 @@ h1, h2, h3, h4, .marca-nome, .btn-principal, .btn-secundario, .btn-google, .btn-
   font-family: var(--pixel);
   font-size: 0.6rem;
   color: var(--white);
-  text-shadow: 2px 2px 0 var(--black);
+  text-shadow: 2px 2px 0 var(--sombra-texto);
   margin: 20px 0 12px;
   line-height: 1.8;
 }
 
 .curriculo-info {
   color: var(--white);
-  text-shadow: 2px 2px 0 var(--black);
+  text-shadow: 2px 2px 0 var(--sombra-texto);
   font-size: 0.98rem;
   margin-bottom: 12px;
 }
@@ -3830,7 +3832,7 @@ h1, h2, h3, h4, .marca-nome, .btn-principal, .btn-secundario, .btn-google, .btn-
 
 .prof-area {
   color: var(--yellow);
-  text-shadow: 2px 2px 0 var(--black);
+  text-shadow: 2px 2px 0 var(--sombra-texto);
   font-weight: 700;
   margin-top: 8px;
 }
