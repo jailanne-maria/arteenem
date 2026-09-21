@@ -67,6 +67,7 @@ aoMudarUsuario(async (user) => {
   const btnChat = document.getElementById("btn-chat");
   const btnChatTurma = document.getElementById("btn-chat-turma");
   const btnSuporte = document.getElementById("btn-suporte");
+  const btnGlossario = document.getElementById("btn-glossario");
   const btnAdmin = document.getElementById("btn-admin");
   const btnInicio = document.getElementById("btn-inicio");
   const btnMenu = document.getElementById("btn-menu");
@@ -92,6 +93,7 @@ aoMudarUsuario(async (user) => {
     esconder(btnChat);
     esconder(btnChatTurma);
     esconder(btnSuporte);
+    esconder(btnGlossario);
     esconder(btnAdmin);
     esconder(btnInicio);
     esconder(btnMenu);
@@ -151,6 +153,8 @@ aoMudarUsuario(async (user) => {
   exibir(btnChatTurma);
   // Falar com a professora (todos, menos a própria admin)
   if (ehAdmin()) esconder(btnSuporte); else exibir(btnSuporte);
+  // Glossário de IA (todos)
+  exibir(btnGlossario);
   // Painel de administração (somente e-mails autorizados)
   if (ehAdmin()) exibir(btnAdmin); else esconder(btnAdmin);
 
@@ -5286,6 +5290,77 @@ document.getElementById("btn-voltar-chat-turma").addEventListener("click", () =>
 document.getElementById("btn-chat-turma-enviar").addEventListener("click", enviarChatTurma);
 document.getElementById("chat-turma-input").addEventListener("keydown", (e) => {
   if (e.key === "Enter") { e.preventDefault(); enviarChatTurma(); }
+});
+
+// ============================================================
+// GLOSSÁRIO DE IA (A a Z)
+// ============================================================
+let letraGlossario = "";
+let buscaGlossario = "";
+
+function abrirGlossario() {
+  mostrarTela("tela-glossario");
+  const busca = document.getElementById("glossario-busca");
+  if (busca) busca.value = "";
+  buscaGlossario = "";
+  renderLetrasGlossario();
+  renderGlossario();
+  if (typeof renderMascote === "function") renderMascote("mascote-glossario", "curriculo");
+}
+
+function renderLetrasGlossario() {
+  const div = document.getElementById("glossario-letras");
+  if (!div) return;
+  const usadas = new Set(GLOSSARIO.map(letraDoTermo));
+  div.innerHTML =
+    `<button class="letra-btn ${letraGlossario === "" ? "ativa" : ""}" data-letra="" type="button">Todos</button>` +
+    LETRAS_GLOSSARIO.map((l) =>
+      `<button class="letra-btn ${letraGlossario === l ? "ativa" : ""} ${usadas.has(l) ? "" : "vazia"}" data-letra="${l}" type="button">${l}</button>`
+    ).join("");
+  div.querySelectorAll(".letra-btn").forEach((b) => {
+    b.addEventListener("click", () => {
+      letraGlossario = b.dataset.letra;
+      renderLetrasGlossario();
+      renderGlossario();
+    });
+  });
+}
+
+function renderGlossario() {
+  const div = document.getElementById("glossario-lista");
+  if (!div) return;
+  const t = buscaGlossario.trim().toLowerCase();
+  const itens = GLOSSARIO.filter((g) => {
+    if (letraGlossario && letraDoTermo(g) !== letraGlossario) return false;
+    if (!t) return true;
+    return (g.termo + " " + (g.en || "") + " " + g.def).toLowerCase().includes(t);
+  });
+
+  if (!itens.length) {
+    div.innerHTML = `<p class="vazio">Nenhum termo encontrado${letraGlossario ? " na letra " + letraGlossario : ""}.</p>`;
+    return;
+  }
+
+  div.innerHTML = itens.map((g) => `
+    <details class="glossario-card">
+      <summary>
+        <span class="glossario-letra">${letraDoTermo(g)}</span>
+        <span class="glossario-termo">${escaparHTML(g.termo)}</span>
+        ${g.en ? `<span class="glossario-en">${escaparHTML(g.en)}</span>` : ""}
+      </summary>
+      <p>${escaparHTML(g.def)}</p>
+    </details>
+  `).join("");
+}
+
+document.getElementById("btn-glossario").addEventListener("click", abrirGlossario);
+document.getElementById("btn-voltar-glossario").addEventListener("click", () => {
+  if (usuario && usuario.papel === "professor") abrirPainelProfessor();
+  else abrirInicioEstudante();
+});
+document.getElementById("glossario-busca").addEventListener("input", (e) => {
+  buscaGlossario = e.target.value;
+  renderGlossario();
 });
 
 // ============================================================

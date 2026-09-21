@@ -10,7 +10,7 @@
   <link rel="apple-touch-icon" href="img/icon-192.png">
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#5c94fc">
-  <link rel="stylesheet" href="style.css?v=69">
+  <link rel="stylesheet" href="style.css?v=70">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
@@ -44,6 +44,7 @@
           <button id="btn-chat" class="btn-ghost escondido">💬 Chat da escola</button>
           <button id="btn-chat-turma" class="btn-ghost escondido">👥 Chat da turma</button>
           <button id="btn-suporte" class="btn-ghost escondido">💬 Falar com a professora</button>
+          <button id="btn-glossario" class="btn-ghost escondido">🧠 Glossário de IA</button>
           <button id="btn-admin" class="btn-ghost escondido">🛡️ Admin</button>
           <button id="btn-sair" class="btn-ghost escondido">Sair</button>
         </div>
@@ -424,6 +425,19 @@
         </p>
         <a class="btn-principal" href="https://instagram.com/ctrl.4rt" target="_blank" rel="noopener">💬 Falar com a gente · @ctrl.4rt</a>
       </div>
+    </section>
+
+    <!-- ===== GLOSSÁRIO DE IA ===== -->
+    <section id="tela-glossario" class="tela">
+      <button id="btn-voltar-glossario" class="btn-ghost voltar">← Voltar</button>
+      <div class="hero esquerda">
+        <h1>🧠 Glossário de IA</h1>
+        <p>De <strong>A a Z</strong>: os termos da Inteligência Artificial explicados de forma simples.</p>
+      </div>
+      <div id="mascote-glossario" class="mascote-bloco escondido"></div>
+      <input id="glossario-busca" class="biblioteca-busca" type="text" placeholder="🔎 Buscar termo ou definição...">
+      <div id="glossario-letras" class="glossario-letras"></div>
+      <div id="glossario-lista" class="glossario-lista"></div>
     </section>
 
     <!-- ===== FALAR COM A PROFESSORA ===== -->
@@ -1193,15 +1207,16 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
 
-  <script src="questoes.js?v=69"></script>
-  <script src="questoes-arte.js?v=69"></script>
-  <script src="plano.js?v=69"></script>
-  <script src="explorar.js?v=69"></script>
-  <script src="figurinhas.js?v=69"></script>
-  <script src="curriculo.js?v=69"></script>
-  <script src="cursos.js?v=69"></script>
-  <script src="mascote.js?v=69"></script>
-  <script src="firebase-config.js?v=69"></script>
-  <script src="script.js?v=69"></script>
+  <script src="questoes.js?v=70"></script>
+  <script src="questoes-arte.js?v=70"></script>
+  <script src="plano.js?v=70"></script>
+  <script src="explorar.js?v=70"></script>
+  <script src="figurinhas.js?v=70"></script>
+  <script src="curriculo.js?v=70"></script>
+  <script src="cursos.js?v=70"></script>
+  <script src="mascote.js?v=70"></script>
+  <script src="glossario.js?v=70"></script>
+  <script src="firebase-config.js?v=70"></script>
+  <script src="script.js?v=70"></script>
 </body>
 </html>
