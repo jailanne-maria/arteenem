@@ -3,7 +3,7 @@
    - Também cuida das notificações push (Firebase Cloud Messaging)
    Precisa ficar na RAIZ do site (junto do index.html). */
 
-const VERSAO = "nina-v3";
+const VERSAO = "nina-v4";
 
 // Arquivos do próprio app (essenciais para abrir offline)
 const SHELL = [
@@ -27,6 +27,7 @@ const SHELL = [
   "./img/icon-192.png",
   "./img/icon-512.png",
   "./img/nina/ctrl-art-banner.png",
+  "./img/mascote/donc3d.jpg",
 ];
 
 // Bibliotecas externas (para o app conseguir iniciar sem internet)

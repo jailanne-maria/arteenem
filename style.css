@@ -4433,6 +4433,18 @@ h1, h2, h3, h4, .marca-nome, .btn-principal, .btn-secundario, .btn-google, .btn-
   opacity: 0.78;
 }
 
+.curso-corte {
+  font-size: 0.88rem;
+  color: var(--green-dark);
+}
+
+[data-tema="escuro"] .curso-corte { color: #7fd88a; }
+
+.corte-info {
+  margin-top: 6px !important;
+  font-size: 0.95rem;
+}
+
 /* ===== FILTROS DE CURSOS ===== */
 .cursos-filtros {
   display: flex;
@@ -4454,6 +4466,24 @@ h1, h2, h3, h4, .marca-nome, .btn-principal, .btn-secundario, .btn-google, .btn-
 .filtro-btn.ativa { background: var(--yellow); }
 
 /* ===== CHECKLIST DE TÓPICOS ===== */
+.progresso-topicos {
+  background: var(--surface-2);
+  border: 3px solid var(--black);
+  box-shadow: 3px 3px 0 var(--black);
+  border-radius: 12px;
+  padding: 12px 16px;
+  margin-bottom: 16px;
+}
+
+.progresso-topo {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 8px;
+  flex-wrap: wrap;
+}
+
 .topico-check {
   display: flex;
   gap: 10px;
@@ -4644,10 +4674,12 @@ h1, h2, h3, h4, .marca-nome, .btn-principal, .btn-secundario, .btn-google, .btn-
 }
 
 .mascote-img {
-  width: 120px;
-  max-width: 30%;
+  width: 118px;
+  max-width: 32%;
   height: auto;
-  filter: drop-shadow(3px 3px 0 rgba(20, 20, 43, 0.35));
+  border: 3px solid var(--black);
+  border-radius: 14px;
+  box-shadow: 3px 3px 0 var(--black);
   flex-shrink: 0;
 }
 
@@ -4842,6 +4874,56 @@ h1, h2, h3, h4, .marca-nome, .btn-principal, .btn-secundario, .btn-google, .btn-
   font-size: 1.02rem;
   line-height: 1.5;
   padding-left: 40px;
+}
+
+/* ===== ADMIN — RELATÓRIO ===== */
+.relatorio-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.relatorio-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  background: var(--surface-2);
+  border: 3px solid var(--black);
+  box-shadow: 3px 3px 0 var(--black);
+  border-radius: 12px;
+  padding: 12px 8px;
+  text-align: center;
+}
+
+.relatorio-icone { font-size: 1.4rem; }
+
+.relatorio-valor {
+  font-family: var(--pixel);
+  font-size: 1rem;
+  color: var(--green-dark);
+}
+
+[data-tema="escuro"] .relatorio-valor { color: #7fd88a; }
+
+.relatorio-rotulo { font-size: 0.85rem; opacity: 0.85; }
+
+.relatorio-barra {
+  height: 20px;
+  background: #e6e6ef;
+  border: 3px solid var(--black);
+  border-radius: 999px;
+  overflow: hidden;
+  margin-bottom: 6px;
+}
+
+[data-tema="escuro"] .relatorio-barra { background: #2e2e4a; }
+
+.relatorio-barra-fill {
+  height: 100%;
+  background: var(--green);
+  transition: width 0.3s ease;
 }
 
 /* ===== MELHORIAS PARA CELULAR ===== */

@@ -621,6 +621,32 @@ function listarTodasMensagensTurma() {
     });
 }
 
+// ---------- Relatório de uso (admin) ----------
+function listarTodasTurmas() {
+  return firebase.firestore().collection("turmas").get()
+    .then((snap) => snap.docs.map((d) => ({ id: d.id, ...d.data() })));
+}
+
+function listarTodosResultados() {
+  return firebase.firestore().collection("resultados").get()
+    .then((snap) => snap.docs.map((d) => d.data()));
+}
+
+function listarTodasAtividades() {
+  return firebase.firestore().collection("atividades").get()
+    .then((snap) => snap.docs.map((d) => ({ id: d.id, ...d.data() })));
+}
+
+function listarTodasRevisoes() {
+  return firebase.firestore().collection("revisoes").get()
+    .then((snap) => snap.docs.map((d) => ({ id: d.id, ...d.data() })));
+}
+
+function listarTodasRespostasQuiz() {
+  return firebase.firestore().collection("respostasQuiz").get()
+    .then((snap) => snap.docs.map((d) => d.data()));
+}
+
 // ---------- Novidades (avisos para todos os usuários) ----------
 function publicarNovidade(autor, dados) {
   return firebase.firestore().collection("novidades").add({

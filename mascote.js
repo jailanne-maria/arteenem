@@ -1,7 +1,7 @@
 // NINA — mascote DONC (do grafite da Jailanne)
 // Ele aparece em várias telas com um balão de fala dando dicas.
 
-const MASCOTE_IMG = "img/mascote/donc.png";
+const MASCOTE_IMG = "img/mascote/donc3d.jpg";
 const MASCOTE_NOME = "DONC";
 
 const MASCOTE_FALAS = {

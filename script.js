@@ -1064,6 +1064,7 @@ function renderCursoEscolhido() {
       <div class="curso-dados">
         <strong>${escaparHTML(cursoEscolhido.nome)}</strong>
         <span class="curso-desc">${escaparHTML(cursoEscolhido.descricao || "")}</span>
+        ${cursoEscolhido.corte ? `<span class="curso-corte">📊 Nota de corte SISU 2025: <strong>${cursoEscolhido.corte}</strong></span>` : ""}
         <div class="curso-pesos">
           ${areas.map((a) => `<span class="peso-tag peso-${a.peso}">${escaparHTML(a.nome)} ${"⭐".repeat(a.peso)}</span>`).join("")}
         </div>
@@ -1106,6 +1107,7 @@ function renderCursos(termo) {
               ${c.grau ? ` · ${escaparHTML(c.grau)}` : ""}
             </span>
             <span class="curso-desc">${escaparHTML(c.descricao || "")}</span>
+            ${c.corte ? `<span class="curso-corte">📊 Nota de corte SISU 2025: <strong>${c.corte}</strong></span>` : ""}
             <div class="curso-pesos">
               ${areasDePeso(c).filter((a) => a.peso === 3).map((a) => `<span class="peso-tag peso-3">${escaparHTML(a.nome)} ⭐⭐⭐</span>`).join("")}
             </div>
@@ -1201,6 +1203,12 @@ function renderPlanoObjetivo() {
 
   const plano = gerarPlanoObjetivo(areasMapa, cursoEscolhido);
 
+  // Progresso do checklist de tópicos
+  const totalTopicos = plano.areas.reduce((s, a) => s + Math.min(3, a.topicos.length), 0);
+  const feitosNaLista = plano.areas.reduce((s, a) =>
+    s + a.topicos.slice(0, 3).filter((t) => topicosFeitos.includes(`${a.area}:${t.nome}`)).length, 0);
+  const pctTopicos = totalTopicos ? Math.round((feitosNaLista / totalTopicos) * 100) : 0;
+
   const cards = plano.areas.map((a) => {
     const are = AREAS[a.area] || { icone: "", curto: a.area };
     const topicos = a.topicos.slice(0, 3)
@@ -1269,9 +1277,17 @@ function renderPlanoObjetivo() {
       <div class="prontidao-txt">
         <strong>Prontidão para ${escaparHTML(cursoEscolhido.nome)}</strong>
         <p>${frase}</p>
+        ${cursoEscolhido.corte ? `<p class="corte-info">📊 <strong>Nota de corte SISU 2025:</strong> ${cursoEscolhido.corte} pontos (ampla concorrência)</p>` : ""}
       </div>
     </div>
     <p class="plano-intro">As áreas estão na ordem de prioridade para o seu objetivo. A linha marca a <strong>meta</strong> de cada uma.</p>
+    <div class="progresso-topicos">
+      <div class="progresso-topo">
+        <span>✅ Tópicos estudados</span>
+        <strong>${feitosNaLista} de ${totalTopicos} (${pctTopicos}%)</strong>
+      </div>
+      <div class="relatorio-barra"><div class="relatorio-barra-fill" style="width:${pctTopicos}%"></div></div>
+    </div>
     <div class="objetivo-lista">${cards}${cardRedacao}</div>
     <h4 class="plano-subtitulo">🗓️ Rotina semanal sugerida</h4>
     <div class="cronograma">${plano.cronograma.map((c) => `<div class="crono-dia"><span class="crono-nome">${c.dia}</span><span class="crono-foco">${c.foco}</span></div>`).join("")}</div>
@@ -5787,6 +5803,7 @@ async function carregarAdmin() {
     else if (adminAba === "mensagensTurma") adminDados.mensagensTurma = await listarTodasMensagensTurma();
     else if (adminAba === "novidades") adminDados.novidades = await listarNovidades();
     else if (adminAba === "conversas") adminDados.conversas = await listarConversasSuporte();
+    else if (adminAba === "relatorio") return renderRelatorio(div);
     else adminDados.mensagens = await listarTodasMensagens();
   } catch (e) {
     div.innerHTML = `<p class="vazio">Erro ao carregar: ${escaparHTML(e.message)}</p>`;
@@ -5863,8 +5880,96 @@ function renderConversaDetalhe(div) {
   carregarConversaMsgs();
 }
 
-function carregarConversaMsgs() {
-  if (conversaUnsub) { conversaUnsub(); conversaUnsub = null; }
+// ---------- Relatório de uso ----------
+function cardRelatorio(icone, rotulo, valor) {
+  return `<div class="relatorio-card">
+    <span class="relatorio-icone">${icone}</span>
+    <span class="relatorio-valor">${valor}</span>
+    <span class="relatorio-rotulo">${rotulo}</span>
+  </div>`;
+}
+
+async function renderRelatorio(div) {
+  div.innerHTML = `<p class="vazio">Carregando relatório...</p>`;
+  try {
+    const [usuarios, turmas, resultados, atividades, revisoes, respostas, conversas, novidades] = await Promise.all([
+      listarTodosUsuarios().catch(() => []),
+      listarTodasTurmas().catch(() => []),
+      listarTodosResultados().catch(() => []),
+      listarTodasAtividades().catch(() => []),
+      listarTodasRevisoes().catch(() => []),
+      listarTodasRespostasQuiz().catch(() => []),
+      listarConversasSuporte().catch(() => []),
+      listarNovidades().catch(() => []),
+    ]);
+
+    const profs = usuarios.filter((u) => u.papel === "professor");
+    const alunos = usuarios.filter((u) => u.papel === "estudante");
+    const semPapel = usuarios.filter((u) => !u.papel);
+    const bloqueados = usuarios.filter((u) => u.bloqueado);
+    const comPush = usuarios.filter((u) => Array.isArray(u.pushTokens) && u.pushTokens.length).length;
+
+    const escolas = {};
+    profs.forEach((u) => { if (u.escola) escolas[u.escola] = (escolas[u.escola] || 0) + 1; });
+    const listaEscolas = Object.entries(escolas).sort((a, b) => b[1] - a[1]);
+
+    const media = respostas.length
+      ? Math.round(respostas.reduce((s, r) => s + (r.total ? (r.acertos / r.total) * 100 : 0), 0) / respostas.length)
+      : 0;
+
+    const recentes = usuarios.slice().sort((a, b) => {
+      const ma = a.criadoEm && a.criadoEm.toMillis ? a.criadoEm.toMillis() : 0;
+      const mb = b.criadoEm && b.criadoEm.toMillis ? b.criadoEm.toMillis() : 0;
+      return mb - ma;
+    }).slice(0, 6);
+
+    div.innerHTML = `
+      <p class="admin-resumo">📊 Resumo geral do NINA</p>
+      <div class="relatorio-grid">
+        ${cardRelatorio("👥", "Usuários", usuarios.length)}
+        ${cardRelatorio("👩🏽‍🏫", "Professores", profs.length)}
+        ${cardRelatorio("🎒", "Estudantes", alunos.length)}
+        ${cardRelatorio("❓", "Sem papel", semPapel.length)}
+        ${cardRelatorio("🏫", "Escolas", listaEscolas.length)}
+        ${cardRelatorio("🏫", "Turmas", turmas.length)}
+        ${cardRelatorio("📝", "Diagnósticos", resultados.length)}
+        ${cardRelatorio("📋", "Atividades", atividades.length)}
+        ${cardRelatorio("✅", "Respostas", respostas.length)}
+        ${cardRelatorio("📖", "Revisões", revisoes.length)}
+        ${cardRelatorio("💬", "Conversas", conversas.length)}
+        ${cardRelatorio("🔔", "Novidades", novidades.length)}
+        ${cardRelatorio("📲", "Com push", comPush)}
+        ${cardRelatorio("🚫", "Bloqueados", bloqueados.length)}
+      </div>
+
+      <h4 class="curriculo-sub">📈 Média de acertos nas atividades</h4>
+      <div class="relatorio-barra"><div class="relatorio-barra-fill" style="width:${media}%"></div></div>
+      <p class="admin-sub">Média: <strong>${media}%</strong> em ${respostas.length} resposta(s)</p>
+
+      <h4 class="curriculo-sub">🏫 Professores por escola</h4>
+      ${listaEscolas.length
+        ? listaEscolas.map(([esc, n]) => `
+          <div class="admin-item">
+            <div class="admin-item-info"><strong>🏫 ${escaparHTML(esc)}</strong></div>
+            <div class="admin-acoes"><span class="admin-sub">${n} professor(es)</span></div>
+          </div>`).join("")
+        : `<p class="vazio">Nenhuma escola cadastrada ainda.</p>`}
+
+      <h4 class="curriculo-sub">🆕 Últimos cadastros</h4>
+      ${recentes.map((u) => `
+        <div class="admin-item">
+          <div class="admin-item-info">
+            <strong>${escaparHTML(u.nome || "Sem nome")}</strong>
+            <span class="admin-sub">${escaparHTML(u.email || "")} · ${u.papel || "sem papel"}${u.escola ? " · 🏫 " + escaparHTML(u.escola) : ""}</span>
+          </div>
+        </div>`).join("") || `<p class="vazio">Nenhum usuário ainda.</p>`}
+    `;
+  } catch (e) {
+    div.innerHTML = `<p class="vazio">Erro ao gerar relatório: ${escaparHTML(e.message)}</p>`;
+  }
+}
+
+function carregarConversaMsgs() {  if (conversaUnsub) { conversaUnsub(); conversaUnsub = null; }
   const div = document.getElementById("admin-conversa-msgs");
   if (!div || !conversaUid) return;
   div.innerHTML = `<p class="vazio">Carregando...</p>`;
