@@ -3475,7 +3475,7 @@ document.getElementById("btn-gerar-revisao").addEventListener("click", async () 
     }
     if (!texto || texto.trim().length < 50) throw new Error("Não consegui ler o texto dos arquivos.");
 
-    aviso.textContent = `🤖 Gerando mapa conceitual, revisão e atividade a partir de ${arquivos.length} arquivo(s)... (pode levar alguns segundos)`;
+    aviso.textContent = `🤖 Gerando mapa conceitual, revisão, flash cards e atividade a partir de ${arquivos.length} arquivo(s)... Pode levar até 1 minuto — não feche a página.`;
     const resultado = await chamarIARevisao(chave, texto.replace(/\s+/g, " ").slice(0, 20000));
     renderRevisao(resultado);
     esconder(aviso);
@@ -3488,6 +3488,76 @@ document.getElementById("btn-gerar-revisao").addEventListener("click", async () 
     btn.textContent = "✨ Gerar revisão";
   }
 });
+
+// ============================================================
+// CHAMADA DA IA (com fallback entre modelos)
+// Se um modelo estiver indisponível, tenta o próximo automaticamente.
+// ============================================================
+const MODELOS_IA = [
+  "gemini-3.6-flash",
+  "gemini-3-flash-preview",
+  "gemini-2.5-flash",
+  "gemini-flash-latest",
+];
+
+async function chamarGemini(chave, prompt, maxTokens) {
+  let ultimoErro = "";
+  let quotaAtingida = false;
+
+  for (const modelo of MODELOS_IA) {
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/${modelo}:generateContent?key=${chave}`;
+    const corpo = JSON.stringify({
+      contents: [{ parts: [{ text: prompt }] }],
+      generationConfig: { maxOutputTokens: maxTokens || 4000 },
+    });
+
+    for (let tentativa = 1; tentativa <= 3; tentativa++) {
+      let resp;
+      try {
+        resp = await fetch(url, { method: "POST", headers: { "Content-Type": "application/json" }, body: corpo });
+      } catch {
+        ultimoErro = "sem conexão";
+        await new Promise((r) => setTimeout(r, 1200 * tentativa));
+        continue;
+      }
+
+      if (resp.ok) {
+        const data = await resp.json();
+        let t = (data?.candidates?.[0]?.content?.parts || []).map((p) => p.text || "").join("");
+        t = t.replace(/```json|```/g, "").trim();
+        const i = t.indexOf("{");
+        const f = t.lastIndexOf("}");
+        if (i >= 0 && f > i) t = t.slice(i, f + 1);
+        try {
+          return JSON.parse(t);
+        } catch {
+          ultimoErro = "formato inesperado";
+          break; // tenta o próximo modelo
+        }
+      }
+
+      let detalhe = "";
+      try {
+        const erro = await resp.json();
+        detalhe = (erro && erro.error && erro.error.message) || "";
+      } catch {}
+      ultimoErro = detalhe || ("erro " + resp.status);
+
+      if (resp.status === 429) { quotaAtingida = true; break; }   // cota: tenta outro modelo
+      if (resp.status === 404) break;                              // modelo não existe: próximo
+      if (resp.status === 503 || resp.status === 500) {            // sobrecarga: insiste
+        await new Promise((r) => setTimeout(r, 1500 * tentativa));
+        continue;
+      }
+      break; // outros erros: próximo modelo
+    }
+  }
+
+  if (quotaAtingida) {
+    throw new Error("⏳ Limite de uso da IA atingido nesta chave. Aguarde alguns minutos (ou use outra chave em aistudio.google.com/apikey).");
+  }
+  throw new Error("Não consegui falar com a IA agora (" + ultimoErro + "). Tente de novo em instantes.");
+}
 
 async function chamarIARevisao(chave, texto) {
   const prompt = `Você é um professor do Ensino Médio. A partir do conteúdo abaixo, produza uma revisão didática para os estudantes.
@@ -3504,62 +3574,7 @@ Nos flash cards, o "conceito" deve ser curto (máx. 60 caracteres) e a "explicac
 Conteúdo:
 ${texto}`;
 
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent?key=${chave}`;
-  const corpo = JSON.stringify({
-    contents: [{ parts: [{ text: prompt }] }],
-    generationConfig: { maxOutputTokens: 4000 },
-  });
-
-  let ultimoErro = "";
-  // Até 5 tentativas (a IA pode estar sobrecarregada — erro 503)
-  for (let tentativa = 1; tentativa <= 5; tentativa++) {
-    let resp;
-    try {
-      resp = await fetch(url, { method: "POST", headers: { "Content-Type": "application/json" }, body: corpo });
-    } catch (e) {
-      ultimoErro = "sem conexão";
-      await new Promise((r) => setTimeout(r, 1500 * tentativa));
-      continue;
-    }
-
-    if (resp.ok) {
-      const data = await resp.json();
-      let t = (data?.candidates?.[0]?.content?.parts || []).map((p) => p.text || "").join("");
-      t = t.replace(/```json|```/g, "").trim();
-      const i = t.indexOf("{");
-      const f = t.lastIndexOf("}");
-      if (i >= 0 && f > i) t = t.slice(i, f + 1);
-      try {
-        return JSON.parse(t);
-      } catch {
-        throw new Error("A IA respondeu num formato inesperado. Tente gerar de novo (às vezes acontece).");
-      }
-    }
-
-    // Lê a mensagem real da API para explicar direitinho
-    let detalhe = "";
-    try {
-      const erro = await resp.json();
-      detalhe = (erro && erro.error && erro.error.message) || "";
-    } catch {}
-    ultimoErro = detalhe || ("erro " + resp.status);
-
-    // Limite de uso (cota gratuita) — espera mais e tenta de novo
-    if (resp.status === 429) {
-      if (/quota|limit/i.test(detalhe) && tentativa >= 3) {
-        throw new Error("⏳ Limite de uso da IA atingido. Aguarde alguns minutos (ou tente com outra chave). Se persistir, o modelo gratuito estourou a cota do dia.");
-      }
-      await new Promise((r) => setTimeout(r, 4000 * tentativa));
-      continue;
-    }
-    // Sobrecarga do servidor
-    if (resp.status === 503 || resp.status === 500) {
-      await new Promise((r) => setTimeout(r, 2500 * tentativa));
-      continue;
-    }
-    throw new Error("A IA retornou: " + ultimoErro);
-  }
-  throw new Error("Não consegui falar com a IA agora (" + ultimoErro + "). Aguarde um instante e tente de novo.");
+  return chamarGemini(chave, prompt, 6000);
 }
 
 // Monta os flash cards (um lado o conceito, o outro a explicação)
@@ -4166,7 +4181,7 @@ document.getElementById("btn-criar-atividade").addEventListener("click", async (
         aviso.textContent = `📖 Lendo ${arq.name}...`;
         texto += "\n\n### " + arq.name + "\n" + (await extrairTextoArquivo(arq));
       }
-      aviso.textContent = "🤖 Gerando questões com a IA...";
+      aviso.textContent = "🤖 Gerando questões com a IA... pode levar até 1 minuto, não feche a página.";
       perguntas = await gerarQuestoesIA(chave, texto.replace(/\s+/g, " ").slice(0, 20000), qtd, usuario.disciplina, area);
     }
 
@@ -4212,71 +4227,20 @@ A "correta" é o índice (0 a 4) da alternativa correta.
 Material:
 ${texto}`;
 
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent?key=${chave}`;
-  const corpo = JSON.stringify({
-    contents: [{ parts: [{ text: prompt }] }],
-    generationConfig: { maxOutputTokens: 5000 },
-  });
-
-  let ultimoErro = "";
-  for (let tentativa = 1; tentativa <= 5; tentativa++) {
-    let resp;
-    try {
-      resp = await fetch(url, { method: "POST", headers: { "Content-Type": "application/json" }, body: corpo });
-    } catch {
-      ultimoErro = "sem conexão";
-      await new Promise((r) => setTimeout(r, 1500 * tentativa));
-      continue;
-    }
-    if (resp.ok) {
-      const data = await resp.json();
-      let t = (data?.candidates?.[0]?.content?.parts || []).map((p) => p.text || "").join("");
-      t = t.replace(/```json|```/g, "").trim();
-      const i = t.indexOf("{");
-      const f = t.lastIndexOf("}");
-      if (i >= 0 && f > i) t = t.slice(i, f + 1);
-      let parsed;
-      try {
-        parsed = JSON.parse(t);
-      } catch {
-        throw new Error("A IA respondeu num formato inesperado. Tente gerar de novo.");
-      }
-      const questoes = (parsed.questoes || []).filter((q) => q.enunciado && Array.isArray(q.alternativas) && q.alternativas.length >= 4);
-      if (!questoes.length) throw new Error("A IA não gerou questões válidas. Tente novamente.");
-      return questoes.map((q, idx) => ({
-        id: "ia_" + Date.now() + "_" + idx,
-        area: area && area !== "todas" ? area : (usuario.area || "linguagens"),
-        disciplina: disciplina || null,
-        tema: disciplina || "Atividade",
-        apoio: q.apoio || "",
-        enunciado: q.enunciado,
-        alternativas: q.alternativas,
-        correta: typeof q.correta === "number" ? q.correta : 0,
-        explicacao: q.explicacao || "",
-      }));
-    }
-
-    let detalhe = "";
-    try {
-      const erro = await resp.json();
-      detalhe = (erro && erro.error && erro.error.message) || "";
-    } catch {}
-    ultimoErro = detalhe || ("erro " + resp.status);
-
-    if (resp.status === 429) {
-      if (/quota|limit/i.test(detalhe) && tentativa >= 3) {
-        throw new Error("⏳ Limite de uso da IA atingido. Aguarde alguns minutos (ou use outra chave).");
-      }
-      await new Promise((r) => setTimeout(r, 4000 * tentativa));
-      continue;
-    }
-    if (resp.status === 503 || resp.status === 500) {
-      await new Promise((r) => setTimeout(r, 2500 * tentativa));
-      continue;
-    }
-    throw new Error("A IA retornou: " + ultimoErro);
-  }
-  throw new Error("Não consegui falar com a IA agora (" + ultimoErro + "). Aguarde um instante e tente de novo.");
+  const parsed = await chamarGemini(chave, prompt, 6000);
+  const questoes = (parsed.questoes || []).filter((q) => q.enunciado && Array.isArray(q.alternativas) && q.alternativas.length >= 4);
+  if (!questoes.length) throw new Error("A IA não gerou questões válidas. Tente novamente.");
+  return questoes.map((q, idx) => ({
+    id: "ia_" + Date.now() + "_" + idx,
+    area: area && area !== "todas" ? area : (usuario.area || "linguagens"),
+    disciplina: disciplina || null,
+    tema: disciplina || "Atividade",
+    apoio: q.apoio || "",
+    enunciado: q.enunciado,
+    alternativas: q.alternativas,
+    correta: typeof q.correta === "number" ? q.correta : 0,
+    explicacao: q.explicacao || "",
+  }));
 }
 
 async function carregarAtividadesProf() {
