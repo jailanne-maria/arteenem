@@ -1550,7 +1550,7 @@ function modoPerfil(editando) {
     exibir(document.getElementById("perfil-view"));
     exibir(document.getElementById("btn-editar-perfil"));
     document.getElementById("btn-editar-perfil").textContent = "✏️ Editar perfil";
-    if (btnPapel) { if (perfilEhMeu) exibir(btnPapel); else esconder(btnPapel); }
+    if (btnPapel) { if (perfilEhMeu && podeTrocarPapel()) exibir(btnPapel); else esconder(btnPapel); }
     if (btnApoiador) { if (perfilEhMeu && ehProf) exibir(btnApoiador); else esconder(btnApoiador); }
     const btnGloss = document.getElementById("btn-glossario-perfil");
     if (btnGloss) { if (perfilEhMeu && ehProf) exibir(btnGloss); else esconder(btnGloss); }
@@ -1564,7 +1564,9 @@ function abrirMeuPerfil() {
   preencherPerfil(usuario);
   exibir(document.getElementById("btn-editar-perfil"));
   atualizarBotaoPapel();
-  exibir(document.getElementById("btn-trocar-papel"));
+  // Só mostra o botão de troca se puder trocar (professor/admin)
+  if (podeTrocarPapel()) exibir(document.getElementById("btn-trocar-papel"));
+  else esconder(document.getElementById("btn-trocar-papel"));
   if (usuario.papel === "professor") exibir(document.getElementById("btn-apoiador"));
   else esconder(document.getElementById("btn-apoiador"));
   // Glossários: só para professores
@@ -1579,6 +1581,17 @@ function abrirMeuPerfil() {
   mostrarTela("tela-perfil");
 }
 
+// Só quem JÁ é professor(a) — ou admin — pode trocar de papel.
+// Conta de estudante é SOMENTE estudante (não vira professor).
+function podeTrocarPapel() {
+  if (!usuario) return false;
+  if (ehAdmin()) return true;
+  if (usuario.papel === "professor") return true;
+  // quem já foi professor (tem área/disciplina salva) pode voltar
+  if (usuario.area || usuario.disciplina) return true;
+  return false;
+}
+
 // Mostra o rótulo do botão de troca de papel conforme o papel atual
 function atualizarBotaoPapel() {
   const btn = document.getElementById("btn-trocar-papel");
@@ -1591,6 +1604,13 @@ function atualizarBotaoPapel() {
 // Alterna entre professor e estudante mantendo os dados do perfil
 async function trocarPapel() {
   if (!usuario) return;
+  // Trava: estudante puro NÃO pode virar professor
+  if (!podeTrocarPapel()) {
+    const btn = document.getElementById("btn-trocar-papel");
+    if (btn) esconder(btn);
+    mostrarToast("Sua conta é de estudante. Fale com a professora para mais informações.", "erro");
+    return;
+  }
   const novo = usuario.papel === "professor" ? "estudante" : "professor";
   const msg = novo === "estudante"
     ? "Trocar para conta de estudante?\n\nSuas turmas continuam salvas. Para aparecer no ranking, entre numa turma com o código do professor."
@@ -3793,7 +3813,10 @@ function renderRevisaoCard(r) {
 
   const turmasTxt = (r.turmas || []).length ? (r.turmas || []).join(" · ") : "nenhuma turma";
 
-  const blocoProf = ehProf
+  // Nomear/reenviar: SOMENTE professor(a). Estudante nunca vê essas ações.
+  const podeGerenciar = usuario.papel === "professor";
+
+  const blocoProf = podeGerenciar
     ? `<div class="revisao-acoes">
          <span class="revisao-turmas">👥 ${escaparHTML(turmasTxt)}</span>
          <div class="revisao-acoes-botoes">
@@ -3830,6 +3853,11 @@ function renderRevisaoCard(r) {
 document.addEventListener("click", async (e) => {
   const btn = e.target.closest("[data-rev-acao]");
   if (!btn) return;
+  // Trava: só professor(a) gerencia revisões
+  if (!usuario || usuario.papel !== "professor") {
+    mostrarToast("Apenas o(a) professor(a) pode gerenciar revisões.", "erro");
+    return;
+  }
   const id = btn.dataset.id;
 
   if (btn.dataset.revAcao === "nomear") {

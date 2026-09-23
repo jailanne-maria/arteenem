@@ -57,14 +57,26 @@ service cloud.firestore {
       allow write: if ehAdmin();
     }
 
+    // ---- Revisões (só o professor dono edita/apaga) ----
+    match /revisoes/{id} {
+      allow read: if logado();
+      allow create: if logado();
+      allow update, delete: if logado() && (resource.data.professorId == request.auth.uid || ehAdmin());
+    }
+
+    // ---- Atividades (só o professor dono edita/apaga) ----
+    match /atividades/{id} {
+      allow read: if logado();
+      allow create: if logado();
+      allow update, delete: if logado() && (resource.data.professorId == request.auth.uid || ehAdmin());
+    }
+
     // ---- Resto do app ----
     match /resultados/{id} { allow read, write: if logado(); }
     match /depoimentos/{id} { allow read, write: if logado(); }
     match /perguntas/{id} { allow read, write: if logado(); }
     match /duelos/{id} { allow read, write: if logado(); }
-    match /revisoes/{id} { allow read, write: if logado(); }
     match /respostasAtividade/{id} { allow read, write: if logado(); }
-    match /atividades/{id} { allow read, write: if logado(); }
     match /respostasQuiz/{id} { allow read, write: if logado(); }
   }
 }
