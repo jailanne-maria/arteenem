@@ -1543,6 +1543,8 @@ function modoPerfil(editando) {
     if (btnApoiador) esconder(btnApoiador);
     const btnGloss = document.getElementById("btn-glossario-perfil");
     if (btnGloss) esconder(btnGloss);
+    const btnEnc = document.getElementById("btn-encenacao-perfil");
+    if (btnEnc) esconder(btnEnc);
   } else {
     esconder(document.getElementById("perfil-edit"));
     exibir(document.getElementById("perfil-view"));
@@ -1552,6 +1554,8 @@ function modoPerfil(editando) {
     if (btnApoiador) { if (perfilEhMeu && ehProf) exibir(btnApoiador); else esconder(btnApoiador); }
     const btnGloss = document.getElementById("btn-glossario-perfil");
     if (btnGloss) { if (perfilEhMeu && ehProf) exibir(btnGloss); else esconder(btnGloss); }
+    const btnEnc = document.getElementById("btn-encenacao-perfil");
+    if (btnEnc) { if (perfilEhMeu && ehProf) exibir(btnEnc); else esconder(btnEnc); }
   }
 }
 
@@ -1566,6 +1570,9 @@ function abrirMeuPerfil() {
   // Glossários: só para professores
   if (usuario.papel === "professor") exibir(document.getElementById("btn-glossario-perfil"));
   else esconder(document.getElementById("btn-glossario-perfil"));
+  // Fichário de Encenação: só para professores
+  if (usuario.papel === "professor") exibir(document.getElementById("btn-encenacao-perfil"));
+  else esconder(document.getElementById("btn-encenacao-perfil"));
   renderPerfilObjetivo(true);
   modoPerfil(false);
   carregarAtividadesPerfil(usuario.uid);
@@ -4903,7 +4910,7 @@ const ESTANTES = [
       { titulo: "Revista Das Amazônias", autor: "UFAC · História", genero: "História da Amazônia", url: "https://periodicos.ufac.br/index.php/amazonicas" },
       { titulo: "Revista TXAI", autor: "UFAC · Artes Cênicas", genero: "Teatro e performance", url: "https://periodicos.ufac.br/index.php/txai" },
       { titulo: "NAWA", autor: "UFAC · Extensão e Cultura", genero: "Arte e cultura", url: "https://periodicos.ufac.br/index.php/nawa" },
-      { titulo: "Muiraquitã", autor: "UFAC · Letras e Humanidades", genero: "Literatura e artes", url: "https://periodicos.ufac.br/index.php/mui" },
+      { titulo: "Muiraquitã", autor: "UFAC · Letras e Humanidades", genero: "Literatura e arte", url: "https://periodicos.ufac.br/index.php/mui" },
       { titulo: "Em Favor de Igualdade Racial", autor: "UFAC · Educação", genero: "Educação antirracista", url: "https://periodicos.ufac.br/index.php/RFIR" },
       { titulo: "SHUBUÃ Pesquisas Indígenas", autor: "UFAC · Licenciatura Indígena", genero: "Povos originários", url: "https://periodicos.ufac.br/index.php/shubua" },
       { titulo: "TROPOS", autor: "UFAC · Comunicação e Cultura", genero: "Comunicação e cultura", url: "https://periodicos.ufac.br/index.php/tropos" },
@@ -5555,6 +5562,7 @@ function renderFichaEncenacao(j) {
 }
 
 document.getElementById("btn-ir-encenacao").addEventListener("click", abrirEncenacao);
+document.getElementById("btn-encenacao-perfil").addEventListener("click", abrirEncenacao);
 document.getElementById("btn-sortear-ficha").addEventListener("click", sortearFicha);
 document.getElementById("btn-voltar-encenacao").addEventListener("click", () => {
   if (podeEncenar()) abrirPainelProfessor();

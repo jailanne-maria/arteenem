@@ -97,7 +97,7 @@ const QUESTOES_ARTE = [
     "tema": "Educação Antirracista e Relações Étnico-Raciais",
     "serie": "3ª",
     "apoio": "No poema Os ninguéns, Eduardo Galeano pontua a invisibilização de grupos marginalizados ao afirmar que estes 'não fazem arte, fazem artesanato; não têm cultura, têm folclore'. Por sua vez, o filósofo Frantz Fanon denuncia a imposição de 'séculos de verdade branca' na construção da história ocidental.",
-    "enunciado": "No âmbito das artes e das relações étnico-raciais, a crítica expressa por Galeano e Fanon direciona-se à",
+    "enunciado": "No âmbito da arte e das relações étnico-raciais, a crítica expressa por Galeano e Fanon direciona-se à",
     "alternativas": [
       "ausência de valor econômico e mercadológico nas produções utilitárias dos povos tradicionais.",
       "hierarquização eurocêntrica que inferioriza e desqualifica as produções simbólicas de populações não brancas.",
@@ -121,7 +121,7 @@ const QUESTOES_ARTE = [
       "descentralização do repertório estético dominante e a inclusão das matrizes africanas e indígenas na apreciação e fazer artístico.",
       "restrição do estudo de produções afro-brasileiras e indígenas a datas comemorativas específicas do calendário escolar.",
       "interpretação das manifestações artísticas populares como saberes menores quando comparadas à arte erudita.",
-      "separação das turmas por critérios étnicos para garantir uma experiência diferenciada no aprendizado de artes."
+      "separação das turmas por critérios étnicos para garantir uma experiência diferenciada no aprendizado de arte."
     ],
     "correta": 1,
     "explicacao": "A Educação das Relações Étnico-Raciais no ensino de Arte busca romper com o monopólio estético e conceitual de matriz eurocêntrica. Ao ampliar os referenciais visuais e simbólicos para incorporar os saberes afro-brasileiros e indígenas, promove-se o respeito à diversidade e o fortalecimento de identidades plurais."
