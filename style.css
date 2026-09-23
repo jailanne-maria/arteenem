@@ -117,6 +117,10 @@
 [data-tema="escuro"] .mascote-balao::after { border-right-color: var(--surface-2); }
 [data-tema="escuro"] .tour-destaque { background: var(--surface-2); }
 [data-tema="escuro"] .leitor-frame { background: #fff; }
+[data-tema="escuro"] .ativ-gabarito,
+[data-tema="escuro"] .ativ-comentario-prof {
+  color: #14142b;
+}
 
 * {
   margin: 0;

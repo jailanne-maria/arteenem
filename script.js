@@ -3776,8 +3776,9 @@ async function abrirRevisoes() {
 }
 
 function renderRevisaoCard(r) {
-  // Considera "professor" quem tem o papel OU quem é o dono da revisão
-  const ehProf = usuario.papel === "professor" || (r.professorId && r.professorId === usuario.uid);
+  // O gabarito é visto SOMENTE pelo papel de professor(a).
+  // (estar como "estudante" = visão de estudante, mesmo sendo o dono da revisão)
+  const ehProf = usuario.papel === "professor";
   const mapa = (r.mapa || []).map((m) => `
     <div class="mapa-conceito">
       <span class="mapa-conceito-nome">${escaparHTML(m.conceito)}</span>
@@ -6348,6 +6349,7 @@ function renderAdminUsuarios(div) {
           <span class="admin-sub">${escaparHTML(u.email || "")}${u.escola ? " · 🏫 " + escaparHTML(u.escola) : ""}${Array.isArray(u.series) && u.series.length ? " · " + escaparHTML(u.series.join(", ")) : ""}</span>
         </div>
         <div class="admin-acoes">
+          <button class="btn-ghost compacto" data-acao="papel" data-id="${u.uid}" data-papel="${u.papel === "professor" ? "estudante" : "professor"}">${u.papel === "professor" ? "🎒 Tornar estudante" : "👩🏽‍🏫 Tornar professor"}</button>
           <button class="btn-ghost compacto" data-acao="bloquear" data-id="${u.uid}" data-valor="${u.bloqueado ? "0" : "1"}">${u.bloqueado ? "✅ Desbloquear" : "🚫 Bloquear"}</button>
           <button class="btn-ghost compacto" data-acao="excluir-usuario" data-id="${u.uid}">🗑️ Excluir</button>
         </div>
@@ -6531,6 +6533,11 @@ document.getElementById("admin-conteudo").addEventListener("click", async (e) =>
       const bloquear = btn.dataset.valor === "1";
       await atualizarUsuarioAdmin(id, { bloqueado: bloquear });
       mostrarToast(bloquear ? "Usuário bloqueado." : "Usuário desbloqueado.");
+    } else if (acao === "papel") {
+      const novo = btn.dataset.papel;
+      if (!confirm(`Mudar o papel deste usuário para "${novo === "professor" ? "professor(a)" : "estudante"}"?`)) return;
+      await atualizarUsuarioAdmin(id, { papel: novo });
+      mostrarToast(`Papel alterado para ${novo === "professor" ? "professor(a)" : "estudante"}.`);
     } else if (acao === "excluir-usuario") {
       if (!confirm("Excluir o perfil deste usuário? Ele perderá o acesso aos dados.")) return;
       await excluirUsuarioAdmin(id);
