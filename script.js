@@ -3510,17 +3510,18 @@ ${texto}`;
     generationConfig: { maxOutputTokens: 4000 },
   });
 
-  let ultimoStatus = null;
-  // Até 4 tentativas (a IA pode estar sobrecarregada — erro 503)
-  for (let tentativa = 1; tentativa <= 4; tentativa++) {
+  let ultimoErro = "";
+  // Até 5 tentativas (a IA pode estar sobrecarregada — erro 503)
+  for (let tentativa = 1; tentativa <= 5; tentativa++) {
     let resp;
     try {
       resp = await fetch(url, { method: "POST", headers: { "Content-Type": "application/json" }, body: corpo });
     } catch (e) {
-      ultimoStatus = "rede";
+      ultimoErro = "sem conexão";
       await new Promise((r) => setTimeout(r, 1500 * tentativa));
       continue;
     }
+
     if (resp.ok) {
       const data = await resp.json();
       let t = (data?.candidates?.[0]?.content?.parts || []).map((p) => p.text || "").join("");
@@ -3528,17 +3529,37 @@ ${texto}`;
       const i = t.indexOf("{");
       const f = t.lastIndexOf("}");
       if (i >= 0 && f > i) t = t.slice(i, f + 1);
-      return JSON.parse(t);
+      try {
+        return JSON.parse(t);
+      } catch {
+        throw new Error("A IA respondeu num formato inesperado. Tente gerar de novo (às vezes acontece).");
+      }
     }
-    ultimoStatus = resp.status;
-    // 503 (sobrecarregada) e 429 (limite) merecem nova tentativa
-    if (resp.status === 503 || resp.status === 429 || resp.status === 500) {
-      await new Promise((r) => setTimeout(r, 2000 * tentativa));
+
+    // Lê a mensagem real da API para explicar direitinho
+    let detalhe = "";
+    try {
+      const erro = await resp.json();
+      detalhe = (erro && erro.error && erro.error.message) || "";
+    } catch {}
+    ultimoErro = detalhe || ("erro " + resp.status);
+
+    // Limite de uso (cota gratuita) — espera mais e tenta de novo
+    if (resp.status === 429) {
+      if (/quota|limit/i.test(detalhe) && tentativa >= 3) {
+        throw new Error("⏳ Limite de uso da IA atingido. Aguarde alguns minutos (ou tente com outra chave). Se persistir, o modelo gratuito estourou a cota do dia.");
+      }
+      await new Promise((r) => setTimeout(r, 4000 * tentativa));
       continue;
     }
-    throw new Error("IA retornou erro " + resp.status);
+    // Sobrecarga do servidor
+    if (resp.status === 503 || resp.status === 500) {
+      await new Promise((r) => setTimeout(r, 2500 * tentativa));
+      continue;
+    }
+    throw new Error("A IA retornou: " + ultimoErro);
   }
-  throw new Error("A IA está sobrecarregada no momento. Aguarde alguns instantes e tente novamente.");
+  throw new Error("Não consegui falar com a IA agora (" + ultimoErro + "). Aguarde um instante e tente de novo.");
 }
 
 // Monta os flash cards (um lado o conceito, o outro a explicação)
@@ -4114,11 +4135,13 @@ ${texto}`;
     generationConfig: { maxOutputTokens: 5000 },
   });
 
-  for (let tentativa = 1; tentativa <= 4; tentativa++) {
+  let ultimoErro = "";
+  for (let tentativa = 1; tentativa <= 5; tentativa++) {
     let resp;
     try {
       resp = await fetch(url, { method: "POST", headers: { "Content-Type": "application/json" }, body: corpo });
     } catch {
+      ultimoErro = "sem conexão";
       await new Promise((r) => setTimeout(r, 1500 * tentativa));
       continue;
     }
@@ -4129,9 +4152,14 @@ ${texto}`;
       const i = t.indexOf("{");
       const f = t.lastIndexOf("}");
       if (i >= 0 && f > i) t = t.slice(i, f + 1);
-      const parsed = JSON.parse(t);
+      let parsed;
+      try {
+        parsed = JSON.parse(t);
+      } catch {
+        throw new Error("A IA respondeu num formato inesperado. Tente gerar de novo.");
+      }
       const questoes = (parsed.questoes || []).filter((q) => q.enunciado && Array.isArray(q.alternativas) && q.alternativas.length >= 4);
-      if (!questoes.length) throw new Error("A IA não gerou questões válidas.");
+      if (!questoes.length) throw new Error("A IA não gerou questões válidas. Tente novamente.");
       return questoes.map((q, idx) => ({
         id: "ia_" + Date.now() + "_" + idx,
         area: area && area !== "todas" ? area : (usuario.area || "linguagens"),
@@ -4144,13 +4172,28 @@ ${texto}`;
         explicacao: q.explicacao || "",
       }));
     }
-    if (resp.status === 503 || resp.status === 429 || resp.status === 500) {
-      await new Promise((r) => setTimeout(r, 2000 * tentativa));
+
+    let detalhe = "";
+    try {
+      const erro = await resp.json();
+      detalhe = (erro && erro.error && erro.error.message) || "";
+    } catch {}
+    ultimoErro = detalhe || ("erro " + resp.status);
+
+    if (resp.status === 429) {
+      if (/quota|limit/i.test(detalhe) && tentativa >= 3) {
+        throw new Error("⏳ Limite de uso da IA atingido. Aguarde alguns minutos (ou use outra chave).");
+      }
+      await new Promise((r) => setTimeout(r, 4000 * tentativa));
       continue;
     }
-    throw new Error("IA retornou erro " + resp.status);
+    if (resp.status === 503 || resp.status === 500) {
+      await new Promise((r) => setTimeout(r, 2500 * tentativa));
+      continue;
+    }
+    throw new Error("A IA retornou: " + ultimoErro);
   }
-  throw new Error("A IA está sobrecarregada. Tente novamente em instantes.");
+  throw new Error("Não consegui falar com a IA agora (" + ultimoErro + "). Aguarde um instante e tente de novo.");
 }
 
 async function carregarAtividadesProf() {
