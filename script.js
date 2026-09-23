@@ -5344,6 +5344,224 @@ document.getElementById("chat-turma-input").addEventListener("keydown", (e) => {
 });
 
 // ============================================================
+// JOGO DOS FLASH CARDS (treino de revisão)
+// ============================================================
+let flashFila = [];
+let flashIndice = 0;
+let flashAcertos = 0;
+let flashErros = 0;
+
+async function abrirJogoFlash() {
+  const div = document.getElementById("flash-jogo");
+  const prog = document.getElementById("flash-progresso");
+  if (prog) prog.textContent = "Carregando...";
+  div.innerHTML = `<p class="vazio">Carregando os flash cards...</p>`;
+  mostrarTela("tela-flash");
+
+  let revisoes = [];
+  try {
+    const codigos = codigosDasMinhasTurmas();
+    if (codigos.length) revisoes = await listarRevisoesDasTurmas(codigos);
+  } catch {}
+
+  const cards = [];
+  revisoes.forEach((r) => {
+    (r.flashcards || []).forEach((f) => {
+      const conceito = f.conceito || f.frente || "";
+      const explicacao = f.explicacao || f.verso || "";
+      if (conceito && explicacao) cards.push({ conceito, explicacao, origem: r.titulo || "Revisão" });
+    });
+  });
+
+  if (!cards.length) {
+    if (prog) prog.textContent = "";
+    div.innerHTML = `<p class="vazio">Ainda não há flash cards. Peça ao(à) professor(a) para gerar uma <strong>revisão com IA</strong> — ela já vem com os cards!</p>`;
+    return;
+  }
+
+  flashFila = cards.slice().sort(() => Math.random() - 0.5);
+  flashIndice = 0;
+  flashAcertos = 0;
+  flashErros = 0;
+  renderFlashJogo();
+}
+
+function renderFlashJogo() {
+  const div = document.getElementById("flash-jogo");
+  const prog = document.getElementById("flash-progresso");
+  if (!div) return;
+
+  if (flashIndice >= flashFila.length) {
+    const total = flashFila.length;
+    const pct = total ? Math.round((flashAcertos / total) * 100) : 0;
+    if (prog) prog.textContent = "";
+    div.innerHTML = `
+      <div class="flash-fim">
+        <h3>🎉 Fim do jogo!</h3>
+        <p class="flash-placar">${flashAcertos} de ${total} · ${pct}%</p>
+        <p>${pct >= 80 ? "Você está voando! 🚀" : pct >= 50 ? "Bom caminho! Revise os que errou. 💪" : "Vamos treinar mais um pouco? 🔁"}</p>
+        <button class="btn-principal" id="btn-flash-denovo" type="button">🔁 Jogar de novo</button>
+        <button class="btn-secundario" id="btn-flash-sair" type="button">Voltar para as revisões</button>
+      </div>`;
+    document.getElementById("btn-flash-denovo").addEventListener("click", abrirJogoFlash);
+    document.getElementById("btn-flash-sair").addEventListener("click", abrirRevisoes);
+    return;
+  }
+
+  const c = flashFila[flashIndice];
+  if (prog) {
+    prog.innerHTML = `Card <strong>${flashIndice + 1}</strong> de <strong>${flashFila.length}</strong> · ✅ ${flashAcertos} · ❌ ${flashErros}`;
+  }
+
+  div.innerHTML = `
+    <div class="flash-jogo-card">
+      <span class="flash-jogo-origem">📖 ${escaparHTML(c.origem)}</span>
+      <div class="flash-jogo-conteudo" id="flash-conteudo">${escaparHTML(c.conceito)}</div>
+      <p class="flash-jogo-dica">Tente lembrar a explicação antes de virar. 👇</p>
+      <div class="flash-jogo-acoes" id="flash-acoes">
+        <button class="btn-principal" id="btn-flash-virar" type="button">🔄 Virar</button>
+      </div>
+    </div>`;
+
+  document.getElementById("btn-flash-virar").addEventListener("click", () => {
+    const conteudo = document.getElementById("flash-conteudo");
+    conteudo.textContent = c.explicacao;
+    conteudo.classList.add("virado");
+    document.getElementById("flash-acoes").innerHTML = `
+      <button class="btn-principal" id="btn-flash-acerto" type="button">✅ Acertei</button>
+      <button class="btn-secundario" id="btn-flash-erro" type="button">❌ Errei</button>`;
+    document.getElementById("btn-flash-acerto").addEventListener("click", () => {
+      flashAcertos++; flashIndice++; renderFlashJogo();
+    });
+    document.getElementById("btn-flash-erro").addEventListener("click", () => {
+      flashErros++; flashIndice++; renderFlashJogo();
+    });
+  });
+}
+
+document.getElementById("btn-jogar-flash").addEventListener("click", abrirJogoFlash);
+document.getElementById("btn-voltar-flash").addEventListener("click", () => {
+  if (usuario && usuario.papel === "professor") abrirPainelProfessor();
+  else abrirRevisoes();
+});
+
+// ============================================================
+// FICHÁRIO DE ENCENAÇÃO (jogos teatrais — SÓ PROFESSOR, presencial)
+// ============================================================
+let encenacaoCategoria = "";
+let fichaAtual = null;
+
+// Só o professor(a) habilita este jogo
+function podeEncenar() {
+  return !!usuario && usuario.papel === "professor";
+}
+
+function abrirEncenacao() {
+  if (!podeEncenar()) {
+    mostrarToast("Este jogo é conduzido pelo professor(a).", "erro");
+    return;
+  }
+  mostrarTela("tela-encenacao");
+  renderEncenacaoCategorias();
+  const ficha = document.getElementById("encenacao-ficha");
+  if (ficha) ficha.innerHTML = "";
+}
+
+function renderEncenacaoCategorias() {
+  const div = document.getElementById("encenacao-categorias");
+  if (!div) return;
+  div.innerHTML =
+    `<button class="filtro-btn ${encenacaoCategoria === "" ? "ativa" : ""}" data-cat="" type="button">Todas</button>` +
+    ENCENACAO_CATEGORIAS.map((c) =>
+      `<button class="filtro-btn ${encenacaoCategoria === c ? "ativa" : ""}" data-cat="${escaparHTML(c)}" type="button">${escaparHTML(c)}</button>`
+    ).join("");
+  div.querySelectorAll(".filtro-btn").forEach((b) => {
+    b.addEventListener("click", () => {
+      encenacaoCategoria = b.dataset.cat;
+      renderEncenacaoCategorias();
+    });
+  });
+}
+
+function sortearFicha() {
+  if (!podeEncenar()) {
+    mostrarToast("Este jogo é conduzido pelo professor(a).", "erro");
+    return;
+  }
+  const lista = ENCENACAO.filter((j) => !encenacaoCategoria || j.categoria === encenacaoCategoria);
+  if (!lista.length) { mostrarToast("Nenhum jogo nesta categoria.", "erro"); return; }
+
+  let jogo = lista[Math.floor(Math.random() * lista.length)];
+  // evita repetir a mesma ficha duas vezes seguidas
+  if (lista.length > 1 && fichaAtual && jogo.nome === fichaAtual.nome) {
+    jogo = lista[(lista.indexOf(jogo) + 1) % lista.length];
+  }
+  fichaAtual = jogo;
+  renderFichaEncenacao(jogo);
+}
+
+function renderFichaEncenacao(j) {
+  const div = document.getElementById("encenacao-ficha");
+  if (!div) return;
+  div.innerHTML = `
+    <div class="ficha-encenacao">
+      <div class="ficha-topo">
+        <span class="ficha-emoji">🎭</span>
+        <div>
+          <h3 class="ficha-nome">${escaparHTML(j.nome)}</h3>
+          <div class="ficha-tags">
+            <span class="ficha-tag">${escaparHTML(j.categoria)}</span>
+            <span class="ficha-tag">👥 ${escaparHTML(j.jogadores)}</span>
+            <span class="ficha-tag">⏱️ ${escaparHTML(j.duracao)}</span>
+            <span class="ficha-tag">🧰 ${escaparHTML(j.material)}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="ficha-campo foco">
+        <span class="ficha-rotulo">🎯 FOCO <small>(leia em voz alta)</small></span>
+        <p>${escaparHTML(j.foco)}</p>
+      </div>
+
+      <div class="ficha-campo">
+        <span class="ficha-rotulo">📝 DESCRIÇÃO</span>
+        <p>${escaparHTML(j.descricao)}</p>
+      </div>
+
+      <div class="ficha-campo instrucao">
+        <span class="ficha-rotulo">🗣️ INSTRUÇÃO <small>(fale durante o jogo)</small></span>
+        <ul>${j.instrucao.map((x) => `<li>${escaparHTML(x)}</li>`).join("")}</ul>
+      </div>
+
+      <div class="ficha-campo">
+        <span class="ficha-rotulo">💬 AVALIAÇÃO <small>(pergunte depois)</small></span>
+        <ul>${j.avaliacao.map((x) => `<li>${escaparHTML(x)}</li>`).join("")}</ul>
+      </div>
+
+      <div class="ficha-campo">
+        <span class="ficha-rotulo">📌 NOTAS PARA O PROFESSOR</span>
+        <p>${escaparHTML(j.notas)}</p>
+      </div>
+
+      <div class="ficha-campo">
+        <span class="ficha-rotulo">📚 ÁREAS E ESPAÇO</span>
+        <p>${escaparHTML(j.areas)} · <strong>Espaço:</strong> ${escaparHTML(j.espaco)}</p>
+      </div>
+
+      <button class="btn-secundario compacto" id="btn-outra-ficha" type="button">🎲 Sortear outra ficha</button>
+    </div>`;
+  document.getElementById("btn-outra-ficha").addEventListener("click", sortearFicha);
+  div.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+document.getElementById("btn-ir-encenacao").addEventListener("click", abrirEncenacao);
+document.getElementById("btn-sortear-ficha").addEventListener("click", sortearFicha);
+document.getElementById("btn-voltar-encenacao").addEventListener("click", () => {
+  if (podeEncenar()) abrirPainelProfessor();
+  else abrirInicioEstudante();
+});
+
+// ============================================================
 // GLOSSÁRIO DE IA (A a Z)
 // ============================================================
 let letraGlossario = "";

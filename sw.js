@@ -3,7 +3,7 @@
    - Também cuida das notificações push (Firebase Cloud Messaging)
    Precisa ficar na RAIZ do site (junto do index.html). */
 
-const VERSAO = "nina-v4";
+const VERSAO = "nina-v5";
 
 // Arquivos do próprio app (essenciais para abrir offline)
 const SHELL = [
@@ -23,6 +23,7 @@ const SHELL = [
   "./mascote.js",
   "./glossario.js",
   "./glossario-acreanes.js",
+  "./encenacao.js",
   "./noticias.json",
   "./img/icon-192.png",
   "./img/icon-512.png",

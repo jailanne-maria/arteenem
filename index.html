@@ -10,7 +10,7 @@
   <link rel="apple-touch-icon" href="img/icon-192.png">
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#5c94fc">
-  <link rel="stylesheet" href="style.css?v=78">
+  <link rel="stylesheet" href="style.css?v=79">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
@@ -168,6 +168,15 @@
         <h3 class="secao-titulo">📋 Criar atividade</h3>
         <p class="texto-ajuda">Monte uma atividade com questões do banco, envie para as turmas e veja as <strong>estatísticas de desempenho</strong>. A correção é automática.</p>
         <button id="btn-ir-atividades" class="btn-principal">📋 Criar atividade</button>
+      </div>
+
+      <div class="painel-bloco" style="margin-top:24px">
+        <h3 class="secao-titulo">🎭 Fichário de Encenação</h3>
+        <p class="texto-ajuda">
+          Jogos teatrais de <strong>Viola Spolin</strong> para conduzir com a turma.
+          O jogo é <strong>presencial</strong> e <strong>conduzido por você</strong> — só o professor abre esta aba.
+        </p>
+        <button id="btn-ir-encenacao" class="btn-principal">🎭 Abrir o fichário</button>
       </div>
     </section>
 
@@ -426,6 +435,24 @@
         </p>
         <a class="btn-principal" href="https://instagram.com/ctrl.4rt" target="_blank" rel="noopener">💬 Falar com a gente · @ctrl.4rt</a>
       </div>
+    </section>
+
+    <!-- ===== FICHÁRIO DE ENCENAÇÃO ===== -->
+    <section id="tela-encenacao" class="tela">
+      <button id="btn-voltar-encenacao" class="btn-ghost voltar">← Voltar</button>
+      <div class="hero esquerda">
+        <h1>🎭 Fichário de Encenação</h1>
+        <p>Jogos teatrais de <strong>Viola Spolin</strong> — para conduzir <strong>presencialmente</strong> com a turma.</p>
+      </div>
+
+      <div class="painel-bloco">
+        <h3 class="secao-titulo">🎲 Sortear uma ficha</h3>
+        <p class="texto-ajuda">Escolha uma categoria (ou “Todas”) e sorteie. Leia o <strong>FOCO</strong> em voz alta para a turma e conduza o jogo.</p>
+        <div id="encenacao-categorias" class="encenacao-categorias"></div>
+        <button id="btn-sortear-ficha" class="btn-principal">🎲 Sortear ficha</button>
+      </div>
+
+      <div id="encenacao-ficha"></div>
     </section>
 
     <!-- ===== GLOSSÁRIO DE IA ===== -->
@@ -869,6 +896,22 @@
       </div>
 
       <div id="revisoes-lista" class="revisoes-lista"></div>
+
+      <div class="painel-bloco" style="margin-top:20px">
+        <h3 class="secao-titulo">🎮 Jogo dos Flash Cards</h3>
+        <p class="texto-ajuda">Treine com os flash cards das revisões das suas turmas: veja o <strong>conceito</strong>, tente lembrar a <strong>explicação</strong> e marque se acertou.</p>
+        <button id="btn-jogar-flash" class="btn-principal">🎮 Jogar flash cards</button>
+      </div>
+    </section>
+
+    <!-- ===== JOGO DOS FLASH CARDS ===== -->
+    <section id="tela-flash" class="tela">
+      <button id="btn-voltar-flash" class="btn-ghost voltar">← Voltar</button>
+      <div class="hero esquerda">
+        <h1>🎮 Jogo dos Flash Cards</h1>
+        <p id="flash-progresso"></p>
+      </div>
+      <div id="flash-jogo"></div>
     </section>
 
     <!-- ===== CRIAR ATIVIDADE (PROFESSOR) ===== -->
@@ -1219,17 +1262,18 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
 
-  <script src="questoes.js?v=78"></script>
-  <script src="questoes-arte.js?v=78"></script>
-  <script src="plano.js?v=78"></script>
-  <script src="explorar.js?v=78"></script>
-  <script src="figurinhas.js?v=78"></script>
-  <script src="curriculo.js?v=78"></script>
-  <script src="cursos.js?v=78"></script>
-  <script src="mascote.js?v=78"></script>
-  <script src="glossario.js?v=78"></script>
-  <script src="glossario-acreanes.js?v=78"></script>
-  <script src="firebase-config.js?v=78"></script>
-  <script src="script.js?v=78"></script>
+  <script src="questoes.js?v=79"></script>
+  <script src="questoes-arte.js?v=79"></script>
+  <script src="plano.js?v=79"></script>
+  <script src="explorar.js?v=79"></script>
+  <script src="figurinhas.js?v=79"></script>
+  <script src="curriculo.js?v=79"></script>
+  <script src="cursos.js?v=79"></script>
+  <script src="mascote.js?v=79"></script>
+  <script src="glossario.js?v=79"></script>
+  <script src="glossario-acreanes.js?v=79"></script>
+  <script src="encenacao.js?v=79"></script>
+  <script src="firebase-config.js?v=79"></script>
+  <script src="script.js?v=79"></script>
 </body>
 </html>
