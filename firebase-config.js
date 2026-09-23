@@ -397,6 +397,21 @@ function excluirRevisao(id) {
   return firebase.firestore().collection("revisoes").doc(id).delete();
 }
 
+// Renomear uma revisão já publicada
+function renomearRevisao(id, titulo) {
+  return firebase.firestore().collection("revisoes").doc(id).update({ titulo });
+}
+
+// Definir para quais turmas a revisão vai (pode publicar depois para outras)
+function definirTurmasRevisao(id, turmas) {
+  return firebase.firestore().collection("revisoes").doc(id).update({ turmas });
+}
+
+function buscarRevisao(id) {
+  return firebase.firestore().collection("revisoes").doc(id).get()
+    .then((d) => (d.exists ? { id: d.id, ...d.data() } : null));
+}
+
 // ---------- Respostas dos alunos nas atividades ----------
 function salvarRespostaAtividade(revisaoId, aluno, turma, perguntaIndex, texto) {
   const id = `${revisaoId}_${aluno.uid}`;

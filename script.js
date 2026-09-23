@@ -3776,10 +3776,24 @@ function renderRevisaoCard(r) {
        <div class="respostas-alunos" data-revisao="${r.id}"><p class="vazio">Carregando…</p></div>`
     : "";
 
+  const turmasTxt = (r.turmas || []).length ? (r.turmas || []).join(" · ") : "nenhuma turma";
+
+  const blocoProf = ehProf
+    ? `<div class="revisao-acoes">
+         <span class="revisao-turmas">👥 ${escaparHTML(turmasTxt)}</span>
+         <div class="revisao-acoes-botoes">
+           <button class="btn-secundario compacto" data-rev-acao="nomear" data-id="${r.id}" data-titulo="${escaparHTML(r.titulo || "")}" type="button">✏️ Nomear</button>
+           <button class="btn-secundario compacto" data-rev-acao="turmas" data-id="${r.id}" type="button">📢 Enviar para turmas</button>
+         </div>
+       </div>
+       <div class="revisao-turmas-escolha escondido" data-revisao="${r.id}"></div>`
+    : "";
+
   return `
     <details class="revisao-card">
       <summary>📖 ${escaparHTML(r.titulo || "Revisão")} <small>· ${escaparHTML(r.professorNome || "")}</small> <span class="tipo-badge">${tipoBadge}</span></summary>
       <div class="revisao-card-corpo">
+        ${blocoProf}
         <h4 class="curriculo-sub">🧠 Mapa conceitual</h4>
         <div class="mapa-lista">${mapa || "<p class='vazio'>—</p>"}</div>
         <h4 class="curriculo-sub">📖 Revisão</h4>
@@ -3794,6 +3808,75 @@ function renderRevisaoCard(r) {
       </div>
     </details>
   `;
+}
+
+// ---------- Ações do professor nas revisões já publicadas ----------
+// Nomear e enviar para outras turmas DEPOIS de publicada
+document.addEventListener("click", async (e) => {
+  const btn = e.target.closest("[data-rev-acao]");
+  if (!btn) return;
+  const id = btn.dataset.id;
+
+  if (btn.dataset.revAcao === "nomear") {
+    const atual = btn.dataset.titulo || "Revisão";
+    const novo = prompt("Nome da revisão:", atual);
+    if (novo === null) return;
+    const titulo = novo.trim();
+    if (!titulo || titulo === atual) return;
+    try {
+      await renomearRevisao(id, titulo);
+      mostrarToast("Revisão renomeada! ✅");
+      abrirRevisoes();
+    } catch (err) {
+      mostrarToast("Erro ao renomear: " + err.message, "erro");
+    }
+    return;
+  }
+
+  if (btn.dataset.revAcao === "turmas") {
+    const bloco = document.querySelector(`.revisao-turmas-escolha[data-revisao="${id}"]`);
+    if (!bloco) return;
+    if (!bloco.classList.contains("escondido")) { esconder(bloco); return; }
+    await mostrarEscolhaTurmas(id, bloco);
+  }
+});
+
+async function mostrarEscolhaTurmas(id, bloco) {
+  bloco.innerHTML = `<p class="vazio">Carregando turmas...</p>`;
+  exibir(bloco);
+
+  let turmas = [];
+  let revisao = null;
+  try {
+    turmas = await listarTurmasDoProfessor(usuario.uid);
+    revisao = await buscarRevisao(id);
+  } catch {}
+  const marcadas = (revisao && revisao.turmas) || [];
+
+  bloco.innerHTML = `
+    <p class="texto-ajuda">Marque as turmas que devem ver esta revisão. Você pode voltar aqui e mudar quando quiser.</p>
+    ${turmas.length
+      ? turmas.map((t) => `
+          <label class="turma-check">
+            <input type="checkbox" class="revisao-turma-extra" value="${escaparHTML(t.codigo)}" ${marcadas.includes(t.codigo) ? "checked" : ""}>
+            <span>${escaparHTML(t.nome)} <small>(${escaparHTML(t.codigo)})</small></span>
+          </label>`).join("")
+      : "<p class='vazio'>Você ainda não criou turmas.</p>"}
+    <button class="btn-principal compacto" id="btn-salvar-turmas-rev" type="button">💾 Salvar turmas</button>`;
+
+  const salvar = document.getElementById("btn-salvar-turmas-rev");
+  if (salvar) {
+    salvar.addEventListener("click", async () => {
+      const novas = Array.from(bloco.querySelectorAll(".revisao-turma-extra:checked")).map((c) => c.value);
+      try {
+        await definirTurmasRevisao(id, novas);
+        mostrarToast("Turmas atualizadas! ✅");
+        abrirRevisoes();
+      } catch (err) {
+        mostrarToast("Erro: " + err.message, "erro");
+      }
+    });
+  }
 }
 
 // Carrega as respostas dos alunos (visão do professor) + contador + comentários

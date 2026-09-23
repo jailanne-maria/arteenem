@@ -4769,6 +4769,59 @@ h1, h2, h3, h4, .marca-nome, .btn-principal, .btn-secundario, .btn-google, .btn-
   .mascote-balao p { font-size: 0.98rem; }
 }
 
+/* ===== AÇÕES DO PROFESSOR NA REVISÃO ===== */
+.revisao-acoes {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  background: var(--surface-3);
+  border: 3px solid var(--black);
+  border-radius: 12px;
+  padding: 10px 14px;
+  margin-bottom: 14px;
+}
+
+[data-tema="escuro"] .revisao-acoes { background: #33334f; }
+
+.revisao-turmas {
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+
+.revisao-acoes-botoes { display: flex; gap: 8px; flex-wrap: wrap; }
+
+.revisao-acoes-botoes button {
+  width: auto;
+  min-width: 0;
+  padding: 7px 12px;
+}
+
+.revisao-turmas-escolha {
+  background: var(--surface-2);
+  border: 3px dashed var(--black);
+  border-radius: 12px;
+  padding: 14px;
+  margin-bottom: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.revisao-turmas-escolha .turma-check {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.revisao-turmas-escolha input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  accent-color: var(--green);
+}
+
 /* ===== JOGO DOS FLASH CARDS ===== */
 .flash-jogo-card {
   background: var(--surface-2);
