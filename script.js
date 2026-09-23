@@ -3494,30 +3494,32 @@ document.getElementById("btn-gerar-revisao").addEventListener("click", async () 
 // Se um modelo estiver indisponível, tenta o próximo automaticamente.
 // ============================================================
 const MODELOS_IA = [
+  "gemini-3.8-flash",
   "gemini-3.6-flash",
-  "gemini-3-flash-preview",
+  "gemini-flash-lite-latest",
+  "gemini-3.1-flash-lite",
   "gemini-2.5-flash",
-  "gemini-flash-latest",
 ];
 
 async function chamarGemini(chave, prompt, maxTokens) {
   let ultimoErro = "";
   let quotaAtingida = false;
 
-  for (const modelo of MODELOS_IA) {
-    const url = `https://generativelanguage.googleapis.com/v1beta/models/${modelo}:generateContent?key=${chave}`;
-    const corpo = JSON.stringify({
-      contents: [{ parts: [{ text: prompt }] }],
-      generationConfig: { maxOutputTokens: maxTokens || 4000 },
-    });
+  // 2 rodadas: na 1ª, tenta cada modelo UMA vez (troca rápido se estiver ocupado);
+  // na 2ª, insiste com espera maior.
+  for (let rodada = 1; rodada <= 2; rodada++) {
+    for (const modelo of MODELOS_IA) {
+      const url = `https://generativelanguage.googleapis.com/v1beta/models/${modelo}:generateContent?key=${chave}`;
+      const corpo = JSON.stringify({
+        contents: [{ parts: [{ text: prompt }] }],
+        generationConfig: { maxOutputTokens: maxTokens || 6000 },
+      });
 
-    for (let tentativa = 1; tentativa <= 3; tentativa++) {
       let resp;
       try {
         resp = await fetch(url, { method: "POST", headers: { "Content-Type": "application/json" }, body: corpo });
       } catch {
         ultimoErro = "sem conexão";
-        await new Promise((r) => setTimeout(r, 1200 * tentativa));
         continue;
       }
 
@@ -3532,7 +3534,7 @@ async function chamarGemini(chave, prompt, maxTokens) {
           return JSON.parse(t);
         } catch {
           ultimoErro = "formato inesperado";
-          break; // tenta o próximo modelo
+          continue; // tenta o próximo modelo
         }
       }
 
@@ -3543,20 +3545,18 @@ async function chamarGemini(chave, prompt, maxTokens) {
       } catch {}
       ultimoErro = detalhe || ("erro " + resp.status);
 
-      if (resp.status === 429) { quotaAtingida = true; break; }   // cota: tenta outro modelo
-      if (resp.status === 404) break;                              // modelo não existe: próximo
-      if (resp.status === 503 || resp.status === 500) {            // sobrecarga: insiste
-        await new Promise((r) => setTimeout(r, 1500 * tentativa));
-        continue;
-      }
-      break; // outros erros: próximo modelo
+      if (resp.status === 429) quotaAtingida = true;   // cota: segue para o próximo modelo
+      if (resp.status === 404) continue;               // não existe: próximo
+      continue;                                        // 503/outros: próximo (rápido)
     }
+
+    if (rodada === 1) await new Promise((r) => setTimeout(r, 1500));
   }
 
-  if (quotaAtingida) {
-    throw new Error("⏳ Limite de uso da IA atingido nesta chave. Aguarde alguns minutos (ou use outra chave em aistudio.google.com/apikey).");
+  if (quotaAtingida && /quota|limit/i.test(ultimoErro)) {
+    throw new Error("⏳ Limite de uso da IA atingido nesta chave. Aguarde alguns minutos ou use outra chave em aistudio.google.com/apikey.");
   }
-  throw new Error("Não consegui falar com a IA agora (" + ultimoErro + "). Tente de novo em instantes.");
+  throw new Error("Não consegui falar com a IA agora (os modelos estão com alta demanda). Tente de novo em instantes.");
 }
 
 async function chamarIARevisao(chave, texto) {
