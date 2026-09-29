@@ -2351,6 +2351,27 @@ document.getElementById("btn-eca-ler").addEventListener("click", () => {
 });
 
 // ============================================================
+// AJUDA: COMO CONSEGUIR A CHAVE DA IA
+// ============================================================
+function abrirDicaChave() {
+  exibir(document.getElementById("modal-chave-ia"));
+}
+
+function fecharDicaChave() {
+  esconder(document.getElementById("modal-chave-ia"));
+}
+
+document.getElementById("btn-dica-chave").addEventListener("click", abrirDicaChave);
+document.getElementById("btn-dica-chave-ativ").addEventListener("click", abrirDicaChave);
+document.getElementById("btn-fechar-dica-chave").addEventListener("click", fecharDicaChave);
+document.getElementById("modal-chave-ia").addEventListener("click", (e) => {
+  if (e.target.id === "modal-chave-ia") fecharDicaChave();
+});
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") fecharDicaChave();
+});
+
+// ============================================================
 // JOGO: ROLETA DE FIGURINHAS
 // ============================================================
 let anguloRoleta = 0;

@@ -10,7 +10,7 @@
   <link rel="apple-touch-icon" href="img/icon-192.png">
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#5c94fc">
-  <link rel="stylesheet" href="style.css?v=88">
+  <link rel="stylesheet" href="style.css?v=89">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
@@ -878,6 +878,7 @@
           <label class="perfil-rotulo" for="revisao-chave">🔑 Chave da IA (Gemini)</label>
           <input id="revisao-chave" type="password" placeholder="Cole sua chave (fica só no seu navegador)">
           <p class="perfil-termos">Pegue uma chave gratuita em <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener">aistudio.google.com/apikey</a>. Ela fica salva apenas no seu navegador.</p>
+          <button id="btn-dica-chave" class="btn-secundario compacto" type="button">❓ Como conseguir a chave</button>
         </div>
 
         <div id="revisao-aviso" class="aviso escondido"></div>
@@ -982,6 +983,8 @@
             <div class="campo">
               <label class="perfil-rotulo" for="ativ-chave">🔑 Chave da IA (Gemini)</label>
               <input id="ativ-chave" type="password" placeholder="Cole sua chave">
+              <p class="perfil-termos">Fica salva apenas no seu navegador.</p>
+              <button id="btn-dica-chave-ativ" class="btn-secundario compacto" type="button">❓ Como conseguir a chave</button>
             </div>
             <div class="campo">
               <label class="perfil-rotulo" for="ativ-qtd-ia">Nº de questões</label>
@@ -1225,6 +1228,27 @@
     </div>
   </div>
 
+  <!-- ===== AJUDA: COMO CONSEGUIR A CHAVE DA IA ===== -->
+  <div id="modal-chave-ia" class="modal-eca escondido">
+    <div class="modal-eca-caixa">
+      <span class="modal-eca-icone">🔑</span>
+      <h2>Como conseguir a chave da IA</h2>
+      <p>O NINA usa a <strong>IA do Google (Gemini)</strong> para gerar revisões, atividades e flash cards a partir do seu material. Cada professor usa a <strong>própria chave gratuita</strong> — assim o app não precisa cobrar nada de ninguém.</p>
+      <div class="modal-dica-lista">
+        <p><strong>1.</strong> Abra <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener">aistudio.google.com/apikey</a> e entre com uma conta Google.</p>
+        <p><strong>2.</strong> Clique em <strong>Create API key</strong> (criar chave de API) e copie a chave que aparecer.</p>
+        <p><strong>3.</strong> Volte ao NINA, cole a chave no campo “Chave da IA (Gemini)” e clique em gerar.</p>
+      </div>
+      <div class="modal-destaque">
+        <p><strong>Importante:</strong> a chave fica salva <strong>apenas neste navegador</strong>. Se você usar outro computador, outro celular ou limpar os dados do navegador, vai precisar colar a chave de novo.</p>
+      </div>
+      <p class="perfil-termos">A chave gratuita tem um limite diário de uso. Se aparecer “limite atingido”, aguarde alguns minutos ou gere outra chave.</p>
+      <div class="modal-eca-acoes">
+        <button id="btn-fechar-dica-chave" class="btn-principal">✅ Entendi</button>
+      </div>
+    </div>
+  </div>
+
   <!-- ===== HISTÓRIA DA FIGURINHA ===== -->
   <div id="modal-figurinha" class="modal-figurinha escondido">
     <div class="modal-figurinha-caixa">
@@ -1263,18 +1287,18 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
 
-  <script src="questoes.js?v=88"></script>
-  <script src="questoes-arte.js?v=88"></script>
-  <script src="plano.js?v=88"></script>
-  <script src="explorar.js?v=88"></script>
-  <script src="figurinhas.js?v=88"></script>
-  <script src="curriculo.js?v=88"></script>
-  <script src="cursos.js?v=88"></script>
-  <script src="mascote.js?v=88"></script>
-  <script src="glossario.js?v=88"></script>
-  <script src="glossario-acreanes.js?v=88"></script>
-  <script src="encenacao.js?v=88"></script>
-  <script src="firebase-config.js?v=88"></script>
-  <script src="script.js?v=88"></script>
+  <script src="questoes.js?v=89"></script>
+  <script src="questoes-arte.js?v=89"></script>
+  <script src="plano.js?v=89"></script>
+  <script src="explorar.js?v=89"></script>
+  <script src="figurinhas.js?v=89"></script>
+  <script src="curriculo.js?v=89"></script>
+  <script src="cursos.js?v=89"></script>
+  <script src="mascote.js?v=89"></script>
+  <script src="glossario.js?v=89"></script>
+  <script src="glossario-acreanes.js?v=89"></script>
+  <script src="encenacao.js?v=89"></script>
+  <script src="firebase-config.js?v=89"></script>
+  <script src="script.js?v=89"></script>
 </body>
 </html>
