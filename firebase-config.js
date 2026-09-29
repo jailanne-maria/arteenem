@@ -250,6 +250,17 @@ function rankingDaTurma(codigo) {
 // ---------- Mural de recados ----------
 // turma = código da turma (mural da turma) ou null (mural coletivo)
 function postarDepoimento(usuario, texto, turma) {
+  // Perfil privado: o recado entra sem foto (privacidade de menores)
+  if (usuario && usuario.privado) {
+    return firebase.firestore().collection("depoimentos").add({
+      uid: usuario.uid,
+      nome: usuario.nome,
+      foto: "",
+      texto: texto.trim(),
+      turma: turma || null,
+      criadoEm: firebase.firestore.FieldValue.serverTimestamp(),
+    });
+  }
   return firebase.firestore().collection("depoimentos").add({
     uid: usuario.uid,
     nome: usuario.nome,
@@ -258,6 +269,13 @@ function postarDepoimento(usuario, texto, turma) {
     turma: turma || null,
     criadoEm: firebase.firestore.FieldValue.serverTimestamp(),
   });
+}
+
+// Ao ativar o perfil privado, remove a foto dos recados que o usuário já publicou
+function limparFotosDosMeusRecados(uid) {
+  const db = firebase.firestore();
+  return db.collection("depoimentos").where("uid", "==", uid).get()
+    .then((snap) => Promise.all(snap.docs.map((d) => d.ref.update({ foto: "" }))));
 }
 
 function listarDepoimentos(turma) {

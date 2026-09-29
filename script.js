@@ -1509,14 +1509,30 @@ function preencherPerfil(p) {
     }
   }
 
+  // Privacidade: quem não é o dono nem administra só vê o que o colega liberou
+  const ehVisitante = !perfilEhMeu && !podeAdministrar();
+  const privado = ehVisitante && p.privado === true;
+
   const avatar = document.getElementById("perfil-avatar");
-  avatar.innerHTML = p.foto
+  avatar.innerHTML = (!privado && p.foto)
     ? `<img src="${p.foto}" alt="" referrerpolicy="no-referrer">`
     : "🙂";
 
-  document.getElementById("perfil-bio-view").textContent = p.bio || "";
-  document.getElementById("perfil-sonho-view").textContent = p.sonho || "";
-  document.getElementById("perfil-gostos-view").textContent = p.gostos || "";
+  document.getElementById("perfil-bio-view").textContent = privado ? "" : (p.bio || "");
+  document.getElementById("perfil-sonho-view").textContent = privado ? "" : (p.sonho || "");
+  document.getElementById("perfil-gostos-view").textContent = privado ? "" : (p.gostos || "");
+
+  ["perfil-bio-view", "perfil-sonho-view", "perfil-gostos-view"].forEach((id) => {
+    const campo = document.getElementById(id).closest(".perfil-campo");
+    if (campo) campo.classList.toggle("escondido", privado);
+  });
+  const avisoPrivado = document.getElementById("perfil-privado-aviso");
+  if (avisoPrivado) {
+    if (privado) exibir(avisoPrivado); else esconder(avisoPrivado);
+  }
+
+  const chkPrivado = document.getElementById("perfil-privado");
+  if (chkPrivado) chkPrivado.checked = p.privado === true;
 
   document.getElementById("perfil-bio").value = p.bio || "";
   document.getElementById("perfil-sonho").value = p.sonho || "";
@@ -1742,19 +1758,25 @@ document.getElementById("btn-editar-perfil").addEventListener("click", () => {
 
 document.getElementById("btn-salvar-perfil").addEventListener("click", async () => {
   const aviso = document.getElementById("perfil-aviso");
+  const chkPrivado = document.getElementById("perfil-privado");
   const dados = {
     bio: document.getElementById("perfil-bio").value.trim(),
     sonho: document.getElementById("perfil-sonho").value.trim(),
     gostos: document.getElementById("perfil-gostos").value.trim(),
+    privado: !!(chkPrivado && chkPrivado.checked),
   };
   if (fotoPendente) dados.foto = fotoPendente;
   try {
     await salvarUsuario(usuario.uid, dados);
     Object.assign(usuario, dados);
+    // Privacidade retroativa: tira a foto dos recados que já estão no mural
+    if (dados.privado) await limparFotosDosMeusRecados(usuario.uid).catch(() => {});
     aviso.className = "aviso ok";
-    aviso.textContent = "✅ Perfil salvo!";
+    aviso.textContent = dados.privado
+      ? "✅ Perfil salvo! Agora os colegas não veem sua foto, bio nem “do que eu gosto”."
+      : "✅ Perfil salvo!";
     exibir(aviso);
-    setTimeout(() => esconder(aviso), 2500);
+    setTimeout(() => esconder(aviso), 3500);
     fotoPendente = null;
     preencherPerfil(usuario);
     modoPerfil(false);
@@ -2233,15 +2255,18 @@ function limparFormularioPergunta() {
 
 async function carregarMinhasPerguntas() {
   const lista = document.getElementById("lista-perguntas");
+  const contador = document.getElementById("perguntas-contador");
   lista.innerHTML = "<p class='vazio'>Carregando…</p>";
   try {
     const perguntas = await listarPerguntasDoProfessor(usuario.uid);
+    if (contador) contador.textContent = perguntas.length ? `(${perguntas.length})` : "";
     if (!perguntas.length) {
-      lista.innerHTML = "<p class='vazio'>Você ainda não contribuiu com perguntas.</p>";
+      lista.innerHTML = "<p class='vazio'>Você ainda não contribuiu com perguntas. O que você enviar entra no <strong>banco compartilhado</strong> e pode aparecer no diagnóstico e no jogo de todos.</p>";
       return;
     }
     lista.innerHTML = perguntas.map(renderPerguntaCard).join("");
   } catch (e) {
+    if (contador) contador.textContent = "";
     lista.innerHTML = `<p class='vazio'>Erro: ${e.message}</p>`;
   }
 }
@@ -2294,8 +2319,9 @@ document.getElementById("btn-salvar-pergunta").addEventListener("click", async (
     // Atualiza o banco local para o diagnóstico
     perguntasExtras = await listarPerguntas().catch(() => perguntasExtras);
     aviso.className = "aviso ok";
-    aviso.textContent = "✅ Pergunta adicionada ao banco!";
+    aviso.textContent = "✅ Pergunta publicada no banco compartilhado! Ela já pode aparecer no diagnóstico e no jogo de todos.";
     exibir(aviso);
+    setTimeout(() => esconder(aviso), 4500);
     limparFormularioPergunta();
     await carregarMinhasPerguntas();
   } catch (e) {
@@ -2913,7 +2939,7 @@ document.getElementById("duelo-colegas").addEventListener("click", async (e) => 
       turma: minhaTurma.codigo,
       criadorId: usuario.uid,
       criadorNome: usuario.nome,
-      criadorFoto: usuario.foto || "",
+      criadorFoto: usuario.privado ? "" : (usuario.foto || ""),
       oponenteId: oponente.uid,
       oponenteNome: oponente.nome,
       oponenteFoto: "",

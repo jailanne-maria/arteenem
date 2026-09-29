@@ -10,7 +10,7 @@
   <link rel="apple-touch-icon" href="img/icon-192.png">
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#5c94fc">
-  <link rel="stylesheet" href="style.css?v=89">
+  <link rel="stylesheet" href="style.css?v=90">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
@@ -254,6 +254,7 @@
         </div>
         <div class="progresso-barra"><div id="progresso-fill"></div></div>
       </div>
+      <p class="credito-questoes">Algumas questões vêm de provas anteriores do ENEM — fonte: INEP/MEC (API pública enem.dev).</p>
 
       <div class="questao-card">
         <span id="questao-tema" class="tema-tag"></span>
@@ -329,6 +330,7 @@
         </div>
 
         <div id="perfil-view" class="perfil-view">
+          <p id="perfil-privado-aviso" class="perfil-termos escondido">🙈 Este perfil é privado — a foto, a bio e o “do que eu gosto” não aparecem para os colegas.</p>
           <div class="perfil-campo">
             <span class="perfil-rotulo">📝 Bio</span>
             <p id="perfil-bio-view" class="perfil-texto"></p>
@@ -349,7 +351,8 @@
             <input id="perfil-foto-input" type="file" accept="image/*">
             <img id="perfil-foto-preview" class="perfil-foto-preview escondido" alt="Prévia da foto">
             <p class="perfil-termos">
-              A foto deve ser de <strong>rosto legível</strong>, sem filtros ou elementos que dificultem a identificação.
+              A foto é <strong>opcional</strong> — você pode usar o NINA sem foto nenhuma, inclusive nos recados.
+              Se enviar, ela deve ser de <strong>rosto legível</strong>, sem filtros ou elementos que dificultem a identificação.
               Ao enviar, você confirma que a imagem é sua ou que tem autorização para usá-la. Fotos inadequadas podem ser removidas.
             </p>
           </div>
@@ -364,6 +367,13 @@
           <div class="perfil-campo">
             <label class="perfil-rotulo" for="perfil-gostos">❤️ Do que eu gosto</label>
             <input id="perfil-gostos" type="text" maxlength="100" placeholder="Ex.: música, futebol, desenhar, games...">
+          </div>
+          <div class="perfil-campo">
+            <label class="perfil-opcao" for="perfil-privado">
+              <input id="perfil-privado" type="checkbox">
+              <span>🙈 <strong>Perfil privado para os colegas</strong> — esconde a foto, a bio e o “do que eu gosto” de quem abrir o seu perfil</span>
+            </label>
+            <p class="perfil-termos">Você e os professores da sua turma continuam vendo tudo normalmente. A bio e o “do que eu gosto” nunca aparecem no ranking nem no mural.</p>
           </div>
           <div id="perfil-aviso" class="aviso escondido"></div>
           <button id="btn-salvar-perfil" class="btn-principal">💾 Salvar perfil</button>
@@ -691,7 +701,7 @@
         <button id="btn-salvar-pergunta" class="btn-principal">➕ Adicionar pergunta ao banco</button>
       </div>
 
-      <h3 class="secao-titulo">Minhas perguntas adicionadas</h3>
+      <h3 class="secao-titulo">Minhas perguntas adicionadas <span id="perguntas-contador" class="contador-suave"></span></h3>
       <div id="lista-perguntas" class="perguntas-lista"></div>
     </section>
 
@@ -700,6 +710,7 @@
       <div class="hero">
         <h1>🎡 Roleta do <span class="destaque">NINA</span></h1>
         <p>Gire a roleta, responda a pergunta da área sorteada e ganhe figurinhas colecionáveis!</p>
+        <p class="credito-questoes">Questões do ENEM — fonte: INEP/MEC (API pública enem.dev).</p>
       </div>
 
       <div class="dificuldade">
@@ -1030,10 +1041,11 @@
     <section id="tela-simulado" class="tela">
       <button id="btn-voltar-simulado" class="btn-ghost voltar">← Voltar</button>
 
-      <div class="hero">
-        <h1>📝 Simulado <span class="destaque">ENEM</span></h1>
-        <p>Questões reais de provas anteriores, na ordem oficial: <strong>Linguagens, Humanas, Natureza e Matemática</strong>.</p>
-      </div>
+    <div class="hero">
+      <h1>📝 Simulado <span class="destaque">ENEM</span></h1>
+      <p>Questões reais de provas anteriores, na ordem oficial: <strong>Linguagens, Humanas, Natureza e Matemática</strong>.</p>
+      <p class="credito-questoes">Questões do ENEM — fonte: INEP/MEC (obtidas pela API pública enem.dev).</p>
+    </div>
 
       <!-- Passo 1: idioma -->
       <div id="simulado-idioma" class="painel-bloco">
@@ -1218,11 +1230,16 @@
     <div class="modal-eca-caixa">
       <span class="modal-eca-icone">📜</span>
       <h2>Aviso importante</h2>
-      <p>Este aplicativo foi desenvolvido no contexto do <strong>ECA Digital</strong> e <strong>não poderá, em hipótese alguma, ferir o Estatuto da Criança e do Adolescente</strong> (Lei nº 8.069/1990).</p>
-      <p>Qualquer uso que viole os direitos de crianças e adolescentes — como bullying, cyberbullying, exposição indevida, discriminação ou qualquer forma de violência — está sujeito a <strong>banimento</strong> da conta e às responsabilidades previstas em lei.</p>
-      <p>Ao continuar, você declara estar de acordo com o ECA e com o uso respeitoso e seguro deste espaço.</p>
+      <p>Este aplicativo foi desenvolvido no contexto do <strong>ECA Digital</strong>. Ao continuar, você concorda em usar o NINA de forma respeitosa e segura.</p>
+      <div class="modal-dica-lista">
+        <p>✅ <strong>Não ferir o Estatuto da Criança e do Adolescente</strong> (Lei nº 8.069/1990), em hipótese alguma.</p>
+        <p>✅ <strong>Nada de bullying, discriminação ou exposição indevida</strong> — nem com colegas, nem com professores.</p>
+        <p>✅ <strong>Nada de violência</strong>, ameaça ou conteúdo inadequado.</p>
+        <p>✅ <strong>Quem descumprir perde a conta</strong> e responde conforme a lei.</p>
+      </div>
+      <p class="perfil-termos">O texto completo está no botão “Ler o ECA completo”.</p>
       <div class="modal-eca-acoes">
-        <button id="btn-eca-ler" class="btn-secundario">📖 Ler o ECA</button>
+        <button id="btn-eca-ler" class="btn-secundario">📖 Ler o ECA completo</button>
         <button id="btn-eca-aceitar" class="btn-principal">✅ Li e concordo</button>
       </div>
     </div>
@@ -1287,18 +1304,18 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
 
-  <script src="questoes.js?v=89"></script>
-  <script src="questoes-arte.js?v=89"></script>
-  <script src="plano.js?v=89"></script>
-  <script src="explorar.js?v=89"></script>
-  <script src="figurinhas.js?v=89"></script>
-  <script src="curriculo.js?v=89"></script>
-  <script src="cursos.js?v=89"></script>
-  <script src="mascote.js?v=89"></script>
-  <script src="glossario.js?v=89"></script>
-  <script src="glossario-acreanes.js?v=89"></script>
-  <script src="encenacao.js?v=89"></script>
-  <script src="firebase-config.js?v=89"></script>
-  <script src="script.js?v=89"></script>
+  <script src="questoes.js?v=90"></script>
+  <script src="questoes-arte.js?v=90"></script>
+  <script src="plano.js?v=90"></script>
+  <script src="explorar.js?v=90"></script>
+  <script src="figurinhas.js?v=90"></script>
+  <script src="curriculo.js?v=90"></script>
+  <script src="cursos.js?v=90"></script>
+  <script src="mascote.js?v=90"></script>
+  <script src="glossario.js?v=90"></script>
+  <script src="glossario-acreanes.js?v=90"></script>
+  <script src="encenacao.js?v=90"></script>
+  <script src="firebase-config.js?v=90"></script>
+  <script src="script.js?v=90"></script>
 </body>
 </html>
