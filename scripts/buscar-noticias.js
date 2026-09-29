@@ -86,14 +86,32 @@ Com base nelas, sugira 5 possíveis temas de redação do ENEM. Para cada tema, 
 Responda em JSON puro, no formato:
 {"temas":[{"tema":"...","eixo":"...","argumento":"...","textosMotivadores":["...","..."]}]}`;
 
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent?key=${key}`;
-  const resp = await fetch(url, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] }),
-  });
-  if (!resp.ok) throw new Error("IA HTTP " + resp.status);
-  const data = await resp.json();
+  const MODELOS_IA = [
+    "gemini-3.8-flash",
+    "gemini-3.6-flash",
+    "gemini-flash-lite-latest",
+    "gemini-3.1-flash-lite",
+    "gemini-2.5-flash",
+  ];
+
+  let data = null;
+  let ultimoErro = "";
+  for (const modelo of MODELOS_IA) {
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/${modelo}:generateContent?key=${key}`;
+    const resp = await fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] }),
+    });
+    if (resp.ok) {
+      data = await resp.json();
+      console.log(`IA: gerou com ${modelo}`);
+      break;
+    }
+    ultimoErro = `${modelo} HTTP ${resp.status}`;
+    console.error(`IA falhou (${ultimoErro}) — tentando o próximo modelo...`);
+  }
+  if (!data) throw new Error("IA indisponível — " + ultimoErro);
   let texto = (data?.candidates?.[0]?.content?.parts || []).map((p) => p.text || "").join("");
   texto = texto.replace(/```json|```/g, "").trim();
   const ini = texto.indexOf("{");
