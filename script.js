@@ -154,8 +154,10 @@ aoMudarUsuario(async (user) => {
   if (usuario.papel === "professor") exibir(btnChat); else esconder(btnChat);
   // Chat da turma (professor e estudantes)
   exibir(btnChatTurma);
-  // Falar com a professora (todos, menos a própria admin)
-  if (ehAdmin()) esconder(btnSuporte); else exibir(btnSuporte);
+  // Falar com a professora (estudantes e professores).
+  // Para quem administra, o botão vira atalho para as conversas dos estudantes.
+  btnSuporte.textContent = podeAdministrar() ? "💬 Conversas dos estudantes" : "💬 Falar com a professora";
+  exibir(btnSuporte);
   // Painel de administração (SOMENTE os e-mails autorizados e fora do papel de estudante)
   if (podeAdministrar()) exibir(btnAdmin); else esconder(btnAdmin);
 
@@ -3799,7 +3801,7 @@ function renderRevisaoCard(r) {
     return `
       <div class="ativ-item" data-revisao="${r.id}" data-index="${i}">
         <p class="ativ-pergunta"><strong>${i + 1}.</strong> ${escaparHTML(a.pergunta)}</p>
-        <textarea class="ativ-resposta-aluno" rows="2" placeholder="Escreva sua resposta e envie para ver o gabarito..."></textarea>
+        <textarea class="ativ-resposta-aluno" rows="2" placeholder="Escreva sua resposta com as suas palavras (colar é bloqueado)..."></textarea>
         <button class="ativ-enviar" disabled>📤 Enviar resposta</button>
         <div class="ativ-gabarito escondido"><strong>Gabarito:</strong> ${escaparHTML(a.resposta)}</div>
         <div class="ativ-comentario-prof escondido"></div>
@@ -4013,6 +4015,20 @@ document.getElementById("revisoes-lista").addEventListener("input", (e) => {
   const item = ta.closest(".ativ-item");
   const btn = item && item.querySelector(".ativ-enviar");
   if (btn) btn.disabled = ta.value.trim().length < 3;
+});
+
+// Anti-cola: o estudante NÃO pode colar texto na resposta da atividade.
+// (o campo .ativ-resposta-aluno só é criado para o estudante; o professor vê o gabarito direto)
+function bloquearColagemAtividade(e) {
+  const ta = e.target && e.target.closest ? e.target.closest(".ativ-resposta-aluno") : null;
+  if (!ta) return;
+  e.preventDefault();
+  mostrarToast("Escreva a resposta com as suas palavras — colar não vale. 🙂", "erro");
+}
+
+["paste", "drop"].forEach((ev) => {
+  document.getElementById("revisoes-lista").addEventListener(ev, bloquearColagemAtividade);
+  document.getElementById("atividades-aluno-lista").addEventListener(ev, bloquearColagemAtividade);
 });
 
 document.getElementById("revisoes-lista").addEventListener("click", async (e) => {
@@ -5815,8 +5831,22 @@ function renderAcreanes() {
 // ============================================================
 let suporteUnsub = null;
 
+// Quem administra não fala consigo mesmo: o atalho abre as conversas dos estudantes.
+function abrirConversasAdmin() {
+  adminAba = "conversas";
+  conversaUid = null;
+  abrirAdmin();
+}
+
 function abrirSuporte() {
-  if (!usuario) return;
+  if (!usuario) {
+    mostrarToast("Entre na sua conta para usar este canal.", "erro");
+    return;
+  }
+  if (podeAdministrar()) {
+    abrirConversasAdmin();
+    return;
+  }
   mostrarTela("tela-suporte");
   ouvirSuporte();
 }
@@ -5825,8 +5855,14 @@ function ouvirSuporte() {
   if (suporteUnsub) { suporteUnsub(); suporteUnsub = null; }
   const lista = document.getElementById("suporte-lista");
   lista.innerHTML = `<p class="vazio">Carregando mensagens...</p>`;
-  suporteUnsub = ouvirMinhasMensagens(usuario.uid, (msgs) => {
-    if (!msgs) { lista.innerHTML = `<p class="vazio">Não foi possível carregar agora.</p>`; return; }
+  suporteUnsub = ouvirMinhasMensagens(usuario.uid, (msgs, err) => {
+    if (!msgs) {
+      const negado = err && (err.code === "permission-denied" || /permission/i.test(err.message || ""));
+      lista.innerHTML = negado
+        ? `<p class="vazio">O canal ainda não está liberado no banco de dados. Avise a administração para republicar as regras do Firestore.</p>`
+        : `<p class="vazio">Não foi possível carregar agora. Confira sua internet e tente de novo.</p>`;
+      return;
+    }
     if (!msgs.length) {
       lista.innerHTML = `<p class="vazio">Nenhuma mensagem ainda. Escreva a primeira! 👇</p>`;
       return;
@@ -5857,7 +5893,13 @@ async function enviarSuporte() {
   try {
     await enviarMensagemSuporte(usuario, texto);
   } catch (e) {
-    mostrarToast("Erro ao enviar: " + e.message, "erro");
+    const negado = e && (e.code === "permission-denied" || /permission/i.test(e.message || ""));
+    mostrarToast(
+      negado
+        ? "O canal ainda não está liberado no banco de dados. Avise a administração para republicar as regras do Firestore."
+        : "Erro ao enviar: " + e.message,
+      "erro"
+    );
     input.value = texto;
   }
 }

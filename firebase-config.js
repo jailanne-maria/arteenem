@@ -764,7 +764,7 @@ function ouvirMinhasMensagens(uid, callback) {
       });
       lista.sort((a, b) => a.ms - b.ms);
       callback(lista);
-    }, () => callback(null));
+    }, (err) => callback(null, err));
 }
 
 function listarConversasSuporte() {
