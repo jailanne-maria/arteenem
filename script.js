@@ -1534,6 +1534,9 @@ function preencherPerfil(p) {
   const chkPrivado = document.getElementById("perfil-privado");
   if (chkPrivado) chkPrivado.checked = p.privado === true;
 
+  const campoNome = document.getElementById("perfil-nome-input");
+  if (campoNome) campoNome.value = p.nome || "";
+
   document.getElementById("perfil-bio").value = p.bio || "";
   document.getElementById("perfil-sonho").value = p.sonho || "";
   document.getElementById("perfil-gostos").value = p.gostos || "";
@@ -1759,7 +1762,16 @@ document.getElementById("btn-editar-perfil").addEventListener("click", () => {
 document.getElementById("btn-salvar-perfil").addEventListener("click", async () => {
   const aviso = document.getElementById("perfil-aviso");
   const chkPrivado = document.getElementById("perfil-privado");
+  const campoNome = document.getElementById("perfil-nome-input");
+  const novoNome = (campoNome ? campoNome.value : "").trim().slice(0, 60);
+  if (!novoNome) {
+    aviso.className = "aviso erro";
+    aviso.textContent = "Escreva um nome para aparecer no NINA.";
+    exibir(aviso);
+    return;
+  }
   const dados = {
+    nome: novoNome,
     bio: document.getElementById("perfil-bio").value.trim(),
     sonho: document.getElementById("perfil-sonho").value.trim(),
     gostos: document.getElementById("perfil-gostos").value.trim(),
