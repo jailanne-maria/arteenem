@@ -16,6 +16,7 @@ const PLATAFORMA = (() => {
   let rodando = false, pausado = false, raf = null, ultimo = 0, flash = 0;
   let fase = null, emojiJog = "🧑🏽", cbs = {};
   let respondidas = {}, perguntaPendente = null, acertos = 0, perguntaDoBloco = {};
+  let puloAntes = false, pulos = 0;
   let cogumeloEm = new Set();
   const teclas = {};
   const input = { esq: false, dir: false, pulo: false };
@@ -199,11 +200,14 @@ const PLATAFORMA = (() => {
     j.vx = Math.max(-MAX_V, Math.min(MAX_V, j.vx));
     if (Math.abs(j.vx) < 0.06) j.vx = 0;
 
-    const pulando = input.pulo || teclas["ArrowUp"] || teclas["w"] || teclas["W"] || teclas[" "];
-    if (pulando) j.puloBuffer = 7; else j.puloBuffer = Math.max(0, j.puloBuffer - 1);
+    const pulando = !!(input.pulo || teclas["ArrowUp"] || teclas["w"] || teclas["W"] || teclas[" "]);
+    // Só pula quando APERTA (não vale ficar segurando): evita pular sem parar
+    if (pulando && !puloAntes) j.puloBuffer = 7;
+    else j.puloBuffer = Math.max(0, j.puloBuffer - 1);
+    puloAntes = pulando;
     if (j.noChao) j.coyote = 7; else j.coyote = Math.max(0, j.coyote - 1);
     if (j.puloBuffer > 0 && j.coyote > 0) {
-      j.vy = -JUMP; j.noChao = false; j.coyote = 0; j.puloBuffer = 0; j.y -= 2;
+      j.vy = -JUMP; j.noChao = false; j.coyote = 0; j.puloBuffer = 0; j.y -= 2; pulos++;
     }
     if (!pulando && j.vy < -4) j.vy += 0.5; // pulo variável
 
@@ -520,6 +524,13 @@ const PLATAFORMA = (() => {
   }
   window.addEventListener("keydown", (e) => aoTecla(e, true));
   window.addEventListener("keyup", (e) => aoTecla(e, false));
+  // Se a janela perder o foco, solta tudo (evita o boneco andando/pulando sozinho)
+  window.addEventListener("blur", () => {
+    input.esq = input.dir = input.pulo = false;
+    Object.keys(teclas).forEach((k) => { teclas[k] = false; });
+    controlesLigados.forEach((el) => el.classList.remove("ativo"));
+    puloAntes = true;
+  });
 
   // ---------- API ----------
   function iniciar(opcoes) {
@@ -531,6 +542,7 @@ const PLATAFORMA = (() => {
     vidas = opcoes.vidas || 3;
     pontos = 0; cogumelosPegos = 0; grande = false; invuln = 0; flash = 0;
     respondidas = {}; perguntaPendente = null; acertos = 0; pausado = false; acumulado = 0;
+    puloAntes = false; pulos = 0;
     jog = { x: 0, y: 0, vx: 0, vy: 0, w: 22, h: 28, noChao: false, puloBuffer: 0, coyote: 0 };
     cam = { x: 0 };
     montarMapa();
@@ -550,7 +562,7 @@ const PLATAFORMA = (() => {
     responder,
     _estado: () => ({
       x: jog ? Math.round(jog.x) : 0, y: jog ? Math.round(jog.y) : 0,
-      vidas, pontos, grande, pausado, rodando, acertos,
+      vidas, pontos, grande, pausado, rodando, acertos, pulos,
       respondidas: Object.keys(respondidas).length,
       cogumelos: vivaCogumelos(), inimigos: inimigos ? inimigos.length : 0, largTiles,
       perguntas: Object.keys(perguntaDoBloco).length,
