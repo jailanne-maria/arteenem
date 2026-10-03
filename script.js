@@ -1902,7 +1902,7 @@ function abrirExplorar() {
 
 function renderAvatar() {
   const av = explorarEstado.avatarId ? avatarPorId(explorarEstado.avatarId) : null;
-  document.getElementById("avatar-atual").textContent = av ? av.emoji : "❓";
+  document.getElementById("avatar-atual").innerHTML = av ? bonecoMapa(3) : "❓";
   document.getElementById("avatar-nome").textContent = av
     ? `Seu aventureiro (${av.genero})`
     : "Escolha seu aventureiro";
@@ -1931,6 +1931,12 @@ function renderAvatar() {
 
 function faseConcluida(id) {
   return explorarEstado.fasesConcluidas.includes(id);
+}
+
+// Boneco inteiro (em pixel) para o mapa, no lugar da carinha
+function bonecoMapa(escala) {
+  if (typeof PLATAFORMA === "undefined" || !PLATAFORMA.svgBoneco) return "🧑🏽";
+  return PLATAFORMA.svgBoneco(explorarEstado.avatarId, escala || 2);
 }
 
 function faseLiberada(i) {
@@ -2047,7 +2053,7 @@ function renderMapaFases() {
     </svg>
     ${nodesHtml}
     <span class="mario-castelo" style="left:${POS_CASTELO.x}%;top:${POS_CASTELO.y}%">🏰</span>
-    <span class="mario-avatar" id="mario-avatar" style="left:${posAvatar.x}%;top:${posAvatar.y}%">${av}</span>
+    <span class="mario-avatar" id="mario-avatar" style="left:${posAvatar.x}%;top:${posAvatar.y}%">${bonecoMapa()}</span>
   `;
 
   mapa.querySelectorAll(".mario-node").forEach((node) => {
@@ -2076,7 +2082,7 @@ function caminharEIniciar(i) {
     const pos = POSICOES_FASES[posicaoAvatarIndex];
     avatar.style.left = pos.x + "%";
     avatar.style.top = pos.y + "%";
-    setTimeout(passo, 460);
+    setTimeout(passo, 260);
   };
   passo();
 }
@@ -2170,6 +2176,7 @@ function iniciarPlataforma() {
     canvas: document.getElementById("fase-canvas"),
     fase: faseAtual,
     emoji: emojiDoAvatar(),
+    avatarId: explorarEstado.avatarId,
     vidas: MAX_VIDAS,
     controles: {
       esq: document.getElementById("pad-esq"),

@@ -51,6 +51,89 @@ const PLATAFORMA = (() => {
     return "rgb(" + r + "," + g + "," + bl + ")";
   }
 
+  // ---------- personagem (boneco inteiro, em pixel) ----------
+  const BONECO = [
+    "....HHHH....",
+    "...HHHHHH...",
+    "...HSSSSH...",
+    "...SESSES...",
+    "...SSSSSS...",
+    "....SSSS....",
+    "...CCCCCC...",
+    "..CCCCCCCC..",
+    ".ACCCCCCCA..",
+    ".ACCCCCCCA..",
+    "..BBBBBBBB..",
+    "..BBB..BBB..",
+    "..SSS..SSS..",
+    "..FFF..FFF..",
+  ];
+  const CORES_BONECO = { H: "#2b1a12", S: "#e0b088", E: "#14142b", C: "#e52521", A: "#e0b088", B: "#14142b", F: "#0b0b16" };
+  const PELE = {
+    menino1: "#f3d3b3", menina1: "#f3d3b3",
+    menino2: "#cf9463", menina2: "#cf9463", neutro1: "#cf9463",
+    menino3: "#8a5a34", menina3: "#8a5a34", neutro2: "#8a5a34",
+  };
+  const CAMISA = {
+    menino1: "#e52521", menina1: "#6b3fd4", menino2: "#3b7dd8",
+    menina2: "#e52521", menino3: "#43b047", menina3: "#fbd000",
+    neutro1: "#43b047", neutro2: "#6b3fd4",
+  };
+  let peleAtual = PELE.menino2, camisaAtual = CAMISA.menino2;
+
+  function definirCores(avatarId) {
+    peleAtual = PELE[avatarId] || PELE.menino2;
+    camisaAtual = CAMISA[avatarId] || CAMISA.menino2;
+  }
+
+  function corDaCelula(ch) {
+    if (ch === "S" || ch === "A") return peleAtual;
+    if (ch === "C") return camisaAtual;
+    return CORES_BONECO[ch] || "#14142b";
+  }
+
+  // Desenha o boneco inteiro no canvas (anda, olha para o lado e mexe as pernas)
+  function desenharBoneco(px, py, w, h, dir, andando, noChao, tempo) {
+    const cw = w / 12, ch = h / 14;
+    const passo = andando && noChao ? (Math.floor(tempo / 7) % 2 === 0 ? 1 : -1) : 0;
+    ctx.save();
+    if (dir < 0) {
+      ctx.translate(px + w, py);
+      ctx.scale(-1, 1);
+    } else {
+      ctx.translate(px, py);
+    }
+    for (let ly = 0; ly < BONECO.length; ly++) {
+      for (let lx = 0; lx < BONECO[ly].length; lx++) {
+        const celula = BONECO[ly][lx];
+        if (celula === ".") continue;
+        let x = lx;
+        if (ly >= 11) x += passo * 0.5; // pernas balançando
+        ctx.fillStyle = corDaCelula(celula);
+        ctx.fillRect(Math.round(x * cw), Math.round(ly * ch), Math.ceil(cw) + 0.4, Math.ceil(ch) + 0.4);
+      }
+    }
+    ctx.restore();
+  }
+
+  // Mesmo boneco em SVG (usado no mapa das fases)
+  function svgBoneco(avatarId, escala) {
+    const e = escala || 2;
+    const peleAntes = peleAtual, camisaAntes = camisaAtual;
+    definirCores(avatarId);
+    let s = '<svg width="' + 12 * e + '" height="' + 14 * e + '" viewBox="0 0 12 14" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">';
+    for (let ly = 0; ly < BONECO.length; ly++) {
+      for (let lx = 0; lx < BONECO[ly].length; lx++) {
+        const celula = BONECO[ly][lx];
+        if (celula === ".") continue;
+        s += '<rect x="' + lx + '" y="' + ly + '" width="1" height="1" fill="' + corDaCelula(celula) + '"/>';
+      }
+    }
+    s += "</svg>";
+    peleAtual = peleAntes; camisaAtual = camisaAntes;
+    return s;
+  }
+
   function vivaCogumelos() { return cogumelos.length; }
 
   // ---------- montagem da fase ----------
@@ -199,6 +282,8 @@ const PLATAFORMA = (() => {
     else j.vx *= FRIC;
     j.vx = Math.max(-MAX_V, Math.min(MAX_V, j.vx));
     if (Math.abs(j.vx) < 0.06) j.vx = 0;
+    if (j.vx > 0.25) j.dir = 1;
+    else if (j.vx < -0.25) j.dir = -1;
 
     const pulando = !!(input.pulo || teclas["ArrowUp"] || teclas["w"] || teclas["W"] || teclas[" "]);
     // Só pula quando APERTA (não vale ficar segurando): evita pular sem parar
@@ -450,12 +535,15 @@ const PLATAFORMA = (() => {
     const px = Math.round(jog.x - cam.x);
     const piscando = invuln > 0 && Math.floor(invuln / 5) % 2 === 0;
     if (!piscando) {
-      ctx.font = (grande ? 40 : 30) + "px serif";
-      ctx.textAlign = "center";
-      ctx.fillStyle = "rgba(0,0,0,0.15)";
-      ctx.fillText(emojiJog, px + jog.w / 2, jog.y + jog.h + 5);
+      ctx.save();
+      ctx.globalAlpha = 0.18;
       ctx.fillStyle = "#000";
-      ctx.fillText(emojiJog, px + jog.w / 2, jog.y + jog.h);
+      ctx.beginPath();
+      ctx.ellipse(px + jog.w / 2, jog.y + jog.h + 2, jog.w * 0.45, 4, 0, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+      const andando = Math.abs(jog.vx) > 0.25;
+      desenharBoneco(px, jog.y, jog.w, jog.h, jog.dir || 1, andando, jog.noChao, performance.now());
     }
 
     // HUD
@@ -538,12 +626,13 @@ const PLATAFORMA = (() => {
     ctx = cv.getContext("2d");
     fase = opcoes.fase;
     emojiJog = opcoes.emoji || "🧑🏽";
+    definirCores(opcoes.avatarId);
     cbs = opcoes.callbacks || {};
     vidas = opcoes.vidas || 3;
     pontos = 0; cogumelosPegos = 0; grande = false; invuln = 0; flash = 0;
     respondidas = {}; perguntaPendente = null; acertos = 0; pausado = false; acumulado = 0;
     puloAntes = false; pulos = 0;
-    jog = { x: 0, y: 0, vx: 0, vy: 0, w: 22, h: 28, noChao: false, puloBuffer: 0, coyote: 0 };
+    jog = { x: 0, y: 0, vx: 0, vy: 0, w: 22, h: 28, noChao: false, puloBuffer: 0, coyote: 0, dir: 1 };
     cam = { x: 0 };
     montarMapa();
     ligarControles(opcoes.controles || {});
@@ -560,6 +649,7 @@ const PLATAFORMA = (() => {
     iniciar,
     parar,
     responder,
+    svgBoneco,
     _estado: () => ({
       x: jog ? Math.round(jog.x) : 0, y: jog ? Math.round(jog.y) : 0,
       vidas, pontos, grande, pausado, rodando, acertos, pulos,

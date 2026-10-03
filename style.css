@@ -5483,3 +5483,8 @@ h1, h2, h3, h4, .marca-nome, .btn-principal, .btn-secundario, .btn-google, .btn-
   opacity: 0.88;
   text-align: center;
 }
+/* O bonequinho do mapa nao pode bloquear o clique nos nos das fases */
+.mario-avatar,
+.mario-castelo {
+  pointer-events: none;
+}
