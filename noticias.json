@@ -1,5 +1,5 @@
 {
-  "atualizadoEm": "2026-10-03T01:42:35.347Z",
+  "atualizadoEm": "2026-10-03T03:42:35.861Z",
   "fontes": [
     "MEC",
     "Agência Brasil"
@@ -141,7 +141,7 @@
       "titulo": "OCDE: 9% dos professores no Brasil não têm qualificação completa",
       "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-09/ocde-9-dos-professores-no-brasil-nao-tem-qualificacao-completa",
       "fonte": "Agência Brasil",
-      "data": "30/09"
+      "data": "29/09"
     },
     {
       "titulo": "Investimento por aluno no Brasil é de 1/3 da média dos países da OCDE",
@@ -150,5 +150,56 @@
       "data": "29/09"
     }
   ],
-  "temasRedacao": []
+  "temasRedacao": [
+    {
+      "tema": "Desafios para a liberdade de cátedra e a proteção do educador no Brasil",
+      "eixo": "Direitos Humanos",
+      "argumento": "A garantia da autonomia docente e a integridade psicológica dos professores são pilares fundamentais para a democracia, exigindo redes de apoio institucionais e o combate à censura nas escolas, conforme preconiza a Constituição Federal de 1988 em seu artigo sobre a liberdade de ensinar.",
+      "textosMotivadores": [
+        "A Constituição Federal de 1988 assegura, em seu artigo 206, o princípio da liberdade de aprender, ensinar, pesquisar e divulgar o pensamento, a arte e o saber como base para a educação nacional.",
+        "Apesar da garantia legal, episódios de patrulhamento ideológico e intimidação no ambiente escolar têm gerado adoecimento mental entre docentes e cerceamento do debate crítico.",
+        "Iniciativas recentes do poder público buscam criar redes de acolhimento para educadores perseguidos, reconhecendo que a proteção ao professor é indissociável da qualidade do ensino."
+      ]
+    },
+    {
+      "tema": "A expansão da educação profissional voltada para a sustentabilidade",
+      "eixo": "Meio Ambiente",
+      "argumento": "A transição para uma economia verde no Brasil demanda investimentos na Educação Profissional e Tecnológica (EPT), alinhando a qualificação de mão de obra aos Objetivos de Desenvolvimento Sustentável (ODS) da ONU e às novas exigências do mercado global.",
+      "textosMotivadores": [
+        "O conceito de 'empregos verdes' refere-se a ocupações que contribuem de forma significativa para a preservação ou restauração da qualidade ambiental, fundamentais para o desenvolvimento sustentável.",
+        "Segundo a Agenda 2030 da ONU, a promoção de trabalho decente e o crescimento econômico sustentado exigem o acesso universal a uma educação profissional de qualidade e adaptada às demandas ecológicas.",
+        "Programas governamentais recentes têm ofertado centenas de vagas em cursos voltados para a sustentabilidade, evidenciando a necessidade de conectar a formação técnica às potencialidades dos biomas brasileiros."
+      ]
+    },
+    {
+      "tema": "O papel da gestão democrática na melhoria dos indicadores educacionais",
+      "eixo": "Cidadania",
+      "argumento": "A superação das desigualdades educacionais brasileiras, refletidas em índices como o Ideb, depende diretamente de uma gestão escolar e municipal eficiente, fundamentada no uso de dados técnicos e na colaboração interfederativa, conforme estabelece a Lei de Diretrizes e Bases da Educação Nacional (LDB).",
+      "textosMotivadores": [
+        "A Lei de Diretrizes e Bases da Educação Nacional (LDB) estabelece a gestão democrática do ensino público como um princípio obrigatório, o qual demanda planejamento estratégico e transparência por parte dos gestores.",
+        "Especialistas apontam que a análise rigorosa de indicadores de desempenho, como o Índice de Desenvolvimento da Educação Básica (Ideb), é essencial para diagnosticar gargalos e direcionar recursos de forma equitativa.",
+        "O apoio técnico aos municípios na formulação de políticas públicas educacionais é um mecanismo indispensável para reduzir as disparidades regionais e garantir o direito à aprendizagem."
+      ]
+    },
+    {
+      "tema": "A equidade no acesso ao Ensino Superior e a democratização do crédito estudantil",
+      "eixo": "Cidadania",
+      "argumento": "A permanência de estudantes de baixa renda no ensino superior brasileiro requer políticas públicas robustas de financiamento estudantil e incentivo ao empreendedorismo, mitigando as barreiras socioeconômicas que perpetuam a desigualdade social.",
+      "textosMotivadores": [
+        "O acesso à educação superior é um direito social garantido pela Constituição de 1988, mas a exclusão financeira continua sendo um dos principais entraves para a ascensão social das classes populares.",
+        "Programas de financiamento estudantil, como o Fies, desempenham um papel histórico na democratização das vagas remanescentes, embora ainda precisem de ajustes para evitar o endividamento excessivo dos egressos.",
+        "O sociólogo Pierre Bourdieu argumenta que a educação reproduz as desigualdades existentes, a menos que o Estado adote medidas compensatórias que garantam não apenas o acesso, mas a permanência e o sucesso profissional dos estudantes."
+      ]
+    },
+    {
+      "tema": "Critérios de qualidade e pluralidade na seleção de materiais didáticos",
+      "eixo": "Cultura",
+      "argumento": "A avaliação criteriosa e a distribuição democrática de livros didáticos por meio do Programa Nacional do Livro e do Material Didático (PNLD) são indispensáveis para assegurar uma educação inclusiva, laica e plural para as infâncias brasileiras.",
+      "textosMotivadores": [
+        "O Programa Nacional do Livro e do Material Didático (PNLD) constitui uma das políticas públicas mais longevas do Brasil na garantia de insumos pedagógicos fundamentais para a rede pública.",
+        "As Diretrizes Curriculares Nacionais para a Educação Infantil destacam a importância de materiais lúdicos, diversos e livres de preconceitos para o desenvolvimento integral das crianças na primeira infância.",
+        "Filósofos como Paulo Freire defendiam que a leitura crítica do mundo precede a leitura da palavra, tornando o livro didático um instrumento político e cultural de emancipação do educando."
+      ]
+    }
+  ]
 }

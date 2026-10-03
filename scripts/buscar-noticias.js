@@ -162,6 +162,18 @@ async function main() {
     console.error("Falha ao gerar ideias:", e.message);
   }
 
+  // Se a IA não gerou temas agora (sem chave ou modelo sobrecarregado),
+  // mantém os temas que já estavam publicados para não esvaziar o app.
+  if (!temas.length) {
+    try {
+      const anterior = JSON.parse(fs.readFileSync("noticias.json", "utf8"));
+      if (Array.isArray(anterior.temasRedacao) && anterior.temasRedacao.length) {
+        temas = anterior.temasRedacao;
+        console.log(`Mantendo os ${temas.length} temas de redação anteriores.`);
+      }
+    } catch {}
+  }
+
   const saida = {
     atualizadoEm: new Date().toISOString(),
     fontes: ["MEC", "Agência Brasil"],
