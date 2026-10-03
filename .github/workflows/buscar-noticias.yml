@@ -13,13 +13,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
+
       - name: Buscar notícias e gerar os temas de redação
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: node scripts/buscar-noticias.js
+
       - name: Publicar noticias.json
         run: |
           git config user.name "NINA Bot"
@@ -29,5 +32,6 @@ jobs:
             echo "Sem novidades."
           else
             git commit -m "Atualiza noticias e temas de redacao"
+            git pull --rebase
             git push
           fi
