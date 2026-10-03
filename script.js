@@ -2087,10 +2087,15 @@ document.getElementById("btn-trocar-avatar").addEventListener("click", () => {
   if (bloco.classList.contains("escondido")) exibir(bloco);
   else esconder(bloco);
 });
-document.getElementById("btn-voltar-explorar").addEventListener("click", abrirExplorar);
-document.getElementById("btn-sair-fase").addEventListener("click", abrirExplorar);
+function sairDaFase() {
+  if (typeof PLATAFORMA !== "undefined") PLATAFORMA.parar();
+  abrirExplorar();
+}
+document.getElementById("btn-voltar-explorar").addEventListener("click", sairDaFase);
+document.getElementById("btn-sair-fase").addEventListener("click", sairDaFase);
 
 function iniciarFase(fase) {
+  if (typeof PLATAFORMA !== "undefined") PLATAFORMA.parar();
   if (!explorarEstado.avatarId) {
     alert("Escolha seu aventureiro primeiro! 🧑🏽");
     abrirExplorar();
@@ -2131,70 +2136,91 @@ function renderVidas() {
   document.getElementById("fase-vidas").textContent = html;
 }
 
+let perguntaIdxAtual = 0;
+let acertouPergunta = false;
+let perguntasFeitasPlat = 0;
+
 document.getElementById("btn-comecar-fase").addEventListener("click", () => {
   document.getElementById("fase-intro").classList.add("escondido");
   document.getElementById("fase-jogo").classList.remove("escondido");
-  renderDesafio();
+  iniciarPlataforma();
 });
 
-function renderDesafio() {
-  const d = faseAtual.desafios[desafioAtual];
+function emojiDoAvatar() {
+  const a = AVATARES.find((x) => x.id === explorarEstado.avatarId);
+  return a ? a.emoji : "🧑🏽";
+}
+
+function atualizarProgressoFase() {
+  const total = faseAtual.desafios.length;
+  document.getElementById("fase-progresso-texto").textContent =
+    `Notícias checadas: ${perguntasFeitasPlat} de ${total}`;
+  document.getElementById("fase-progresso-fill").style.width = `${(perguntasFeitasPlat / total) * 100}%`;
+}
+
+function iniciarPlataforma() {
+  perguntaIdxAtual = 0;
+  acertouPergunta = false;
+  perguntasFeitasPlat = 0;
+  vidas = MAX_VIDAS;
+  renderVidas();
+  atualizarProgressoFase();
+  esconder(document.getElementById("noticia-card"));
+  PLATAFORMA.iniciar({
+    canvas: document.getElementById("fase-canvas"),
+    fase: faseAtual,
+    emoji: emojiDoAvatar(),
+    vidas: MAX_VIDAS,
+    controles: {
+      esq: document.getElementById("pad-esq"),
+      dir: document.getElementById("pad-dir"),
+      pulo: document.getElementById("pad-pulo"),
+    },
+    callbacks: {
+      aoPerguntar: (i) => abrirPerguntaPlataforma(i),
+      aoTerminar: (res) => fimDeFase(res.ganhou, res),
+      aoMudarVidas: (v) => { vidas = v; renderVidas(); },
+    },
+  });
+}
+
+function abrirPerguntaPlataforma(i) {
+  perguntaIdxAtual = i;
+  const d = faseAtual.desafios[i];
   const area = AREAS[d.area] || { icone: "", curto: d.area };
   respondido = false;
-
-  document.getElementById("fase-progresso-texto").textContent =
-    `Desafio ${desafioAtual + 1} de ${faseAtual.desafios.length}`;
-  document.getElementById("fase-progresso-fill").style.width =
-    `${(desafioAtual / faseAtual.desafios.length) * 100}%`;
-
   document.getElementById("noticia-tag").textContent = `${area.icone} ${area.curto}`;
   document.getElementById("noticia-texto").textContent = `"${d.noticia}"`;
-
   const fb = document.getElementById("noticia-feedback");
   fb.className = "noticia-feedback escondido";
   fb.textContent = "";
   esconder(document.getElementById("btn-proximo-desafio"));
-
-  const bV = document.getElementById("btn-verdadeira");
-  const bF = document.getElementById("btn-falsa");
-  bV.disabled = false;
-  bF.disabled = false;
-  bV.classList.remove("escondido");
-  bF.classList.remove("escondido");
-
-  const vilao = document.getElementById("vilao");
-  vilao.classList.remove("derrotado");
-  vilao.style.visibility = "visible";
+  document.getElementById("btn-verdadeira").disabled = false;
+  document.getElementById("btn-falsa").disabled = false;
+  exibir(document.getElementById("noticia-card"));
 }
 
 function responderVF(achouVerdadeira) {
   if (respondido) return;
   respondido = true;
-  const d = faseAtual.desafios[desafioAtual];
+  const d = faseAtual.desafios[perguntaIdxAtual];
   // Acertou se: a notícia é fake e o jogador marcou "Falsa",
   // ou a notícia é verdadeira e o jogador marcou "Verdadeira".
   const acertou = achouVerdadeira !== d.fake;
+  acertouPergunta = acertou;
 
   document.getElementById("btn-verdadeira").disabled = true;
   document.getElementById("btn-falsa").disabled = true;
 
   const fb = document.getElementById("noticia-feedback");
-  if (acertou) {
-    fb.className = "noticia-feedback ok";
-    fb.innerHTML = `⚔️ <strong>Você derrotou a Desinformação!</strong><br>${d.explica}`;
-    const vilao = document.getElementById("vilao");
-    vilao.classList.add("derrotado");
-    setTimeout(() => { vilao.style.visibility = "hidden"; }, 600);
-  } else {
-    vidas--;
-    renderVidas();
-    fb.className = "noticia-feedback erro";
-    fb.innerHTML = `💔 <strong>Você foi enganado(a)! Perdeu um coração.</strong><br>${d.explica}`;
-  }
+  fb.className = acertou ? "noticia-feedback ok" : "noticia-feedback erro";
+  fb.innerHTML = acertou
+    ? `⚔️ <strong>Você desmascarou a Desinformação! +100 pontos</strong><br>${d.explica}`
+    : `💔 <strong>Essa te enganou!</strong><br>${d.explica}`;
   exibir(fb);
 
   const btn = document.getElementById("btn-proximo-desafio");
-  btn.textContent = desafioAtual + 1 < faseAtual.desafios.length ? "Próximo →" : "Ver resultado →";
+  btn.textContent = "▶ Voltar ao jogo";
   exibir(btn);
 }
 
@@ -2202,10 +2228,10 @@ document.getElementById("btn-verdadeira").addEventListener("click", () => respon
 document.getElementById("btn-falsa").addEventListener("click", () => responderVF(false));
 
 document.getElementById("btn-proximo-desafio").addEventListener("click", () => {
-  if (vidas <= 0) return fimDeFase(false);
-  desafioAtual++;
-  if (desafioAtual < faseAtual.desafios.length) renderDesafio();
-  else fimDeFase(true);
+  esconder(document.getElementById("noticia-card"));
+  perguntasFeitasPlat++;
+  atualizarProgressoFase();
+  PLATAFORMA.responder(acertouPergunta);
 });
 
 document.getElementById("btn-repetir-fase").addEventListener("click", () => iniciarFase(faseAtual));
@@ -2217,11 +2243,14 @@ document.getElementById("btn-proxima-fase").addEventListener("click", () => {
   else abrirExplorar();
 });
 
-function fimDeFase(ganhou) {
+function fimDeFase(ganhou, res) {
   const fim = document.getElementById("fase-fim");
   const emoji = document.getElementById("fase-fim-emoji");
   const titulo = document.getElementById("fase-fim-titulo");
   const texto = document.getElementById("fase-fim-texto");
+  const p = res || {};
+
+  if (typeof PLATAFORMA !== "undefined") PLATAFORMA.parar();
 
   if (ganhou) {
     if (!explorarEstado.fasesConcluidas.includes(faseAtual.id)) {
@@ -2230,14 +2259,14 @@ function fimDeFase(ganhou) {
     }
     emoji.textContent = "🏆";
     titulo.textContent = "Fase concluída!";
-    texto.textContent = `Você venceu a Desinformação na ${faseAtual.nome} e salvou ${vidas} coração(ões)!`;
+    texto.textContent = `Você venceu a Desinformação na ${faseAtual.nome}! ${p.pontos || 0} pontos, ${p.acertos || 0} de ${faseAtual.desafios.length} notícias desmascaradas e ${p.vidas != null ? p.vidas : vidas} coração(ões) no final.`;
     const idx = FASES.findIndex((f) => f.id === faseAtual.id);
     const temProxima = !!FASES[idx + 1];
     document.getElementById("btn-proxima-fase").style.display = temProxima ? "block" : "none";
   } else {
     emoji.textContent = "💀";
     titulo.textContent = "Você perdeu todos os corações!";
-    texto.textContent = "A Desinformação venceu desta vez. Revise as explicações e tente de novo — a verdade é o seu poder!";
+    texto.textContent = `A Desinformação venceu desta vez, mas você fez ${p.pontos || 0} pontos e desmascarou ${p.acertos || 0} notícia(s). Tente de novo — a verdade é o seu poder!`;
     document.getElementById("btn-proxima-fase").style.display = "none";
   }
 

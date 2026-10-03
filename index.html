@@ -10,7 +10,7 @@
   <link rel="apple-touch-icon" href="img/icon-192.png">
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#5c94fc">
-  <link rel="stylesheet" href="style.css?v=91">
+  <link rel="stylesheet" href="style.css?v=92">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
@@ -613,21 +613,27 @@
           <div class="fase-progresso"><div id="fase-progresso-fill"></div></div>
         </div>
 
-        <div class="vilao" id="vilao">
-          <span class="vilao-emoji">👾</span>
-          <span class="vilao-nome">Desinformação</span>
+        <div class="plataforma-wrap">
+          <canvas id="fase-canvas" width="800" height="448" aria-label="Jogo de plataforma"></canvas>
+
+          <div class="noticia-card escondido" id="noticia-card">
+            <span class="noticia-tag" id="noticia-tag"></span>
+            <p class="noticia-texto" id="noticia-texto"></p>
+            <div class="noticia-acoes">
+              <button class="btn-vf verdadeira" id="btn-verdadeira">✅ Verdadeira</button>
+              <button class="btn-vf falsa" id="btn-falsa">❌ Falsa</button>
+            </div>
+            <div class="noticia-feedback escondido" id="noticia-feedback"></div>
+            <button class="btn-principal escondido" id="btn-proximo-desafio">▶ Voltar ao jogo</button>
+          </div>
         </div>
 
-        <div class="noticia-card" id="noticia-card">
-          <span class="noticia-tag" id="noticia-tag"></span>
-          <p class="noticia-texto" id="noticia-texto"></p>
-          <div class="noticia-acoes">
-            <button class="btn-vf verdadeira" id="btn-verdadeira">✅ Verdadeira</button>
-            <button class="btn-vf falsa" id="btn-falsa">❌ Falsa</button>
-          </div>
-          <div class="noticia-feedback escondido" id="noticia-feedback"></div>
-          <button class="btn-principal escondido" id="btn-proximo-desafio">Próximo →</button>
+        <div class="plataforma-controles">
+          <button id="pad-esq" class="pad" type="button" aria-label="Esquerda">◀</button>
+          <button id="pad-pulo" class="pad pad-pulo" type="button" aria-label="Pular">⤒ Pular</button>
+          <button id="pad-dir" class="pad" type="button" aria-label="Direita">▶</button>
         </div>
+        <p class="plataforma-dica">No computador use as setas ← → e espaço (ou ↑) para pular. Quebre os tijolos 🧱, pegue o cogumelo 🍄 (ganha vida e fica maior) e bata nos blocos <strong>?</strong> para responder sobre as notícias.</p>
       </div>
 
       <div id="fase-fim" class="fase-fim escondido">
@@ -1309,18 +1315,19 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
 
-  <script src="questoes.js?v=91"></script>
-  <script src="questoes-arte.js?v=91"></script>
-  <script src="plano.js?v=91"></script>
-  <script src="explorar.js?v=91"></script>
-  <script src="figurinhas.js?v=91"></script>
-  <script src="curriculo.js?v=91"></script>
-  <script src="cursos.js?v=91"></script>
-  <script src="mascote.js?v=91"></script>
-  <script src="glossario.js?v=91"></script>
-  <script src="glossario-acreanes.js?v=91"></script>
-  <script src="encenacao.js?v=91"></script>
-  <script src="firebase-config.js?v=91"></script>
-  <script src="script.js?v=91"></script>
+  <script src="questoes.js?v=92"></script>
+  <script src="questoes-arte.js?v=92"></script>
+  <script src="plano.js?v=92"></script>
+  <script src="explorar.js?v=92"></script>
+  <script src="figurinhas.js?v=92"></script>
+  <script src="curriculo.js?v=92"></script>
+  <script src="cursos.js?v=92"></script>
+  <script src="mascote.js?v=92"></script>
+  <script src="glossario.js?v=92"></script>
+  <script src="glossario-acreanes.js?v=92"></script>
+  <script src="encenacao.js?v=92"></script>
+    <script src="plataforma.js?v=92"></script>
+  <script src="firebase-config.js?v=92"></script>
+  <script src="script.js?v=92"></script>
 </body>
 </html>
