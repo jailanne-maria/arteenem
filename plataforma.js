@@ -304,25 +304,33 @@ const PLATAFORMA = (() => {
       j.vx = 0;
     } else j.x = nx;
 
-    // vertical
-    j.vy = Math.min(MAX_Q, j.vy + GRAV);
-    const ny = j.y + j.vy;
-    j.noChao = false;
-    if (colide(j.x, ny, j.w, j.h)) {
-      const linha = porTile(ny);
-      if (j.vy > 0) {
-        j.y = linha * TILE - j.h - 0.01;
-        j.noChao = true;
-      } else {
-        j.y = (linha + 1) * TILE + 0.01;
-        const tx = porTile(j.x + j.w / 2);
-        for (let dx = -1; dx <= 1; dx++) {
-          const t = tile(tx + dx, linha);
-          if (t === TIJOLO || t === INTERROGACAO) { baterNoBloco(tx + dx, linha); break; }
-        }
-      }
+    // vertical: se já está apoiado no chão, fica parado (evita o boneco "quicando")
+    const apoiado = colide(j.x, j.y + 1, j.w, j.h);
+    if (apoiado && j.vy >= 0) {
       j.vy = 0;
-    } else j.y = ny;
+      j.noChao = true;
+    } else {
+      j.noChao = false;
+      j.vy = Math.min(MAX_Q, j.vy + GRAV);
+      const ny = j.y + j.vy;
+      if (colide(j.x, ny, j.w, j.h)) {
+        if (j.vy > 0) {
+          // pousou: alinha os PÉS no topo do bloco
+          j.y = porTile(ny + j.h) * TILE - j.h;
+          j.noChao = true;
+        } else {
+          // bateu a cabeça: alinha a cabeça embaixo do bloco
+          const linhaTeto = porTile(ny);
+          j.y = (linhaTeto + 1) * TILE;
+          const tx = porTile(j.x + j.w / 2);
+          for (let dx = -1; dx <= 1; dx++) {
+            const t = tile(tx + dx, linhaTeto);
+            if (t === TIJOLO || t === INTERROGACAO) { baterNoBloco(tx + dx, linhaTeto); break; }
+          }
+        }
+        j.vy = 0;
+      } else j.y = ny;
+    }
 
     if (j.y > ALTURA * TILE + 40) return perderVida();
 
@@ -653,6 +661,7 @@ const PLATAFORMA = (() => {
     _estado: () => ({
       x: jog ? Math.round(jog.x) : 0, y: jog ? Math.round(jog.y) : 0,
       vidas, pontos, grande, pausado, rodando, acertos, pulos,
+      noChao: jog ? !!jog.noChao : false, vy: jog ? Math.round(jog.vy * 100) / 100 : 0,
       respondidas: Object.keys(respondidas).length,
       cogumelos: vivaCogumelos(), inimigos: inimigos ? inimigos.length : 0, largTiles,
       perguntas: Object.keys(perguntaDoBloco).length,
