@@ -26,7 +26,7 @@ const CENAS = {
 
 const FASES = [
   {
-    id: "prehistoria",
+    id: "prehistoria", dificuldade: { inimigos: 2, buracos: 1 },
     nome: "Pré-História",
     periodo: "até 4000 a.C.",
     emoji: "🦴",
@@ -41,7 +41,7 @@ const FASES = [
     ],
   },
   {
-    id: "antiguidade",
+    id: "antiguidade", dificuldade: { inimigos: 3, buracos: 2 },
     nome: "Antiguidade",
     periodo: "4000 a.C. – 476 d.C.",
     emoji: "🏛️",
@@ -56,7 +56,7 @@ const FASES = [
     ],
   },
   {
-    id: "medieval",
+    id: "medieval", dificuldade: { inimigos: 4, buracos: 2 },
     nome: "Idade Média",
     periodo: "476 – 1453",
     emoji: "🏰",
@@ -71,7 +71,7 @@ const FASES = [
     ],
   },
   {
-    id: "renascimento",
+    id: "renascimento", dificuldade: { inimigos: 5, buracos: 3 },
     nome: "Renascimento e Navegações",
     periodo: "1453 – 1600",
     emoji: "🚢",
@@ -86,7 +86,7 @@ const FASES = [
     ],
   },
   {
-    id: "iluminismo",
+    id: "iluminismo", dificuldade: { inimigos: 6, buracos: 3 },
     nome: "Iluminismo e Revolução Industrial",
     periodo: "séc. XVIII – XIX",
     emoji: "⚙️",
@@ -101,7 +101,7 @@ const FASES = [
     ],
   },
   {
-    id: "seculo20",
+    id: "seculo20", dificuldade: { inimigos: 7, buracos: 3 },
     nome: "Século XX",
     periodo: "1900 – 2000",
     emoji: "🎬",
@@ -116,7 +116,7 @@ const FASES = [
     ],
   },
   {
-    id: "atuais",
+    id: "atuais", dificuldade: { inimigos: 8, buracos: 3 },
     nome: "Dias Atuais",
     periodo: "2000 – hoje",
     emoji: "🌐",

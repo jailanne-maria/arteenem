@@ -10,6 +10,12 @@ const PLATAFORMA = (() => {
 
   const VAZIO = 0, CHAO = 1, PLAT = 2, TIJOLO = 3, INTERROGACAO = 4, USADO = 5;
 
+  // Estrutura fixa da fase (conforme o roteiro: casos, checkpoint e bandeira)
+  const TILES_CASOS = [30, 70, 115, 155];
+  const TILE_CHECKPOINT = 95;
+  const TILE_BANDEIRA = 184;
+  const MAX_CORACOES = 5;
+
   let cv, ctx, mapa, largTiles;
   let jog, cam, inimigos, cogumelos, particulas, bandeira;
   let vidas = 3, pontos = 0, cogumelosPegos = 0, grande = false, invuln = 0;
@@ -17,6 +23,8 @@ const PLATAFORMA = (() => {
   let fase = null, emojiJog = "🧑🏽", cbs = {};
   let respondidas = {}, perguntaPendente = null, acertos = 0, perguntaDoBloco = {};
   let puloAntes = false, pulos = 0;
+  let checkpointX = 0, checkpointAtivo = false;
+  let quebrados = new Set(), inimigosMortos = new Set();
   let cogumeloEm = new Set();
   const teclas = {};
   const input = { esq: false, dir: false, pulo: false };
@@ -144,12 +152,27 @@ const PLATAFORMA = (() => {
     for (let y = 0; y < ALTURA; y++) mapa.push(new Array(largTiles).fill(VAZIO));
     for (let x = 0; x < largTiles; x++) { mapa[12][x] = CHAO; mapa[13][x] = CHAO; }
 
-    // buracos (poços) - no máximo 3 tiles, sempre puláveis
+    const dif = fase.dificuldade || {};
+    const nBuracos = Math.max(1, dif.buracos != null ? dif.buracos : 2);
+    const nInimigos = Math.max(2, dif.inimigos != null ? dif.inimigos : 3);
+
+    // Zonas seguras: em volta dos 4 casos, do checkpoint, do início e da bandeira
+    const seguro = (x) =>
+      TILES_CASOS.some((t) => Math.abs(x - t) <= 3) ||
+      Math.abs(x - TILE_CHECKPOINT) <= 4 ||
+      Math.abs(x - TILE_BANDEIRA) <= 4 ||
+      x < 8 || x > largTiles - 8;
+
+    // buracos (poços) — sempre longe dos casos e do checkpoint
     const buracos = [];
-    for (let i = 0; i < 3; i++) {
-      const bx = 30 + i * 48 + Math.floor(r() * 14);
+    let tentB = 0;
+    while (buracos.length < nBuracos && tentB++ < 300) {
+      const bx = 22 + Math.floor(r() * (largTiles - 55));
       const larg = 2 + Math.floor(r() * 2);
-      if (bx + larg >= largTiles - 12) continue;
+      let ok = bx + larg < largTiles - 10;
+      for (let x = bx - 2; x < bx + larg + 2; x++) if (seguro(x)) ok = false;
+      buracos.forEach((b) => { if (bx + larg + 2 > b.x - 2 && bx - 2 < b.x + b.larg + 2) ok = false; });
+      if (!ok) continue;
       for (let x = bx; x < bx + larg; x++) { mapa[12][x] = VAZIO; mapa[13][x] = VAZIO; }
       buracos.push({ x: bx, larg });
     }
@@ -161,59 +184,60 @@ const PLATAFORMA = (() => {
       const py = 7 + Math.floor(r() * 4);
       const larg = 3 + Math.floor(r() * 3);
       if (dentroBuraco(px, larg)) continue;
+      if (TILES_CASOS.some((t) => px - 1 <= t && t <= px + larg)) continue;
       for (let x = px; x < px + larg; x++) if (mapa[py][x] === VAZIO) mapa[py][x] = PLAT;
     }
 
-    // grupos de tijolos + blocos "?" (linhas 8 e 9, ao alcance do pulo)
+    // Os 4 casos ficam sempre nos mesmos lugares (blocos 30, 70, 115 e 155)
     perguntaDoBloco = {};
+    TILES_CASOS.forEach((tx, i) => {
+      if (tx >= largTiles - 6) return;
+      const ty = i % 2 === 0 ? 8 : 9;
+      for (let y = 6; y <= 11; y++) if (mapa[y][tx] !== CHAO) mapa[y][tx] = VAZIO;
+      mapa[ty][tx] = INTERROGACAO;
+      perguntaDoBloco[tx + ":" + ty] = i;
+      if (mapa[ty][tx - 1] === VAZIO) mapa[ty][tx - 1] = TIJOLO;
+      if (mapa[ty][tx + 1] === VAZIO) mapa[ty][tx + 1] = TIJOLO;
+    });
+
+    // 2 tijolos com cogumelo (colados num caso, sempre alcançáveis)
     cogumeloEm = new Set();
-    const nPerguntas = fase.desafios.length;
-    let perguntas = 0;
-    for (let i = 0; i < 10 && perguntas < nPerguntas; i++) {
-      const gx = 16 + i * 17 + Math.floor(r() * 6);
-      const gy = 8 + Math.floor(r() * 2);
-      if (gx + 5 >= largTiles - 10 || dentroBuraco(gx, 5)) continue;
-      const n = 2 + Math.floor(r() * 3);
-      let temPergunta = false;
-      for (let k = 0; k < n; k++) {
-        const x = gx + k;
-        if (mapa[gy][x] !== VAZIO) continue;
-        const cabePergunta = perguntas < nPerguntas && !temPergunta && (k === Math.floor(n / 2));
-        if (cabePergunta) {
-          mapa[gy][x] = INTERROGACAO;
-          perguntaDoBloco[x + ":" + gy] = perguntas;
-          perguntas++; temPergunta = true;
-        } else {
-          mapa[gy][x] = TIJOLO;
-        }
-      }
-    }
-    // garante todas as perguntas
+    [[TILES_CASOS[0] + 2, 8], [TILES_CASOS[2] + 2, 8]].forEach(([x, y]) => {
+      if (x < largTiles - 4 && mapa[y][x] === VAZIO) { mapa[y][x] = TIJOLO; cogumeloEm.add(x + ":" + y); }
+    });
     let guard = 0;
-    while (perguntas < nPerguntas && guard++ < 500) {
-      const x = 16 + Math.floor(r() * (largTiles - 30));
-      const y = 8 + Math.floor(r() * 2);
-      if (mapa[y][x] === VAZIO) { mapa[y][x] = INTERROGACAO; perguntaDoBloco[x + ":" + y] = perguntas; perguntas++; }
-    }
-    // tijolos com cogumelo (2 por fase)
-    guard = 0;
     while (cogumeloEm.size < 2 && guard++ < 300) {
       const x = 16 + Math.floor(r() * (largTiles - 30));
       const y = 8 + Math.floor(r() * 2);
       if (mapa[y][x] === TIJOLO) cogumeloEm.add(x + ":" + y);
     }
 
-    // inimigos (Desinformação) no chão
+    // checkpoint (bloco 95)
+    checkpointX = TILE_CHECKPOINT * TILE;
+    checkpointAtivo = false;
+
+    // inimigos (Desinformação) — a quantidade cresce a cada fase
     inimigos = [];
-    for (let i = 0; i < 5; i++) {
-      const ex = 34 + i * 34 + Math.floor(r() * 6);
-      if (ex >= largTiles - 12 || dentroBuraco(ex - 4, 8)) continue;
-      inimigos.push({ x: ex * TILE, y: 11 * TILE, w: 26, h: 24, dir: r() < 0.5 ? -1 : 1, min: (ex - 3) * TILE, max: (ex + 3) * TILE, viva: true, morto: 0 });
+    let criados = 0, tentI = 0;
+    while (criados < nInimigos && tentI++ < 400) {
+      const ex = 18 + Math.floor(r() * (largTiles - 40));
+      if (seguro(ex) || dentroBuraco(ex - 2, 5)) continue;
+      if (inimigos.some((e) => Math.abs(e.x - ex * TILE) < 5 * TILE)) continue;
+      inimigos.push({
+        x: ex * TILE, y: 12 * TILE - 24, w: 26, h: 24,
+        dir: r() < 0.5 ? -1 : 1,
+        min: Math.max(TILE, (ex - 3) * TILE),
+        max: Math.min((largTiles - 8) * TILE, (ex + 3) * TILE),
+        viva: true, id: "nuvem" + criados,
+      });
+      criados++;
     }
 
     cogumelos = [];
     particulas = [];
-    bandeira = { x: (largTiles - 6) * TILE, y: 0 };
+    quebrados = new Set();
+    inimigosMortos = new Set();
+    bandeira = { x: TILE_BANDEIRA * TILE, y: 0 };
     jog.x = 2 * TILE; jog.y = 10 * TILE; jog.vx = 0; jog.vy = 0; jog.noChao = false;
     if (jog.h !== 28) { jog.h = 28; }
     cam.x = 0;
@@ -240,6 +264,7 @@ const PLATAFORMA = (() => {
     }
     if (t === TIJOLO) {
       mapa[ty][tx] = VAZIO;
+      quebrados.add(tx + ":" + ty);
       for (let i = 0; i < 6; i++) {
         particulas.push({ x: tx * TILE + 16, y: ty * TILE + 16, vx: (Math.random() - 0.5) * 5, vy: -3 - Math.random() * 3, vida: 30 });
       }
@@ -332,18 +357,25 @@ const PLATAFORMA = (() => {
       } else j.y = ny;
     }
 
-    if (j.y > ALTURA * TILE + 40) return perderVida();
+    if (j.y > ALTURA * TILE + 40) return cairNoBuraco();
 
-    // inimigos
+    // checkpoint (bloco 95): ao passar, vira o ponto de retomada
+    if (!checkpointAtivo && j.x + j.w >= checkpointX) checkpointAtivo = true;
+
+    // inimigos (pisado = eliminado até reiniciar a fase)
     for (const e of inimigos) {
-      if (!e.viva) { e.morto++; if (e.morto > 40) e.viva = true; continue; }
+      if (!e.viva) continue;
       e.x += e.dir * 1.05;
       if (e.x < e.min) { e.x = e.min; e.dir = 1; }
       if (e.x > e.max) { e.x = e.max; e.dir = -1; }
       if (intersecta(j, e)) {
         const porCima = j.vy > 1 && j.y + j.h - e.y < 20;
-        if (porCima) { e.viva = false; e.morto = 0; j.vy = -7.5; pontos += 50; }
-        else levarDano();
+        if (porCima) {
+          e.viva = false;
+          if (e.id) inimigosMortos.add(e.id);
+          j.vy = -7.5;
+          pontos += 50;
+        } else levarDano();
       }
     }
 
@@ -358,7 +390,11 @@ const PLATAFORMA = (() => {
       if (colide(cnx, c.y, c.w, c.h)) c.vx *= -1; else c.x = cnx;
       if (intersecta(j, c)) {
         c.pego = true;
-        vidas++; cogumelosPegos++; pontos += 50;
+        cogumelosPegos++;
+        pontos += 50;
+        // recupera um coração até o limite e concede a proteção (que não acumula)
+        vidas = Math.min(MAX_CORACOES, vidas + 1);
+        atualizarHudExterno();
         if (!grande) { grande = true; j.y -= 12; j.h = 40; }
       }
     }
@@ -372,38 +408,92 @@ const PLATAFORMA = (() => {
     const alvoCam = Math.max(0, Math.min(largTiles * TILE - VW, j.x + j.w / 2 - VW * 0.42));
     cam.x += (alvoCam - cam.x) * 0.14;
 
-    if (j.x + j.w >= bandeira.x) return terminarFase(true);
+    if (j.x + j.w >= bandeira.x) {
+      const pendentes = fase.desafios.length - Object.keys(respondidas).length;
+      if (pendentes > 0 && typeof cbs.aoCasosPendentes === "function") {
+        pausado = true;
+        return cbs.aoCasosPendentes(pendentes);
+      }
+      return terminarFase(true);
+    }
   }
 
   const intersecta = (a, b) => a.x < b.x + b.w && a.x + a.w > b.x && a.y < b.y + b.h && a.y + a.h > b.y;
 
+  // pequeno recuo (o jogador continua no lugar, não volta ao começo)
+  function recuar() {
+    jog.vx = (jog.dir > 0 ? -1 : 1) * 4;
+    jog.vy = -4.5;
+  }
+
   function levarDano() {
     if (invuln > 0) return;
     if (grande) {
+      // perde a proteção e volta ao tamanho normal, continuando no lugar
       grande = false;
       if (jog.h !== 28) { jog.h = 28; jog.y += 12; }
       invuln = 90; flash = 18;
+      recuar();
       return;
     }
-    perderVida();
-  }
-
-  function perderVida() {
     vidas--;
     atualizarHudExterno();
     if (vidas <= 0) return terminarFase(false);
-    reiniciarPosicao();
+    invuln = 90; flash = 18;
+    recuar();
   }
 
-  function reiniciarPosicao() {
-    jog.x = 2 * TILE; jog.y = 10 * TILE; jog.vx = 0; jog.vy = 0; jog.noChao = false;
-    cam.x = 0; invuln = 90;
+  function cairNoBuraco() {
+    // queda no poço: perde um coração mesmo com proteção, que é removida
+    grande = false;
+    if (jog.h !== 28) jog.h = 28;
+    vidas--;
+    atualizarHudExterno();
+    if (vidas <= 0) return terminarFase(false);
+    irParaCheckpoint();
+  }
+
+  function irParaCheckpoint() {
+    const x = checkpointAtivo ? checkpointX + TILE : 2 * TILE;
+    jog.x = x; jog.y = 10 * TILE;
+    jog.vx = 0; jog.vy = 0; jog.noChao = false;
+    cam.x = Math.max(0, Math.min(largTiles * TILE - VW, x - VW * 0.42));
+    invuln = 90;
+  }
+
+  // leva o jogador até o próximo caso ainda não investigado
+  function irParaCasoPendente() {
+    const chave = Object.keys(perguntaDoBloco).find((k) => !respondidas[k]);
+    if (chave) {
+      const tx = parseInt(chave.split(":")[0], 10);
+      jog.x = Math.max(TILE, (tx - 3) * TILE);
+      jog.y = 10 * TILE;
+      jog.vx = 0; jog.vy = 0; jog.noChao = false;
+      cam.x = Math.max(0, Math.min(largTiles * TILE - VW, jog.x - VW * 0.42));
+    }
+    invuln = 90;
+    pausado = false;
+  }
+
+  function retomarDoCheckpoint() {
+    grande = false;
+    if (jog.h !== 28) jog.h = 28;
+    vidas = MAX_CORACOES;
+    atualizarHudExterno();
+    irParaCheckpoint();
   }
 
   function terminarFase(ganhou) {
     rodando = false;
     cancelAnimationFrame(raf);
-    if (typeof cbs.aoTerminar === "function") cbs.aoTerminar({ ganhou, pontos, vidas, acertos, cogumelos: cogumelosPegos });
+    if (typeof cbs.aoTerminar === "function") {
+      cbs.aoTerminar({
+        ganhou, pontos, vidas, acertos,
+        cogumelos: cogumelosPegos,
+        casos: Object.keys(respondidas).length,
+        totalCasos: fase.desafios.length,
+      });
+    }
   }
 
   function atualizarHudExterno() {
@@ -628,6 +718,45 @@ const PLATAFORMA = (() => {
     puloAntes = true;
   });
 
+  // ---------- sessão (salvar / retomar) ----------
+  function salvarSessao() {
+    return {
+      pontos: pontos,
+      cogumelos: cogumelosPegos,
+      acertos: acertos,
+      vidas: vidas,
+      grande: grande,
+      checkpoint: checkpointAtivo,
+      casos: Object.keys(respondidas),
+      quebrados: Array.from(quebrados),
+      mortos: Array.from(inimigosMortos),
+    };
+  }
+
+  function aplicarSessao(s) {
+    if (!s) return;
+    pontos = s.pontos || 0;
+    cogumelosPegos = s.cogumelos || 0;
+    acertos = s.acertos || 0;
+    vidas = Math.min(MAX_CORACOES, s.vidas || MAX_CORACOES);
+    (s.casos || []).forEach((k) => {
+      const p = k.split(":");
+      const tx = +p[0], ty = +p[1];
+      if (mapa[ty] && mapa[ty][tx] === INTERROGACAO) { mapa[ty][tx] = USADO; respondidas[k] = true; }
+    });
+    (s.quebrados || []).forEach((k) => {
+      const p = k.split(":");
+      if (mapa[+p[1]]) { mapa[+p[1]][+p[0]] = VAZIO; quebrados.add(k); }
+    });
+    (s.mortos || []).forEach((id) => {
+      inimigos.forEach((e) => { if (e.id === id) e.viva = false; });
+      inimigosMortos.add(id);
+    });
+    checkpointAtivo = !!s.checkpoint;
+    if (s.grande) { grande = true; jog.h = 40; jog.y -= 12; }
+    if (checkpointAtivo) jog.x = checkpointX + TILE;
+  }
+
   // ---------- API ----------
   function iniciar(opcoes) {
     cv = opcoes.canvas;
@@ -636,13 +765,14 @@ const PLATAFORMA = (() => {
     emojiJog = opcoes.emoji || "🧑🏽";
     definirCores(opcoes.avatarId);
     cbs = opcoes.callbacks || {};
-    vidas = opcoes.vidas || 3;
+    vidas = opcoes.vidas || MAX_CORACOES;
     pontos = 0; cogumelosPegos = 0; grande = false; invuln = 0; flash = 0;
     respondidas = {}; perguntaPendente = null; acertos = 0; pausado = false; acumulado = 0;
     puloAntes = false; pulos = 0;
     jog = { x: 0, y: 0, vx: 0, vy: 0, w: 22, h: 28, noChao: false, puloBuffer: 0, coyote: 0, dir: 1 };
     cam = { x: 0 };
     montarMapa();
+    if (opcoes.sessao) aplicarSessao(opcoes.sessao);
     ligarControles(opcoes.controles || {});
     rodando = true;
     ultimo = performance.now();
@@ -658,6 +788,9 @@ const PLATAFORMA = (() => {
     parar,
     responder,
     svgBoneco,
+    salvarSessao,
+    irParaCasoPendente,
+    retomarDoCheckpoint,
     _estado: () => ({
       x: jog ? Math.round(jog.x) : 0, y: jog ? Math.round(jog.y) : 0,
       vidas, pontos, grande, pausado, rodando, acertos, pulos,
@@ -665,14 +798,30 @@ const PLATAFORMA = (() => {
       respondidas: Object.keys(respondidas).length,
       cogumelos: vivaCogumelos(), inimigos: inimigos ? inimigos.length : 0, largTiles,
       perguntas: Object.keys(perguntaDoBloco).length,
+      checkpoint: checkpointAtivo, checkpointX: Math.round(checkpointX / TILE),
+      casos: Object.keys(respondidas).length,
+      totalCasos: fase ? fase.desafios.length : 0,
+      pendentes: fase ? fase.desafios.length - Object.keys(respondidas).length : 0,
     }),
     _teclas: teclas,
     _passo: (n) => { for (let i = 0; i < (n || 1); i++) { if (rodando) atualizar(); } desenhar(); },
+    _teleporte: (x, y) => {
+      if (!jog) return;
+      jog.x = x;
+      if (y != null) jog.y = y;
+      jog.vx = 0; jog.vy = 0;
+      cam.x = Math.max(0, Math.min(largTiles * TILE - VW, x - VW * 0.42));
+    },
+    _dano: () => levarDano(),
+    _inimigos: () => inimigos.map((e) => ({ id: e.id, viva: e.viva, x: Math.round(e.x) })),
+    _cogumelos: () => cogumelos.map((c) => ({ x: Math.round(c.x), y: Math.round(c.y) })),
     _pendente: () => perguntaPendente,
     _blocosPergunta: () => Object.keys(perguntaDoBloco),
     _cogumeloEm: () => Array.from(cogumeloEm),
     _quebrar: (tx, ty) => baterNoBloco(tx, ty),
     _irParaBandeira: () => { if (jog) jog.x = bandeira.x - 8; },
+    _irParaCaso: (i) => { const ch = Object.keys(perguntaDoBloco).find((k) => perguntaDoBloco[k] === i); if (ch) { jog.x = (parseInt(ch.split(":")[0], 10) - 3) * TILE; jog.y = 10 * TILE; } },
+    _session: salvarSessao,
   };
 })();
 

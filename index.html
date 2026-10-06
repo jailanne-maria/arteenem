@@ -10,7 +10,7 @@
   <link rel="apple-touch-icon" href="img/icon-192.png">
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#5c94fc">
-  <link rel="stylesheet" href="style.css?v=95">
+  <link rel="stylesheet" href="style.css?v=96">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
@@ -626,6 +626,14 @@
             <div class="noticia-feedback escondido" id="noticia-feedback"></div>
             <button class="btn-principal escondido" id="btn-proximo-desafio">▶ Voltar ao jogo</button>
           </div>
+
+          <div class="noticia-card escondido" id="casos-pendentes">
+            <span class="noticia-tag">⚠️ Investigação em aberto</span>
+            <p class="noticia-texto" id="casos-pendentes-texto"></p>
+            <div class="noticia-acoes">
+              <button class="btn-principal" id="btn-ir-caso-pendente">🧭 Ir ao caso pendente</button>
+            </div>
+          </div>
         </div>
 
         <div class="plataforma-controles">
@@ -640,7 +648,9 @@
         <div class="fase-fim-emoji" id="fase-fim-emoji"></div>
         <h2 id="fase-fim-titulo"></h2>
         <p id="fase-fim-texto"></p>
+        <div id="fase-fim-metricas" class="fase-fim-metricas"></div>
         <div class="fase-fim-acoes">
+          <button id="btn-retomar-checkpoint" class="btn-principal escondido">💾 Retomar do checkpoint</button>
           <button id="btn-repetir-fase" class="btn-secundario">🔁 Jogar de novo</button>
           <button id="btn-proxima-fase" class="btn-principal">Próxima fase →</button>
           <button id="btn-sair-fase" class="btn-secundario">Voltar ao mapa</button>
@@ -1315,19 +1325,19 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
 
-  <script src="questoes.js?v=95"></script>
-  <script src="questoes-arte.js?v=95"></script>
-  <script src="plano.js?v=95"></script>
-  <script src="explorar.js?v=95"></script>
-  <script src="figurinhas.js?v=95"></script>
-  <script src="curriculo.js?v=95"></script>
-  <script src="cursos.js?v=95"></script>
-  <script src="mascote.js?v=95"></script>
-  <script src="glossario.js?v=95"></script>
-  <script src="glossario-acreanes.js?v=95"></script>
-  <script src="encenacao.js?v=95"></script>
-    <script src="plataforma.js?v=95"></script>
-  <script src="firebase-config.js?v=95"></script>
-  <script src="script.js?v=95"></script>
+  <script src="questoes.js?v=96"></script>
+  <script src="questoes-arte.js?v=96"></script>
+  <script src="plano.js?v=96"></script>
+  <script src="explorar.js?v=96"></script>
+  <script src="figurinhas.js?v=96"></script>
+  <script src="curriculo.js?v=96"></script>
+  <script src="cursos.js?v=96"></script>
+  <script src="mascote.js?v=96"></script>
+  <script src="glossario.js?v=96"></script>
+  <script src="glossario-acreanes.js?v=96"></script>
+  <script src="encenacao.js?v=96"></script>
+    <script src="plataforma.js?v=96"></script>
+  <script src="firebase-config.js?v=96"></script>
+  <script src="script.js?v=96"></script>
 </body>
 </html>

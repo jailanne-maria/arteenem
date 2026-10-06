@@ -2094,7 +2094,11 @@ document.getElementById("btn-trocar-avatar").addEventListener("click", () => {
   else esconder(bloco);
 });
 function sairDaFase() {
-  if (typeof PLATAFORMA !== "undefined") PLATAFORMA.parar();
+  if (typeof PLATAFORMA !== "undefined") {
+    const st = PLATAFORMA._estado();
+    if (st && st.rodando) guardarSessao();
+    PLATAFORMA.parar();
+  }
   abrirExplorar();
 }
 document.getElementById("btn-voltar-explorar").addEventListener("click", sairDaFase);
@@ -2132,8 +2136,36 @@ function iniciarFase(fase) {
   document.getElementById("fase-jogo").classList.add("escondido");
   document.getElementById("fase-fim").classList.add("escondido");
   document.getElementById("btn-voltar-explorar").classList.remove("escondido");
+  faseConcluidaAgora = false;
   renderVidas();
+  // Se sobrou uma tentativa salva nesta fase, o botão oferece continuar
+  const salva = sessaoDaFase(fase.id);
+  document.getElementById("btn-comecar-fase").textContent = salva ? "▶ Continuar fase" : "▶ Começar fase";
   mostrarTela("tela-fase");
+}
+
+let faseConcluidaAgora = false;
+
+// ---------- sessão da fase (salvar / retomar) ----------
+function sessaoDaFase(id) {
+  const s = explorarEstado.sessao;
+  if (!s || s.faseId !== id) return null;
+  const temAlgo = (s.pontos || 0) > 0 || (s.casos || []).length > 0 || s.checkpoint;
+  return temAlgo ? s : null;
+}
+
+function guardarSessao() {
+  if (faseConcluidaAgora) return;
+  if (typeof PLATAFORMA === "undefined" || !PLATAFORMA.salvarSessao) return;
+  const s = PLATAFORMA.salvarSessao();
+  s.faseId = faseAtual.id;
+  explorarEstado.sessao = s;
+  salvarExplorar();
+}
+
+function limparSessao() {
+  explorarEstado.sessao = null;
+  salvarExplorar();
 }
 
 function renderVidas() {
@@ -2149,7 +2181,7 @@ let perguntasFeitasPlat = 0;
 document.getElementById("btn-comecar-fase").addEventListener("click", () => {
   document.getElementById("fase-intro").classList.add("escondido");
   document.getElementById("fase-jogo").classList.remove("escondido");
-  iniciarPlataforma();
+  iniciarPlataforma(sessaoDaFase(faseAtual.id));
 });
 
 function emojiDoAvatar() {
@@ -2164,20 +2196,22 @@ function atualizarProgressoFase() {
   document.getElementById("fase-progresso-fill").style.width = `${(perguntasFeitasPlat / total) * 100}%`;
 }
 
-function iniciarPlataforma() {
+function iniciarPlataforma(sessao) {
   perguntaIdxAtual = 0;
   acertouPergunta = false;
-  perguntasFeitasPlat = 0;
-  vidas = MAX_VIDAS;
+  perguntasFeitasPlat = sessao && sessao.casos ? sessao.casos.length : 0;
+  vidas = sessao && sessao.vidas ? sessao.vidas : MAX_VIDAS;
   renderVidas();
   atualizarProgressoFase();
   esconder(document.getElementById("noticia-card"));
+  esconder(document.getElementById("casos-pendentes"));
   PLATAFORMA.iniciar({
     canvas: document.getElementById("fase-canvas"),
     fase: faseAtual,
     emoji: emojiDoAvatar(),
     avatarId: explorarEstado.avatarId,
     vidas: MAX_VIDAS,
+    sessao: sessao || null,
     controles: {
       esq: document.getElementById("pad-esq"),
       dir: document.getElementById("pad-dir"),
@@ -2187,9 +2221,24 @@ function iniciarPlataforma() {
       aoPerguntar: (i) => abrirPerguntaPlataforma(i),
       aoTerminar: (res) => fimDeFase(res.ganhou, res),
       aoMudarVidas: (v) => { vidas = v; renderVidas(); },
+      aoCasosPendentes: (n) => abrirCasosPendentes(n),
     },
   });
 }
+
+// Chegou na bandeira com casos pendentes: avisa quantos faltam e leva até lá
+function abrirCasosPendentes(n) {
+  const total = faseAtual.desafios.length;
+  document.getElementById("casos-pendentes-texto").textContent =
+    `A bandeira só encerra a fase com as ${total} investigações feitas. Faltam ${n}. `
+    + "Suas respostas não precisam estar todas certas — o que libera o caminho é investigar cada fonte.";
+  exibir(document.getElementById("casos-pendentes"));
+}
+
+document.getElementById("btn-ir-caso-pendente").addEventListener("click", () => {
+  esconder(document.getElementById("casos-pendentes"));
+  PLATAFORMA.irParaCasoPendente();
+});
 
 function abrirPerguntaPlataforma(i) {
   perguntaIdxAtual = i;
@@ -2236,12 +2285,22 @@ document.getElementById("btn-falsa").addEventListener("click", () => responderVF
 
 document.getElementById("btn-proximo-desafio").addEventListener("click", () => {
   esconder(document.getElementById("noticia-card"));
-  perguntasFeitasPlat++;
-  atualizarProgressoFase();
   PLATAFORMA.responder(acertouPergunta);
+  perguntasFeitasPlat = PLATAFORMA._estado().casos;
+  atualizarProgressoFase();
+  guardarSessao();
 });
 
-document.getElementById("btn-repetir-fase").addEventListener("click", () => iniciarFase(faseAtual));
+document.getElementById("btn-repetir-fase").addEventListener("click", () => {
+  limparSessao();
+  iniciarFase(faseAtual);
+});
+
+document.getElementById("btn-retomar-checkpoint").addEventListener("click", () => {
+  esconder(document.getElementById("fase-fim"));
+  document.getElementById("fase-jogo").classList.remove("escondido");
+  iniciarPlataforma(explorarEstado.sessao);
+});
 
 document.getElementById("btn-proxima-fase").addEventListener("click", () => {
   const idx = FASES.findIndex((f) => f.id === faseAtual.id);
@@ -2250,31 +2309,77 @@ document.getElementById("btn-proxima-fase").addEventListener("click", () => {
   else abrirExplorar();
 });
 
+function metricasDaFase(p, ganhou) {
+  const casos = p.casos != null ? p.casos : 0;
+  const total = p.totalCasos || faseAtual.desafios.length;
+  const acertosPrimeira = p.acertos || 0;
+  const coracoes = p.vidas != null ? p.vidas : vidas;
+
+  // Estrelas independentes: Exploração (concluir) e Checagem (3+ de primeira)
+  const estrelaExploracao = ganhou && casos >= total;
+  const estrelaChecagem = acertosPrimeira >= 3;
+
+  return `
+    <div class="metricas-linha"><span>🔎 Casos investigados</span><strong>${casos}/${total}</strong></div>
+    <div class="metricas-linha"><span>✅ Classificações certas de primeira</span><strong>${acertosPrimeira}</strong></div>
+    <div class="metricas-linha"><span>❤️ Corações no final</span><strong>${coracoes}</strong></div>
+    <div class="metricas-linha"><span>⭐ Pontos</span><strong>${p.pontos || 0}</strong></div>
+    <div class="estrelas-fase">
+      <span class="${estrelaExploracao ? "ganha" : "vazia"}">${estrelaExploracao ? "⭐" : "☆"} Exploração</span>
+      <span class="${estrelaChecagem ? "ganha" : "vazia"}">${estrelaChecagem ? "⭐" : "☆"} Checagem</span>
+      <span class="vazia">☆ Investigação <small>(com as justificativas)</small></span>
+    </div>`;
+}
+
 function fimDeFase(ganhou, res) {
   const fim = document.getElementById("fase-fim");
   const emoji = document.getElementById("fase-fim-emoji");
   const titulo = document.getElementById("fase-fim-titulo");
   const texto = document.getElementById("fase-fim-texto");
+  const metricas = document.getElementById("fase-fim-metricas");
+  const btnRetomar = document.getElementById("btn-retomar-checkpoint");
+  const btnProxima = document.getElementById("btn-proxima-fase");
   const p = res || {};
 
   if (typeof PLATAFORMA !== "undefined") PLATAFORMA.parar();
 
+  metricas.innerHTML = metricasDaFase(p, ganhou);
+
   if (ganhou) {
+    faseConcluidaAgora = true;
     if (!explorarEstado.fasesConcluidas.includes(faseAtual.id)) {
       explorarEstado.fasesConcluidas.push(faseAtual.id);
-      salvarExplorar();
     }
+    // melhor pontuação concluída (não soma repetições)
+    const melhores = explorarEstado.melhores || {};
+    if (!melhores[faseAtual.id] || (p.pontos || 0) > melhores[faseAtual.id]) {
+      melhores[faseAtual.id] = p.pontos || 0;
+    }
+    explorarEstado.melhores = melhores;
+    limparSessao();
+
     emoji.textContent = "🏆";
-    titulo.textContent = "Fase concluída!";
-    texto.textContent = `Você venceu a Desinformação na ${faseAtual.nome}! ${p.pontos || 0} pontos, ${p.acertos || 0} de ${faseAtual.desafios.length} notícias desmascaradas e ${p.vidas != null ? p.vidas : vidas} coração(ões) no final.`;
+    titulo.textContent = "Memória recuperada!";
+    texto.textContent = `Você investigou as ${p.totalCasos || faseAtual.desafios.length} fontes da ${faseAtual.nome} e reconstruiu a ligação entre as afirmações e as evidências.`;
     const idx = FASES.findIndex((f) => f.id === faseAtual.id);
     const temProxima = !!FASES[idx + 1];
-    document.getElementById("btn-proxima-fase").style.display = temProxima ? "block" : "none";
+    btnProxima.style.display = temProxima ? "block" : "none";
+    esconder(btnRetomar);
   } else {
-    emoji.textContent = "💀";
-    titulo.textContent = "Você perdeu todos os corações!";
-    texto.textContent = `A Desinformação venceu desta vez, mas você fez ${p.pontos || 0} pontos e desmascarou ${p.acertos || 0} notícia(s). Tente de novo — a verdade é o seu poder!`;
-    document.getElementById("btn-proxima-fase").style.display = "none";
+    emoji.textContent = "🧭";
+    titulo.textContent = "Vamos reorganizar a aventura?";
+    texto.textContent = `Os corações acabaram, mas o que você já investigou continua valendo. Você fez ${p.pontos || 0} pontos.`;
+    btnProxima.style.display = "none";
+    // guarda a tentativa para poder retomar do checkpoint
+    if (typeof PLATAFORMA !== "undefined" && PLATAFORMA.salvarSessao) {
+      const s = PLATAFORMA.salvarSessao();
+      s.faseId = faseAtual.id;
+      s.vidas = MAX_VIDAS;
+      s.grande = false;
+      explorarEstado.sessao = s;
+      salvarExplorar();
+      exibir(btnRetomar);
+    }
   }
 
   esconder(document.getElementById("fase-jogo"));
