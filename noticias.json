@@ -1,10 +1,22 @@
 {
-  "atualizadoEm": "2026-10-06T02:40:26.526Z",
+  "atualizadoEm": "2026-10-06T17:02:10.396Z",
   "fontes": [
     "MEC",
     "Agência Brasil"
   ],
   "noticias": [
+    {
+      "titulo": "Cursinhos populares apoiam preparação de estudantes para o Enem",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/cursinhos-populares-apoiam-preparacao-de-estudantes-para-o-enem",
+      "fonte": "MEC",
+      "data": "outubro/2026"
+    },
+    {
+      "titulo": "Educação amplia articulação com outras políticas públicas",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/educacao-amplia-articulacao-com-outras-politicas-publicas",
+      "fonte": "MEC",
+      "data": "outubro/2026"
+    },
     {
       "titulo": "Rede Federal inspira estudantes em palestras no Rio Grande do Sul",
       "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/rede-federal-inspira-estudantes-em-palestras-no-rio-grande-do-sul",
@@ -82,18 +94,6 @@
       "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/mec-promove-aulao-do-enem-para-2-mil-estudantes-em-mg",
       "fonte": "MEC",
       "data": "outubro/2026"
-    },
-    {
-      "titulo": "Divulgada lista de aprovados em edital de economia solidária",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/setembro/divulgada-lista-de-aprovados-em-edital-de-economia-solidaria",
-      "fonte": "MEC",
-      "data": "setembro/2026"
-    },
-    {
-      "titulo": "UFPA oferece terapia ocupacional a pessoas com esclerose múltipla",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/setembro/ufpa-oferece-terapia-ocupacional-a-pessoas-com-esclerose-multipla",
-      "fonte": "MEC",
-      "data": "setembro/2026"
     },
     {
       "titulo": "Encceja: Inep disponibiliza locais de reaplicação de prova",
