@@ -1,10 +1,40 @@
 {
-  "atualizadoEm": "2026-10-06T17:02:10.396Z",
+  "atualizadoEm": "2026-10-07T02:03:50.293Z",
   "fontes": [
     "MEC",
     "Agência Brasil"
   ],
   "noticias": [
+    {
+      "titulo": "MEC destina R$ 6,9 milhões a instituições federais do RS",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/mec-destina-r-6-9-milhoes-a-instituicoes-federais-do-rs",
+      "fonte": "MEC",
+      "data": "outubro/2026"
+    },
+    {
+      "titulo": "Recomposição das Aprendizagens: municípios têm prazo até 30 de outubro",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/recomposicao-das-aprendizagens-municipios-tem-prazo-ate-30-de-outubro",
+      "fonte": "MEC",
+      "data": "outubro/2026"
+    },
+    {
+      "titulo": "Educação como caminho para construir uma nova vida",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/educacao-como-caminho-para-construir-uma-nova-vida",
+      "fonte": "MEC",
+      "data": "outubro/2026"
+    },
+    {
+      "titulo": "Encceja 2026 tem reaplicação de provas nesta terça (6) e quarta (7)",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/encceja-2026-tem-reaplicacao-de-provas-nesta-terca-6-e-quarta-7",
+      "fonte": "MEC",
+      "data": "outubro/2026"
+    },
+    {
+      "titulo": "Fies 2026: últimos dias para instituições aderirem às vagas remanescentes",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/fies-2026-ultimos-dias-para-instituicoes-aderirem-as-vagas-remanescentes",
+      "fonte": "MEC",
+      "data": "outubro/2026"
+    },
     {
       "titulo": "Cursinhos populares apoiam preparação de estudantes para o Enem",
       "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/cursinhos-populares-apoiam-preparacao-de-estudantes-para-o-enem",
@@ -62,36 +92,6 @@
     {
       "titulo": "Rede acolhe educadores vítimas de censura e perseguição",
       "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/rede-acolhe-educadores-vitimas-de-censura-e-perseguicao",
-      "fonte": "MEC",
-      "data": "outubro/2026"
-    },
-    {
-      "titulo": "MEC promove aulão do Enem para 2 mil alunos em SP",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/mec-promove-aulao-do-enem-para-2-mil-alunos-em-sp",
-      "fonte": "MEC",
-      "data": "outubro/2026"
-    },
-    {
-      "titulo": "Guia do PNLD Educação Infantil 2026-2029 está disponível para consulta",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/guia-do-pnld-educacao-infantil-2026-2029-esta-disponivel-para-consulta",
-      "fonte": "MEC",
-      "data": "outubro/2026"
-    },
-    {
-      "titulo": "Ex-aluno do IFRS transforma formação em trajetória empreendedora",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/ex-aluno-do-ifrs-transforma-formacao-em-trajetoria-empreendedora",
-      "fonte": "MEC",
-      "data": "outubro/2026"
-    },
-    {
-      "titulo": "MEC divulga resultado de obras aprovadas do PNLD",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/mec-divulga-resultado-de-obras-aprovadas-do-pnld",
-      "fonte": "MEC",
-      "data": "outubro/2026"
-    },
-    {
-      "titulo": "MEC promove aulão do Enem para 2 mil estudantes em MG",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/mec-promove-aulao-do-enem-para-2-mil-estudantes-em-mg",
       "fonte": "MEC",
       "data": "outubro/2026"
     },
