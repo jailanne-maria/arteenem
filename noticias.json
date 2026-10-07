@@ -1,10 +1,28 @@
 {
-  "atualizadoEm": "2026-10-07T02:03:50.293Z",
+  "atualizadoEm": "2026-10-07T17:39:56.185Z",
   "fontes": [
     "MEC",
     "Agência Brasil"
   ],
   "noticias": [
+    {
+      "titulo": "Do Congo à universidade pública brasileira, o sonho de ser médico",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/do-congo-a-universidade-publica-brasileira-o-sonho-de-ser-medico",
+      "fonte": "MEC",
+      "data": "outubro/2026"
+    },
+    {
+      "titulo": "Redes devem enviar planos de vagas em creches e pré-escolas até dezembro",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/redes-devem-enviar-planos-de-vagas-em-creches-e-pre-escolas-ate-dezembro",
+      "fonte": "MEC",
+      "data": "outubro/2026"
+    },
+    {
+      "titulo": "Conheça todas as etapas para concepção e aplicação das provas do Enem",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/conheca-todas-as-etapas-para-concepcao-e-aplicacao-das-provas-do-enem",
+      "fonte": "MEC",
+      "data": "outubro/2026"
+    },
     {
       "titulo": "MEC destina R$ 6,9 milhões a instituições federais do RS",
       "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/mec-destina-r-6-9-milhoes-a-instituicoes-federais-do-rs",
@@ -78,22 +96,10 @@
       "data": "outubro/2026"
     },
     {
-      "titulo": "Abertas inscrições para curso gratuito sobre financiamento educacional",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/abertas-inscricoes-para-curso-gratuito-sobre-financiamento-educacional",
-      "fonte": "MEC",
-      "data": "outubro/2026"
-    },
-    {
-      "titulo": "Cadernos de Gestão reúnem orientações para as redes de ensino",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/cadernos-de-gestao-reunem-orientacoes-para-as-redes-de-ensino",
-      "fonte": "MEC",
-      "data": "outubro/2026"
-    },
-    {
-      "titulo": "Rede acolhe educadores vítimas de censura e perseguição",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/rede-acolhe-educadores-vitimas-de-censura-e-perseguicao",
-      "fonte": "MEC",
-      "data": "outubro/2026"
+      "titulo": "Fies 2026/2: faculdades privadas podem ofertar vagas até quarta",
+      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-10/fies-20262-faculdades-privadas-podem-ofertar-vagas-ate-quarta",
+      "fonte": "Agência Brasil",
+      "data": "07/10"
     },
     {
       "titulo": "Encceja: Inep disponibiliza locais de reaplicação de prova",
@@ -142,12 +148,6 @@
       "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-09/ocde-9-dos-professores-no-brasil-nao-tem-qualificacao-completa",
       "fonte": "Agência Brasil",
       "data": "30/09"
-    },
-    {
-      "titulo": "Investimento por aluno no Brasil é de 1/3 da média dos países da OCDE",
-      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-09/investimento-por-aluno-no-Brasil-e-de1/3-da-media-dos-paises-da-OCDE",
-      "fonte": "Agência Brasil",
-      "data": "29/09"
     }
   ],
   "temasRedacao": [
