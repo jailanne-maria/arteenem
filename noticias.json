@@ -1,10 +1,22 @@
 {
-  "atualizadoEm": "2026-10-08T02:29:04.017Z",
+  "atualizadoEm": "2026-10-08T17:42:17.842Z",
   "fontes": [
     "MEC",
     "Agência Brasil"
   ],
   "noticias": [
+    {
+      "titulo": "Realizar o sonho de aprender a ler e escrever não tem idade",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/realizar-o-sonho-de-aprender-a-ler-e-escrever-nao-tem-idade",
+      "fonte": "MEC",
+      "data": "outubro/2026"
+    },
+    {
+      "titulo": "Enem 2026: falta um mês para o primeiro dia de provas",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/enem-2026-falta-um-mes-para-o-primeiro-dia-de-provas",
+      "fonte": "MEC",
+      "data": "outubro/2026"
+    },
     {
       "titulo": "Painel reúne resultados do Diagnóstico Equidade 2026 na educação básica",
       "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/painel-reune-resultados-do-diagnostico-equidade-2026-na-educacao-basica",
@@ -84,16 +96,10 @@
       "data": "outubro/2026"
     },
     {
-      "titulo": "PodMEC debate neurociência e educação",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/podmec-debate-neurociencia-e-educacao",
-      "fonte": "MEC",
-      "data": "outubro/2026"
-    },
-    {
-      "titulo": "Projeto gratuito atende pessoas com feridas de difícil cicatrização em GO",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/projeto-gratuito-atende-pessoas-com-feridas-de-dificil-cicatrizacao-em-go",
-      "fonte": "MEC",
-      "data": "outubro/2026"
+      "titulo": "Enem 2026: inscrito automaticamente deve escolher idioma da prova",
+      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-10/enem-2026-inscrito-automaticamente-deve-escolher-idioma-da-prova",
+      "fonte": "Agência Brasil",
+      "data": "08/10"
     },
     {
       "titulo": "Fies 2026/2: faculdades privadas podem ofertar vagas até quarta",
@@ -140,12 +146,6 @@
     {
       "titulo": "Museu de Ciências da Terra leva \"dinossauros\" ao Morro da Urca, no Rio",
       "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-09/museu-de-ciencias-da-terra-leva-dinossauros-ao-morro-da-urca-no-rio",
-      "fonte": "Agência Brasil",
-      "data": "30/09"
-    },
-    {
-      "titulo": "OCDE: 9% dos professores no Brasil não têm qualificação completa",
-      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-09/ocde-9-dos-professores-no-brasil-nao-tem-qualificacao-completa",
       "fonte": "Agência Brasil",
       "data": "30/09"
     }
