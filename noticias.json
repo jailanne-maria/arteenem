@@ -1,10 +1,16 @@
 {
-  "atualizadoEm": "2026-10-08T17:42:17.842Z",
+  "atualizadoEm": "2026-10-09T02:45:22.350Z",
   "fontes": [
     "MEC",
     "Agência Brasil"
   ],
   "noticias": [
+    {
+      "titulo": "MEC anuncia medidas e novo prédio para pesquisas afetadas por incêndio na UFPE",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/mec-anuncia-medidas-e-novo-predio-para-pesquisas-afetadas-por-incendio-na-ufpe",
+      "fonte": "MEC",
+      "data": "outubro/2026"
+    },
     {
       "titulo": "Realizar o sonho de aprender a ler e escrever não tem idade",
       "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/realizar-o-sonho-de-aprender-a-ler-e-escrever-nao-tem-idade",
@@ -90,10 +96,28 @@
       "data": "outubro/2026"
     },
     {
-      "titulo": "Rede Federal inspira estudantes em palestras no Rio Grande do Sul",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/rede-federal-inspira-estudantes-em-palestras-no-rio-grande-do-sul",
-      "fonte": "MEC",
-      "data": "outubro/2026"
+      "titulo": "MEC irá pedir investigação de ameaças a universidades em redes sociais",
+      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-10/mec-ira-pedir-investigacao-de-ameacas-universidades-em-redes-sociais",
+      "fonte": "Agência Brasil",
+      "data": "08/10"
+    },
+    {
+      "titulo": "Aplicativo de simulados do Enem terá mais questões na reta final",
+      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-10/aplicativo-de-simulados-do-enem-tera-mais-questoes-na-reta-final",
+      "fonte": "Agência Brasil",
+      "data": "08/10"
+    },
+    {
+      "titulo": "Universidade Federal Fluminense aciona PF após receber ameaças",
+      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-10/universidade-federal-fluminense-aciona-pf-apos-receber-amecas",
+      "fonte": "Agência Brasil",
+      "data": "08/10"
+    },
+    {
+      "titulo": "MEC vai construir novo prédio para laboratórios da UFPE",
+      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-10/mec-vai-construir-novo-predio-para-laboratorios-da-ufpe",
+      "fonte": "Agência Brasil",
+      "data": "08/10"
     },
     {
       "titulo": "Enem 2026: inscrito automaticamente deve escolher idioma da prova",
@@ -124,30 +148,6 @@
       "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-10/mec-divulga-avaliacao-de-livros-didaticos",
       "fonte": "Agência Brasil",
       "data": "02/10"
-    },
-    {
-      "titulo": "Fies 2026/2: instituições de ensino podem ofertar vagas remanescentes",
-      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-10/fies-20262-instituicoes-de-ensino-podem-ofertar-vagas-remanescentes",
-      "fonte": "Agência Brasil",
-      "data": "01/10"
-    },
-    {
-      "titulo": "Percentual de jovens nem-nem no Brasil cai para 22,4%, mostra estudo",
-      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-09/percentual-de%20jovens-nem-nem-no-brasil-cai-para-224-mostra-estudo",
-      "fonte": "Agência Brasil",
-      "data": "30/09"
-    },
-    {
-      "titulo": "Imersão científica leva alunas e professoras a centros tecnológicos",
-      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-09/imersao-cientifica-leva-alunas-e-professoras-centros-tecnologicos",
-      "fonte": "Agência Brasil",
-      "data": "30/09"
-    },
-    {
-      "titulo": "Museu de Ciências da Terra leva \"dinossauros\" ao Morro da Urca, no Rio",
-      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-09/museu-de-ciencias-da-terra-leva-dinossauros-ao-morro-da-urca-no-rio",
-      "fonte": "Agência Brasil",
-      "data": "30/09"
     }
   ],
   "temasRedacao": [
