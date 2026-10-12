@@ -1,10 +1,106 @@
 {
-  "atualizadoEm": "2026-10-11T16:32:17.932Z",
+  "atualizadoEm": "2026-10-12T02:02:20.616Z",
   "fontes": [
     "MEC",
     "Agência Brasil"
   ],
   "noticias": [
+    {
+      "titulo": "MEC solicita atuação da PF e da AGU em função das ameaças às universidades federais",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/mec-solicita-atuacao-da-pf-e-da-agu-em-funcao-das-ameacas-as-universidades-federais",
+      "fonte": "MEC",
+      "data": "outubro/2026"
+    },
+    {
+      "titulo": "Educação para as relações étnico-raciais é tema do PodMEC",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/educacao-para-as-relacoes-etnico-raciais-e-tema-do-podmec",
+      "fonte": "MEC",
+      "data": "outubro/2026"
+    },
+    {
+      "titulo": "Santa Catarina tem 133,2 mil inscritos na edição de 2026 do Enem",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/santa-catarina-tem-133-2-mil-inscritos-na-edicao-de-2026-do-enem",
+      "fonte": "MEC",
+      "data": "outubro/2026"
+    },
+    {
+      "titulo": "Rio Grande do Sul tem 206,5 mil inscritos na edição de 2026 do Enem",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/rio-grande-do-sul-tem-206-5-mil-inscritos-na-edicao-de-2026-do-enem",
+      "fonte": "MEC",
+      "data": "outubro/2026"
+    },
+    {
+      "titulo": "Paraná tem 221,7 mil inscritos na edição de 2026 do Enem",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/parana-tem-221-7-mil-inscritos-na-edicao-de-2026-do-enem",
+      "fonte": "MEC",
+      "data": "outubro/2026"
+    },
+    {
+      "titulo": "São Paulo tem 851,8 mil inscritos na edição de 2026 do Enem",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/sao-paulo-tem-851-8-mil-inscritos-na-edicao-de-2026-do-enem",
+      "fonte": "MEC",
+      "data": "outubro/2026"
+    },
+    {
+      "titulo": "Rio de Janeiro tem 363,6 mil inscritos na edição de 2026 do Enem",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/rio-de-janeiro-tem-363-6-mil-inscritos-na-edicao-de-2026-do-enem",
+      "fonte": "MEC",
+      "data": "outubro/2026"
+    },
+    {
+      "titulo": "Minas Gerais tem 472 mil inscritos na edição de 2026 do Enem",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/minas-gerais-tem-472-mil-inscritos-na-edicao-de-2026-do-enem",
+      "fonte": "MEC",
+      "data": "outubro/2026"
+    },
+    {
+      "titulo": "Espírito Santo tem 85,9 mil inscritos na edição de 2026 do Enem",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/espirito-santo-tem-85-9-mil-inscritos-na-edicao-de-2026-do-enem",
+      "fonte": "MEC",
+      "data": "outubro/2026"
+    },
+    {
+      "titulo": "Tocantins tem 43,5 mil inscritos na edição de 2026 do Enem",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/tocantins-tem-43-5-mil-inscritos-na-edicao-de-2026-do-enem",
+      "fonte": "MEC",
+      "data": "outubro/2026"
+    },
+    {
+      "titulo": "Roraima tem 15,3 mil inscritos na edição de 2026 do Enem",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/roraima-tem-15-3-mil-inscritos-na-edicao-de-2026-do-enem",
+      "fonte": "MEC",
+      "data": "outubro/2026"
+    },
+    {
+      "titulo": "Rondônia tem 43,6 mil inscritos na edição de 2026 do Enem",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/rondonia-tem-43-6-mil-inscritos-na-edicao-de-2026-do-enem",
+      "fonte": "MEC",
+      "data": "outubro/2026"
+    },
+    {
+      "titulo": "Pará tem 299,9 mil inscritos na edição de 2026 do Enem",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/para-tem-299-9-mil-inscritos-na-edicao-de-2026-do-enem",
+      "fonte": "MEC",
+      "data": "outubro/2026"
+    },
+    {
+      "titulo": "Amazonas tem 113,9 mil inscritos na edição de 2026 do Enem",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/amazonas-tem-113-9-mil-inscritos-na-edicao-de-2026-do-enem",
+      "fonte": "MEC",
+      "data": "outubro/2026"
+    },
+    {
+      "titulo": "Amapá tem 34,5 mil inscritos na edição de 2026 do Enem",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/amapa-tem-34-5-mil-inscritos-na-edicao-de-2026-do-enem",
+      "fonte": "MEC",
+      "data": "outubro/2026"
+    },
+    {
+      "titulo": "Interpretação é a base da prova de Linguagens do Enem; veja dicas",
+      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-10/interpretacao-e-base-da-prova-de-linguagens-do-enem-veja-dicas",
+      "fonte": "Agência Brasil",
+      "data": "11/10"
+    },
     {
       "titulo": "Pesquisa mostra que 82% são contra crianças de até 3 anos com celular",
       "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-10/pesquisa-mostra-que-82-sao-contra-criancas-de-ate-3-anos-com-celular",
@@ -24,14 +120,14 @@
       "data": "08/10"
     },
     {
-      "titulo": "Universidade Federal Fluminense aciona PF após receber ameaças",
-      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-10/universidade-federal-fluminense-aciona-pf-apos-receber-amecas",
+      "titulo": "MEC vai construir novo prédio para laboratórios da UFPE",
+      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-10/mec-vai-construir-novo-predio-para-laboratorios-da-ufpe",
       "fonte": "Agência Brasil",
       "data": "08/10"
     },
     {
-      "titulo": "MEC vai construir novo prédio para laboratórios da UFPE",
-      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-10/mec-vai-construir-novo-predio-para-laboratorios-da-ufpe",
+      "titulo": "Universidade Federal Fluminense aciona PF após receber ameaças",
+      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-10/universidade-federal-fluminense-aciona-pf-apos-receber-amecas",
       "fonte": "Agência Brasil",
       "data": "08/10"
     },
@@ -52,78 +148,6 @@
       "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-10/fies-20262-faculdades-privadas-podem-ofertar-vagas-ate-quarta",
       "fonte": "Agência Brasil",
       "data": "07/10"
-    },
-    {
-      "titulo": "Encceja: Inep disponibiliza locais de reaplicação de prova",
-      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-10/encceja-inep-disponibiliza-locais-de-reaplicacao-de-prova",
-      "fonte": "Agência Brasil",
-      "data": "02/10"
-    },
-    {
-      "titulo": "Enamed: candidatos podem checar se pedido de reaplicação foi aprovado",
-      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-10/enamed-candidatos-podem-checar-se-pedido-de-reaplicacao-foi-aprovado",
-      "fonte": "Agência Brasil",
-      "data": "02/10"
-    },
-    {
-      "titulo": "Mega-Sena acumula para R$ 150 milhões; confira os números sorteados",
-      "link": "https://agenciabrasil.ebc.com.br/geral/noticia/2026-10/mega-sena-acumula-para-r-150-milhoes-confira-os-numeros-sorteados",
-      "fonte": "Agência Brasil",
-      "data": "11/10"
-    },
-    {
-      "titulo": "Acidente na BR-393, no RJ, deixa cinco mortos e nove feridos",
-      "link": "https://agenciabrasil.ebc.com.br/geral/noticia/2026-10/acidente-na-br-393-no-RJ-deixa-cinco-mortos-e-nove-feridos",
-      "fonte": "Agência Brasil",
-      "data": "10/10"
-    },
-    {
-      "titulo": "PM do Rio reforça policiamento para o feriado de segunda-feira",
-      "link": "https://agenciabrasil.ebc.com.br/geral/noticia/2026-10/pm-do-rio-reforca-policiamento-para-o-feriado-de-segunda-feira",
-      "fonte": "Agência Brasil",
-      "data": "10/10"
-    },
-    {
-      "titulo": "Mega-Sena sorteia prêmio acumulado em R$ 112 milhões neste domingo",
-      "link": "https://agenciabrasil.ebc.com.br/geral/noticia/2026-10/mega-sena-sorteia-premio-acumulado-em-r-112-milhoes-neste-domingo",
-      "fonte": "Agência Brasil",
-      "data": "10/10"
-    },
-    {
-      "titulo": "Belém se prepara para receber o Círio de Nazaré",
-      "link": "https://agenciabrasil.ebc.com.br/geral/noticia/2026-10/belem-se-prepara-para-receber-o-cirio-de-nazare",
-      "fonte": "Agência Brasil",
-      "data": "09/10"
-    },
-    {
-      "titulo": "Piloto morre após queda de avião em pátio de manutenção do metrô de BH",
-      "link": "https://agenciabrasil.ebc.com.br/geral/noticia/2026-10/piloto-morre-apos-queda-de-aviao-em-patio-de-manutencao-do-metro-de-bh",
-      "fonte": "Agência Brasil",
-      "data": "09/10"
-    },
-    {
-      "titulo": "PRF inicia Operação Nossa Senhora Aparecida 2026 nesta sexta",
-      "link": "https://agenciabrasil.ebc.com.br/geral/noticia/2026-10/prf-inicia-operacao-nossa-senhora-aparecida-2026-nesta-sexta",
-      "fonte": "Agência Brasil",
-      "data": "09/10"
-    },
-    {
-      "titulo": "Caldeira de usina explode e mata dois homens no interior de SP",
-      "link": "https://agenciabrasil.ebc.com.br/geral/noticia/2026-10/caldeira-de-usina-explode-e-mata-dois-homens-no-interior-de-sp",
-      "fonte": "Agência Brasil",
-      "data": "09/10"
-    },
-    {
-      "titulo": "Mega-Sena acumula para R$ 112 milhões; confira os números sorteados",
-      "link": "https://agenciabrasil.ebc.com.br/geral/noticia/2026-10/mega-sena-acumula-para-r-112-milhoes-confira-os-numeros-sorteados",
-      "fonte": "Agência Brasil",
-      "data": "09/10"
-    },
-    {
-      "titulo": "Juiz é encontrado morto dentro de veículo em chamas no interior de SP",
-      "link": "https://agenciabrasil.ebc.com.br/geral/noticia/2026-10/juiz-e-encontrado-morto-dentro-de-veiculo-em-chamas-no-interior-de-sp",
-      "fonte": "Agência Brasil",
-      "data": "08/10"
     }
   ],
   "temasRedacao": [
