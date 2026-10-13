@@ -1,10 +1,28 @@
 {
-  "atualizadoEm": "2026-10-13T03:20:36.035Z",
+  "atualizadoEm": "2026-10-13T17:55:30.904Z",
   "fontes": [
     "MEC",
     "Agência Brasil"
   ],
   "noticias": [
+    {
+      "titulo": "Da EJA ao título de doutora honoris causa",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/da-eja-ao-titulo-de-doutora-honoris-causa",
+      "fonte": "MEC",
+      "data": "outubro/2026"
+    },
+    {
+      "titulo": "PNLD Educação Infantil: escolha de obras começa nesta terça (13)",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/pnld-educacao-infantil-escolha-de-obras-comeca-nesta-terca-13",
+      "fonte": "MEC",
+      "data": "outubro/2026"
+    },
+    {
+      "titulo": "Rede nacional articulará educação digital nas escolas",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/rede-nacional-articulara-educacao-digital-nas-escolas",
+      "fonte": "MEC",
+      "data": "outubro/2026"
+    },
     {
       "titulo": "MEC solicita atuação da PF e da AGU em função das ameaças às universidades federais",
       "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/mec-solicita-atuacao-da-pf-e-da-agu-em-funcao-das-ameacas-as-universidades-federais",
@@ -74,24 +92,6 @@
     {
       "titulo": "Rondônia tem 43,6 mil inscritos na edição de 2026 do Enem",
       "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/rondonia-tem-43-6-mil-inscritos-na-edicao-de-2026-do-enem",
-      "fonte": "MEC",
-      "data": "outubro/2026"
-    },
-    {
-      "titulo": "Pará tem 299,9 mil inscritos na edição de 2026 do Enem",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/para-tem-299-9-mil-inscritos-na-edicao-de-2026-do-enem",
-      "fonte": "MEC",
-      "data": "outubro/2026"
-    },
-    {
-      "titulo": "Amazonas tem 113,9 mil inscritos na edição de 2026 do Enem",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/amazonas-tem-113-9-mil-inscritos-na-edicao-de-2026-do-enem",
-      "fonte": "MEC",
-      "data": "outubro/2026"
-    },
-    {
-      "titulo": "Amapá tem 34,5 mil inscritos na edição de 2026 do Enem",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/amapa-tem-34-5-mil-inscritos-na-edicao-de-2026-do-enem",
       "fonte": "MEC",
       "data": "outubro/2026"
     },
