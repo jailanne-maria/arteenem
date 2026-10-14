@@ -24,6 +24,44 @@ const CENAS = {
   atuais: `<svg viewBox="0 0 400 150" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="c7" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1a2b6b"/><stop offset="0.6" stop-color="#3a5fa0"/><stop offset="1" stop-color="#6aa0c8"/></linearGradient></defs><rect width="400" height="150" fill="url(#c7)"/><g stroke="#8fc0e8" stroke-width="2.5" fill="none" opacity="0.7"><path d="M40,60 q20,-24 44,-4 q22,18 42,-2"/><path d="M260,40 q22,-26 48,-4 q22,18 44,-2"/><path d="M150,90 q18,-20 40,-2 q18,16 38,-2"/></g><circle cx="330" cy="45" r="22" fill="#fde9a8" opacity="0.85"/><g stroke="#fff3b0" stroke-width="1.6" opacity="0.8"><circle cx="90" cy="35" r="4" fill="#fde9a8"/><circle cx="210" cy="30" r="3" fill="#fde9a8"/></g><g><line x1="200" y1="110" x2="200" y2="52" stroke="#4a3520" stroke-width="3"/><polygon points="200,54 250,64 200,80" fill="#e8b23a"/><polygon points="200,80 250,64 250,84 200,100" fill="#43b047"/><circle cx="228" cy="72" r="4" fill="#e52521"/></g><rect y="132" width="400" height="18" fill="#2e5f96"/></svg>`,
 };
 
+// Categorias de classificação (o roteiro amplia as opções conforme a fase avança)
+const CLASSIFICACOES = {
+  verdadeira: { rotulo: "✅ Confirmada pelas evidências", curto: "Confirmada" },
+  falsa: { rotulo: "❌ Falsa", curto: "Falsa" },
+  enganosa: { rotulo: "🌀 Enganosa pelo contexto", curto: "Enganosa" },
+  insuficiente: { rotulo: "❓ Evidências insuficientes", curto: "Insuficiente" },
+};
+
+// Fases 1 a 5: confirmada/falsa · fase 6: + enganosa · fases 7 e 8: + insuficiente
+function opcoesDaFase(fase) {
+  if (!fase) return ["verdadeira", "falsa"];
+  if (Array.isArray(fase.opcoes)) return fase.opcoes;
+  const i = FASES.findIndex((f) => f.id === fase.id);
+  if (i >= 6) return ["verdadeira", "falsa", "insuficiente"];
+  if (i === 5) return ["verdadeira", "falsa", "enganosa"];
+  return ["verdadeira", "falsa"];
+}
+
+// A resposta certa: o caso pode trazer a sua própria, senão vale o campo "fake"
+function corretaDoCaso(d) {
+  if (d && d.correta) return d.correta;
+  return d && d.fake ? "falsa" : "verdadeira";
+}
+
+// Pistas essenciais ficam sempre dentro do jogo (método de checagem + pistas do caso)
+function pistasDoCaso(d) {
+  const base = [
+    { rotulo: "Fonte", texto: "Quem produziu este registro? Onde ele foi publicado primeiro?" },
+    { rotulo: "Data e lugar", texto: "Quando e onde isso aconteceu? O material informa?" },
+    { rotulo: "Evidência", texto: "Que prova sustenta a afirmação? Dá para confirmar só com o que está aqui?" },
+  ];
+  return Array.isArray(d && d.pistas) ? d.pistas.concat(base) : base;
+}
+
+function justificativaDoCaso(d) {
+  return d && d.justificativa ? d.justificativa : null;
+}
+
 const FASES = [
   {
     id: "prehistoria", dificuldade: { inimigos: 2, buracos: 1 },
@@ -130,8 +168,109 @@ const FASES = [
       { area: "matematica", noticia: "Gráficos e estatísticas nunca podem ser usados para enganar.", fake: true, explica: "FALSA! Gráficos com escalas manipuladas podem distorcer a informação. Leia com atenção!" },
     ],
   },
+  {
+    id: "fortaleza",
+    nome: "Fortaleza da Desinformação",
+    periodo: "síntese — espaço fictício",
+    emoji: "🏰",
+    cor: "#3a3552",
+    cena: "atuais",
+    dificuldade: { inimigos: 8, buracos: 3 },
+    opcoes: ["verdadeira", "falsa", "enganosa", "insuficiente"],
+    intro: "A Fortaleza é feita de títulos soltos, imagens cortadas e páginas sem autoria. Quatro salas guardam os mecanismos que sustentam a névoa. Aqui nenhum salto resolve tudo: observe as pistas e escolha o próximo passo da investigação. Os casos desta fase são simulações didáticas — não são notícias reais.",
+    desafios: [
+      {
+        area: "linguagens",
+        sala: "Sala 1 — Fonte Oculta",
+        material: "Uma mensagem afirma que “o Museu da Ponte fechará amanhã”, sem indicar a publicação original. O dossiê traz apenas o encaminhamento e um calendário antigo, que não esclarece o dia citado.",
+        noticia: "O Museu da Ponte fechará amanhã.",
+        correta: "insuficiente",
+        pistas: [
+          { rotulo: "Fonte", texto: "A mensagem não indica a publicação original: não se sabe quem publicou primeiro." },
+          { rotulo: "Data", texto: "O calendário do dossiê é antigo e não esclarece o dia citado." },
+          { rotulo: "Evidência", texto: "Não há comunicação do museu nem documento que confirme o fechamento." },
+        ],
+        justificativa: {
+          pergunta: "Qual pista sustenta a sua conclusão?",
+          opcoes: [
+            "A mensagem não indica a publicação original e o calendário não esclarece a data.",
+            "Muitas pessoas encaminharam a mensagem, então ela deve ser verdadeira.",
+            "O texto está em letras grandes e parece oficial.",
+          ],
+          correta: 0,
+        },
+        explica: "Você identificou uma informação que ainda precisa de confirmação. A ausência de comprovação aqui não demonstra, por si só, que o museu ficará aberto.",
+      },
+      {
+        area: "humanas",
+        sala: "Sala 2 — Imagem Deslocada",
+        material: "Uma publicação usa uma fotografia fictícia de 2019, identificada no arquivo como “Ponte Azul”, para anunciar um acontecimento “hoje, na Ponte Verde”. A imagem original e a sua ficha estão disponíveis.",
+        noticia: "Aconteceu hoje, na Ponte Verde (com a foto da Ponte Azul).",
+        correta: "enganosa",
+        pistas: [
+          { rotulo: "Fonte", texto: "A ficha original da fotografia está no arquivo e pode ser consultada." },
+          { rotulo: "Data e lugar", texto: "A ficha diz 2019 e “Ponte Azul”; a legenda nova diz “hoje” e “Ponte Verde”." },
+          { rotulo: "Evidência", texto: "A imagem não comprova o evento — ela é usada com outra legenda." },
+        ],
+        justificativa: {
+          pergunta: "Qual pista sustenta a sua conclusão?",
+          opcoes: [
+            "A ficha original identifica a foto como de 2019, na Ponte Azul.",
+            "A fotografia tem boa qualidade.",
+            "A postagem recebeu muitas reações.",
+          ],
+          correta: 0,
+        },
+        explica: "A fotografia não comprova o evento anunciado. Um material autêntico pode ser associado a uma legenda enganosa.",
+      },
+      {
+        area: "matematica",
+        sala: "Sala 3 — Recorte Enganoso",
+        material: "Um painel afirma “quase todos escolheram a trilha curta” e destaca apenas 8 votos. A tabela completa da enquete fictícia mostra: trilha curta, 8; trilha longa, 12; total, 20 participantes.",
+        noticia: "Quase todos escolheram a trilha curta.",
+        correta: "falsa",
+        pistas: [
+          { rotulo: "Fonte", texto: "A tabela completa da enquete está disponível, não só o destaque." },
+          { rotulo: "Data e lugar", texto: "Enquete fictícia com 20 participantes." },
+          { rotulo: "Evidência", texto: "8 de 20 é 40% — menos da metade." },
+        ],
+        justificativa: {
+          pergunta: "Qual pista sustenta a sua conclusão?",
+          opcoes: [
+            "Oito de vinte votos são 40%, então a trilha curta não é a maioria.",
+            "A barra destacada é colorida.",
+            "O título aparece acima da tabela.",
+          ],
+          correta: 0,
+        },
+        explica: "O total e a comparação entre as opções mudam a leitura. Nesta enquete, a trilha curta recebeu menos votos que a longa.",
+      },
+      {
+        area: "natureza",
+        sala: "Sala 4 — Compartilhamento Responsável",
+        material: "A agenda original e a página do organizador do fictício Festival das Pontes informam a mesma data e o mesmo local. Uma postagem reproduz esses dados sem alterar o sentido. As duas páginas pertencem à organização e representam a mesma origem.",
+        noticia: "O Festival das Pontes acontece na data e no local da agenda.",
+        correta: "verdadeira",
+        pistas: [
+          { rotulo: "Fonte", texto: "As duas páginas são da própria organização — a mesma origem, não fontes independentes." },
+          { rotulo: "Data e lugar", texto: "As duas trazem a mesma data e o mesmo local." },
+          { rotulo: "Evidência", texto: "Os dados da postagem conferem com a agenda original." },
+        ],
+        justificativa: {
+          pergunta: "Qual é a ação correta ao compartilhar esta informação?",
+          opcoes: [
+            "Compartilhar com o link da agenda original, preservando data e contexto.",
+            "Retirar a data para poder reutilizar a postagem depois.",
+            "Acrescentar uma atração que não consta da programação.",
+          ],
+          correta: 0,
+        },
+        explica: "Você encontrou a origem e preservou o contexto. A checagem também serve para reconhecer e comunicar informações sustentadas por evidências.",
+      },
+    ],
+  },
 ];
 
 if (typeof module !== "undefined") {
-  module.exports = { FASES, AVATARES, CENAS };
+  module.exports = { FASES, AVATARES, CENAS, CLASSIFICACOES, opcoesDaFase, corretaDoCaso, pistasDoCaso, justificativaDoCaso };
 }

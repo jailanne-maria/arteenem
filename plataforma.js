@@ -17,13 +17,14 @@ const PLATAFORMA = (() => {
   const MAX_CORACOES = 5;
 
   let cv, ctx, mapa, largTiles;
-  let jog, cam, inimigos, cogumelos, particulas, bandeira;
+  let jog, cam, inimigos, cogumelos, particulas, bandeira, pedestais = [];
   let vidas = 3, pontos = 0, cogumelosPegos = 0, grande = false, invuln = 0;
   let rodando = false, pausado = false, raf = null, ultimo = 0, flash = 0;
   let fase = null, emojiJog = "🧑🏽", cbs = {};
   let respondidas = {}, perguntaPendente = null, acertos = 0, perguntaDoBloco = {};
   let puloAntes = false, pulos = 0;
-  let checkpointX = 0, checkpointAtivo = false;
+  let justificativas = 0, acertosJust = 0;
+  let checkpointX = 0, checkpointAtivo = false, pedestalDentro = null;
   let quebrados = new Set(), inimigosMortos = new Set();
   let cogumeloEm = new Set();
   const teclas = {};
@@ -200,6 +201,17 @@ const PLATAFORMA = (() => {
       if (mapa[ty][tx + 1] === VAZIO) mapa[ty][tx + 1] = TIJOLO;
     });
 
+    // Pedestais no chão: a mesma investigação pode ser acessada sem precisar pular
+    pedestais = [];
+    TILES_CASOS.forEach((tx, i) => {
+      if (tx >= largTiles - 6) return;
+      const ty = i % 2 === 0 ? 8 : 9;
+      // só cria se o caso realmente existe nessa coluna
+      if (mapa[ty] && mapa[ty][tx] === INTERROGACAO) {
+        pedestais.push({ x: tx * TILE + 4, y: 12 * TILE - 26, w: 24, h: 26, chave: tx + ":" + ty, idx: i });
+      }
+    });
+
     // 2 tijolos com cogumelo (colados num caso, sempre alcançáveis)
     cogumeloEm = new Set();
     [[TILES_CASOS[0] + 2, 8], [TILES_CASOS[2] + 2, 8]].forEach(([x, y]) => {
@@ -284,7 +296,7 @@ const PLATAFORMA = (() => {
     if (typeof cbs.aoPerguntar === "function") cbs.aoPerguntar(idx);
   }
 
-  function responder(acertou) {
+  function responder(acertou, extra) {
     const p = perguntaPendente;
     if (p) {
       respondidas[p.chave] = true;
@@ -292,6 +304,10 @@ const PLATAFORMA = (() => {
       perguntaPendente = null;
     }
     if (acertou) { pontos += 100; acertos++; }
+    if (extra && extra.temJust) {
+      justificativas++;
+      if (extra.acertouJust) { acertosJust++; pontos += extra.pontosJust || 50; }
+    }
     pausado = false;
     atualizarHudExterno();
   }
@@ -400,6 +416,12 @@ const PLATAFORMA = (() => {
     }
     cogumelos = cogumelos.filter((c) => !c.pego && c.y < ALTURA * TILE + 80);
 
+    // pedestais: encostar abre a mesma investigação do bloco "?"
+    const perto = pedestais.find((pd) => intersecta(j, pd) && !respondidas[pd.chave]);
+    if (perto) {
+      if (pedestalDentro !== perto.chave) { pedestalDentro = perto.chave; return abrirPergunta(perto.chave); }
+    } else pedestalDentro = null;
+
     for (const p of particulas) { p.x += p.vx; p.y += p.vy; p.vy += 0.4; p.vida--; }
     particulas = particulas.filter((p) => p.vida > 0);
     if (invuln > 0) invuln--;
@@ -453,6 +475,8 @@ const PLATAFORMA = (() => {
     irParaCheckpoint();
   }
 
+  function soltarPedestal() { pedestalDentro = null; }
+
   function irParaCheckpoint() {
     const x = checkpointAtivo ? checkpointX + TILE : 2 * TILE;
     jog.x = x; jog.y = 10 * TILE;
@@ -489,6 +513,7 @@ const PLATAFORMA = (() => {
     if (typeof cbs.aoTerminar === "function") {
       cbs.aoTerminar({
         ganhou, pontos, vidas, acertos,
+        acertosJust, justificativas,
         cogumelos: cogumelosPegos,
         casos: Object.keys(respondidas).length,
         totalCasos: fase.desafios.length,
@@ -590,6 +615,18 @@ const PLATAFORMA = (() => {
     ctx.lineTo(bx + 6, 4 * TILE + 34);
     ctx.closePath();
     ctx.fill();
+
+    // pedestais (acesso à investigação no nível do chão)
+    for (const pd of pedestais) {
+      if (respondidas[pd.chave]) continue;
+      const bx = Math.round(pd.x - cam.x);
+      ctx.fillStyle = "#6b6b8a";
+      ctx.fillRect(bx, pd.y + 10, pd.w, pd.h - 10);
+      ctx.fillStyle = "#9a9ab5";
+      ctx.fillRect(bx, pd.y + 10, pd.w, 5);
+      ctx.fillStyle = "#fbd000";
+      ctx.fillRect(bx + 8, pd.y - 10, 8, 10);
+    }
 
     // cogumelos
     for (const c of cogumelos) {
@@ -793,7 +830,7 @@ const PLATAFORMA = (() => {
     vidas = opcoes.vidas || MAX_CORACOES;
     pontos = 0; cogumelosPegos = 0; grande = false; invuln = 0; flash = 0;
     respondidas = {}; perguntaPendente = null; acertos = 0; pausado = false; acumulado = 0;
-    puloAntes = false; pulos = 0;
+    puloAntes = false; pulos = 0; justificativas = 0; acertosJust = 0; pedestalDentro = null;
     jog = { x: 0, y: 0, vx: 0, vy: 0, w: 22, h: 28, noChao: false, puloBuffer: 0, coyote: 0, dir: 1 };
     cam = { x: 0 };
     montarMapa();
@@ -818,7 +855,7 @@ const PLATAFORMA = (() => {
     retomarDoCheckpoint,
     _estado: () => ({
       x: jog ? Math.round(jog.x) : 0, y: jog ? Math.round(jog.y) : 0,
-      vidas, pontos, grande, pausado, rodando, acertos, pulos,
+      vidas, pontos, grande, pausado, rodando, acertos, pulos, acertosJust, justificativas,
       noChao: jog ? !!jog.noChao : false, vy: jog ? Math.round(jog.vy * 100) / 100 : 0,
       respondidas: Object.keys(respondidas).length,
       cogumelos: vivaCogumelos(), inimigos: inimigos ? inimigos.length : 0, largTiles,

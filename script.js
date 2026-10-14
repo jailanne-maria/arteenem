@@ -2025,6 +2025,7 @@ const POSICOES_FASES = [
   { x: 70, y: 56 },
   { x: 82, y: 38 },
   { x: 58, y: 22 },
+  { x: 82, y: 11 },
 ];
 const POS_CASTELO = { x: 82, y: 11 };
 let posicaoAvatarIndex = 0; // posição atual da bonequinha no mapa
@@ -2094,8 +2095,9 @@ function renderMapaFases() {
       <circle cx="26" cy="32" r="2.4" fill="#3f7a35"/><circle cx="26" cy="30.5" r="2" fill="#4fae4f"/>
     </g>`;
 
-  const posAvatar = todasConcluidas() ? POS_CASTELO : POSICOES_FASES[indiceFaseAtual()];
-  posicaoAvatarIndex = todasConcluidas() ? FASES.length : indiceFaseAtual();
+  const idxAtual = indiceFaseAtual();
+  const posAvatar = POSICOES_FASES[idxAtual] || POS_CASTELO;
+  posicaoAvatarIndex = idxAtual;
 
   mapa.innerHTML = `
     <svg class="mario-cenario" viewBox="0 0 100 100" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
@@ -2124,7 +2126,6 @@ function renderMapaFases() {
       <polyline points="${trilha}" fill="none" stroke="#c9a86a" stroke-width="1" stroke-dasharray="1 3" stroke-linecap="round"/>
     </svg>
     ${nodesHtml}
-    <span class="mario-castelo" style="left:${POS_CASTELO.x}%;top:${POS_CASTELO.y}%">🏰</span>
     <span class="mario-avatar" id="mario-avatar" style="left:${posAvatar.x}%;top:${posAvatar.y}%">${bonecoMapa()}</span>
   `;
 
@@ -2357,7 +2358,8 @@ document.getElementById("fase-acessivel-lista").addEventListener("click", (e) =>
   if (!b) return;
   const i = Number(b.dataset.caso);
   const d = faseAtual.desafios[i];
-  const acertou = (b.dataset.v === "1") !== d.fake;
+  const cat = b.dataset.cat || (b.dataset.v === "1" ? "verdadeira" : "falsa");
+  const acertou = cat === corretaDoCaso(d);
   acessivelFeitas[i] = { acertou };
   if (acertou) { acessivelPontos += 100; acessivelAcertos++; }
   perguntasFeitasPlat = Object.keys(acessivelFeitas).length;
@@ -2393,56 +2395,131 @@ document.getElementById("btn-ir-caso-pendente").addEventListener("click", () => 
   PLATAFORMA.irParaCasoPendente();
 });
 
+let casoAtual = null;
+
+// Passo 1 — Examinar: mostra o dossiê (quando existe) e as pistas do caso
 function abrirPerguntaPlataforma(i) {
   perguntaIdxAtual = i;
   const d = faseAtual.desafios[i];
   const area = AREAS[d.area] || { icone: "", curto: d.area };
+  casoAtual = { classificacao: null, justificativa: null, pontos: 0 };
   respondido = false;
-  document.getElementById("noticia-tag").textContent = `${area.icone} ${area.curto}`;
+  acertouPergunta = false;
+
+  document.getElementById("noticia-tag").textContent = d.sala
+    ? `${d.sala} · ${area.icone} ${area.curto}`
+    : `${area.icone} ${area.curto}`;
   document.getElementById("noticia-texto").textContent = `"${d.noticia}"`;
+
+  const mat = document.getElementById("noticia-material");
+  if (d.material) {
+    mat.innerHTML = `<strong>Dossiê do caso:</strong> ${escaparHTML(d.material)}`;
+    exibir(mat);
+  } else esconder(mat);
+
+  document.getElementById("noticia-pistas").innerHTML = pistasDoCaso(d)
+    .map((p) => `<p class="pista"><strong>🔎 ${escaparHTML(p.rotulo)}:</strong> ${escaparHTML(p.texto)}</p>`)
+    .join("");
+
+  // Passo 2 — Classificar: as opções mudam conforme a fase
+  document.getElementById("noticia-acoes").innerHTML = opcoesDaFase(faseAtual)
+    .map((cat) => {
+      const id = cat === "verdadeira" ? "btn-verdadeira" : cat === "falsa" ? "btn-falsa" : "btn-" + cat;
+      return `<button class="btn-vf ${cat}" id="${id}" data-cat="${cat}" type="button">${CLASSIFICACOES[cat].rotulo}</button>`;
+    })
+    .join("");
+
+  esconder(document.getElementById("noticia-justificar"));
   const fb = document.getElementById("noticia-feedback");
   fb.className = "noticia-feedback escondido";
   fb.textContent = "";
   esconder(document.getElementById("btn-proximo-desafio"));
-  document.getElementById("btn-verdadeira").disabled = false;
-  document.getElementById("btn-falsa").disabled = false;
   exibir(document.getElementById("noticia-card"));
+  anunciar("Caso aberto. Leia as pistas e classifique a afirmação.");
 }
 
-function responderVF(achouVerdadeira) {
-  if (respondido) return;
-  respondido = true;
+// Passo 2 — classificação
+function classificarCaso(cat) {
+  if (!casoAtual || casoAtual.classificacao) return;
   const d = faseAtual.desafios[perguntaIdxAtual];
-  // Acertou se: a notícia é fake e o jogador marcou "Falsa",
-  // ou a notícia é verdadeira e o jogador marcou "Verdadeira".
-  const acertou = achouVerdadeira !== d.fake;
-  acertouPergunta = acertou;
+  casoAtual.classificacao = { escolha: cat, acertou: cat === corretaDoCaso(d) };
+  document.querySelectorAll("#noticia-acoes button").forEach((b) => { b.disabled = true; });
+  const j = justificativaDoCaso(d);
+  if (j) abrirJustificativa(j);
+  else concluirCaso();
+}
 
-  document.getElementById("btn-verdadeira").disabled = true;
-  document.getElementById("btn-falsa").disabled = true;
+// Compatibilidade com o cartão antigo (só Verdadeira/Falsa)
+function responderVF(achouVerdadeira) {
+  classificarCaso(achouVerdadeira ? "verdadeira" : "falsa");
+}
+
+// Passo 3 — justificar
+function abrirJustificativa(j) {
+  document.getElementById("noticia-just-pergunta").textContent = j.pergunta;
+  document.getElementById("noticia-just-opcoes").innerHTML = j.opcoes
+    .map((o, k) => `<button class="noticia-opt" data-just="${k}" type="button">${escaparHTML(o)}</button>`)
+    .join("");
+  exibir(document.getElementById("noticia-justificar"));
+  anunciar(j.pergunta);
+}
+
+document.getElementById("noticia-just-opcoes").addEventListener("click", (e) => {
+  const b = e.target.closest("button[data-just]");
+  if (!b || !casoAtual || casoAtual.justificativa) return;
+  const d = faseAtual.desafios[perguntaIdxAtual];
+  const j = justificativaDoCaso(d);
+  const i = Number(b.dataset.just);
+  casoAtual.justificativa = { escolha: i, acertou: i === j.correta };
+  document.querySelectorAll("#noticia-just-opcoes button").forEach((x) => {
+    x.disabled = true;
+    if (Number(x.dataset.just) === j.correta) x.classList.add("correta");
+    else if (x === b) x.classList.add("errada");
+  });
+  concluirCaso();
+});
+
+// Passos 4 e 5 — retorno e registro
+function concluirCaso() {
+  const d = faseAtual.desafios[perguntaIdxAtual];
+  const c = casoAtual;
+  const acertouClass = !!(c.classificacao && c.classificacao.acertou);
+  const temJust = !!c.justificativa;
+  const acertouJust = !!(c.justificativa && c.justificativa.acertou);
+  const pontos = (acertouClass ? 100 : 0) + (acertouJust ? 50 : 0);
+  c.pontos = pontos;
 
   const fb = document.getElementById("noticia-feedback");
-  fb.className = acertou ? "noticia-feedback ok" : "noticia-feedback erro";
-  fb.innerHTML = acertou
-    ? `⚔️ <strong>Você desmascarou a Desinformação! +100 pontos</strong><br>${d.explica}`
-    : `💔 <strong>Essa te enganou!</strong><br>${d.explica}`;
+  fb.className = "noticia-feedback " + (acertouClass || acertouJust ? "ok" : "erro");
+  fb.innerHTML = `
+    <strong>${acertouClass ? "✅ Sua conclusão está apoiada nesta evidência." : "🤔 Vamos rever esta pista?"}</strong>
+    ${temJust ? `<br>${acertouJust ? "✅ Você escolheu a pista que sustenta a conclusão." : "🤔 A pista que sustenta a conclusão está destacada acima."}` : ""}
+    <br><br>${escaparHTML(d.explica)}
+    ${pontos ? `<br><br><strong>+${pontos} pontos</strong>` : ""}`;
   exibir(fb);
 
   const btn = document.getElementById("btn-proximo-desafio");
-  btn.textContent = "▶ Voltar ao jogo";
+  btn.textContent = "📓 Registrar descoberta e voltar";
   exibir(btn);
+  anunciar(`${acertouClass ? "Classificação correta." : "Classificação incorreta."}${temJust ? (acertouJust ? " Justificativa correta." : " Justificativa incorreta.") : ""}`);
 }
 
-document.getElementById("btn-verdadeira").addEventListener("click", () => responderVF(true));
-document.getElementById("btn-falsa").addEventListener("click", () => responderVF(false));
+document.getElementById("noticia-acoes").addEventListener("click", (e) => {
+  const b = e.target.closest("button[data-cat]");
+  if (b) classificarCaso(b.dataset.cat);
+});
 
 document.getElementById("btn-proximo-desafio").addEventListener("click", () => {
   esconder(document.getElementById("noticia-card"));
-  PLATAFORMA.responder(acertouPergunta);
+  const acertouClass = !!(casoAtual && casoAtual.classificacao && casoAtual.classificacao.acertou);
+  const acertouJust = !!(casoAtual && casoAtual.justificativa && casoAtual.justificativa.acertou);
+  const temJust = !!(casoAtual && casoAtual.justificativa);
+  acertouPergunta = acertouClass;
+  PLATAFORMA.responder(acertouClass, { acertouJust, temJust, pontosJust: acertouJust ? 50 : 0 });
   perguntasFeitasPlat = PLATAFORMA._estado().casos;
   atualizarProgressoFase();
   guardarSessao();
-  anunciar((acertouPergunta ? "Resposta correta." : "Resposta incorreta.") + " Casos investigados: " + perguntasFeitasPlat + " de " + faseAtual.desafios.length + ".");
+  anunciar("Descoberta registrada. Casos investigados: " + perguntasFeitasPlat + " de " + faseAtual.desafios.length + ".");
 });
 
 document.getElementById("btn-repetir-fase").addEventListener("click", () => {
@@ -2472,16 +2549,20 @@ function metricasDaFase(p, ganhou) {
   // Estrelas independentes: Exploração (concluir) e Checagem (3+ de primeira)
   const estrelaExploracao = ganhou && casos >= total;
   const estrelaChecagem = acertosPrimeira >= 3;
+  const acertosJust = p.acertosJust || 0;
+  const totalJust = p.justificativas || 0;
+  const estrelaInvestigacao = totalJust > 0 && acertosJust >= 3;
 
   return `
     <div class="metricas-linha"><span>🔎 Casos investigados</span><strong>${casos}/${total}</strong></div>
     <div class="metricas-linha"><span>✅ Classificações certas de primeira</span><strong>${acertosPrimeira}</strong></div>
+    <div class="metricas-linha"><span>🧩 Justificativas certas de primeira</span><strong>${totalJust ? acertosJust + "/" + totalJust : "—"}</strong></div>
     <div class="metricas-linha"><span>❤️ Corações no final</span><strong>${coracoes}</strong></div>
     <div class="metricas-linha"><span>⭐ Pontos</span><strong>${p.pontos || 0}</strong></div>
     <div class="estrelas-fase">
       <span class="${estrelaExploracao ? "ganha" : "vazia"}">${estrelaExploracao ? "⭐" : "☆"} Exploração</span>
       <span class="${estrelaChecagem ? "ganha" : "vazia"}">${estrelaChecagem ? "⭐" : "☆"} Checagem</span>
-      <span class="vazia">☆ Investigação <small>(com as justificativas)</small></span>
+      <span class="${estrelaInvestigacao ? "ganha" : "vazia"}">${estrelaInvestigacao ? "⭐" : "☆"} Investigação</span>
     </div>`;
 }
 

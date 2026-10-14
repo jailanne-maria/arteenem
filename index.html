@@ -10,7 +10,7 @@
   <link rel="apple-touch-icon" href="img/icon-192.png">
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#5c94fc">
-  <link rel="stylesheet" href="style.css?v=98">
+  <link rel="stylesheet" href="style.css?v=99">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
@@ -629,12 +629,22 @@
           <div class="noticia-card escondido" id="noticia-card">
             <span class="noticia-tag" id="noticia-tag"></span>
             <p class="noticia-texto" id="noticia-texto"></p>
-            <div class="noticia-acoes">
-              <button class="btn-vf verdadeira" id="btn-verdadeira">✅ Verdadeira</button>
-              <button class="btn-vf falsa" id="btn-falsa">❌ Falsa</button>
+
+            <p class="noticia-passo">1. Examinar as pistas</p>
+            <div id="noticia-material" class="noticia-material escondido"></div>
+            <div id="noticia-pistas" class="noticia-pistas"></div>
+
+            <p class="noticia-passo">2. Classificar</p>
+            <div class="noticia-acoes" id="noticia-acoes"></div>
+
+            <div id="noticia-justificar" class="escondido">
+              <p class="noticia-passo">3. Justificar</p>
+              <p class="noticia-pergunta-just" id="noticia-just-pergunta"></p>
+              <div class="noticia-opcoes" id="noticia-just-opcoes"></div>
             </div>
+
             <div class="noticia-feedback escondido" id="noticia-feedback"></div>
-            <button class="btn-principal escondido" id="btn-proximo-desafio">▶ Voltar ao jogo</button>
+            <button class="btn-principal escondido" id="btn-proximo-desafio">📓 Registrar descoberta e voltar</button>
           </div>
 
           <div class="noticia-card escondido" id="casos-pendentes">
@@ -1551,19 +1561,19 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
 
-  <script src="questoes.js?v=98"></script>
-  <script src="questoes-arte.js?v=98"></script>
-  <script src="plano.js?v=98"></script>
-  <script src="explorar.js?v=98"></script>
-  <script src="figurinhas.js?v=98"></script>
-  <script src="curriculo.js?v=98"></script>
-  <script src="cursos.js?v=98"></script>
-  <script src="mascote.js?v=98"></script>
-  <script src="glossario.js?v=98"></script>
-  <script src="glossario-acreanes.js?v=98"></script>
-  <script src="encenacao.js?v=98"></script>
-    <script src="plataforma.js?v=98"></script>
-  <script src="firebase-config.js?v=98"></script>
-  <script src="script.js?v=98"></script>
+  <script src="questoes.js?v=99"></script>
+  <script src="questoes-arte.js?v=99"></script>
+  <script src="plano.js?v=99"></script>
+  <script src="explorar.js?v=99"></script>
+  <script src="figurinhas.js?v=99"></script>
+  <script src="curriculo.js?v=99"></script>
+  <script src="cursos.js?v=99"></script>
+  <script src="mascote.js?v=99"></script>
+  <script src="glossario.js?v=99"></script>
+  <script src="glossario-acreanes.js?v=99"></script>
+  <script src="encenacao.js?v=99"></script>
+    <script src="plataforma.js?v=99"></script>
+  <script src="firebase-config.js?v=99"></script>
+  <script src="script.js?v=99"></script>
 </body>
 </html>
