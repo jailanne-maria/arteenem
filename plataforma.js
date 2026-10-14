@@ -631,7 +631,8 @@ const PLATAFORMA = (() => {
 
     // jogador
     const px = Math.round(jog.x - cam.x);
-    const piscando = invuln > 0 && Math.floor(invuln / 5) % 2 === 0;
+    const movimentoReduzido = document.documentElement.getAttribute("data-movimento") === "reduzido";
+    const piscando = !movimentoReduzido && invuln > 0 && Math.floor(invuln / 5) % 2 === 0;
     if (!piscando) {
       ctx.save();
       ctx.globalAlpha = 0.18;
@@ -642,6 +643,14 @@ const PLATAFORMA = (() => {
       ctx.restore();
       const andando = Math.abs(jog.vx) > 0.25;
       desenharBoneco(px, jog.y, jog.w, jog.h, jog.dir || 1, andando, jog.noChao, performance.now());
+      // Em movimento reduzido, a invulnerabilidade aparece como contorno estável (sem piscar)
+      if (movimentoReduzido && invuln > 0) {
+        ctx.save();
+        ctx.strokeStyle = "#fbd000";
+        ctx.lineWidth = 3;
+        ctx.strokeRect(px - 2, jog.y - 2, jog.w + 4, jog.h + 4);
+        ctx.restore();
+      }
     }
 
     // HUD
@@ -716,6 +725,22 @@ const PLATAFORMA = (() => {
     Object.keys(teclas).forEach((k) => { teclas[k] = false; });
     controlesLigados.forEach((el) => el.classList.remove("ativo"));
     puloAntes = true;
+  });
+
+  // Trocar de aba/role pausa o jogo (e retoma sem pular)
+  let pausadoPorAba = false;
+  document.addEventListener("visibilitychange", () => {
+    if (!rodando) return;
+    if (document.hidden) {
+      pausadoPorAba = !pausado;
+      pausado = true;
+      input.esq = input.dir = input.pulo = false;
+      Object.keys(teclas).forEach((k) => { teclas[k] = false; });
+    } else if (pausadoPorAba) {
+      pausado = false;
+      pausadoPorAba = false;
+      puloAntes = true;
+    }
   });
 
   // ---------- sessão (salvar / retomar) ----------

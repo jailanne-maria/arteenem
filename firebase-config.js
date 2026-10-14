@@ -803,6 +803,45 @@ function excluirConversaSuporte(uid) {
   return db.collection("suporte").doc(uid).delete();
 }
 
+// ---------- Denúncias (proteção e moderação) ----------
+// Qualquer pessoa logada envia; só a administração lê e resolve.
+function enviarDenuncia(usuario, dados) {
+  return firebase.firestore().collection("denuncias").add({
+    tipo: dados.tipo || "conteudo",
+    alvoId: dados.alvoId || "",
+    alvoUid: dados.alvoUid || "",
+    alvoNome: dados.alvoNome || "",
+    texto: (dados.texto || "").slice(0, 400),
+    motivo: dados.motivo || "outro",
+    detalhe: (dados.detalhe || "").slice(0, 300),
+    porUid: usuario.uid,
+    porNome: usuario.nome || "",
+    status: "aberta",
+    criadoEm: firebase.firestore.FieldValue.serverTimestamp(),
+  });
+}
+
+function listarDenuncias() {
+  return firebase.firestore().collection("denuncias").get()
+    .then((snap) => {
+      const lista = snap.docs.map((d) => {
+        const data = d.data();
+        const ms = data.criadoEm && data.criadoEm.toMillis ? data.criadoEm.toMillis() : 0;
+        return { id: d.id, ...data, ms };
+      });
+      lista.sort((a, b) => b.ms - a.ms);
+      return lista;
+    });
+}
+
+function atualizarDenuncia(id, dados) {
+  return firebase.firestore().collection("denuncias").doc(id).update(dados);
+}
+
+function excluirDenuncia(id) {
+  return firebase.firestore().collection("denuncias").doc(id).delete();
+}
+
 if (typeof module !== "undefined") {
   module.exports = { firebaseConfig };
 }

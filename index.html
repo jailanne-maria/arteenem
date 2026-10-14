@@ -10,7 +10,7 @@
   <link rel="apple-touch-icon" href="img/icon-192.png">
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#5c94fc">
-  <link rel="stylesheet" href="style.css?v=97">
+  <link rel="stylesheet" href="style.css?v=98">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
@@ -29,6 +29,7 @@
         <button id="btn-noticias" class="btn-ghost escondido">📰 Notícias</button>
         <button id="btn-novidades" class="btn-ghost escondido">🔔 Novidades <span id="novidades-badge" class="badge escondido"></span></button>
         <button id="btn-tema" class="btn-ghost btn-tema" title="Modo claro / escuro">🌙</button>
+        <button id="btn-acesso" class="btn-ghost btn-tema" title="Acessibilidade" aria-label="Acessibilidade">♿</button>
         <button id="btn-menu" class="btn-ghost escondido">☰ Menu</button>
         <div id="menu-extra" class="menu-extra escondido">
           <button id="btn-biblioteca" class="btn-ghost escondido">📚 Biblioteca</button>
@@ -53,6 +54,7 @@
   </header>
 
   <main id="app">
+  <div id="jogo-status" class="sr-only" aria-live="polite" role="status"></div>
 
     <!-- ===== LOGIN ===== -->
     <section id="tela-login" class="tela ativa">
@@ -392,6 +394,7 @@
         <button id="btn-editar-perfil" class="btn-secundario">✏️ Editar perfil</button>
         <button id="btn-trocar-papel" class="btn-secundario escondido">🎒 Trocar para conta de estudante</button>
         <button id="btn-ver-tour" class="btn-secundario">🎓 Ver o tour de novo</button>
+        <button id="btn-acesso-perfil" class="btn-secundario">♿ Acessibilidade</button>
         <button id="btn-glossario-perfil" class="btn-secundario escondido">🧠 Glossários (IA e Acreanês)</button>
         <button id="btn-encenacao-perfil" class="btn-secundario escondido">🎭 Fichário de Encenação</button>
         <button id="btn-apoiador" class="btn-secundario escondido">🤝 Docente, torne-se apoiador</button>
@@ -564,6 +567,7 @@
         <button class="admin-aba" data-admin="mensagensTurma">👥 Chat da turma</button>
         <button class="admin-aba" data-admin="novidades">🔔 Novidades</button>
         <button class="admin-aba" data-admin="conversas">💬 Conversas</button>
+        <button class="admin-aba" data-admin="denuncias">🚩 Denúncias</button>
         <button class="admin-aba" data-admin="relatorio">📊 Relatório</button>
       </div>
       <div id="admin-conteudo" class="admin-conteudo"></div>
@@ -610,6 +614,7 @@
         <div id="fase-cena" class="fase-cena"></div>
         <p id="fase-intro-texto"></p>
         <button id="btn-comecar-fase" class="btn-principal">▶️ Começar a fase</button>
+        <button id="btn-modo-acessivel" class="btn-secundario">♿ Jogar sem o jogo (modo acessível)</button>
       </div>
 
       <div id="fase-jogo" class="escondido">
@@ -619,7 +624,7 @@
         </div>
 
         <div class="plataforma-wrap">
-          <canvas id="fase-canvas" width="800" height="448" aria-label="Jogo de plataforma"></canvas>
+          <canvas id="fase-canvas" width="800" height="448" role="img" aria-label="Jogo de plataforma. Se preferir, use o modo acessível para ler as investigações sem jogar."></canvas>
 
           <div class="noticia-card escondido" id="noticia-card">
             <span class="noticia-tag" id="noticia-tag"></span>
@@ -647,6 +652,15 @@
           <button id="pad-dir" class="pad" type="button" aria-label="Direita">▶</button>
         </div>
         <p class="plataforma-dica">No computador use as setas ← → e espaço (ou ↑) para pular. Quebre os tijolos 🧱, pegue o cogumelo 🍄 (ganha vida e fica maior) e bata nos blocos <strong>?</strong> para responder sobre as notícias.</p>
+        <p class="texto-ajuda">Precisa de leitor de tela, tem dificuldade de coordenação ou prefere ler com calma? Volte e escolha <strong>♿ Jogar sem o jogo</strong>.</p>
+
+        <div id="fase-acessivel" class="escondido">
+          <div id="fase-acessivel-lista" class="fase-acessivel-lista"></div>
+          <div id="fase-acessivel-fim" class="escondido">
+            <button id="btn-concluir-acessivel" class="btn-principal">🏁 Concluir a fase</button>
+            <p class="texto-ajuda">A fase conclui quando as quatro investigações forem feitas.</p>
+          </div>
+        </div>
       </div>
 
       <div id="fase-fim" class="fase-fim escondido">
@@ -1255,6 +1269,47 @@
       </div>
     </section>
 
+    <!-- ===== ACESSIBILIDADE ===== -->
+    <section id="tela-acesso" class="tela">
+      <button id="btn-voltar-acesso" class="btn-ghost voltar">← Voltar</button>
+
+      <div class="hero esquerda">
+        <h1>♿ Acessibilidade</h1>
+        <p>Ajuste o NINA do jeito que funciona melhor para você. As escolhas ficam salvas neste aparelho.</p>
+      </div>
+
+      <div class="painel-bloco">
+        <h3 class="secao-titulo">Tamanho do texto</h3>
+        <div class="acesso-opcoes">
+          <button class="acesso-btn" data-texto="100" type="button">A · normal</button>
+          <button class="acesso-btn" data-texto="112" type="button">A · grande</button>
+          <button class="acesso-btn" data-texto="126" type="button">A · maior</button>
+        </div>
+
+        <h3 class="secao-titulo">Movimento na tela</h3>
+        <div class="acesso-opcoes">
+          <button class="acesso-btn" data-mov="normal" type="button">✨ Com animações</button>
+          <button class="acesso-btn" data-mov="reduzido" type="button">🧘 Reduzido</button>
+        </div>
+        <p class="texto-ajuda">O modo reduzido desliga as animações e as transições — indicado para quem se distrai com movimento ou sente desconforto.</p>
+
+        <h3 class="secao-titulo">Botões do jogo no celular</h3>
+        <div class="acesso-opcoes">
+          <button class="acesso-btn" data-controle="p" type="button">Pequenos</button>
+          <button class="acesso-btn" data-controle="m" type="button">Médios</button>
+          <button class="acesso-btn" data-controle="g" type="button">Grandes</button>
+        </div>
+
+        <h3 class="secao-titulo">Jogar sem o jogo (modo acessível)</h3>
+        <p class="texto-ajuda">Nas fases do <strong>Explorar</strong> agora existe a opção de fazer as investigações <strong>como cartões de leitura</strong>, sem precisar andar e pular. Serve para quem usa leitor de tela, tem dificuldade de coordenação ou prefere ler com calma. O botão aparece na tela de cada fase.</p>
+
+        <h3 class="secao-titulo">Leitor de tela</h3>
+        <p class="texto-ajuda">O jogo avisa por voz o que acontece (vidas, pontos e casos investigados). Use o modo acessível para ler todo o conteúdo educativo fora do desenho do jogo.</p>
+
+        <button class="link-institucional btn-institucional" type="button">📄 Classificação, privacidade, termos e créditos</button>
+      </div>
+    </section>
+
     <!-- ===== CLASSIFICAÇÃO, PRIVACIDADE, TERMOS E CRÉDITOS ===== -->
     <section id="tela-sobre" class="tela">
       <button id="btn-voltar-sobre" class="btn-ghost voltar">← Voltar</button>
@@ -1414,6 +1469,27 @@
     </div>
   </div>
 
+  <!-- ===== DENÚNCIA ===== -->
+  <div id="modal-denuncia" class="modal-eca escondido">
+    <div class="modal-eca-caixa">
+      <span class="modal-eca-icone">🚩</span>
+      <h2>Denunciar à moderação</h2>
+      <p>Você está denunciando conteúdo de <strong id="denuncia-alvo"></strong>. A denúncia é sigilosa: quem foi denunciado não fica sabendo quem denunciou.</p>
+      <div class="denuncia-motivos">
+        <label class="perfil-opcao"><input type="radio" name="denuncia-motivo" value="assedio" checked><span>Assédio, ameaça ou ofensa</span></label>
+        <label class="perfil-opcao"><input type="radio" name="denuncia-motivo" value="preconceito"><span>Preconceito ou discriminação</span></label>
+        <label class="perfil-opcao"><input type="radio" name="denuncia-motivo" value="inadequado"><span>Conteúdo inadequado para a escola</span></label>
+        <label class="perfil-opcao"><input type="radio" name="denuncia-motivo" value="spam"><span>Spam, propaganda ou fora do assunto</span></label>
+        <label class="perfil-opcao"><input type="radio" name="denuncia-motivo" value="outro"><span>Outro motivo</span></label>
+      </div>
+      <textarea id="denuncia-detalhe" maxlength="300" rows="3" placeholder="Quer contar o que aconteceu? (opcional)"></textarea>
+      <div class="modal-eca-acoes">
+        <button id="btn-denuncia-cancelar" class="btn-secundario" type="button">Cancelar</button>
+        <button id="btn-denuncia-enviar" class="btn-principal" type="button">Enviar denúncia</button>
+      </div>
+    </div>
+  </div>
+
   <!-- ===== AJUDA: COMO CONSEGUIR A CHAVE DA IA ===== -->
   <div id="modal-chave-ia" class="modal-eca escondido">
     <div class="modal-eca-caixa">
@@ -1474,19 +1550,19 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
 
-  <script src="questoes.js?v=97"></script>
-  <script src="questoes-arte.js?v=97"></script>
-  <script src="plano.js?v=97"></script>
-  <script src="explorar.js?v=97"></script>
-  <script src="figurinhas.js?v=97"></script>
-  <script src="curriculo.js?v=97"></script>
-  <script src="cursos.js?v=97"></script>
-  <script src="mascote.js?v=97"></script>
-  <script src="glossario.js?v=97"></script>
-  <script src="glossario-acreanes.js?v=97"></script>
-  <script src="encenacao.js?v=97"></script>
-    <script src="plataforma.js?v=97"></script>
-  <script src="firebase-config.js?v=97"></script>
-  <script src="script.js?v=97"></script>
+  <script src="questoes.js?v=98"></script>
+  <script src="questoes-arte.js?v=98"></script>
+  <script src="plano.js?v=98"></script>
+  <script src="explorar.js?v=98"></script>
+  <script src="figurinhas.js?v=98"></script>
+  <script src="curriculo.js?v=98"></script>
+  <script src="cursos.js?v=98"></script>
+  <script src="mascote.js?v=98"></script>
+  <script src="glossario.js?v=98"></script>
+  <script src="glossario-acreanes.js?v=98"></script>
+  <script src="encenacao.js?v=98"></script>
+    <script src="plataforma.js?v=98"></script>
+  <script src="firebase-config.js?v=98"></script>
+  <script src="script.js?v=98"></script>
 </body>
 </html>

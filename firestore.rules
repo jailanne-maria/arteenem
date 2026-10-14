@@ -39,6 +39,12 @@ service cloud.firestore {
       }
     }
 
+    // ---- Denúncias (qualquer pessoa envia; só a administração lê e resolve) ----
+    match /denuncias/{id} {
+      allow create: if logado();
+      allow read, update, delete: if ehAdmin();
+    }
+
     // ---- Chats (o autor apaga a própria; admin apaga qualquer uma) ----
     match /mensagens/{id} {
       allow read: if logado();

@@ -894,6 +894,69 @@ document.getElementById("btn-tema").addEventListener("click", () => {
 aplicarTema(temaAtual());
 
 // ============================================================
+// ACESSIBILIDADE (tamanho do texto, movimento e controles)
+// ============================================================
+const ACESSO_PADRAO = { texto: 100, movimento: "normal", controles: "m" };
+
+function acessoAtual() {
+  try {
+    return Object.assign({}, ACESSO_PADRAO, JSON.parse(localStorage.getItem("nina_acesso") || "{}"));
+  } catch {
+    return Object.assign({}, ACESSO_PADRAO);
+  }
+}
+
+function aplicarAcesso(mudanca) {
+  const cfg = Object.assign(acessoAtual(), mudanca || {});
+  document.documentElement.style.fontSize = cfg.texto + "%";
+  document.documentElement.setAttribute("data-movimento", cfg.movimento);
+  document.documentElement.setAttribute("data-controles", cfg.controles);
+  try { localStorage.setItem("nina_acesso", JSON.stringify(cfg)); } catch {}
+  marcarBotoesAcesso(cfg);
+  return cfg;
+}
+
+function marcarBotoesAcesso(cfg) {
+  const c = cfg || acessoAtual();
+  document.querySelectorAll("[data-texto]").forEach((b) => b.classList.toggle("ativa", Number(b.dataset.texto) === c.texto));
+  document.querySelectorAll("[data-mov]").forEach((b) => b.classList.toggle("ativa", b.dataset.mov === c.movimento));
+  document.querySelectorAll("[data-controle]").forEach((b) => b.classList.toggle("ativa", b.dataset.controle === c.controles));
+}
+
+document.querySelectorAll("[data-texto]").forEach((b) =>
+  b.addEventListener("click", () => aplicarAcesso({ texto: Number(b.dataset.texto) }))
+);
+document.querySelectorAll("[data-mov]").forEach((b) =>
+  b.addEventListener("click", () => aplicarAcesso({ movimento: b.dataset.mov }))
+);
+document.querySelectorAll("[data-controle]").forEach((b) =>
+  b.addEventListener("click", () => aplicarAcesso({ controles: b.dataset.controle }))
+);
+
+function abrirAcesso() {
+  marcarBotoesAcesso();
+  if (typeof PLATAFORMA !== "undefined") PLATAFORMA.parar();
+  mostrarTela("tela-acesso");
+}
+
+document.getElementById("btn-acesso").addEventListener("click", abrirAcesso);
+document.getElementById("btn-acesso-perfil").addEventListener("click", abrirAcesso);
+document.getElementById("btn-voltar-acesso").addEventListener("click", () => {
+  if (!usuario) return mostrarTela("tela-login");
+  if (usuario.papel === "professor") abrirPainelProfessor();
+  else abrirInicioEstudante();
+});
+
+// Leitor de tela: avisa o que acontece no jogo
+function anunciar(texto) {
+  const el = document.getElementById("jogo-status");
+  if (el) el.textContent = texto;
+}
+
+// aplica as preferências salvas assim que a página abre
+aplicarAcesso();
+
+// ============================================================
 // TOUR DE PRIMEIRO ACESSO
 // ============================================================
 const TOUR_ESTUDANTE = [
@@ -1412,6 +1475,10 @@ function renderRecado(d) {
     ? `<button class="recado-excluir" data-id="${d.id}" title="Apagar recado">🗑️ Apagar</button>`
     : "";
 
+  const botaoDenunciar = deveDenunciar(d.uid)
+    ? `<button class="recado-denunciar btn-denunciar" data-tipo="mural" data-id="${d.id}" data-uid="${d.uid}" data-nome="${escaparHTML(d.nome || "Anônimo")}" data-texto="${escaparHTML((d.texto || "").slice(0, 200))}" title="Denunciar este recado à moderação">🚩 Denunciar</button>`
+    : "";
+
   return `
     <div class="recado ${d.fixado ? "fixado" : ""}">
       <div class="recado-avatar">${avatar}</div>
@@ -1424,6 +1491,7 @@ function renderRecado(d) {
         <div class="recado-acoes">
           ${botaoCurtir}
           ${botaoFixar}
+          ${botaoDenunciar}
           ${botaoExcluir}
         </div>
       </div>
@@ -2139,6 +2207,9 @@ function iniciarFase(fase) {
   document.getElementById("fase-intro").classList.remove("escondido");
   document.getElementById("fase-jogo").classList.add("escondido");
   document.getElementById("fase-fim").classList.add("escondido");
+  document.getElementById("fase-acessivel").classList.add("escondido");
+  document.querySelector(".plataforma-wrap").classList.remove("escondido");
+  document.querySelector(".plataforma-controles").classList.remove("escondido");
   document.getElementById("btn-voltar-explorar").classList.remove("escondido");
   faseConcluidaAgora = false;
   renderVidas();
@@ -2224,11 +2295,89 @@ function iniciarPlataforma(sessao) {
     callbacks: {
       aoPerguntar: (i) => abrirPerguntaPlataforma(i),
       aoTerminar: (res) => fimDeFase(res.ganhou, res),
-      aoMudarVidas: (v) => { vidas = v; renderVidas(); },
+      aoMudarVidas: (v) => { vidas = v; renderVidas(); anunciar(v + " corações restantes."); },
       aoCasosPendentes: (n) => abrirCasosPendentes(n),
     },
   });
 }
+
+// ============================================================
+// MODO ACESSÍVEL DA FASE (sem o jogo de plataforma)
+// ============================================================
+let acessivelFeitas = {};
+let acessivelPontos = 0;
+let acessivelAcertos = 0;
+
+document.getElementById("btn-modo-acessivel").addEventListener("click", () => {
+  document.getElementById("fase-intro").classList.add("escondido");
+  document.getElementById("fase-jogo").classList.remove("escondido");
+  document.querySelector(".plataforma-wrap").classList.add("escondido");
+  document.querySelector(".plataforma-controles").classList.add("escondido");
+  document.getElementById("fase-acessivel").classList.remove("escondido");
+  iniciarModoAcessivel();
+});
+
+function iniciarModoAcessivel() {
+  acessivelFeitas = {};
+  acessivelPontos = 0;
+  acessivelAcertos = 0;
+  perguntasFeitasPlat = 0;
+  atualizarProgressoFase();
+  esconder(document.getElementById("fase-acessivel-fim"));
+  renderCasosAcessiveis();
+  anunciar("Modo acessível. " + faseAtual.desafios.length + " investigações para ler e responder.");
+}
+
+function renderCasosAcessiveis() {
+  const lista = document.getElementById("fase-acessivel-lista");
+  const feitas = Object.keys(acessivelFeitas).length;
+  lista.innerHTML = faseAtual.desafios.map((d, i) => {
+    const area = AREAS[d.area] || { icone: "", curto: d.area };
+    const feito = acessivelFeitas[i];
+    const aberto = !feito && Object.keys(acessivelFeitas).length === i;
+    return `
+      <details class="acesso-caso"${aberto ? " open" : ""}>
+        <summary>${feito ? "✅" : "🔎"} Investigação ${i + 1} — ${escaparHTML(area.curto)}</summary>
+        <div class="sobre-corpo">
+          <p class="noticia-texto">"${escaparHTML(d.noticia)}"</p>
+          ${feito
+            ? `<div class="noticia-feedback ${feito.acertou ? "ok" : "erro"}">${feito.acertou ? "✅ Você acertou de primeira." : "💔 Essa te enganou."}<br>${escaparHTML(d.explica)}</div>`
+            : `<div class="noticia-acoes">
+                 <button class="btn-vf verdadeira" data-caso="${i}" data-v="1" type="button">✅ Verdadeira</button>
+                 <button class="btn-vf falsa" data-caso="${i}" data-v="0" type="button">❌ Falsa</button>
+               </div>`}
+        </div>
+      </details>`;
+  }).join("");
+  anunciar(feitas + " de " + faseAtual.desafios.length + " investigações feitas.");
+}
+
+document.getElementById("fase-acessivel-lista").addEventListener("click", (e) => {
+  const b = e.target.closest("button[data-caso]");
+  if (!b) return;
+  const i = Number(b.dataset.caso);
+  const d = faseAtual.desafios[i];
+  const acertou = (b.dataset.v === "1") !== d.fake;
+  acessivelFeitas[i] = { acertou };
+  if (acertou) { acessivelPontos += 100; acessivelAcertos++; }
+  perguntasFeitasPlat = Object.keys(acessivelFeitas).length;
+  atualizarProgressoFase();
+  renderCasosAcessiveis();
+  if (perguntasFeitasPlat >= faseAtual.desafios.length) exibir(document.getElementById("fase-acessivel-fim"));
+  anunciar((acertou ? "Resposta correta." : "Resposta incorreta — a explicação está no cartão.") + " " + perguntasFeitasPlat + " de " + faseAtual.desafios.length + " investigações feitas.");
+});
+
+document.getElementById("btn-concluir-acessivel").addEventListener("click", () => {
+  fimDeFase(true, {
+    ganhou: true,
+    pontos: acessivelPontos,
+    vidas: MAX_VIDAS,
+    acertos: acessivelAcertos,
+    cogumelos: 0,
+    casos: perguntasFeitasPlat,
+    totalCasos: faseAtual.desafios.length,
+  });
+});
 
 // Chegou na bandeira com casos pendentes: avisa quantos faltam e leva até lá
 function abrirCasosPendentes(n) {
@@ -2293,6 +2442,7 @@ document.getElementById("btn-proximo-desafio").addEventListener("click", () => {
   perguntasFeitasPlat = PLATAFORMA._estado().casos;
   atualizarProgressoFase();
   guardarSessao();
+  anunciar((acertouPergunta ? "Resposta correta." : "Resposta incorreta.") + " Casos investigados: " + perguntasFeitasPlat + " de " + faseAtual.desafios.length + ".");
 });
 
 document.getElementById("btn-repetir-fase").addEventListener("click", () => {
@@ -2570,6 +2720,66 @@ document.getElementById("btn-voltar-sobre").addEventListener("click", () => {
   if (!usuario) return mostrarTela("tela-login");
   if (usuario.papel === "professor") abrirPainelProfessor();
   else abrirInicioEstudante();
+});
+
+// ============================================================
+// DENÚNCIAS (proteção de quem usa o app)
+// ============================================================
+let denunciaAlvo = null;
+
+// Só faz sentido denunciar conteúdo de outra pessoa (o admin modera direto)
+function deveDenunciar(uid) {
+  return !!usuario && !!uid && uid !== usuario.uid && !podeAdministrar();
+}
+
+function abrirDenuncia(dados) {
+  if (!usuario) return;
+  denunciaAlvo = dados;
+  const alvo = document.getElementById("denuncia-alvo");
+  if (alvo) alvo.textContent = dados.nome || "outra pessoa";
+  document.getElementById("denuncia-detalhe").value = "";
+  const radios = document.querySelectorAll('input[name="denuncia-motivo"]');
+  radios.forEach((r, i) => { r.checked = i === 0; });
+  exibir(document.getElementById("modal-denuncia"));
+  anunciar("Janela de denúncia aberta.");
+}
+
+function fecharDenuncia() {
+  denunciaAlvo = null;
+  esconder(document.getElementById("modal-denuncia"));
+}
+
+document.addEventListener("click", (e) => {
+  const b = e.target.closest && e.target.closest(".btn-denunciar");
+  if (!b) return;
+  abrirDenuncia({ tipo: b.dataset.tipo, id: b.dataset.id, uid: b.dataset.uid, nome: b.dataset.nome, texto: b.dataset.texto || "" });
+});
+
+document.getElementById("btn-denuncia-cancelar").addEventListener("click", fecharDenuncia);
+
+document.getElementById("btn-denuncia-enviar").addEventListener("click", async () => {
+  if (!denunciaAlvo || !usuario) return;
+  const marcado = document.querySelector('input[name="denuncia-motivo"]:checked');
+  const btn = document.getElementById("btn-denuncia-enviar");
+  btn.disabled = true;
+  try {
+    await enviarDenuncia(usuario, {
+      tipo: denunciaAlvo.tipo,
+      alvoId: denunciaAlvo.id,
+      alvoUid: denunciaAlvo.uid,
+      alvoNome: denunciaAlvo.nome,
+      texto: denunciaAlvo.texto || "",
+      motivo: marcado ? marcado.value : "outro",
+      detalhe: document.getElementById("denuncia-detalhe").value.trim(),
+    });
+    fecharDenuncia();
+    mostrarToast("Denúncia enviada. A moderação vai analisar — obrigada! 🚩");
+    anunciar("Denúncia enviada.");
+  } catch (err) {
+    mostrarToast("Não foi possível enviar a denúncia: " + err.message, "erro");
+  } finally {
+    btn.disabled = false;
+  }
 });
 
 // ============================================================
@@ -5593,6 +5803,7 @@ function ouvirChat() {
       return `<div class="chat-msg ${meu ? "minha" : ""}">
         <div class="chat-msg-topo"><strong>${escaparHTML(meu ? "Você" : (m.nome || "Professor"))}</strong><span>${hora}</span></div>
         <p>${escaparHTML(m.texto || "")}</p>
+        ${deveDenunciar(m.uid) ? `<button class="btn-denunciar" data-tipo="chat" data-id="${m.id}" data-uid="${m.uid}" data-nome="${escaparHTML(m.nome || "Professor")}" data-texto="${escaparHTML((m.texto || "").slice(0, 200))}" title="Denunciar à moderação">🚩 Denunciar</button>` : ""}
       </div>`;
     }).join("");
     lista.scrollTop = lista.scrollHeight;
@@ -5691,6 +5902,7 @@ function ouvirChatTurma(codigo) {
       return `<div class="chat-msg ${meu ? "minha" : ""} ${ehProf ? "prof" : ""}">
         <div class="chat-msg-topo"><strong>${escaparHTML(meu ? "Você" : (m.nome || "Usuário"))}${ehProf ? " 👩🏽‍🏫" : ""}</strong><span>${hora}</span></div>
         <p>${escaparHTML(m.texto || "")}</p>
+        ${deveDenunciar(m.uid) ? `<button class="btn-denunciar" data-tipo="chatTurma" data-id="${m.id}" data-uid="${m.uid}" data-nome="${escaparHTML(m.nome || "Usuário")}" data-texto="${escaparHTML((m.texto || "").slice(0, 200))}" title="Denunciar à moderação">🚩 Denunciar</button>` : ""}
       </div>`;
     }).join("");
     lista.scrollTop = lista.scrollHeight;
@@ -6432,6 +6644,7 @@ async function carregarAdmin() {
     else if (adminAba === "mensagensTurma") adminDados.mensagensTurma = await listarTodasMensagensTurma();
     else if (adminAba === "novidades") adminDados.novidades = await listarNovidades();
     else if (adminAba === "conversas") adminDados.conversas = await listarConversasSuporte();
+    else if (adminAba === "denuncias") adminDados.denuncias = await listarDenuncias();
     else if (adminAba === "relatorio") return renderRelatorio(div);
     else adminDados.mensagens = await listarTodasMensagens();
   } catch (e) {
@@ -6449,7 +6662,46 @@ function renderAdmin() {
   if (adminAba === "mensagensTurma") return renderAdminMensagensTurma(div);
   if (adminAba === "novidades") return renderAdminNovidades(div);
   if (adminAba === "conversas") return renderAdminConversas(div);
+  if (adminAba === "denuncias") return renderAdminDenuncias(div);
   return renderAdminMensagens(div);
+}
+
+// ---------- Denúncias ----------
+const MOTIVOS_DENUNCIA = {
+  assedio: "Assédio, ameaça ou ofensa",
+  preconceito: "Preconceito ou discriminação",
+  inadequado: "Conteúdo inadequado para a escola",
+  spam: "Spam, propaganda ou fora do assunto",
+  outro: "Outro motivo",
+};
+
+function denunciaTipoNome(t) {
+  if (t === "mural") return "Recado do mural";
+  if (t === "chat") return "Chat da escola";
+  if (t === "chatTurma") return "Chat da turma";
+  return "Conteúdo";
+}
+
+function renderAdminDenuncias(div) {
+  const lista = adminDados.denuncias || [];
+  const abertas = lista.filter((d) => d.status !== "resolvida");
+  div.innerHTML = `
+    <p class="admin-resumo">🚩 ${abertas.length} denúncia(s) em aberto de ${lista.length} no total</p>
+    ${lista.map((d) => `
+      <div class="admin-item${d.status === "resolvida" ? " resolvida" : ""}">
+        <div class="admin-item-info">
+          <strong>🚩 ${escaparHTML(MOTIVOS_DENUNCIA[d.motivo] || d.motivo || "Outro motivo")}${d.status === "resolvida" ? " · ✔ resolvida" : ""}</strong>
+          <span class="admin-sub">${denunciaTipoNome(d.tipo)} de <strong>${escaparHTML(d.alvoNome || "?")}</strong> · denunciado por ${escaparHTML(d.porNome || "?")}${d.ms ? " · " + new Date(d.ms).toLocaleString("pt-BR", { day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" }) : ""}</span>
+          ${d.texto ? `<span class="admin-sub">💬 “${escaparHTML(d.texto)}”</span>` : ""}
+          ${d.detalhe ? `<span class="admin-sub">📝 ${escaparHTML(d.detalhe)}</span>` : ""}
+        </div>
+        <div class="admin-acoes">
+          <button class="btn-ghost compacto" data-acao="apagar-denunciado" data-tipo="${d.tipo}" data-id="${d.alvoId}" data-den="${d.id}">🗑️ Apagar conteúdo</button>
+          ${d.status === "resolvida" ? "" : `<button class="btn-ghost compacto" data-acao="resolver-denuncia" data-id="${d.id}">✔ Resolver</button>`}
+          <button class="btn-ghost compacto" data-acao="excluir-denuncia" data-id="${d.id}">✖ Excluir denúncia</button>
+        </div>
+      </div>`).join("") || `<p class="vazio">Nenhuma denúncia. 🎉</p>`}
+  `;
 }
 
 function renderAdminConversas(div) {
@@ -6859,6 +7111,21 @@ document.getElementById("admin-conteudo").addEventListener("click", async (e) =>
       if (!confirm("Apagar esta conversa e todas as mensagens?")) return;
       await excluirConversaSuporte(id);
       mostrarToast("Conversa apagada.");
+    } else if (acao === "resolver-denuncia") {
+      await atualizarDenuncia(id, { status: "resolvida" });
+      mostrarToast("Denúncia marcada como resolvida.");
+    } else if (acao === "excluir-denuncia") {
+      if (!confirm("Excluir esta denúncia do painel?")) return;
+      await excluirDenuncia(id);
+      mostrarToast("Denúncia excluída.");
+    } else if (acao === "apagar-denunciado") {
+      const tipo = btn.dataset.tipo;
+      if (!confirm("Apagar o conteúdo denunciado?")) return;
+      if (tipo === "mural") await excluirDepoimento(btn.dataset.id);
+      else if (tipo === "chat") await excluirMensagemEscola(btn.dataset.id);
+      else if (tipo === "chatTurma") await excluirMensagemTurma(btn.dataset.id);
+      await atualizarDenuncia(btn.dataset.den, { status: "resolvida" }).catch(() => {});
+      mostrarToast("Conteúdo apagado e denúncia resolvida.");
     } else {
       return;
     }
