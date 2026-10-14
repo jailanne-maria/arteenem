@@ -1878,6 +1878,8 @@ function carregarEstadoExplorar() {
   explorarEstado = {
     avatarId: (usuario && usuario.avatarId) || null,
     fasesConcluidas: (usuario && usuario.fasesConcluidas) || [],
+    melhores: (usuario && usuario.melhores) || {},
+    sessao: (usuario && usuario.sessao) || null,
   };
 }
 
@@ -1890,6 +1892,8 @@ function salvarExplorar() {
   return salvarUsuario(usuario.uid, {
     avatarId: explorarEstado.avatarId,
     fasesConcluidas: explorarEstado.fasesConcluidas,
+    melhores: explorarEstado.melhores || {},
+    sessao: explorarEstado.sessao || null,
   }).catch(() => {});
 }
 
@@ -2548,6 +2552,24 @@ document.getElementById("modal-chave-ia").addEventListener("click", (e) => {
 });
 document.addEventListener("keydown", (e) => {
   if (e.key === "Escape") fecharDicaChave();
+});
+
+// ============================================================
+// CLASSIFICAÇÃO, PRIVACIDADE, TERMOS E CRÉDITOS
+// ============================================================
+function abrirSobre() {
+  if (typeof PLATAFORMA !== "undefined") PLATAFORMA.parar();
+  mostrarTela("tela-sobre");
+}
+
+document.querySelectorAll(".btn-institucional").forEach((b) => {
+  b.addEventListener("click", abrirSobre);
+});
+
+document.getElementById("btn-voltar-sobre").addEventListener("click", () => {
+  if (!usuario) return mostrarTela("tela-login");
+  if (usuario.papel === "professor") abrirPainelProfessor();
+  else abrirInicioEstudante();
 });
 
 // ============================================================

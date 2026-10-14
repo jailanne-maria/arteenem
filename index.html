@@ -10,7 +10,7 @@
   <link rel="apple-touch-icon" href="img/icon-192.png">
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#5c94fc">
-  <link rel="stylesheet" href="style.css?v=96">
+  <link rel="stylesheet" href="style.css?v=97">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
@@ -65,6 +65,11 @@
           Entrar com Google
         </button>
         <p class="dica">Use a conta Google da escola ou pessoal.</p>
+        <div class="login-selos">
+          <span class="selo-idade" title="Autoavaliação de conteúdo feita pelo projeto">12</span>
+          <span class="selo-txt">Classificação indicativa (autoavaliação) · sem anúncios · sem cobrança</span>
+        </div>
+        <button class="link-institucional btn-institucional" type="button">📄 Classificação, privacidade, termos e créditos</button>
       </div>
     </section>
 
@@ -833,6 +838,7 @@
       <div id="noticias-lista" class="noticias-lista"></div>
 
       <h3 class="secao-titulo">✍️ Possíveis temas de redação</h3>
+      <p class="aviso-ia">🤖 <strong>Sugestões geradas por IA</strong> a partir das notícias — podem conter erros ou repetições. Use como ponto de partida e confira nas fontes.</p>
       <p class="noticias-dica">Os temas do ENEM costumam tratar de cidadania, direitos, tecnologia, meio ambiente e sociedade. Estude estes eixos e treine relacioná-los com as notícias do MEC.</p>
       <div id="temas-redacao" class="temas-redacao"></div>
     </section>
@@ -913,6 +919,7 @@
           <button id="btn-dica-chave" class="btn-secundario compacto" type="button">❓ Como conseguir a chave</button>
         </div>
 
+        <p class="aviso-ia">🤖 O mapa conceitual, a revisão, os flash cards e a atividade são <strong>gerados por IA</strong> a partir do seu material — podem conter erros. Revise antes de aplicar em sala.</p>
         <div id="revisao-aviso" class="aviso escondido"></div>
         <button id="btn-gerar-revisao" class="btn-principal">✨ Gerar revisão</button>
       </div>
@@ -928,6 +935,8 @@
         <h1>📖 Revisões da <span class="destaque">turma</span></h1>
         <p>Mapas conceituais, revisões e atividades publicados pelos seus professores.</p>
       </div>
+
+      <p class="aviso-ia">🤖 Estas revisões e atividades foram <strong>geradas por IA</strong> a partir do material do professor. Se algo parecer estranho, avise a professora.</p>
 
       <div id="revisoes-lista" class="revisoes-lista"></div>
 
@@ -962,9 +971,11 @@
         <div class="campo">
           <label class="perfil-rotulo">Como gerar as questões?</label>
           <div class="modo-opcoes">
-            <button class="modo-opcao ativa" data-modo="banco">🎲 Do banco de questões</button>
-            <button class="modo-opcao" data-modo="ia">🤖 Com IA (a partir de um material)</button>
+            <button class="modo-opcao ativa" data-modo="banco">📚 Do banco de questões</button>
+            <button class="modo-opcao" data-modo="ia">✨ Com IA (a partir de um material)</button>
           </div>
+          <p class="aviso-ia">🤖 No modo <strong>Com IA</strong>, as questões e o gabarito são gerados automaticamente e podem conter erros — confira antes de enviar para as turmas.</p>
+        </div>
         </div>
 
         <div class="campo">
@@ -1244,6 +1255,143 @@
       </div>
     </section>
 
+    <!-- ===== CLASSIFICAÇÃO, PRIVACIDADE, TERMOS E CRÉDITOS ===== -->
+    <section id="tela-sobre" class="tela">
+      <button id="btn-voltar-sobre" class="btn-ghost voltar">← Voltar</button>
+
+      <div class="hero esquerda">
+        <h1>📄 Classificação, privacidade e créditos</h1>
+        <p>Transparência sobre o conteúdo, os dados e as fontes do NINA.</p>
+      </div>
+
+      <details class="sobre-bloco" open>
+        <summary>🛡️ Classificação indicativa (autoavaliação)</summary>
+        <div class="sobre-corpo">
+          <p><strong>Autoavaliação do projeto: 12 anos</strong> — não recomendado para menores de 12 anos sem a mediação de um adulto.</p>
+          <p>O <strong>jogo de plataforma (Explorar)</strong>, sozinho, é <strong>Livre</strong>: a violência é de desenho (empurrar nuvens), sem sangue, sem armas, sem drogas e sem conteúdo sexual.</p>
+          <p>O conjunto do aplicativo, porém, reúne também:</p>
+          <ul>
+            <li><strong>Dicionário Acreanês</strong> — 996 verbetes do livro “Vamos falar o Acreanês” (Pedro Ranzi, Edufac/UFAC). É um dicionário regional e alguns verbetes trazem <strong>palavrões e definições de teor sexual</strong>, em contexto lexicográfico;</li>
+            <li><strong>Biblioteca</strong> — clássicos da literatura e artigos enciclopédicos abertos em <strong>links externos</strong>, cujo conteúdo não é filtrado pelo NINA;</li>
+            <li><strong>Espaços de conversa</strong> — mural, chat da turma, chat da escola e conversa com a professora, com texto escrito pelos próprios usuários.</li>
+          </ul>
+          <p>Por isso a autoavaliação é <strong>12 anos</strong>. Se o dicionário e os links externos receberem aviso de contexto e a moderação seguir ativa, a faixa pode ser revista para <strong>Livre/10</strong>.</p>
+          <p class="sobre-nota">Esta é uma <strong>autoavaliação do projeto</strong>, feita a partir dos eixos do Guia Prático da Classificação Indicativa (Ministério da Justiça). A classificação oficial é expedida pelo Ministério da Justiça e Segurança Pública.</p>
+          <p class="sobre-nota">Em ambiente escolar, o uso é recomendado <strong>com mediação do professor</strong>, conforme o art. 10 da Lei nº 14.852/2024 (Marco Legal dos Jogos Eletrônicos), que permite o uso de jogos com fins didáticos em conformidade com a BNCC, observada a classificação etária.</p>
+        </div>
+      </details>
+
+      <details class="sobre-bloco">
+        <summary>🔒 Política de Privacidade</summary>
+        <div class="sobre-corpo">
+          <p>O NINA é um projeto educacional <strong>gratuito, sem anúncios e sem cobrança</strong>. Esta política explica quais dados são usados e por quê.</p>
+          <h4>1. Quem trata os dados</h4>
+          <p>Projeto NINA / Ctrl Art, mantido por Jailanne Maria (artista educadora, licenciada em Artes Cênicas pela UFAC). Contato: <strong>@maria.jai_</strong> no Instagram ou pelo canal “Falar com a professora”, dentro do app.</p>
+          <h4>2. Dados que coletamos</h4>
+          <ul>
+            <li><strong>Login Google:</strong> nome, e-mail e foto do perfil Google;</li>
+            <li><strong>Perfil:</strong> papel (professor ou estudante), disciplina/área, escola, séries, turma(s), nome de exibição, bio, “o que quero ser”, “do que eu gosto” e a foto, se você enviar;</li>
+            <li><strong>Uso:</strong> respostas do diagnóstico e das atividades, revisões, mural, chats, mensagens à professora, ranking e progresso no jogo;</li>
+            <li><strong>Notificações:</strong> se você ativar, guardamos o código do seu navegador (token) só para enviar os avisos.</li>
+          </ul>
+          <h4>3. Onde os dados ficam</h4>
+          <p>Nos servidores do <strong>Google Firebase</strong> (Firestore), usados para o funcionamento do app. No seu aparelho, o navegador guarda preferências pequenas (tema claro/escuro, último resultado do diagnóstico e progresso do jogo) e a <strong>chave da IA</strong>, quando o professor usa os recursos de Inteligência Artificial.</p>
+          <p><strong>A chave da IA fica somente no navegador do professor.</strong> Ela não é enviada para o servidor do projeto nem compartilhada com os estudantes.</p>
+          <h4>4. O que NÃO fazemos</h4>
+          <p>Não vendemos nem alugamos dados. Não há anúncios, cobrança ou rastreamento publicitário.</p>
+          <h4>5. Quem vê o quê</h4>
+          <ul>
+            <li>O <strong>professor</strong> vê o desempenho e as respostas dos estudantes das turmas dele;</li>
+            <li>Os <strong>colegas de turma</strong> veem o nome, o ranking e os recados do mural e do chat. Foto, bio e “do que eu gosto” só aparecem se você liberar;</li>
+            <li>Com a opção <strong>“Perfil privado para os colegas”</strong>, foto, bio e preferências ficam ocultas para outros estudantes;</li>
+            <li>As conversas do canal “Falar com a professora” ficam restritas a você e à professora.</li>
+          </ul>
+          <h4>6. Crianças e adolescentes</h4>
+          <p>Para <strong>crianças (até 12 anos incompletos)</strong>, o uso deve ocorrer com consentimento e supervisão de um responsável, conforme o art. 14 da LGPD e o ECA. Para <strong>adolescentes</strong>, valem as proteções do ECA Digital. Recursos de proteção do app: foto <strong>opcional</strong>, perfil privado e moderação.</p>
+          <h4>7. Seus direitos</h4>
+          <p>Você pode <strong>corrigir</strong> seus dados no próprio app (Perfil → Editar perfil) e pedir a <strong>exclusão</strong> da conta e dos dados pelo canal “Falar com a professora” ou pelo contato acima. A administração do app também exclui dados a pedido.</p>
+          <h4>8. Segurança e guarda</h4>
+          <p>O acesso exige login Google. Os dados são guardados enquanto a conta existir ou enquanto forem necessários para o uso educacional; depois disso, podem ser excluídos.</p>
+          <p class="sobre-nota">Versão de outubro de 2026.</p>
+        </div>
+      </details>
+
+      <details class="sobre-bloco">
+        <summary>📜 Termos de Uso</summary>
+        <div class="sobre-corpo">
+          <p>Ao usar o NINA você concorda com estes termos.</p>
+          <h4>1. O que é o NINA</h4>
+          <p>Plataforma educacional gratuita de apoio ao estudo: diagnóstico, plano de estudos, revisões, atividades, biblioteca, jogos e turmas. É um <strong>apoio pedagógico</strong>: não substitui a aula nem a mediação do professor, e não garante aprovação, vaga ou nota.</p>
+          <h4>2. Uso adequado</h4>
+          <p>É proibido ofender, perseguir, discriminar ou expor colegas e professores; publicar conteúdo ilegal, violento, sexual ou inadequado para menores; passar-se por outra pessoa; e usar o app para fraudar avaliações. Quem descumprir pode ter a conta bloqueada, nos termos do ECA e do ECA Digital.</p>
+          <h4>3. Sua conta</h4>
+          <p>Você é responsável pelo uso da sua conta Google. O nome de exibição é editável, mas não pode ser usado para se passar por outra pessoa.</p>
+          <h4>4. Conteúdo que você publica</h4>
+          <p>Você responde pelo que escreve no mural, nos chats e nas perguntas que envia. Ao publicar, você autoriza a exibição desse conteúdo dentro do app, para os participantes da sua turma e para a moderação.</p>
+          <h4>5. Inteligência Artificial</h4>
+          <p>Revisões, atividades, flashcards e sugestões de temas são <strong>gerados automaticamente e podem conter erros</strong>. Confira nas fontes originais antes de usar em sala. O professor usa a <strong>própria chave</strong> do Google AI Studio: responde pelo uso e pelos limites diários da conta dele, e a chave fica apenas no navegador dele.</p>
+          <h4>6. Conteúdo de terceiros</h4>
+          <p>Obras literárias, artigos enciclopédicos, revistas, questões do ENEM e outras fontes pertencem a seus autores e instituições — os créditos estão em “Fontes e créditos”. Alguns materiais são abertos em sites externos, com regras próprias.</p>
+          <h4>7. Disponibilidade</h4>
+          <p>O app é oferecido “como está”, sem garantia de funcionamento contínuo. Os recursos com IA dependem de internet e do limite gratuito do serviço do Google.</p>
+          <h4>8. Mudanças</h4>
+          <p>Estes termos podem ser atualizados; a data abaixo é alterada quando isso acontecer.</p>
+          <p class="sobre-nota">Versão de outubro de 2026.</p>
+        </div>
+      </details>
+
+      <details class="sobre-bloco">
+        <summary>📚 Fontes e créditos</summary>
+        <div class="sobre-corpo">
+          <h4>Autoria e projeto</h4>
+          <ul>
+            <li><strong>NINA — Diagnóstico e aprendizagem com IA</strong>, criado por <strong>Jailanne Maria</strong>, artista educadora, licenciada em Artes Cênicas (Teatro) pela UFAC;</li>
+            <li>Projeto <strong>Ctrl Art — Arte · Tecnologia · Educação</strong> · @ctrl.4rt · autora: @maria.jai_;</li>
+            <li>Aplicativo <strong>gratuito e de código aberto</strong>, sem anúncios e sem cobrança.</li>
+          </ul>
+          <h4>Dicionário Acreanês</h4>
+          <ul>
+            <li>Extraído do livro <strong>“Vamos falar o Acreanês”</strong>, de <strong>Pedro Ranzi</strong> (Edufac/UFAC). Os verbetes são de responsabilidade do autor da obra.</li>
+          </ul>
+          <h4>Biblioteca</h4>
+          <ul>
+            <li>Obras de <strong>domínio público</strong> (clássicos da literatura brasileira);</li>
+            <li>Artigos da <strong>Wikipédia</strong> em português, sob licença <strong>Creative Commons Atribuição-CompartilhaIgual (CC BY-SA)</strong> — cada artigo mantém licença e créditos na própria página;</li>
+            <li><strong>Revistas da UFAC</strong> e artigos de acesso aberto, com crédito às instituições.</li>
+          </ul>
+          <h4>Questões e cursos</h4>
+          <ul>
+            <li>Questões do <strong>ENEM</strong>: fonte <strong>INEP/MEC</strong>, obtidas pela API pública <em>enem.dev</em>;</li>
+            <li>Questões autorais do NINA (arte, cultura acreana e atualidades) e as enviadas por professores pelo banco compartilhado;</li>
+            <li>Cursos, pesos das áreas e notas de corte: dados públicos do <strong>SISU/MEC</strong> e da <strong>UFAC</strong>.</li>
+          </ul>
+          <h4>Currículo e pedagogia</h4>
+          <ul>
+            <li><strong>BNCC</strong> e <strong>Currículo Único do Acre</strong> (SEME-AC) como referência de habilidades e temas;</li>
+            <li><strong>Fichário de Encenação</strong>: jogos teatrais baseados na obra de <strong>Viola Spolin</strong> (“Improvisação para o Teatro”), em versão didática;</li>
+            <li>Eixos de investigação e educação midiática inspirados na <strong>UNESCO</strong> (<em>Media and Information Literacy</em>) e no <strong>EducaMídia</strong> (Instituto Palavra Aberta).</li>
+          </ul>
+          <h4>Exemplos históricos do jogo</h4>
+          <ul>
+            <li><strong>Serra da Capivara</strong> — UNESCO World Heritage Centre;</li>
+            <li><strong>Geoglifos do Acre</strong> — Iphan, Superintendência do Acre (Patrimônio Arqueológico).</li>
+          </ul>
+          <h4>Inteligência Artificial</h4>
+          <ul>
+            <li>Os recursos de IA usam a API do <strong>Google Gemini</strong>, com a chave do próprio professor (gratuita, no Google AI Studio).</li>
+          </ul>
+          <h4>Tecnologia</h4>
+          <ul>
+            <li><strong>Firebase</strong> (login, banco de dados e notificações) — Google;</li>
+            <li><strong>pdf.js</strong> e <strong>Mammoth.js</strong> para ler PDF e Word enviados pelos professores;</li>
+            <li>Fontes tipográficas <strong>Press Start 2P</strong> (CodeMan38) e <strong>VT323</strong> (Peter Hull), sob SIL Open Font License.</li>
+          </ul>
+          <h4>Ficção e dramatização</h4>
+          <p class="sobre-nota">Personagens como <strong>Faísca</strong> (vaga-lume) e cenários como o <strong>Arquivo Vivo</strong> e a <strong>Fortaleza da Desinformação</strong> são ficção didática. Os casos do jogo (Museu da Ponte, Ponte Azul, Festival das Pontes) são <strong>simulações</strong> criadas para ensinar checagem: não são notícias reais e não usam marca de veículo de imprensa.</p>
+        </div>
+      </details>
+    </section>
+
   </main>
 
   <!-- ===== AVISO ECA (LOGIN) ===== -->
@@ -1301,6 +1449,7 @@
   <footer class="rodape">
     <p class="rodape-credito">🎨 Desenvolvido pela artista educadora <strong>@maria.jai_</strong></p>
     <img src="img/nina/ctrl-art-banner.png" alt="Ctrl Art — Arte · Tecnologia · Educação — Jailanne Maria · @maria.jai_" class="rodape-logo">
+    <button class="link-institucional btn-institucional" type="button">Classificação indicativa · Privacidade · Termos de uso · Fontes e créditos</button>
   </footer>
 
   <!-- Aviso de sem internet -->
@@ -1325,19 +1474,19 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
 
-  <script src="questoes.js?v=96"></script>
-  <script src="questoes-arte.js?v=96"></script>
-  <script src="plano.js?v=96"></script>
-  <script src="explorar.js?v=96"></script>
-  <script src="figurinhas.js?v=96"></script>
-  <script src="curriculo.js?v=96"></script>
-  <script src="cursos.js?v=96"></script>
-  <script src="mascote.js?v=96"></script>
-  <script src="glossario.js?v=96"></script>
-  <script src="glossario-acreanes.js?v=96"></script>
-  <script src="encenacao.js?v=96"></script>
-    <script src="plataforma.js?v=96"></script>
-  <script src="firebase-config.js?v=96"></script>
-  <script src="script.js?v=96"></script>
+  <script src="questoes.js?v=97"></script>
+  <script src="questoes-arte.js?v=97"></script>
+  <script src="plano.js?v=97"></script>
+  <script src="explorar.js?v=97"></script>
+  <script src="figurinhas.js?v=97"></script>
+  <script src="curriculo.js?v=97"></script>
+  <script src="cursos.js?v=97"></script>
+  <script src="mascote.js?v=97"></script>
+  <script src="glossario.js?v=97"></script>
+  <script src="glossario-acreanes.js?v=97"></script>
+  <script src="encenacao.js?v=97"></script>
+    <script src="plataforma.js?v=97"></script>
+  <script src="firebase-config.js?v=97"></script>
+  <script src="script.js?v=97"></script>
 </body>
 </html>
