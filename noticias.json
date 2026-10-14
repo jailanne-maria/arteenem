@@ -1,10 +1,34 @@
 {
-  "atualizadoEm": "2026-10-13T17:55:30.904Z",
+  "atualizadoEm": "2026-10-14T01:34:59.138Z",
   "fontes": [
     "MEC",
     "Agência Brasil"
   ],
   "noticias": [
+    {
+      "titulo": "Egressa da escola técnica à reitora do IFS: professora transforma oportunidades em compromisso com a educação pública",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/egressa-da-escola-tecnica-a-reitora-do-ifs-professora-transforma-oportunidades-em-compromisso-com-a-educacao-publica",
+      "fonte": "MEC",
+      "data": "outubro/2026"
+    },
+    {
+      "titulo": "PND 2026: Locais de prova da reaplicação estão disponíveis",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/pnd-2026-locais-de-prova-da-reaplicacao-estao-disponiveis",
+      "fonte": "MEC",
+      "data": "outubro/2026"
+    },
+    {
+      "titulo": "MEC debate infraestrutura escolar para expansão do tempo integral",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/mec-debate-infraestrutura-escolar-para-expansao-do-tempo-integral",
+      "fonte": "MEC",
+      "data": "outubro/2026"
+    },
+    {
+      "titulo": "Painel permite consultar repasses do Fundeb por rede de ensino",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/painel-permite-consultar-repasses-do-fundeb-por-rede-de-ensino",
+      "fonte": "MEC",
+      "data": "outubro/2026"
+    },
     {
       "titulo": "Da EJA ao título de doutora honoris causa",
       "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/da-eja-ao-titulo-de-doutora-honoris-causa",
@@ -72,28 +96,10 @@
       "data": "outubro/2026"
     },
     {
-      "titulo": "Espírito Santo tem 85,9 mil inscritos na edição de 2026 do Enem",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/espirito-santo-tem-85-9-mil-inscritos-na-edicao-de-2026-do-enem",
-      "fonte": "MEC",
-      "data": "outubro/2026"
-    },
-    {
-      "titulo": "Tocantins tem 43,5 mil inscritos na edição de 2026 do Enem",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/tocantins-tem-43-5-mil-inscritos-na-edicao-de-2026-do-enem",
-      "fonte": "MEC",
-      "data": "outubro/2026"
-    },
-    {
-      "titulo": "Roraima tem 15,3 mil inscritos na edição de 2026 do Enem",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/roraima-tem-15-3-mil-inscritos-na-edicao-de-2026-do-enem",
-      "fonte": "MEC",
-      "data": "outubro/2026"
-    },
-    {
-      "titulo": "Rondônia tem 43,6 mil inscritos na edição de 2026 do Enem",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/rondonia-tem-43-6-mil-inscritos-na-edicao-de-2026-do-enem",
-      "fonte": "MEC",
-      "data": "outubro/2026"
+      "titulo": "Escolha de livros didáticos para educação infantil começa nesta terça",
+      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-10/escolha-de-livros-didaticos-para-educacao-infantil-comeca-nesta-terca",
+      "fonte": "Agência Brasil",
+      "data": "13/10"
     },
     {
       "titulo": "Interpretação é a base da prova de Linguagens do Enem; veja dicas",
@@ -120,14 +126,14 @@
       "data": "08/10"
     },
     {
-      "titulo": "MEC vai construir novo prédio para laboratórios da UFPE",
-      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-10/mec-vai-construir-novo-predio-para-laboratorios-da-ufpe",
+      "titulo": "Universidade Federal Fluminense aciona PF após receber ameaças",
+      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-10/universidade-federal-fluminense-aciona-pf-apos-receber-amecas",
       "fonte": "Agência Brasil",
       "data": "08/10"
     },
     {
-      "titulo": "Universidade Federal Fluminense aciona PF após receber ameaças",
-      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-10/universidade-federal-fluminense-aciona-pf-apos-receber-amecas",
+      "titulo": "MEC vai construir novo prédio para laboratórios da UFPE",
+      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-10/mec-vai-construir-novo-predio-para-laboratorios-da-ufpe",
       "fonte": "Agência Brasil",
       "data": "08/10"
     },
@@ -142,12 +148,6 @@
       "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-10/enem-2026-falta-um-mes-para-o-primeiro-dia-de-provas",
       "fonte": "Agência Brasil",
       "data": "08/10"
-    },
-    {
-      "titulo": "Fies 2026/2: faculdades privadas podem ofertar vagas até quarta",
-      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-10/fies-20262-faculdades-privadas-podem-ofertar-vagas-ate-quarta",
-      "fonte": "Agência Brasil",
-      "data": "07/10"
     }
   ],
   "temasRedacao": [
