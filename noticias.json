@@ -1,10 +1,22 @@
 {
-  "atualizadoEm": "2026-10-14T01:34:59.138Z",
+  "atualizadoEm": "2026-10-14T15:41:51.169Z",
   "fontes": [
     "MEC",
     "Agência Brasil"
   ],
   "noticias": [
+    {
+      "titulo": "Cuidotecas serão implantadas em 62 universidades federais",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/cuidotecas-serao-implantadas-em-62-universidades-federais",
+      "fonte": "MEC",
+      "data": "outubro/2026"
+    },
+    {
+      "titulo": "MEC realiza aulão com estudantes da EJA em Pernambuco",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/mec-realiza-aulao-com-estudantes-da-eja-em-pernambuco",
+      "fonte": "MEC",
+      "data": "outubro/2026"
+    },
     {
       "titulo": "Egressa da escola técnica à reitora do IFS: professora transforma oportunidades em compromisso com a educação pública",
       "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/egressa-da-escola-tecnica-a-reitora-do-ifs-professora-transforma-oportunidades-em-compromisso-com-a-educacao-publica",
@@ -84,16 +96,10 @@
       "data": "outubro/2026"
     },
     {
-      "titulo": "Rio de Janeiro tem 363,6 mil inscritos na edição de 2026 do Enem",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/rio-de-janeiro-tem-363-6-mil-inscritos-na-edicao-de-2026-do-enem",
-      "fonte": "MEC",
-      "data": "outubro/2026"
-    },
-    {
-      "titulo": "Minas Gerais tem 472 mil inscritos na edição de 2026 do Enem",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/minas-gerais-tem-472-mil-inscritos-na-edicao-de-2026-do-enem",
-      "fonte": "MEC",
-      "data": "outubro/2026"
+      "titulo": "Candidato já pode conferir onde fará reaplicação da PND, no domingo",
+      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-10/candidato-ja-pode-conferir-onde-fara-reaplicacao-da-pnd-no-domingo",
+      "fonte": "Agência Brasil",
+      "data": "14/10"
     },
     {
       "titulo": "Escolha de livros didáticos para educação infantil começa nesta terça",
@@ -126,26 +132,20 @@
       "data": "08/10"
     },
     {
-      "titulo": "Universidade Federal Fluminense aciona PF após receber ameaças",
-      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-10/universidade-federal-fluminense-aciona-pf-apos-receber-amecas",
-      "fonte": "Agência Brasil",
-      "data": "08/10"
-    },
-    {
       "titulo": "MEC vai construir novo prédio para laboratórios da UFPE",
       "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-10/mec-vai-construir-novo-predio-para-laboratorios-da-ufpe",
       "fonte": "Agência Brasil",
       "data": "08/10"
     },
     {
-      "titulo": "Enem 2026: inscrito automaticamente deve escolher idioma da prova",
-      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-10/enem-2026-inscrito-automaticamente-deve-escolher-idioma-da-prova",
+      "titulo": "Universidade Federal Fluminense aciona PF após receber ameaças",
+      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-10/universidade-federal-fluminense-aciona-pf-apos-receber-amecas",
       "fonte": "Agência Brasil",
       "data": "08/10"
     },
     {
-      "titulo": "Enem 2026: falta um mês para o primeiro dia de provas",
-      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-10/enem-2026-falta-um-mes-para-o-primeiro-dia-de-provas",
+      "titulo": "Enem 2026: inscrito automaticamente deve escolher idioma da prova",
+      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-10/enem-2026-inscrito-automaticamente-deve-escolher-idioma-da-prova",
       "fonte": "Agência Brasil",
       "data": "08/10"
     }
