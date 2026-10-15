@@ -25,6 +25,8 @@ const PLATAFORMA = (() => {
   let puloAntes = false, pulos = 0;
   let justificativas = 0, acertosJust = 0;
   let checkpointX = 0, checkpointAtivo = false, pedestalDentro = null;
+  let pausaManual = false, gamepadAtivo = null, gamepadNome = "";
+  const pad = { esq: false, dir: false, pulo: false, pausaAntes: false };
   let quebrados = new Set(), inimigosMortos = new Set();
   let cogumeloEm = new Set();
   const teclas = {};
@@ -315,8 +317,9 @@ const PLATAFORMA = (() => {
   // ---------- ciclo ----------
   function atualizar() {
     const j = jog;
-    const alvoEsq = input.esq || teclas["ArrowLeft"] || teclas["a"] || teclas["A"];
-    const alvoDir = input.dir || teclas["ArrowRight"] || teclas["d"] || teclas["D"];
+    lerGamepad();
+    const alvoEsq = input.esq || pad.esq || teclas["ArrowLeft"] || teclas["a"] || teclas["A"];
+    const alvoDir = input.dir || pad.dir || teclas["ArrowRight"] || teclas["d"] || teclas["D"];
 
     if (alvoEsq && !alvoDir) j.vx -= ACC;
     else if (alvoDir && !alvoEsq) j.vx += ACC;
@@ -326,7 +329,7 @@ const PLATAFORMA = (() => {
     if (j.vx > 0.25) j.dir = 1;
     else if (j.vx < -0.25) j.dir = -1;
 
-    const pulando = !!(input.pulo || teclas["ArrowUp"] || teclas["w"] || teclas["W"] || teclas[" "]);
+    const pulando = !!(input.pulo || pad.pulo || teclas["ArrowUp"] || teclas["w"] || teclas["W"] || teclas[" "]);
     // Só pula quando APERTA (não vale ficar segurando): evita pular sem parar
     if (pulando && !puloAntes) j.puloBuffer = 7;
     else j.puloBuffer = Math.max(0, j.puloBuffer - 1);
@@ -702,6 +705,26 @@ const PLATAFORMA = (() => {
     ctx.fillText("🍄 " + cogumelosPegos, 165, 26);
     ctx.textAlign = "right";
     ctx.fillText("PONTOS " + pontos, VW - 14, 26);
+
+    // controle conectado?
+    if (gamepadAtivo !== null && !pausaManual) {
+      ctx.textAlign = "left";
+      ctx.font = "bold 15px Verdana";
+      ctx.fillStyle = "#14142b";
+      ctx.fillText("🎮 controle conectado", 14, 60);
+    }
+
+    // pausa manual (Start/Options)
+    if (pausaManual) {
+      ctx.fillStyle = "rgba(20,20,43,0.78)";
+      ctx.fillRect(0, 0, VW, VH);
+      ctx.textAlign = "center";
+      ctx.fillStyle = "#fff8e7";
+      ctx.font = "bold 30px Verdana";
+      ctx.fillText("⏸ PAUSADO", VW / 2, VH / 2 - 10);
+      ctx.font = "18px Verdana";
+      ctx.fillText("Start (Options) para continuar", VW / 2, VH / 2 + 30);
+    }
   }
 
   let acumulado = 0;
@@ -709,7 +732,7 @@ const PLATAFORMA = (() => {
     if (!rodando) return;
     const dt = Math.min(60, t - ultimo);
     ultimo = t;
-    if (!pausado) {
+    if (!pausado && !pausaManual) {
       acumulado += dt;
       let passos = 0;
       while (acumulado >= 16.67 && passos < 4) { acumulado -= 16.67; passos++; atualizar(); }
@@ -741,6 +764,45 @@ const PLATAFORMA = (() => {
     marcar(c.dir, "dir");
     marcar(c.pulo, "pulo");
   }
+
+  // ---------- controle (Gamepad: PlayStation, Xbox, genéricos) ----------
+  function lerGamepad() {
+    if (typeof navigator === "undefined" || !navigator.getGamepads) return;
+    const lista = navigator.getGamepads();
+    let gp = null;
+    for (let i = 0; i < lista.length; i++) {
+      if (lista[i] && lista[i].connected) { gp = lista[i]; break; }
+    }
+    if (!gp) {
+      gamepadAtivo = null;
+      pad.esq = pad.dir = pad.pulo = false;
+      return;
+    }
+    gamepadAtivo = gp.index;
+    gamepadNome = gp.id || "controle";
+    const ax = gp.axes || [];
+    const bt = gp.buttons || [];
+    const apertado = (i) => !!(bt[i] && (bt[i].pressed || bt[i].value > 0.5));
+
+    pad.esq = (ax[0] || 0) < -0.35 || apertado(14);   // analógico esquerdo ou direcional
+    pad.dir = (ax[0] || 0) > 0.35 || apertado(15);
+    // qualquer botão de ação pula (cruz, bola, quadrado, triângulo / A, B, X, Y) ou direcional para cima
+    pad.pulo = apertado(0) || apertado(1) || apertado(2) || apertado(3) || apertado(12);
+
+    // Start / Options pausa
+    const start = apertado(9);
+    if (start && !pad.pausaAntes) pausaManual = !pausaManual;
+    pad.pausaAntes = start;
+  }
+
+  window.addEventListener("gamepadconnected", (e) => {
+    gamepadAtivo = e.gamepad ? e.gamepad.index : 0;
+    gamepadNome = (e.gamepad && e.gamepad.id) || "controle";
+  });
+  window.addEventListener("gamepaddisconnected", () => {
+    gamepadAtivo = null;
+    pad.esq = pad.dir = pad.pulo = false;
+  });
 
   function desligarControles() {
     controlesLigados.forEach((el) => { if (el._limpar) el._limpar(); });
@@ -831,6 +893,7 @@ const PLATAFORMA = (() => {
     pontos = 0; cogumelosPegos = 0; grande = false; invuln = 0; flash = 0;
     respondidas = {}; perguntaPendente = null; acertos = 0; pausado = false; acumulado = 0;
     puloAntes = false; pulos = 0; justificativas = 0; acertosJust = 0; pedestalDentro = null;
+    pausaManual = false; pad.esq = pad.dir = pad.pulo = false; pad.pausaAntes = true;
     jog = { x: 0, y: 0, vx: 0, vy: 0, w: 22, h: 28, noChao: false, puloBuffer: 0, coyote: 0, dir: 1 };
     cam = { x: 0 };
     montarMapa();
@@ -861,6 +924,7 @@ const PLATAFORMA = (() => {
       cogumelos: vivaCogumelos(), inimigos: inimigos ? inimigos.length : 0, largTiles,
       perguntas: Object.keys(perguntaDoBloco).length,
       checkpoint: checkpointAtivo, checkpointX: Math.round(checkpointX / TILE),
+      pausaManual, gamepad: gamepadAtivo,
       casos: Object.keys(respondidas).length,
       totalCasos: fase ? fase.desafios.length : 0,
       pendentes: fase ? fase.desafios.length - Object.keys(respondidas).length : 0,
