@@ -1,99 +1,15 @@
 {
-  "atualizadoEm": "2026-10-15T01:12:19.554Z",
+  "atualizadoEm": "2026-10-15T15:29:19.379Z",
   "fontes": [
     "MEC",
     "Agência Brasil"
   ],
   "noticias": [
     {
-      "titulo": "De aluno a reitor: a trajetória de quem voltou à escola para ensinar",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/de-aluno-a-reitor-a-trajetoria-de-quem-voltou-a-escola-para-ensinar",
-      "fonte": "MEC",
-      "data": "outubro/2026"
-    },
-    {
-      "titulo": "Como o Instituto Federal preparou um futuro advogado",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/como-o-instituto-federal-preparou-um-futuro-advogado",
-      "fonte": "MEC",
-      "data": "outubro/2026"
-    },
-    {
-      "titulo": "Cuidotecas serão implantadas em 62 universidades federais",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/cuidotecas-serao-implantadas-em-62-universidades-federais",
-      "fonte": "MEC",
-      "data": "outubro/2026"
-    },
-    {
-      "titulo": "MEC realiza aulão com estudantes da EJA em Pernambuco",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/mec-realiza-aulao-com-estudantes-da-eja-em-pernambuco",
-      "fonte": "MEC",
-      "data": "outubro/2026"
-    },
-    {
-      "titulo": "Egressa da escola técnica à reitora do IFS: professora transforma oportunidades em compromisso com a educação pública",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/egressa-da-escola-tecnica-a-reitora-do-ifs-professora-transforma-oportunidades-em-compromisso-com-a-educacao-publica",
-      "fonte": "MEC",
-      "data": "outubro/2026"
-    },
-    {
-      "titulo": "PND 2026: Locais de prova da reaplicação estão disponíveis",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/pnd-2026-locais-de-prova-da-reaplicacao-estao-disponiveis",
-      "fonte": "MEC",
-      "data": "outubro/2026"
-    },
-    {
-      "titulo": "MEC debate infraestrutura escolar para expansão do tempo integral",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/mec-debate-infraestrutura-escolar-para-expansao-do-tempo-integral",
-      "fonte": "MEC",
-      "data": "outubro/2026"
-    },
-    {
-      "titulo": "Painel permite consultar repasses do Fundeb por rede de ensino",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/painel-permite-consultar-repasses-do-fundeb-por-rede-de-ensino",
-      "fonte": "MEC",
-      "data": "outubro/2026"
-    },
-    {
-      "titulo": "Da EJA ao título de doutora honoris causa",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/da-eja-ao-titulo-de-doutora-honoris-causa",
-      "fonte": "MEC",
-      "data": "outubro/2026"
-    },
-    {
-      "titulo": "PNLD Educação Infantil: escolha de obras começa nesta terça (13)",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/pnld-educacao-infantil-escolha-de-obras-comeca-nesta-terca-13",
-      "fonte": "MEC",
-      "data": "outubro/2026"
-    },
-    {
-      "titulo": "Rede nacional articulará educação digital nas escolas",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/rede-nacional-articulara-educacao-digital-nas-escolas",
-      "fonte": "MEC",
-      "data": "outubro/2026"
-    },
-    {
-      "titulo": "MEC solicita atuação da PF e da AGU em função das ameaças às universidades federais",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/mec-solicita-atuacao-da-pf-e-da-agu-em-funcao-das-ameacas-as-universidades-federais",
-      "fonte": "MEC",
-      "data": "outubro/2026"
-    },
-    {
-      "titulo": "Educação para as relações étnico-raciais é tema do PodMEC",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/educacao-para-as-relacoes-etnico-raciais-e-tema-do-podmec",
-      "fonte": "MEC",
-      "data": "outubro/2026"
-    },
-    {
-      "titulo": "Santa Catarina tem 133,2 mil inscritos na edição de 2026 do Enem",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/santa-catarina-tem-133-2-mil-inscritos-na-edicao-de-2026-do-enem",
-      "fonte": "MEC",
-      "data": "outubro/2026"
-    },
-    {
-      "titulo": "Rio Grande do Sul tem 206,5 mil inscritos na edição de 2026 do Enem",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/rio-grande-do-sul-tem-206-5-mil-inscritos-na-edicao-de-2026-do-enem",
-      "fonte": "MEC",
-      "data": "outubro/2026"
+      "titulo": "Flávio quer escolas militares; Lula propõe ampliar educação integral",
+      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-10/flavio-quer-escolas-militares-lula-propoe-ampliar-educacao-integral",
+      "fonte": "Agência Brasil",
+      "data": "15/10"
     },
     {
       "titulo": "Candidato já pode conferir onde fará reaplicação da PND, no domingo",
@@ -138,16 +54,76 @@
       "data": "08/10"
     },
     {
+      "titulo": "MEC vai construir novo prédio para laboratórios da UFPE",
+      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-10/mec-vai-construir-novo-predio-para-laboratorios-da-ufpe",
+      "fonte": "Agência Brasil",
+      "data": "08/10"
+    },
+    {
       "titulo": "Universidade Federal Fluminense aciona PF após receber ameaças",
       "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-10/universidade-federal-fluminense-aciona-pf-apos-receber-amecas",
       "fonte": "Agência Brasil",
       "data": "08/10"
     },
     {
-      "titulo": "MEC vai construir novo prédio para laboratórios da UFPE",
-      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-10/mec-vai-construir-novo-predio-para-laboratorios-da-ufpe",
+      "titulo": "São Paulo terá mais chuvas fortes no fim da tarde desta quinta (15)",
+      "link": "https://agenciabrasil.ebc.com.br/geral/noticia/2026-10/sao-paulo-tera-mais-chuvas-fortes-no-fim-da-tarde-desta-quinta-15",
       "fonte": "Agência Brasil",
-      "data": "08/10"
+      "data": "15/10"
+    },
+    {
+      "titulo": "Polícia Federal e MPSP fazem operação contra tráfico de drogas",
+      "link": "https://agenciabrasil.ebc.com.br/geral/noticia/2026-10/policia-federal-e-mpsp-fazem-operacao-contra-trafico-de-drogas",
+      "fonte": "Agência Brasil",
+      "data": "15/10"
+    },
+    {
+      "titulo": "PF faz nova ação contra suspeitos de lavagem de dinheiro em postos",
+      "link": "https://agenciabrasil.ebc.com.br/geral/noticia/2026-10/pf-faz-nova-acao-contra-suspeitos-de-lavagem-de-dinheiro-em-postos",
+      "fonte": "Agência Brasil",
+      "data": "15/10"
+    },
+    {
+      "titulo": "Mega-Sena acumula para R$ 170 milhões; confira os números sorteados",
+      "link": "https://agenciabrasil.ebc.com.br/geral/noticia/2026-10/mega-sena-acumula-para-r-170-milhoes-confira-os-numeros-sorteados",
+      "fonte": "Agência Brasil",
+      "data": "15/10"
+    },
+    {
+      "titulo": "Parte do teto de túnel da Câmara desabou nesta quarta-feira",
+      "link": "https://agenciabrasil.ebc.com.br/geral/noticia/2026-10/parte-do-teto-de-tunel-da-camara-desabou-nesta-quarta-feira",
+      "fonte": "Agência Brasil",
+      "data": "14/10"
+    },
+    {
+      "titulo": "CCJ do Senado conclui votação da PEC da Segurança Pública",
+      "link": "https://agenciabrasil.ebc.com.br/geral/noticia/2026-10/ccj-do-senado-conclui-votacao-da-pec-da-seguranca-publica",
+      "fonte": "Agência Brasil",
+      "data": "14/10"
+    },
+    {
+      "titulo": "Mega-Sena sorteia hoje prêmio acumulado de R$ 150 milhões",
+      "link": "https://agenciabrasil.ebc.com.br/geral/noticia/2026-10/mega-sena-sorteia-hoje-premio-acumulado-de-r-150-milhoes",
+      "fonte": "Agência Brasil",
+      "data": "14/10"
+    },
+    {
+      "titulo": "Feriadão de Nossa Senhora Aparecida teve 68 mortes nas estradas",
+      "link": "https://agenciabrasil.ebc.com.br/geral/noticia/2026-10/feriadao-de-nossa-senhora-aparecida-teve-68-mortes-nas-estradas",
+      "fonte": "Agência Brasil",
+      "data": "13/10"
+    },
+    {
+      "titulo": "Prefeitura de SP começa a fiscalizar bicicletas e patinetes elétricos",
+      "link": "https://agenciabrasil.ebc.com.br/geral/noticia/2026-10/prefeitura-de-sp-comeca-fiscalizar-bicicletas-e-patinetes-eletricos",
+      "fonte": "Agência Brasil",
+      "data": "13/10"
+    },
+    {
+      "titulo": "Aena assume Galeão e propõe aumentar destinos e frequência de voos",
+      "link": "https://agenciabrasil.ebc.com.br/geral/noticia/2026-10/aena-assume-galeao-e-propoe-aumentar-destinos-e-frequencia-de-voos",
+      "fonte": "Agência Brasil",
+      "data": "13/10"
     }
   ],
   "temasRedacao": [
