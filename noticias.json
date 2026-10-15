@@ -1,10 +1,22 @@
 {
-  "atualizadoEm": "2026-10-14T15:41:51.169Z",
+  "atualizadoEm": "2026-10-15T01:12:19.554Z",
   "fontes": [
     "MEC",
     "Agência Brasil"
   ],
   "noticias": [
+    {
+      "titulo": "De aluno a reitor: a trajetória de quem voltou à escola para ensinar",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/de-aluno-a-reitor-a-trajetoria-de-quem-voltou-a-escola-para-ensinar",
+      "fonte": "MEC",
+      "data": "outubro/2026"
+    },
+    {
+      "titulo": "Como o Instituto Federal preparou um futuro advogado",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/como-o-instituto-federal-preparou-um-futuro-advogado",
+      "fonte": "MEC",
+      "data": "outubro/2026"
+    },
     {
       "titulo": "Cuidotecas serão implantadas em 62 universidades federais",
       "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/cuidotecas-serao-implantadas-em-62-universidades-federais",
@@ -84,20 +96,14 @@
       "data": "outubro/2026"
     },
     {
-      "titulo": "Paraná tem 221,7 mil inscritos na edição de 2026 do Enem",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/parana-tem-221-7-mil-inscritos-na-edicao-de-2026-do-enem",
-      "fonte": "MEC",
-      "data": "outubro/2026"
-    },
-    {
-      "titulo": "São Paulo tem 851,8 mil inscritos na edição de 2026 do Enem",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/sao-paulo-tem-851-8-mil-inscritos-na-edicao-de-2026-do-enem",
-      "fonte": "MEC",
-      "data": "outubro/2026"
-    },
-    {
       "titulo": "Candidato já pode conferir onde fará reaplicação da PND, no domingo",
       "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-10/candidato-ja-pode-conferir-onde-fara-reaplicacao-da-pnd-no-domingo",
+      "fonte": "Agência Brasil",
+      "data": "14/10"
+    },
+    {
+      "titulo": "Lula garante versão universitária do “Pé de Meia” caso seja reeleito",
+      "link": "https://agenciabrasil.ebc.com.br/politica/noticia/2026-10/lula-garante-versao-universitaria-do-pe-de-meia-caso-seja-reeleito",
       "fonte": "Agência Brasil",
       "data": "14/10"
     },
@@ -132,20 +138,14 @@
       "data": "08/10"
     },
     {
-      "titulo": "MEC vai construir novo prédio para laboratórios da UFPE",
-      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-10/mec-vai-construir-novo-predio-para-laboratorios-da-ufpe",
-      "fonte": "Agência Brasil",
-      "data": "08/10"
-    },
-    {
       "titulo": "Universidade Federal Fluminense aciona PF após receber ameaças",
       "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-10/universidade-federal-fluminense-aciona-pf-apos-receber-amecas",
       "fonte": "Agência Brasil",
       "data": "08/10"
     },
     {
-      "titulo": "Enem 2026: inscrito automaticamente deve escolher idioma da prova",
-      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-10/enem-2026-inscrito-automaticamente-deve-escolher-idioma-da-prova",
+      "titulo": "MEC vai construir novo prédio para laboratórios da UFPE",
+      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-10/mec-vai-construir-novo-predio-para-laboratorios-da-ufpe",
       "fonte": "Agência Brasil",
       "data": "08/10"
     }
