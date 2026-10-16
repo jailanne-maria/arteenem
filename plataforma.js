@@ -26,6 +26,8 @@ const PLATAFORMA = (() => {
   let justificativas = 0, acertosJust = 0;
   let checkpointX = 0, checkpointAtivo = false, pedestalDentro = null;
   let pausaManual = false, gamepadAtivo = null, gamepadNome = "";
+  let volumeSom = 0.6, assistencia = false, pontesAtivas = false, quedas = 0, luzesPegas = 0;
+  let luzes = [];
   const pad = { esq: false, dir: false, pulo: false, pausaAntes: false };
   let quebrados = new Set(), inimigosMortos = new Set();
   let cogumeloEm = new Set();
@@ -48,7 +50,13 @@ const PLATAFORMA = (() => {
       return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
     };
   }
-  const tile = (tx, ty) => (tx < 0 || tx >= largTiles || ty < 0 || ty >= ALTURA ? CHAO : mapa[ty][tx]);
+  let buracosAtuais = [];
+  const tile = (tx, ty) => {
+    if (tx < 0 || tx >= largTiles || ty < 0 || ty >= ALTURA) return CHAO;
+    // assistência: depois de quedas repetidas, uma ponte cobre os buracos
+    if (pontesAtivas && ty >= 12 && buracosAtuais.some((b) => tx >= b.x && tx < b.x + b.larg)) return CHAO;
+    return mapa[ty][tx];
+  };
   const porTile = (v) => Math.floor(v / TILE);
 
   const SOLIDO = (t) => t === CHAO || t === PLAT || t === TIJOLO || t === INTERROGACAO || t === USADO;
@@ -180,6 +188,7 @@ const PLATAFORMA = (() => {
       buracos.push({ x: bx, larg });
     }
     const dentroBuraco = (x, w) => buracos.some((b) => x + w > b.x - 2 && x < b.x + b.larg + 2);
+    buracosAtuais = buracos;
 
     // plataformas flutuantes (linhas 7 a 10 — alcançáveis)
     for (let i = 0; i < 9; i++) {
@@ -247,6 +256,16 @@ const PLATAFORMA = (() => {
       criados++;
     }
 
+    luzes = [];
+    let tentL = 0;
+    while (luzes.length < 20 && tentL++ < 400) {
+      const lx = 8 + Math.floor(r() * (largTiles - 18));
+      const ly = 10 + Math.floor(r() * 2);
+      if (dentroBuraco(lx, 2)) continue;
+      if (luzes.some((l) => Math.abs(l.x - lx * TILE) < 3 * TILE)) continue;
+      luzes.push({ x: lx * TILE + 12, y: ly * TILE, r: 9, pega: false });
+    }
+
     cogumelos = [];
     particulas = [];
     quebrados = new Set();
@@ -278,7 +297,7 @@ const PLATAFORMA = (() => {
     }
     if (t === TIJOLO) {
       mapa[ty][tx] = VAZIO;
-      quebrados.add(tx + ":" + ty);
+      somQuebra(); quebrados.add(tx + ":" + ty);
       for (let i = 0; i < 6; i++) {
         particulas.push({ x: tx * TILE + 16, y: ty * TILE + 16, vx: (Math.random() - 0.5) * 5, vy: -3 - Math.random() * 3, vida: 30 });
       }
@@ -336,7 +355,7 @@ const PLATAFORMA = (() => {
     puloAntes = pulando;
     if (j.noChao) j.coyote = 7; else j.coyote = Math.max(0, j.coyote - 1);
     if (j.puloBuffer > 0 && j.coyote > 0) {
-      j.vy = -JUMP; j.noChao = false; j.coyote = 0; j.puloBuffer = 0; j.y -= 2; pulos++;
+      j.vy = -JUMP; j.noChao = false; j.coyote = 0; j.puloBuffer = 0; j.y -= 2; pulos++; somPulo();
     }
     if (!pulando && j.vy < -4) j.vy += 0.5; // pulo variável
 
@@ -384,7 +403,7 @@ const PLATAFORMA = (() => {
     // inimigos (pisado = eliminado até reiniciar a fase)
     for (const e of inimigos) {
       if (!e.viva) continue;
-      e.x += e.dir * 1.05;
+      e.x += e.dir * (assistencia ? 0.6 : 1.05);
       if (e.x < e.min) { e.x = e.min; e.dir = 1; }
       if (e.x > e.max) { e.x = e.max; e.dir = -1; }
       if (intersecta(j, e)) {
@@ -392,7 +411,7 @@ const PLATAFORMA = (() => {
         if (porCima) {
           e.viva = false;
           if (e.id) inimigosMortos.add(e.id);
-          j.vy = -7.5;
+          j.vy = -7.5; somAcerto();
           pontos += 50;
         } else levarDano();
       }
@@ -414,6 +433,7 @@ const PLATAFORMA = (() => {
         // recupera um coração até o limite e concede a proteção (que não acumula)
         vidas = Math.min(MAX_CORACOES, vidas + 1);
         atualizarHudExterno();
+        somCogumelo();
         if (!grande) { grande = true; j.y -= 12; j.h = 40; }
       }
     }
@@ -424,6 +444,17 @@ const PLATAFORMA = (() => {
     if (perto) {
       if (pedestalDentro !== perto.chave) { pedestalDentro = perto.chave; return abrirPergunta(perto.chave); }
     } else pedestalDentro = null;
+
+    // luzes colecionáveis (+10 pontos)
+    for (const l of luzes) {
+      if (l.pega) continue;
+      if (j.x < l.x + l.r && j.x + j.w > l.x - l.r && j.y < l.y + l.r && j.y + j.h > l.y - l.r) {
+        l.pega = true;
+        luzesPegas++;
+        pontos += 10;
+        somMoeda();
+      }
+    }
 
     for (const p of particulas) { p.x += p.vx; p.y += p.vy; p.vy += 0.4; p.vida--; }
     particulas = particulas.filter((p) => p.vida > 0);
@@ -452,7 +483,7 @@ const PLATAFORMA = (() => {
   }
 
   function levarDano() {
-    if (invuln > 0) return;
+    if (invuln > 0) return; somDano();
     if (grande) {
       // perde a proteção e volta ao tamanho normal, continuando no lugar
       grande = false;
@@ -469,6 +500,8 @@ const PLATAFORMA = (() => {
   }
 
   function cairNoBuraco() {
+    quedas++;
+    if (quedas >= 3) pontesAtivas = true; // travessia assistida
     // queda no poço: perde um coração mesmo com proteção, que é removida
     grande = false;
     if (jog.h !== 28) jog.h = 28;
@@ -619,6 +652,27 @@ const PLATAFORMA = (() => {
     ctx.closePath();
     ctx.fill();
 
+    // luzes colecionáveis
+    for (const l of luzes) {
+      if (l.pega) continue;
+      const lx = Math.round(l.x - cam.x);
+      ctx.fillStyle = "#fbd000";
+      ctx.beginPath(); ctx.arc(lx, l.y + 12, 9, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = "#fff8e7";
+      ctx.beginPath(); ctx.arc(lx - 3, l.y + 9, 3, 0, Math.PI * 2); ctx.fill();
+    }
+
+    // ponte da assistência sobre os buracos
+    if (pontesAtivas) {
+      for (const b of buracosAtuais) {
+        const bx = Math.round(b.x * TILE - cam.x);
+        ctx.fillStyle = "#c9a86a";
+        ctx.fillRect(bx, 12 * TILE, b.larg * TILE, 10);
+        ctx.fillStyle = "#8a5a2b";
+        ctx.fillRect(bx, 12 * TILE + 10, b.larg * TILE, 6);
+      }
+    }
+
     // pedestais (acesso à investigação no nível do chão)
     for (const pd of pedestais) {
       if (respondidas[pd.chave]) continue;
@@ -702,7 +756,8 @@ const PLATAFORMA = (() => {
     let coracoes = "";
     for (let i = 0; i < Math.min(vidas, 6); i++) coracoes += "❤";
     ctx.fillText(coracoes || "❤", 14, 26);
-    ctx.fillText("🍄 " + cogumelosPegos, 165, 26);
+    ctx.fillText("🍄 " + cogumelosPegos, 150, 26);
+    ctx.fillText("🔆 " + luzesPegas, 240, 26);
     ctx.textAlign = "right";
     ctx.fillText("PONTOS " + pontos, VW - 14, 26);
 
@@ -723,7 +778,7 @@ const PLATAFORMA = (() => {
       ctx.font = "bold 30px Verdana";
       ctx.fillText("⏸ PAUSADO", VW / 2, VH / 2 - 10);
       ctx.font = "18px Verdana";
-      ctx.fillText("Start (Options) para continuar", VW / 2, VH / 2 + 30);
+      ctx.fillText("Start (Options) ou Esc para continuar", VW / 2, VH / 2 + 30);
     }
   }
 
@@ -764,6 +819,39 @@ const PLATAFORMA = (() => {
     marcar(c.dir, "dir");
     marcar(c.pulo, "pulo");
   }
+
+  // ---------- som (gerado por código, sem arquivos) ----------
+  let audioCtx = null;
+  function ctxAudio() {
+    if (audioCtx) return audioCtx;
+    const AC = window.AudioContext || window.webkitAudioContext;
+    if (!AC) return null;
+    try { audioCtx = new AC(); } catch (e) { audioCtx = null; }
+    return audioCtx;
+  }
+  function tocar(freq, dur, tipo, ganho) {
+    if (volumeSom <= 0) return;
+    const ac = ctxAudio();
+    if (!ac) return;
+    try {
+      if (ac.state === "suspended" && ac.resume) ac.resume();
+      const osc = ac.createOscillator();
+      const g = ac.createGain();
+      osc.type = tipo || "square";
+      osc.frequency.value = freq;
+      g.gain.value = (ganho || 0.12) * volumeSom;
+      g.gain.exponentialRampToValueAtTime(0.0001, ac.currentTime + dur);
+      osc.connect(g); g.connect(ac.destination);
+      osc.start(); osc.stop(ac.currentTime + dur);
+    } catch (e) { /* sem audio */ }
+  }
+  const somPulo = () => tocar(520, 0.12, "square", 0.1);
+  const somQuebra = () => tocar(180, 0.1, "sawtooth", 0.12);
+  const somCogumelo = () => { tocar(660, 0.1); setTimeout(() => tocar(990, 0.14), 90); };
+  const somMoeda = () => { tocar(990, 0.07); setTimeout(() => tocar(1320, 0.09), 60); };
+  const somAcerto = () => { tocar(660, 0.1); setTimeout(() => tocar(990, 0.16), 100); };
+  const somErro = () => { tocar(220, 0.2, "triangle", 0.14); };
+  const somDano = () => tocar(140, 0.22, "sawtooth", 0.16);
 
   // ---------- controle (Gamepad: PlayStation, Xbox, genéricos) ----------
   function lerGamepad() {
@@ -814,6 +902,11 @@ const PLATAFORMA = (() => {
     if (!rodando) return;
     const k = e.key;
     if (["ArrowLeft", "ArrowRight", "ArrowUp", " ", "ArrowDown"].indexOf(k) >= 0 && e.preventDefault) e.preventDefault();
+    if (k === "Escape" || k === "p" || k === "P") {
+      if (e.preventDefault) e.preventDefault();
+      pausaManual = !pausaManual;
+      return;
+    }
     teclas[k] = baixou;
   }
   window.addEventListener("keydown", (e) => aoTecla(e, true));
@@ -894,6 +987,7 @@ const PLATAFORMA = (() => {
     respondidas = {}; perguntaPendente = null; acertos = 0; pausado = false; acumulado = 0;
     puloAntes = false; pulos = 0; justificativas = 0; acertosJust = 0; pedestalDentro = null;
     pausaManual = false; pad.esq = pad.dir = pad.pulo = false; pad.pausaAntes = true;
+    luzesPegas = 0; quedas = 0; pontesAtivas = false;
     jog = { x: 0, y: 0, vx: 0, vy: 0, w: 22, h: 28, noChao: false, puloBuffer: 0, coyote: 0, dir: 1 };
     cam = { x: 0 };
     montarMapa();
@@ -914,6 +1008,10 @@ const PLATAFORMA = (() => {
     responder,
     svgBoneco,
     salvarSessao,
+    somResposta: (acertou) => (acertou ? somAcerto() : somErro()),
+    definirVolume: (v) => { volumeSom = Math.max(0, Math.min(1, Number(v) / 100)); },
+    definirAssistencia: (v) => { assistencia = !!v; },
+    _luzes: () => luzes.length,
     irParaCasoPendente,
     retomarDoCheckpoint,
     _estado: () => ({

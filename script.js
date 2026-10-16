@@ -896,7 +896,7 @@ aplicarTema(temaAtual());
 // ============================================================
 // ACESSIBILIDADE (tamanho do texto, movimento e controles)
 // ============================================================
-const ACESSO_PADRAO = { texto: 100, movimento: "normal", controles: "m" };
+const ACESSO_PADRAO = { texto: 100, movimento: "normal", controles: "m", som: 60, assistencia: false };
 
 function acessoAtual() {
   try {
@@ -912,6 +912,10 @@ function aplicarAcesso(mudanca) {
   document.documentElement.setAttribute("data-movimento", cfg.movimento);
   document.documentElement.setAttribute("data-controles", cfg.controles);
   try { localStorage.setItem("nina_acesso", JSON.stringify(cfg)); } catch {}
+  if (typeof PLATAFORMA !== "undefined") {
+    if (PLATAFORMA.definirVolume) PLATAFORMA.definirVolume(cfg.som);
+    if (PLATAFORMA.definirAssistencia) PLATAFORMA.definirAssistencia(cfg.assistencia);
+  }
   marcarBotoesAcesso(cfg);
   return cfg;
 }
@@ -921,6 +925,8 @@ function marcarBotoesAcesso(cfg) {
   document.querySelectorAll("[data-texto]").forEach((b) => b.classList.toggle("ativa", Number(b.dataset.texto) === c.texto));
   document.querySelectorAll("[data-mov]").forEach((b) => b.classList.toggle("ativa", b.dataset.mov === c.movimento));
   document.querySelectorAll("[data-controle]").forEach((b) => b.classList.toggle("ativa", b.dataset.controle === c.controles));
+  document.querySelectorAll("[data-som]").forEach((b) => b.classList.toggle("ativa", Number(b.dataset.som) === c.som));
+  document.querySelectorAll("[data-assist]").forEach((b) => b.classList.toggle("ativa", (b.dataset.assist === "1") === !!c.assistencia));
 }
 
 document.querySelectorAll("[data-texto]").forEach((b) =>
@@ -931,6 +937,12 @@ document.querySelectorAll("[data-mov]").forEach((b) =>
 );
 document.querySelectorAll("[data-controle]").forEach((b) =>
   b.addEventListener("click", () => aplicarAcesso({ controles: b.dataset.controle }))
+);
+document.querySelectorAll("[data-som]").forEach((b) =>
+  b.addEventListener("click", () => aplicarAcesso({ som: Number(b.dataset.som) }))
+);
+document.querySelectorAll("[data-assist]").forEach((b) =>
+  b.addEventListener("click", () => aplicarAcesso({ assistencia: b.dataset.assist === "1" }))
 );
 
 function abrirAcesso() {
@@ -2563,6 +2575,7 @@ function concluirCaso() {
   const btn = document.getElementById("btn-proximo-desafio");
   btn.textContent = "📓 Registrar descoberta e voltar";
   exibir(btn);
+  if (typeof PLATAFORMA !== "undefined" && PLATAFORMA.somResposta) PLATAFORMA.somResposta(acertouClass);
   anunciar(`${acertouClass ? "Classificação correta." : "Classificação incorreta."}${temJust ? (acertouJust ? " Justificativa correta." : " Justificativa incorreta.") : ""}`);
 }
 
