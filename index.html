@@ -10,7 +10,7 @@
   <link rel="apple-touch-icon" href="img/icon-192.png">
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#5c94fc">
-  <link rel="stylesheet" href="style.css?v=100">
+  <link rel="stylesheet" href="style.css?v=101">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
@@ -573,6 +573,54 @@
       <div id="admin-conteudo" class="admin-conteudo"></div>
     </section>
 
+    <!-- ===== EXPLORAR: ABERTURA (FAÍSCA) ===== -->
+    <section id="tela-explorar-intro" class="tela">
+      <div class="hero esquerda">
+        <h1>Guardiões da <span class="destaque">Memória</span></h1>
+        <p>Uma aventura sobre investigar antes de acreditar.</p>
+      </div>
+
+      <div class="faisca-bloco">
+        <span class="faisca-svg" aria-hidden="true">
+          <svg viewBox="0 0 40 40" width="56" height="56">
+            <path d="M20 33 v6" stroke="#fbd000" stroke-width="4" stroke-linecap="round" opacity="0.6"/>
+            <ellipse cx="20" cy="24" rx="9" ry="11" fill="#fbd000" stroke="#14142b" stroke-width="2"/>
+            <ellipse cx="20" cy="12" rx="7" ry="6" fill="#fff8e7" stroke="#14142b" stroke-width="2"/>
+            <circle cx="17" cy="12" r="1.6" fill="#14142b"/>
+            <circle cx="23" cy="12" r="1.6" fill="#14142b"/>
+            <path d="M20 6 Q14 0 8 4" fill="none" stroke="#14142b" stroke-width="2" stroke-linecap="round"/>
+            <path d="M20 6 Q26 0 32 4" fill="none" stroke="#14142b" stroke-width="2" stroke-linecap="round"/>
+            <ellipse cx="11" cy="24" rx="7" ry="4" fill="#cfe8ff" opacity="0.9" stroke="#14142b" stroke-width="1.6"/>
+            <ellipse cx="29" cy="24" rx="7" ry="4" fill="#cfe8ff" opacity="0.9" stroke="#14142b" stroke-width="1.6"/>
+          </svg>
+        </span>
+        <div class="mascote-balao">
+          <span class="mascote-nome">FAÍSCA</span>
+          <p id="faisca-fala"></p>
+        </div>
+      </div>
+
+      <p id="faisca-contador" class="faisca-contador"></p>
+      <button id="btn-faisca-proximo" class="btn-principal">Continuar ▸</button>
+
+      <div id="faisca-controles" class="painel-bloco escondido">
+        <h3 class="secao-titulo">🎮 Controles</h3>
+        <ul class="faisca-lista">
+          <li><strong>Andar:</strong> setas ← → (ou A/D) · no celular, os botões ◀ ▶</li>
+          <li><strong>Pular:</strong> espaço, ↑ ou W · no celular, o botão <strong>Pular</strong> · no controle, qualquer botão de ação</li>
+          <li><strong>Controle (PlayStation/Xbox):</strong> analógico ou direcional para andar · <strong>Start/Options</strong> pausa</li>
+          <li><strong>Investigar:</strong> bata nos blocos <strong>?</strong> ou encoste nos <strong>pedestais</strong> do chão</li>
+          <li><strong>Sem jogar:</strong> no início de cada fase use <strong>♿ Jogar sem o jogo</strong></li>
+        </ul>
+      </div>
+
+      <div class="faisca-acoes">
+        <button id="btn-explorar-comecar" class="btn-principal">🚀 Começar aventura</button>
+        <button id="btn-faisca-controles" class="btn-secundario">🎮 Ver controles</button>
+        <button id="btn-faisca-pular" class="btn-secundario">⏭ Pular introdução</button>
+      </div>
+    </section>
+
     <!-- ===== EXPLORAR (MAPA DO JOGO) ===== -->
     <section id="tela-explorar" class="tela">
       <div class="explorar-topo">
@@ -585,6 +633,7 @@
         <div class="avatar-info">
           <strong id="avatar-nome">Seu aventureiro</strong>
           <button id="btn-trocar-avatar" class="btn-ghost">🔄 Trocar avatar</button>
+          <button id="btn-rever-intro" class="btn-ghost">📖 Rever a introdução</button>
         </div>
       </div>
 
@@ -1187,8 +1236,11 @@
           Escolha uma letra para ver as palavras:
         </p>
         <div id="acreanes-letras" class="glossario-letras"></div>
+        <p class="aviso-contexto">⚠️ <strong>Atenção:</strong> este é um <strong>dicionário regional</strong> — como em qualquer dicionário, alguns verbetes trazem <strong>palavrões e definições de teor sexual</strong>, registrados em contexto de estudo da língua. A leitura é educativa e acontece com a mediação do professor.</p>
         <div id="acreanes-lista" class="glossario-lista"></div>
       </div>
+
+      <p class="aviso-contexto">🔗 Os livros e artigos abaixo abrem em <strong>sites externos</strong> (Wikipédia, acervos de domínio público, revistas da UFAC). O NINA não controla o conteúdo dessas páginas — em caso de dúvida, fale com a professora.</p>
 
       <div id="biblioteca-lista" class="biblioteca-lista"></div>
 
@@ -1341,7 +1393,7 @@
             <li><strong>Biblioteca</strong> — clássicos da literatura e artigos enciclopédicos abertos em <strong>links externos</strong>, cujo conteúdo não é filtrado pelo NINA;</li>
             <li><strong>Espaços de conversa</strong> — mural, chat da turma, chat da escola e conversa com a professora, com texto escrito pelos próprios usuários.</li>
           </ul>
-          <p>Por isso a autoavaliação é <strong>12 anos</strong>. Se o dicionário e os links externos receberem aviso de contexto e a moderação seguir ativa, a faixa pode ser revista para <strong>Livre/10</strong>.</p>
+          <p>Por isso a autoavaliação é <strong>12 anos</strong>. O dicionário e os links externos <strong>já têm aviso de contexto dentro do app</strong> e a moderação segue ativa; mesmo assim mantemos <strong>12 anos</strong> como medida conservadora, porque o aplicativo também tem espaços de conversa entre usuários.</p>
           <p class="sobre-nota">Esta é uma <strong>autoavaliação do projeto</strong>, feita a partir dos eixos do Guia Prático da Classificação Indicativa (Ministério da Justiça). A classificação oficial é expedida pelo Ministério da Justiça e Segurança Pública.</p>
           <p class="sobre-nota">Em ambiente escolar, o uso é recomendado <strong>com mediação do professor</strong>, conforme o art. 10 da Lei nº 14.852/2024 (Marco Legal dos Jogos Eletrônicos), que permite o uso de jogos com fins didáticos em conformidade com a BNCC, observada a classificação etária.</p>
         </div>
@@ -1562,19 +1614,19 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
 
-  <script src="questoes.js?v=100"></script>
-  <script src="questoes-arte.js?v=100"></script>
-  <script src="plano.js?v=100"></script>
-  <script src="explorar.js?v=100"></script>
-  <script src="figurinhas.js?v=100"></script>
-  <script src="curriculo.js?v=100"></script>
-  <script src="cursos.js?v=100"></script>
-  <script src="mascote.js?v=100"></script>
-  <script src="glossario.js?v=100"></script>
-  <script src="glossario-acreanes.js?v=100"></script>
-  <script src="encenacao.js?v=100"></script>
-    <script src="plataforma.js?v=100"></script>
-  <script src="firebase-config.js?v=100"></script>
-  <script src="script.js?v=100"></script>
+  <script src="questoes.js?v=101"></script>
+  <script src="questoes-arte.js?v=101"></script>
+  <script src="plano.js?v=101"></script>
+  <script src="explorar.js?v=101"></script>
+  <script src="figurinhas.js?v=101"></script>
+  <script src="curriculo.js?v=101"></script>
+  <script src="cursos.js?v=101"></script>
+  <script src="mascote.js?v=101"></script>
+  <script src="glossario.js?v=101"></script>
+  <script src="glossario-acreanes.js?v=101"></script>
+  <script src="encenacao.js?v=101"></script>
+    <script src="plataforma.js?v=101"></script>
+  <script src="firebase-config.js?v=101"></script>
+  <script src="script.js?v=101"></script>
 </body>
 </html>

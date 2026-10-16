@@ -5847,3 +5847,53 @@ h1, h2, h3, h4, .marca-nome, .btn-principal, .btn-secundario, .btn-google, .btn-
 /* Categorias novas do roteiro */
 .btn-vf.enganosa { background: var(--yellow); color: var(--black); }
 .btn-vf.insuficiente { background: var(--roxo); }
+/* ===== AVISO DE CONTEXTO (dicionário e links externos) ===== */
+.aviso-contexto {
+  background: var(--surface-3);
+  border-left: 6px solid var(--yellow-dark);
+  border-radius: 8px;
+  padding: 10px 14px;
+  margin: 12px 0 18px;
+  font-size: 0.95rem;
+  line-height: 1.45;
+  color: var(--on-surface-2);
+}
+
+/* ===== ABERTURA DA FAÍSCA ===== */
+.faisca-bloco {
+  display: flex;
+  align-items: flex-end;
+  gap: 14px;
+  margin: 10px 0 16px;
+}
+
+.faisca-svg svg {
+  filter: drop-shadow(2px 3px 0 rgba(0, 0, 0, 0.35));
+}
+
+.faisca-contador {
+  text-align: center;
+  font-family: var(--pixel);
+  font-size: 0.55rem;
+  color: var(--muted);
+  margin-bottom: 10px;
+}
+
+.faisca-acoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+  margin-top: 18px;
+}
+
+.faisca-lista {
+  margin: 0 0 6px 18px;
+}
+
+.faisca-lista li {
+  margin-bottom: 8px;
+  font-size: 1rem;
+  line-height: 1.45;
+  color: var(--on-surface-2);
+}

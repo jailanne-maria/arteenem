@@ -1948,6 +1948,7 @@ function carregarEstadoExplorar() {
     fasesConcluidas: (usuario && usuario.fasesConcluidas) || [],
     melhores: (usuario && usuario.melhores) || {},
     sessao: (usuario && usuario.sessao) || null,
+    introVista: !!(usuario && usuario.introVista),
   };
 }
 
@@ -1955,18 +1956,79 @@ function avatarPorId(id) {
   return AVATARES.find((a) => a.id === id) || AVATARES[0];
 }
 
+// Mantém o perfil em memória igual ao estado local (evita perder o progresso
+// dentro da mesma sessão, quando carregarEstadoExplorar lê de usuario.*)
+function sincronizarExplorarUsuario() {
+  if (!usuario) return;
+  usuario.avatarId = explorarEstado.avatarId;
+  usuario.fasesConcluidas = explorarEstado.fasesConcluidas || [];
+  usuario.melhores = explorarEstado.melhores || {};
+  usuario.sessao = explorarEstado.sessao || null;
+  usuario.introVista = !!explorarEstado.introVista;
+}
+
 function salvarExplorar() {
+  sincronizarExplorarUsuario();
   if (!usuario) return Promise.resolve();
   return salvarUsuario(usuario.uid, {
     avatarId: explorarEstado.avatarId,
     fasesConcluidas: explorarEstado.fasesConcluidas,
     melhores: explorarEstado.melhores || {},
     sessao: explorarEstado.sessao || null,
+    introVista: !!explorarEstado.introVista,
   }).catch(() => {});
 }
 
+// ============================================================
+// EXPLORAR — ABERTURA COM A FAÍSCA (3 cenas)
+// ============================================================
+const FAISCA_CENAS = [
+  "No coração de uma floresta atravessada por rios existe o Arquivo Vivo: um lugar que guarda registros de diferentes sociedades. Uma névoa começou a trocar legendas, esconder documentos e espalhar afirmações sem evidências. Cada região do arquivo perdeu uma parte da sua memória. “Uma história pode mudar quando alguém esconde uma parte dela.”",
+  "“As pistas ainda estão por aqui. Precisamos encontrar as fontes e descobrir o que elas realmente mostram.”",
+  "“Oito destinos apareceram no mapa. Explore, compare e investigue. E quando faltar uma prova, você também pode dizer: ainda não dá para concluir.”",
+];
+let faiscaCena = 0;
+
+function renderFaisca() {
+  document.getElementById("faisca-fala").textContent = FAISCA_CENAS[faiscaCena];
+  document.getElementById("faisca-contador").textContent = `Cena ${faiscaCena + 1} de ${FAISCA_CENAS.length}`;
+  document.getElementById("btn-faisca-proximo").textContent =
+    faiscaCena + 1 < FAISCA_CENAS.length ? "Continuar ▸" : "Entendi ▸";
+  anunciar(FAISCA_CENAS[faiscaCena]);
+}
+
+function abrirIntroExplorar() {
+  faiscaCena = 0;
+  esconder(document.getElementById("faisca-controles"));
+  renderFaisca();
+  mostrarTela("tela-explorar-intro");
+}
+
+function finalizarIntro() {
+  explorarEstado.introVista = true;
+  salvarExplorar();
+  abrirExplorar();
+}
+
+document.getElementById("btn-faisca-proximo").addEventListener("click", () => {
+  if (faiscaCena + 1 < FAISCA_CENAS.length) { faiscaCena++; renderFaisca(); return; }
+  finalizarIntro();
+});
+document.getElementById("btn-explorar-comecar").addEventListener("click", finalizarIntro);
+document.getElementById("btn-faisca-pular").addEventListener("click", finalizarIntro);
+document.getElementById("btn-rever-intro").addEventListener("click", abrirIntroExplorar);
+document.getElementById("btn-faisca-controles").addEventListener("click", () => {
+  const b = document.getElementById("faisca-controles");
+  if (b.classList.contains("escondido")) exibir(b); else esconder(b);
+});
+
 function abrirExplorar() {
   carregarEstadoExplorar();
+  // Primeira vez: apresenta a aventura com a Faísca
+  if (!explorarEstado.introVista) {
+    abrirIntroExplorar();
+    return;
+  }
   renderAvatar();
   renderMapaFases();
   mostrarTela("tela-explorar");
