@@ -1,5 +1,5 @@
 {
-  "atualizadoEm": "2026-10-17T01:01:50.764Z",
+  "atualizadoEm": "2026-10-17T14:03:19.267Z",
   "fontes": [
     "MEC",
     "Agência Brasil"
@@ -96,6 +96,18 @@
       "data": "outubro/2026"
     },
     {
+      "titulo": "Estudantes desenvolvem plataformas para combater a desinformação",
+      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-10/estudantes-desenvolvem-plataformas-para-combater-desinformacao",
+      "fonte": "Agência Brasil",
+      "data": "17/10"
+    },
+    {
+      "titulo": "Alunos e professores participam hoje de Olimpíada de Matemática",
+      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-10/olimpiadas-de-matematica-reunem-alunos-e-professores-no-rio-de-janeiro",
+      "fonte": "Agência Brasil",
+      "data": "17/10"
+    },
+    {
       "titulo": "Enem 2026: prazo para escolher idioma da prova termina neste domingo",
       "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-10/enem-2026-prazo-para-escolher-idioma-termina-neste-domingo",
       "fonte": "Agência Brasil",
@@ -136,18 +148,6 @@
       "link": "https://agenciabrasil.ebc.com.br/politica/noticia/2026-10/lula-garante-versao-universitaria-do-pe-de-meia-caso-seja-reeleito",
       "fonte": "Agência Brasil",
       "data": "14/10"
-    },
-    {
-      "titulo": "Escolha de livros didáticos para educação infantil começa nesta terça",
-      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-10/escolha-de-livros-didaticos-para-educacao-infantil-comeca-nesta-terca",
-      "fonte": "Agência Brasil",
-      "data": "13/10"
-    },
-    {
-      "titulo": "Interpretação é a base da prova de Linguagens do Enem; veja dicas",
-      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-10/interpretacao-e-base-da-prova-de-linguagens-do-enem-veja-dicas",
-      "fonte": "Agência Brasil",
-      "data": "11/10"
     }
   ],
   "temasRedacao": [
