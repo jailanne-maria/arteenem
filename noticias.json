@@ -1,10 +1,58 @@
 {
-  "atualizadoEm": "2026-10-16T15:11:03.488Z",
+  "atualizadoEm": "2026-10-17T01:01:50.764Z",
   "fontes": [
     "MEC",
     "Agência Brasil"
   ],
   "noticias": [
+    {
+      "titulo": "A Cara da Educação: do quadro-negro à formulação de políticas no MEC",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/a-cara-da-educacao-do-quadro-negro-a-formulacao-de-politicas-no-mec",
+      "fonte": "MEC",
+      "data": "outubro/2026"
+    },
+    {
+      "titulo": "MEC Livros estará presente no Festival Literário do Sesc-DF",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/mec-livros-estara-presente-no-festival-literario-do-sesc-df",
+      "fonte": "MEC",
+      "data": "outubro/2026"
+    },
+    {
+      "titulo": "Enem 2026: domingo (18) é o último dia para escolher idioma",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/enem-2026-domingo-18-e-o-ultimo-dia-para-escolher-idioma",
+      "fonte": "MEC",
+      "data": "outubro/2026"
+    },
+    {
+      "titulo": "Pé-de-Meia: pagamento da 7ª parcela começa na segunda (19)",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/pe-de-meia-pagamento-da-7a-parcela-comeca-na-segunda-19",
+      "fonte": "MEC",
+      "data": "outubro/2026"
+    },
+    {
+      "titulo": "Segunda fase da Obmep 2026 acontece no sábado (17)",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/segunda-fase-da-obmep-2026-acontece-no-sabado-17",
+      "fonte": "MEC",
+      "data": "outubro/2026"
+    },
+    {
+      "titulo": "MEC promove aulão do Enem para alunos na Bahia e no Maranhão",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/mec-promove-aulao-do-enem-para-alunos-na-bahia-e-no-maranhao",
+      "fonte": "MEC",
+      "data": "outubro/2026"
+    },
+    {
+      "titulo": "MEC promove aulão para centenas de estudantes da EJA em PE",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/mec-promove-aulao-para-centenas-de-estudantes-da-eja-em-pe",
+      "fonte": "MEC",
+      "data": "outubro/2026"
+    },
+    {
+      "titulo": "Armadilha luminosa desenvolvida no Ifpa ajuda no combate à dengue",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/armadilha-luminosa-desenvolvida-no-ifpa-ajuda-no-combate-a-dengue",
+      "fonte": "MEC",
+      "data": "outubro/2026"
+    },
     {
       "titulo": "Pé-de-Meia Licenciaturas: Enem abre portas para docentes",
       "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/pe-de-meia-licenciaturas-enem-abre-portas-para-docentes",
@@ -48,56 +96,8 @@
       "data": "outubro/2026"
     },
     {
-      "titulo": "De aluno a reitor: a trajetória de quem voltou à escola para ensinar",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/de-aluno-a-reitor-a-trajetoria-de-quem-voltou-a-escola-para-ensinar",
-      "fonte": "MEC",
-      "data": "outubro/2026"
-    },
-    {
-      "titulo": "Como o Instituto Federal preparou um futuro advogado",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/como-o-instituto-federal-preparou-um-futuro-advogado",
-      "fonte": "MEC",
-      "data": "outubro/2026"
-    },
-    {
-      "titulo": "Cuidotecas serão implantadas em 62 universidades federais",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/cuidotecas-serao-implantadas-em-62-universidades-federais",
-      "fonte": "MEC",
-      "data": "outubro/2026"
-    },
-    {
-      "titulo": "MEC realiza aulão com estudantes da EJA em Pernambuco",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/mec-realiza-aulao-com-estudantes-da-eja-em-pernambuco",
-      "fonte": "MEC",
-      "data": "outubro/2026"
-    },
-    {
-      "titulo": "Egressa da escola técnica à reitora do IFS: professora transforma oportunidades em compromisso com a educação pública",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/egressa-da-escola-tecnica-a-reitora-do-ifs-professora-transforma-oportunidades-em-compromisso-com-a-educacao-publica",
-      "fonte": "MEC",
-      "data": "outubro/2026"
-    },
-    {
-      "titulo": "PND 2026: Locais de prova da reaplicação estão disponíveis",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/pnd-2026-locais-de-prova-da-reaplicacao-estao-disponiveis",
-      "fonte": "MEC",
-      "data": "outubro/2026"
-    },
-    {
-      "titulo": "MEC debate infraestrutura escolar para expansão do tempo integral",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/mec-debate-infraestrutura-escolar-para-expansao-do-tempo-integral",
-      "fonte": "MEC",
-      "data": "outubro/2026"
-    },
-    {
-      "titulo": "Painel permite consultar repasses do Fundeb por rede de ensino",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/painel-permite-consultar-repasses-do-fundeb-por-rede-de-ensino",
-      "fonte": "MEC",
-      "data": "outubro/2026"
-    },
-    {
-      "titulo": "Enem 2026: opção de língua estrangeira termina neste domingo (18)",
-      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-10/enem-2026-opcao-de-lingua-estrangeira-termina-neste-domingo-18",
+      "titulo": "Enem 2026: prazo para escolher idioma da prova termina neste domingo",
+      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-10/enem-2026-prazo-para-escolher-idioma-termina-neste-domingo",
       "fonte": "Agência Brasil",
       "data": "16/10"
     },
