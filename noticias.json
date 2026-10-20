@@ -1,10 +1,46 @@
 {
-  "atualizadoEm": "2026-10-19T17:19:30.413Z",
+  "atualizadoEm": "2026-10-20T01:33:25.348Z",
   "fontes": [
     "MEC",
     "Agência Brasil"
   ],
   "noticias": [
+    {
+      "titulo": "Primeira infância e Marco Legal são destaques no PodMEC",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/primeira-infancia-e-marco-legal-sao-destaques-no-podmec",
+      "fonte": "MEC",
+      "data": "outubro/2026"
+    },
+    {
+      "titulo": "MEC e MinC abrem inscrições para o Programa Ciclo de Saberes",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/mec-e-minc-abrem-inscricoes-para-o-programa-ciclo-de-saberes",
+      "fonte": "MEC",
+      "data": "outubro/2026"
+    },
+    {
+      "titulo": "MEC realiza encontros técnicos com Tribunais de Contas sobre a Prova Nacional Docente",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/mec-realiza-encontros-tecnicos-com-tribunais-de-contas-sobre-a-prova-nacional-docente",
+      "fonte": "MEC",
+      "data": "outubro/2026"
+    },
+    {
+      "titulo": "MEC promove encontros técnicos sobre seleção de professores",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/mec-promove-encontros-tecnicos-sobre-selecao-de-professores",
+      "fonte": "MEC",
+      "data": "outubro/2026"
+    },
+    {
+      "titulo": "MEC implementa Sistema Nacional de Avaliação da EPT",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/mec-implementa-sistema-nacional-de-avaliacao-da-ept",
+      "fonte": "MEC",
+      "data": "outubro/2026"
+    },
+    {
+      "titulo": "MEC disponibiliza referenciais de Implementação de Equidade para redes de ensino",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/mec-disponibiliza-referenciais-de-implementacao-de-equidade-para-redes-de-ensino",
+      "fonte": "MEC",
+      "data": "outubro/2026"
+    },
     {
       "titulo": "A Cara da Educação: do quadro-negro à formulação de políticas no MEC",
       "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/a-cara-da-educacao-do-quadro-negro-a-formulacao-de-politicas-no-mec",
@@ -60,40 +96,10 @@
       "data": "outubro/2026"
     },
     {
-      "titulo": "Formação e valorização docente são temas do PodMEC",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/formacao-e-valorizacao-docente-sao-temas-do-podmec",
-      "fonte": "MEC",
-      "data": "outubro/2026"
-    },
-    {
-      "titulo": "MEC apoia escolas no ensino de educação financeira",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/mec-apoia-escolas-no-ensino-de-educacao-financeira",
-      "fonte": "MEC",
-      "data": "outubro/2026"
-    },
-    {
-      "titulo": "MEC disponibiliza 10 novos cursos no Avamec para professores",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/mec-disponibiliza-10-novos-cursos-no-avamec-para-professores",
-      "fonte": "MEC",
-      "data": "outubro/2026"
-    },
-    {
-      "titulo": "Brasil tem mais de 2,4 milhões de docentes na educação básica",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/brasil-tem-mais-de-2-4-milhoes-de-docentes-na-educacao-basica",
-      "fonte": "MEC",
-      "data": "outubro/2026"
-    },
-    {
-      "titulo": "Quando o sonho de voltar a estudar ainda vive, apesar da espera",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/quando-o-sonho-de-voltar-a-estudar-ainda-vive-apesar-da-espera",
-      "fonte": "MEC",
-      "data": "outubro/2026"
-    },
-    {
-      "titulo": "MEC destaca ações de formação e valorização dos docentes",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/mec-destaca-acoes-de-formacao-e-valorizacao-dos-professores",
-      "fonte": "MEC",
-      "data": "outubro/2026"
+      "titulo": "Revalida 2026/2: divulgado resultado de casos de logística e de saúde",
+      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-10/revalida-20262-divulgado-resultado-de-casos-de-logistica-e-de-saude",
+      "fonte": "Agência Brasil",
+      "data": "19/10"
     },
     {
       "titulo": "Provas de português para estrangeiros começam nesta terça-feira",
@@ -140,12 +146,6 @@
     {
       "titulo": "MEC libera novas formações online para professores",
       "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-10/mec-libera-novas-formacoes-online-para-professores",
-      "fonte": "Agência Brasil",
-      "data": "15/10"
-    },
-    {
-      "titulo": "Docentes usam inteligência artificial para inovar e engajar alunos",
-      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-10/docentes-usam-inteligencia-artificial-para-inovar-e-engajar-alunos",
       "fonte": "Agência Brasil",
       "data": "15/10"
     }
