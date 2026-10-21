@@ -1,10 +1,100 @@
 {
-  "atualizadoEm": "2026-10-20T15:32:58.386Z",
+  "atualizadoEm": "2026-10-21T01:15:33.240Z",
   "fontes": [
     "MEC",
     "Agência Brasil"
   ],
   "noticias": [
+    {
+      "titulo": "Painel Enem 2026 detalha inscrições no exame",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/painel-enem-2026-detalha-inscricoes-no-exame",
+      "fonte": "MEC",
+      "data": "outubro/2026"
+    },
+    {
+      "titulo": "Secretarias de educação podem aderir à Renedic até 13 de novembro",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/secretarias-de-educacao-podem-aderir-a-renedic-ate-13-de-novembro",
+      "fonte": "MEC",
+      "data": "outubro/2026"
+    },
+    {
+      "titulo": "MEC debate modelo de compras centralizadas para laboratórios de ensino",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/mec-debate-modelo-de-compras-centralizadas-para-laboratorios-de-ensino",
+      "fonte": "MEC",
+      "data": "outubro/2026"
+    },
+    {
+      "titulo": "Glossário orienta prevenção ao bullying e à violência escolar",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/glossario-orienta-prevencao-ao-bullying-e-a-violencia-escolar",
+      "fonte": "MEC",
+      "data": "outubro/2026"
+    },
+    {
+      "titulo": "Selo da Alfabetização: confira documentos que são necessários para a inscrição",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/selo-da-alfabetizacao-confira-documentos-que-sao-necessarios-para-a-inscricao",
+      "fonte": "MEC",
+      "data": "outubro/2026"
+    },
+    {
+      "titulo": "MEC promove aulão de preparação para o Enem em Senador Canedo",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/mec-promove-aulao-de-preparacao-para-o-enem-em-senador-canedo",
+      "fonte": "MEC",
+      "data": "outubro/2026"
+    },
+    {
+      "titulo": "Diagnóstico Equidade mobiliza redes municipais e estaduais",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/diagnostico-equidade-mobiliza-redes-municipais-e-estaduais",
+      "fonte": "MEC",
+      "data": "outubro/2026"
+    },
+    {
+      "titulo": "Primeira infância e Marco Legal são destaques no PodMEC",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/primeira-infancia-e-marco-legal-sao-destaques-no-podmec",
+      "fonte": "MEC",
+      "data": "outubro/2026"
+    },
+    {
+      "titulo": "MEC e MinC abrem inscrições para o Programa Ciclo de Saberes",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/mec-e-minc-abrem-inscricoes-para-o-programa-ciclo-de-saberes",
+      "fonte": "MEC",
+      "data": "outubro/2026"
+    },
+    {
+      "titulo": "MEC realiza encontros técnicos com Tribunais de Contas sobre a Prova Nacional Docente",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/mec-realiza-encontros-tecnicos-com-tribunais-de-contas-sobre-a-prova-nacional-docente",
+      "fonte": "MEC",
+      "data": "outubro/2026"
+    },
+    {
+      "titulo": "MEC promove encontros técnicos sobre seleção de professores",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/mec-promove-encontros-tecnicos-sobre-selecao-de-professores",
+      "fonte": "MEC",
+      "data": "outubro/2026"
+    },
+    {
+      "titulo": "MEC implementa Sistema Nacional de Avaliação da EPT",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/mec-implementa-sistema-nacional-de-avaliacao-da-ept",
+      "fonte": "MEC",
+      "data": "outubro/2026"
+    },
+    {
+      "titulo": "MEC disponibiliza referenciais de Implementação de Equidade para redes de ensino",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/mec-disponibiliza-referenciais-de-implementacao-de-equidade-para-redes-de-ensino",
+      "fonte": "MEC",
+      "data": "outubro/2026"
+    },
+    {
+      "titulo": "A cara da educação: da lousa à formulação de políticas no MEC",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/a-cara-da-educacao-do-quadro-negro-a-formulacao-de-politicas-no-mec",
+      "fonte": "MEC",
+      "data": "outubro/2026"
+    },
+    {
+      "titulo": "MEC Livros estará presente no Festival Literário do Sesc-DF",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/mec-livros-estara-presente-no-festival-literario-do-sesc-df",
+      "fonte": "MEC",
+      "data": "outubro/2026"
+    },
     {
       "titulo": "Estudantes de escolas públicas querem ensino e aprendizagem melhores",
       "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-10/estudantes-de-escolas-publicas-querem-ensino-e-aprendizagem-melhores",
@@ -56,72 +146,6 @@
     {
       "titulo": "Museu da UFRJ irá receber mais R$ 10 milhões para restauração",
       "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-10/museu-da-ufrj-ira-receber-mais-r-10-milhoes-para-restauracao",
-      "fonte": "Agência Brasil",
-      "data": "15/10"
-    },
-    {
-      "titulo": "MEC libera novas formações online para professores",
-      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-10/mec-libera-novas-formacoes-online-para-professores",
-      "fonte": "Agência Brasil",
-      "data": "15/10"
-    },
-    {
-      "titulo": "Polícia faz operação no interior de SP contra fraudes bancárias",
-      "link": "https://agenciabrasil.ebc.com.br/geral/noticia/2026-10/policia-faz-operacao-no-interior-de-sp-contra-fraudes-bancarias",
-      "fonte": "Agência Brasil",
-      "data": "20/10"
-    },
-    {
-      "titulo": "Secretário de Queimados, no Rio, morre baleado em abordagem da PM",
-      "link": "https://agenciabrasil.ebc.com.br/geral/noticia/2026-10/secretario-de-queimados-no-rio-morre-baleado-em-abordagem-da-pm",
-      "fonte": "Agência Brasil",
-      "data": "20/10"
-    },
-    {
-      "titulo": "Justiça bloqueia bens de empresa por queda de helicóptero, no Rio",
-      "link": "https://agenciabrasil.ebc.com.br/geral/noticia/2026-10/justica-bloqueia-bens-de-empresa-por-queda-de-helicoptero-no-rio",
-      "fonte": "Agência Brasil",
-      "data": "19/10"
-    },
-    {
-      "titulo": "Motoristas de ônibus fazem paralisação na zona sul de São Paulo",
-      "link": "https://agenciabrasil.ebc.com.br/geral/noticia/2026-10/motoristas-de-onibus-fazem-paralisacao-na-zona-sul-de-sao-paulo",
-      "fonte": "Agência Brasil",
-      "data": "19/10"
-    },
-    {
-      "titulo": "Deputado estadual Marcelo Aguiar é detido após disparo em bar",
-      "link": "https://agenciabrasil.ebc.com.br/geral/noticia/2026-10/deputado-estadual-marcelo-aguiar-e-detido-apos-disparo-em-bar",
-      "fonte": "Agência Brasil",
-      "data": "19/10"
-    },
-    {
-      "titulo": "Mega-Sena acumula; prêmio pode chegar a R$ 185 milhões na terça-feira",
-      "link": "https://agenciabrasil.ebc.com.br/geral/noticia/2026-10/mega-sena-acumula-premio-pode-chegar-r-185-milhoes-na-terca-feira",
-      "fonte": "Agência Brasil",
-      "data": "18/10"
-    },
-    {
-      "titulo": "Mega-Sena sorteia prêmio acumulado em R$ 170 milhões neste domingo",
-      "link": "https://agenciabrasil.ebc.com.br/geral/noticia/2026-10/mega-sena-sorteia-premio-acumulado-em-r-170-milhoes-neste-domingo",
-      "fonte": "Agência Brasil",
-      "data": "17/10"
-    },
-    {
-      "titulo": "Professora aposentada da UFRJ é baleada em assalto na zona sul do Rio",
-      "link": "https://agenciabrasil.ebc.com.br/geral/noticia/2026-10/professora-aposentada-da-ufrj-e-baleada-em-assalto-na-zona-sul-do-rio",
-      "fonte": "Agência Brasil",
-      "data": "16/10"
-    },
-    {
-      "titulo": "Três suspeitos são mortos pela polícia militar em assalto a casa em SP",
-      "link": "https://agenciabrasil.ebc.com.br/geral/noticia/2026-10/tres-suspeitos-sao-mortos-pela-policia-militar-em-assalto-casa-em-sp",
-      "fonte": "Agência Brasil",
-      "data": "15/10"
-    },
-    {
-      "titulo": "São Paulo terá mais chuvas fortes no fim da tarde desta quinta (15)",
-      "link": "https://agenciabrasil.ebc.com.br/geral/noticia/2026-10/sao-paulo-tera-mais-chuvas-fortes-no-fim-da-tarde-desta-quinta-15",
       "fonte": "Agência Brasil",
       "data": "15/10"
     }
