@@ -1,10 +1,28 @@
 {
-  "atualizadoEm": "2026-10-21T01:15:33.240Z",
+  "atualizadoEm": "2026-10-21T15:49:15.634Z",
   "fontes": [
     "MEC",
     "Agência Brasil"
   ],
   "noticias": [
+    {
+      "titulo": "Dia Nacional da Alimentação Escolar: conheça as diretrizes do PNAE",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/dia-nacional-da-alimentacao-escolar-conheca-as-diretrizes-do-pnae",
+      "fonte": "MEC",
+      "data": "outubro/2026"
+    },
+    {
+      "titulo": "Redes têm até 31 de outubro para regularizar pendências do PDDE",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/redes-tem-ate-31-de-outubro-para-regularizar-pendencias-do-pdde",
+      "fonte": "MEC",
+      "data": "outubro/2026"
+    },
+    {
+      "titulo": "UFSCar desenvolve jogo infantil sobre saúde e meio ambiente",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/ufscar-desenvolve-jogo-infantil-sobre-saude-e-meio-ambiente",
+      "fonte": "MEC",
+      "data": "outubro/2026"
+    },
     {
       "titulo": "Painel Enem 2026 detalha inscrições no exame",
       "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/painel-enem-2026-detalha-inscricoes-no-exame",
@@ -74,24 +92,6 @@
     {
       "titulo": "MEC implementa Sistema Nacional de Avaliação da EPT",
       "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/mec-implementa-sistema-nacional-de-avaliacao-da-ept",
-      "fonte": "MEC",
-      "data": "outubro/2026"
-    },
-    {
-      "titulo": "MEC disponibiliza referenciais de Implementação de Equidade para redes de ensino",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/mec-disponibiliza-referenciais-de-implementacao-de-equidade-para-redes-de-ensino",
-      "fonte": "MEC",
-      "data": "outubro/2026"
-    },
-    {
-      "titulo": "A cara da educação: da lousa à formulação de políticas no MEC",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/a-cara-da-educacao-do-quadro-negro-a-formulacao-de-politicas-no-mec",
-      "fonte": "MEC",
-      "data": "outubro/2026"
-    },
-    {
-      "titulo": "MEC Livros estará presente no Festival Literário do Sesc-DF",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/mec-livros-estara-presente-no-festival-literario-do-sesc-df",
       "fonte": "MEC",
       "data": "outubro/2026"
     },
