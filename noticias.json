@@ -1,10 +1,34 @@
 {
-  "atualizadoEm": "2026-10-21T15:49:15.634Z",
+  "atualizadoEm": "2026-10-22T01:11:29.085Z",
   "fontes": [
     "MEC",
     "Agência Brasil"
   ],
   "noticias": [
+    {
+      "titulo": "Aulões do Enem reúnem mais de 3 mil estudantes em TO e SP",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/auloes-do-enem-reunem-mais-de-3-mil-estudantes-em-to-e-sp",
+      "fonte": "MEC",
+      "data": "outubro/2026"
+    },
+    {
+      "titulo": "MEC forma 1.950 agentes para educação inclusiva",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/mec-forma-1-950-agentes-para-educacao-inclusiva",
+      "fonte": "MEC",
+      "data": "outubro/2026"
+    },
+    {
+      "titulo": "Jogos reúnem mais de mil estudantes da Rede Federal de Educação",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/jogos-reunem-mais-de-mil-estudantes-da-rede-federal-de-educacao",
+      "fonte": "MEC",
+      "data": "outubro/2026"
+    },
+    {
+      "titulo": "A sala de aula como espaço de realização profissional",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/a-sala-de-aula-como-espaco-de-realizacao-profissional",
+      "fonte": "MEC",
+      "data": "outubro/2026"
+    },
     {
       "titulo": "Dia Nacional da Alimentação Escolar: conheça as diretrizes do PNAE",
       "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/dia-nacional-da-alimentacao-escolar-conheca-as-diretrizes-do-pnae",
@@ -68,30 +92,6 @@
     {
       "titulo": "Primeira infância e Marco Legal são destaques no PodMEC",
       "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/primeira-infancia-e-marco-legal-sao-destaques-no-podmec",
-      "fonte": "MEC",
-      "data": "outubro/2026"
-    },
-    {
-      "titulo": "MEC e MinC abrem inscrições para o Programa Ciclo de Saberes",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/mec-e-minc-abrem-inscricoes-para-o-programa-ciclo-de-saberes",
-      "fonte": "MEC",
-      "data": "outubro/2026"
-    },
-    {
-      "titulo": "MEC realiza encontros técnicos com Tribunais de Contas sobre a Prova Nacional Docente",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/mec-realiza-encontros-tecnicos-com-tribunais-de-contas-sobre-a-prova-nacional-docente",
-      "fonte": "MEC",
-      "data": "outubro/2026"
-    },
-    {
-      "titulo": "MEC promove encontros técnicos sobre seleção de professores",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/mec-promove-encontros-tecnicos-sobre-selecao-de-professores",
-      "fonte": "MEC",
-      "data": "outubro/2026"
-    },
-    {
-      "titulo": "MEC implementa Sistema Nacional de Avaliação da EPT",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/mec-implementa-sistema-nacional-de-avaliacao-da-ept",
       "fonte": "MEC",
       "data": "outubro/2026"
     },
