@@ -1,10 +1,34 @@
 {
-  "atualizadoEm": "2026-10-22T15:47:03.732Z",
+  "atualizadoEm": "2026-10-23T01:11:05.726Z",
   "fontes": [
     "MEC",
     "Agência Brasil"
   ],
   "noticias": [
+    {
+      "titulo": "Aulões do Enem reúnem 4 mil estudantes no Rio de Janeiro e em Minas Gerais",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/auloes-do-enem-reunem-4-mil-estudantes-no-rio-de-janeiro-e-em-minas-gerais",
+      "fonte": "MEC",
+      "data": "outubro/2026"
+    },
+    {
+      "titulo": "Decreto que regulamenta cargos do PCCTAE é publicado",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/decreto-que-regulamenta-cargos-do-pcctae-e-publicado",
+      "fonte": "MEC",
+      "data": "outubro/2026"
+    },
+    {
+      "titulo": "MEC participa de reunião técnica do Ibas na África do Sul",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/mec-participa-de-reuniao-tecnica-do-ibas-na-africa-do-sul",
+      "fonte": "MEC",
+      "data": "outubro/2026"
+    },
+    {
+      "titulo": "Enem integra avaliação da educação básica; entenda as novidades",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/enem-integra-avaliacao-da-educacao-basica-entenda-as-novidades",
+      "fonte": "MEC",
+      "data": "outubro/2026"
+    },
     {
       "titulo": "Aulões do Enem reúnem mais de 3 mil estudantes em TO e SP",
       "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/auloes-do-enem-reunem-mais-de-3-mil-estudantes-em-to-e-sp",
@@ -72,28 +96,10 @@
       "data": "outubro/2026"
     },
     {
-      "titulo": "Selo da Alfabetização: confira documentos que são necessários para a inscrição",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/selo-da-alfabetizacao-confira-documentos-que-sao-necessarios-para-a-inscricao",
-      "fonte": "MEC",
-      "data": "outubro/2026"
-    },
-    {
-      "titulo": "MEC promove aulão de preparação para o Enem em Senador Canedo",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/mec-promove-aulao-de-preparacao-para-o-enem-em-senador-canedo",
-      "fonte": "MEC",
-      "data": "outubro/2026"
-    },
-    {
-      "titulo": "Diagnóstico Equidade mobiliza redes municipais e estaduais",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/diagnostico-equidade-mobiliza-redes-municipais-e-estaduais",
-      "fonte": "MEC",
-      "data": "outubro/2026"
-    },
-    {
-      "titulo": "Primeira infância e Marco Legal são destaques no PodMEC",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/primeira-infancia-e-marco-legal-sao-destaques-no-podmec",
-      "fonte": "MEC",
-      "data": "outubro/2026"
+      "titulo": "Aberta inscrição para seleção de professor elaborador do Enade 2027",
+      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-10/aberta-inscricao-para-selecao-de-professor-elaborador-do-enade-2027",
+      "fonte": "Agência Brasil",
+      "data": "22/10"
     },
     {
       "titulo": "Enamed: termina hoje prazo para recurso contra gabarito preliminar",
@@ -142,12 +148,6 @@
       "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-10/olimpiadas-de-matematica-reunem-alunos-e-professores-no-rio-de-janeiro",
       "fonte": "Agência Brasil",
       "data": "17/10"
-    },
-    {
-      "titulo": "Enem 2026: prazo para escolher idioma da prova termina neste domingo",
-      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-10/enem-2026-prazo-para-escolher-idioma-termina-neste-domingo",
-      "fonte": "Agência Brasil",
-      "data": "16/10"
     }
   ],
   "temasRedacao": [
