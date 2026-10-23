@@ -1,10 +1,16 @@
 {
-  "atualizadoEm": "2026-10-23T01:11:05.726Z",
+  "atualizadoEm": "2026-10-23T15:37:46.504Z",
   "fontes": [
     "MEC",
     "Agência Brasil"
   ],
   "noticias": [
+    {
+      "titulo": "IFRS atua na inclusão de imigrantes e refugiados com capacitação em língua portuguesa",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/ifrs-atua-na-inclusao-de-imigrantes-e-refugiados-com-capacitacao-em-lingua-portuguesa",
+      "fonte": "MEC",
+      "data": "outubro/2026"
+    },
     {
       "titulo": "Aulões do Enem reúnem 4 mil estudantes no Rio de Janeiro e em Minas Gerais",
       "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/auloes-do-enem-reunem-4-mil-estudantes-no-rio-de-janeiro-e-em-minas-gerais",
@@ -90,10 +96,10 @@
       "data": "outubro/2026"
     },
     {
-      "titulo": "Glossário orienta prevenção ao bullying e à violência escolar",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/glossario-orienta-prevencao-ao-bullying-e-a-violencia-escolar",
-      "fonte": "MEC",
-      "data": "outubro/2026"
+      "titulo": "Recife abrirá 34 creches no domingo para facilitar o voto dos pais",
+      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-10/recife-abrira-34-creches-no-domingo-para-facilitar-o-voto-dos-pais",
+      "fonte": "Agência Brasil",
+      "data": "23/10"
     },
     {
       "titulo": "Aberta inscrição para seleção de professor elaborador do Enade 2027",
@@ -140,12 +146,6 @@
     {
       "titulo": "Estudantes desenvolvem plataformas para combater a desinformação",
       "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-10/estudantes-desenvolvem-plataformas-para-combater-desinformacao",
-      "fonte": "Agência Brasil",
-      "data": "17/10"
-    },
-    {
-      "titulo": "Alunos e professores participam hoje de Olimpíada de Matemática",
-      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-10/olimpiadas-de-matematica-reunem-alunos-e-professores-no-rio-de-janeiro",
       "fonte": "Agência Brasil",
       "data": "17/10"
     }
