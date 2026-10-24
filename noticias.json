@@ -1,10 +1,16 @@
 {
-  "atualizadoEm": "2026-10-24T01:20:58.808Z",
+  "atualizadoEm": "2026-10-24T14:14:27.813Z",
   "fontes": [
     "MEC",
     "Agência Brasil"
   ],
   "noticias": [
+    {
+      "titulo": "MEC Livros bate 1 milhão de empréstimos e amplia acervo",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/mec-livros-bate-1-milhao-de-emprestimos-e-amplia-acervo",
+      "fonte": "MEC",
+      "data": "outubro/2026"
+    },
     {
       "titulo": "Coreano chega ao MEC Idiomas e amplia oferta de aprendizagem",
       "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/coreano-chega-ao-mec-idiomas-e-amplia-oferta-de-aprendizagem",
@@ -86,12 +92,6 @@
     {
       "titulo": "Redes têm até 31 de outubro para regularizar pendências do PDDE",
       "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/redes-tem-ate-31-de-outubro-para-regularizar-pendencias-do-pdde",
-      "fonte": "MEC",
-      "data": "outubro/2026"
-    },
-    {
-      "titulo": "UFSCar desenvolve jogo infantil sobre saúde e meio ambiente",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/ufscar-desenvolve-jogo-infantil-sobre-saude-e-meio-ambiente",
       "fonte": "MEC",
       "data": "outubro/2026"
     },
