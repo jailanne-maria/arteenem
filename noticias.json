@@ -1,10 +1,28 @@
 {
-  "atualizadoEm": "2026-10-23T15:37:46.504Z",
+  "atualizadoEm": "2026-10-24T01:20:58.808Z",
   "fontes": [
     "MEC",
     "Agência Brasil"
   ],
   "noticias": [
+    {
+      "titulo": "Coreano chega ao MEC Idiomas e amplia oferta de aprendizagem",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/coreano-chega-ao-mec-idiomas-e-amplia-oferta-de-aprendizagem",
+      "fonte": "MEC",
+      "data": "outubro/2026"
+    },
+    {
+      "titulo": "Painel Enem 2026 apresenta perfil dos participantes do exame",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/painel-enem-2026-apresenta-perfil-dos-participantes-do-exame",
+      "fonte": "MEC",
+      "data": "outubro/2026"
+    },
+    {
+      "titulo": "Inscrições para pós-graduação indígena terminam nesta segunda-feira (26)",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/inscricoes-para-pos-graduacao-indigena-terminam-nesta-segunda-feira-26",
+      "fonte": "MEC",
+      "data": "outubro/2026"
+    },
     {
       "titulo": "IFRS atua na inclusão de imigrantes e refugiados com capacitação em língua portuguesa",
       "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/ifrs-atua-na-inclusao-de-imigrantes-e-refugiados-com-capacitacao-em-lingua-portuguesa",
@@ -74,24 +92,6 @@
     {
       "titulo": "UFSCar desenvolve jogo infantil sobre saúde e meio ambiente",
       "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/ufscar-desenvolve-jogo-infantil-sobre-saude-e-meio-ambiente",
-      "fonte": "MEC",
-      "data": "outubro/2026"
-    },
-    {
-      "titulo": "Painel Enem 2026 detalha inscrições no exame",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/painel-enem-2026-detalha-inscricoes-no-exame",
-      "fonte": "MEC",
-      "data": "outubro/2026"
-    },
-    {
-      "titulo": "Secretarias de educação podem aderir à Renedic até 13 de novembro",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/secretarias-de-educacao-podem-aderir-a-renedic-ate-13-de-novembro",
-      "fonte": "MEC",
-      "data": "outubro/2026"
-    },
-    {
-      "titulo": "MEC debate modelo de compras centralizadas para laboratórios de ensino",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/mec-debate-modelo-de-compras-centralizadas-para-laboratorios-de-ensino",
       "fonte": "MEC",
       "data": "outubro/2026"
     },
