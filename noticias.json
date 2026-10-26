@@ -1,10 +1,22 @@
 {
-  "atualizadoEm": "2026-10-26T00:58:13.630Z",
+  "atualizadoEm": "2026-10-26T17:07:10.050Z",
   "fontes": [
     "MEC",
     "Agência Brasil"
   ],
   "noticias": [
+    {
+      "titulo": "CPOP ajuda estudantes na preparação final para o Enem",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/cpop-ajuda-estudantes-na-preparacao-final-para-o-enem",
+      "fonte": "MEC",
+      "data": "outubro/2026"
+    },
+    {
+      "titulo": "Fies remanescentes: inscrições abertas nesta segunda (26)",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/fies-remanescentes-inscricoes-abertas-nesta-segunda-26",
+      "fonte": "MEC",
+      "data": "outubro/2026"
+    },
     {
       "titulo": "MEC Livros bate 1 milhão de empréstimos e amplia acervo",
       "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/mec-livros-bate-1-milhao-de-emprestimos-e-amplia-acervo",
@@ -84,16 +96,10 @@
       "data": "outubro/2026"
     },
     {
-      "titulo": "Dia Nacional da Alimentação Escolar: conheça as diretrizes do PNAE",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/dia-nacional-da-alimentacao-escolar-conheca-as-diretrizes-do-pnae",
-      "fonte": "MEC",
-      "data": "outubro/2026"
-    },
-    {
-      "titulo": "Redes têm até 31 de outubro para regularizar pendências do PDDE",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/redes-tem-ate-31-de-outubro-para-regularizar-pendencias-do-pdde",
-      "fonte": "MEC",
-      "data": "outubro/2026"
+      "titulo": "Fies 2: inscrições gratuitas para vagas remanescentes estão abertas",
+      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-10/fies-2-inscricoes-gratuitas-para-vagas-remanescentes-estao-abertas",
+      "fonte": "Agência Brasil",
+      "data": "26/10"
     },
     {
       "titulo": "Recife abrirá 34 creches no domingo para facilitar o voto dos pais",
@@ -142,12 +148,6 @@
       "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-10/termina-neste-domingo-prazo-escolher-idioma-da-prova-do-enem-2026",
       "fonte": "Agência Brasil",
       "data": "18/10"
-    },
-    {
-      "titulo": "Estudantes desenvolvem plataformas para combater a desinformação",
-      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-10/estudantes-desenvolvem-plataformas-para-combater-desinformacao",
-      "fonte": "Agência Brasil",
-      "data": "17/10"
     }
   ],
   "temasRedacao": [
