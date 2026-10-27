@@ -1,10 +1,46 @@
 {
-  "atualizadoEm": "2026-10-26T17:07:10.050Z",
+  "atualizadoEm": "2026-10-27T01:48:23.953Z",
   "fontes": [
     "MEC",
     "Agência Brasil"
   ],
   "noticias": [
+    {
+      "titulo": "Ebserh contrata mais de 1.000 profissionais temporários para combate à Covid-19",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2020/maio/ebserh-contrata-mais-de-1-000-profissionais-temporarios-para-combate-a-covid-19",
+      "fonte": "MEC",
+      "data": "maio/2020"
+    },
+    {
+      "titulo": "Enem 2020 tem mais de 4,3 milhões de inscritos",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2020/maio/enem-2020-tem-mais-de-4-3-milhoes-de-inscritos",
+      "fonte": "MEC",
+      "data": "maio/2020"
+    },
+    {
+      "titulo": "Seleção para mestrado profissional destinado a professores da EPT recebe inscrições até 2 de novembro",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/selecao-para-mestrado-profissional-destinado-a-professores-da-ept-recebe-inscricoes-ate-2-de-novembro",
+      "fonte": "MEC",
+      "data": "outubro/2026"
+    },
+    {
+      "titulo": "MEC oferta cursos de formação para diretores escolares e coordenadores pedagógicos",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/mec-oferta-cursos-de-formacao-para-diretores-escolares-e-coordenadores-pedagogicos",
+      "fonte": "MEC",
+      "data": "outubro/2026"
+    },
+    {
+      "titulo": "Pé-de-Meia como caminho para a construção do futuro dos estudantes",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/pe-de-meia-como-caminho-para-a-construcao-do-futuro-dos-estudantes",
+      "fonte": "MEC",
+      "data": "outubro/2026"
+    },
+    {
+      "titulo": "Universidades federais ocupam 7 das 10 primeiras posições em ranking",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/universidades-federais-ocupam-7-das-10-primeiras-posicoes-em-ranking",
+      "fonte": "MEC",
+      "data": "outubro/2026"
+    },
     {
       "titulo": "CPOP ajuda estudantes na preparação final para o Enem",
       "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/cpop-ajuda-estudantes-na-preparacao-final-para-o-enem",
@@ -42,58 +78,22 @@
       "data": "outubro/2026"
     },
     {
-      "titulo": "IFRS atua na inclusão de imigrantes e refugiados com capacitação em língua portuguesa",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/ifrs-atua-na-inclusao-de-imigrantes-e-refugiados-com-capacitacao-em-lingua-portuguesa",
+      "titulo": "Ebserh e Covid-19: confira a situação nos hospitais universitários federais em 20 de maio",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2020/maio/ebserh-e-covid-19-confira-a-situacao-nos-hospitais-universitarios-federais-em-20-de-maio",
       "fonte": "MEC",
-      "data": "outubro/2026"
+      "data": "maio/2020"
     },
     {
-      "titulo": "Aulões do Enem reúnem 4 mil estudantes no Rio de Janeiro e em Minas Gerais",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/auloes-do-enem-reunem-4-mil-estudantes-no-rio-de-janeiro-e-em-minas-gerais",
+      "titulo": "Prazo para entrega de documentos na edição do Prouni do primeiro semestre de 2020 termina nesta quinta, 21",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2020/maio/prazo-para-entrega-de-documentos-na-edicao-do-prouni-do-primeiro-semestre-de-2020-termina-nesta-quinta-21",
       "fonte": "MEC",
-      "data": "outubro/2026"
+      "data": "maio/2020"
     },
     {
-      "titulo": "Decreto que regulamenta cargos do PCCTAE é publicado",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/decreto-que-regulamenta-cargos-do-pcctae-e-publicado",
+      "titulo": "Instituto Federal do Tocantins oferta 1.000 vagas para cursos gratuitos a distância",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2020/maio/instituto-federal-do-tocantins-oferta-1-000-vagas-para-cursos-gratuitos-a-distancia",
       "fonte": "MEC",
-      "data": "outubro/2026"
-    },
-    {
-      "titulo": "MEC participa de reunião técnica do Ibas na África do Sul",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/mec-participa-de-reuniao-tecnica-do-ibas-na-africa-do-sul",
-      "fonte": "MEC",
-      "data": "outubro/2026"
-    },
-    {
-      "titulo": "Enem integra avaliação da educação básica; entenda as novidades",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/enem-integra-avaliacao-da-educacao-basica-entenda-as-novidades",
-      "fonte": "MEC",
-      "data": "outubro/2026"
-    },
-    {
-      "titulo": "Aulões do Enem reúnem mais de 3 mil estudantes em TO e SP",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/auloes-do-enem-reunem-mais-de-3-mil-estudantes-em-to-e-sp",
-      "fonte": "MEC",
-      "data": "outubro/2026"
-    },
-    {
-      "titulo": "MEC forma 1.950 agentes para educação inclusiva",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/mec-forma-1-950-agentes-para-educacao-inclusiva",
-      "fonte": "MEC",
-      "data": "outubro/2026"
-    },
-    {
-      "titulo": "Jogos reúnem mais de mil estudantes da Rede Federal de Educação",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/jogos-reunem-mais-de-mil-estudantes-da-rede-federal-de-educacao",
-      "fonte": "MEC",
-      "data": "outubro/2026"
-    },
-    {
-      "titulo": "A sala de aula como espaço de realização profissional",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/a-sala-de-aula-como-espaco-de-realizacao-profissional",
-      "fonte": "MEC",
-      "data": "outubro/2026"
+      "data": "maio/2020"
     },
     {
       "titulo": "Fies 2: inscrições gratuitas para vagas remanescentes estão abertas",
