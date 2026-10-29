@@ -1,10 +1,28 @@
 {
-  "atualizadoEm": "2026-10-29T02:05:01.953Z",
+  "atualizadoEm": "2026-10-29T17:18:10.802Z",
   "fontes": [
     "MEC",
     "Agência Brasil"
   ],
   "noticias": [
+    {
+      "titulo": "PNLD Educação Infantil: escolas têm até 6/11 para escolher obras",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/pnld-educacao-infantil-escolas-tem-ate-6-11-para-escolher-obras",
+      "fonte": "MEC",
+      "data": "outubro/2026"
+    },
+    {
+      "titulo": "Estão abertas as inscrições para seminário do Pé-de-Meia",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/estao-abertas-as-inscricoes-para-seminario-do-pe-de-meia",
+      "fonte": "MEC",
+      "data": "outubro/2026"
+    },
+    {
+      "titulo": "Dia Nacional do Livro: conheça iniciativas que ampliam o acesso à leitura",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/dia-nacional-do-livro-conheca-iniciativas-que-ampliam-o-acesso-a-leitura",
+      "fonte": "MEC",
+      "data": "outubro/2026"
+    },
     {
       "titulo": "Empresas podem apresentar propostas para programa #TôComProf",
       "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/empresas-podem-apresentar-propostas-para-programa-tocomprof",
@@ -108,22 +126,10 @@
       "data": "outubro/2026"
     },
     {
-      "titulo": "Pé-de-Meia como caminho para a construção do futuro dos estudantes",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/pe-de-meia-como-caminho-para-a-construcao-do-futuro-dos-estudantes",
-      "fonte": "MEC",
-      "data": "outubro/2026"
-    },
-    {
-      "titulo": "Universidades federais ocupam 7 das 10 primeiras posições em ranking",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/universidades-federais-ocupam-7-das-10-primeiras-posicoes-em-ranking",
-      "fonte": "MEC",
-      "data": "outubro/2026"
-    },
-    {
-      "titulo": "CPOP ajuda estudantes na preparação final para o Enem",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/cpop-ajuda-estudantes-na-preparacao-final-para-o-enem",
-      "fonte": "MEC",
-      "data": "outubro/2026"
+      "titulo": "Escolas públicas têm até sábado para regularizar pendências com FNDE",
+      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-10/escolas-publicas-tem-ate-sabado-para-regularizar-pendencias-com-fnde",
+      "fonte": "Agência Brasil",
+      "data": "29/10"
     },
     {
       "titulo": "MEC Idiomas inclui curso gratuito de coreano, com aulas e exercícios",
@@ -142,12 +148,6 @@
       "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-10/inep-divulga-local-de-provas-do-enem-2026-candidato-pode-conferir-no-site",
       "fonte": "Agência Brasil",
       "data": "27/10"
-    },
-    {
-      "titulo": "Fies 2: inscrições gratuitas para vagas remanescentes estão abertas",
-      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-10/fies-2-inscricoes-gratuitas-para-vagas-remanescentes-estao-abertas",
-      "fonte": "Agência Brasil",
-      "data": "26/10"
     }
   ],
   "temasRedacao": [
