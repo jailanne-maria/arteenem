@@ -1,10 +1,46 @@
 {
-  "atualizadoEm": "2026-10-29T17:18:10.802Z",
+  "atualizadoEm": "2026-10-30T02:24:10.947Z",
   "fontes": [
     "MEC",
     "Agência Brasil"
   ],
   "noticias": [
+    {
+      "titulo": "MEC Livros participa da 6ª Flitabira em Minas Gerais",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/mec-livros-participa-da-6a-flitabira-em-minas-gerais",
+      "fonte": "MEC",
+      "data": "outubro/2026"
+    },
+    {
+      "titulo": "92% das redes de ensino cumprem critério de equidade e são habilitadas ao VAAR/Fundeb 2027",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/92-das-redes-de-ensino-cumprem-criterio-de-equidade-e-sao-habilitadas-ao-vaar-fundeb-2027",
+      "fonte": "MEC",
+      "data": "outubro/2026"
+    },
+    {
+      "titulo": "Fies remanescente: inscrições terminam na terça-feira (3/11)",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/fies-remanescente-inscricoes-terminam-na-terca-feira-3-11",
+      "fonte": "MEC",
+      "data": "outubro/2026"
+    },
+    {
+      "titulo": "Entre estudos e expectativas, Akira se prepara para fazer o Enem pela primeira vez",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/entre-estudos-e-expectativas-akira-se-prepara-para-fazer-o-enem-pela-primeira-vez",
+      "fonte": "MEC",
+      "data": "outubro/2026"
+    },
+    {
+      "titulo": "PodMEC debate financiamento da educação e o papel do Fundeb",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/podmec-debate-financiamento-da-educacao-e-o-papel-do-fundeb",
+      "fonte": "MEC",
+      "data": "outubro/2026"
+    },
+    {
+      "titulo": "UFVJM oferece mais de 300 vagas em especializações gratuitas a distância",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/ufvjm-oferece-mais-de-300-vagas-em-especializacoes-gratuitas-a-distancia",
+      "fonte": "MEC",
+      "data": "outubro/2026"
+    },
     {
       "titulo": "PNLD Educação Infantil: escolas têm até 6/11 para escolher obras",
       "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/pnld-educacao-infantil-escolas-tem-ate-6-11-para-escolher-obras",
@@ -86,42 +122,6 @@
     {
       "titulo": "Candidatos já podem conferir o local de prova do Enem 2026",
       "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/candidatos-ja-podem-conferir-o-local-de-prova-do-enem-2026",
-      "fonte": "MEC",
-      "data": "outubro/2026"
-    },
-    {
-      "titulo": "Conhecendo o MEC: programa de rádio apresenta políticas do ministério",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/conhecendo-o-mec-programa-de-radio-apresenta-politicas-do-ministerio",
-      "fonte": "MEC",
-      "data": "outubro/2026"
-    },
-    {
-      "titulo": "Dos livros encontrados no lixo à universidade",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/dos-livros-encontrados-no-lixo-a-universidade",
-      "fonte": "MEC",
-      "data": "outubro/2026"
-    },
-    {
-      "titulo": "Acervo acadêmico e diploma digital: instituições avançam na implementação",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/acervo-academico-e-diploma-digital-instituicoes-avancam-na-implementacao",
-      "fonte": "MEC",
-      "data": "outubro/2026"
-    },
-    {
-      "titulo": "MEC Enem: mais de 1 milhão de estudantes cadastrados na plataforma",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/mec-enem-mais-de-1-milhao-de-estudantes-cadastrados-na-plataforma",
-      "fonte": "MEC",
-      "data": "outubro/2026"
-    },
-    {
-      "titulo": "Seleção para mestrado profissional destinado a professores da EPT recebe inscrições até 2 de novembro",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/selecao-para-mestrado-profissional-destinado-a-professores-da-ept-recebe-inscricoes-ate-2-de-novembro",
-      "fonte": "MEC",
-      "data": "outubro/2026"
-    },
-    {
-      "titulo": "MEC oferta cursos de formação para diretores escolares e coordenadores pedagógicos",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/mec-oferta-cursos-de-formacao-para-diretores-escolares-e-coordenadores-pedagogicos",
       "fonte": "MEC",
       "data": "outubro/2026"
     },
