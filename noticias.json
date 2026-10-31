@@ -1,5 +1,5 @@
 {
-  "atualizadoEm": "2026-10-31T01:59:12.807Z",
+  "atualizadoEm": "2026-10-31T15:56:38.378Z",
   "fontes": [
     "MEC",
     "Agência Brasil"
@@ -126,6 +126,12 @@
       "data": "outubro/2026"
     },
     {
+      "titulo": "Programa oferece cursos gratuitos sobre IA para professores",
+      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-10/programa-oferece-cursos-gratuitos-sobre-ia-para-professores",
+      "fonte": "Agência Brasil",
+      "data": "31/10"
+    },
+    {
       "titulo": "Enade 2026: iniciantes devem preencher questionário até 18 de dezembro",
       "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-10/enade-2026-iniciantes-devem-preencher-questionario-ate-18-de-dezembro",
       "fonte": "Agência Brasil",
@@ -142,12 +148,6 @@
       "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-10/escolas-publicas-tem-ate-sabado-para-regularizar-pendencias-com-fnde",
       "fonte": "Agência Brasil",
       "data": "29/10"
-    },
-    {
-      "titulo": "MEC Idiomas inclui curso gratuito de coreano, com aulas e exercícios",
-      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-10/mec-idiomas-inclui-curso-gratuito-de-coreano-com-aulas-e-exercicios",
-      "fonte": "Agência Brasil",
-      "data": "28/10"
     }
   ],
   "temasRedacao": [
