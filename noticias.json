@@ -1,5 +1,5 @@
 {
-  "atualizadoEm": "2026-11-01T01:50:00.865Z",
+  "atualizadoEm": "2026-11-01T16:59:19.963Z",
   "fontes": [
     "MEC",
     "Agência Brasil"
@@ -126,6 +126,18 @@
       "data": "outubro/2026"
     },
     {
+      "titulo": "MEC encaminha à PF denúncias de violência política",
+      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/mec-reune-denuncias-de-violencia-politica-e-encaminha-a-pf",
+      "fonte": "Agência Brasil",
+      "data": "01/11"
+    },
+    {
+      "titulo": "Prêmio para mulheres cientistas tem inscrição prorrogada até novembro",
+      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-10/premio-para-mulheres-cientistas-tem-inscricao-prorrogada-ate-novembro",
+      "fonte": "Agência Brasil",
+      "data": "01/11"
+    },
+    {
       "titulo": "Programa oferece cursos gratuitos sobre IA para professores",
       "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-10/programa-oferece-cursos-gratuitos-sobre-ia-para-professores",
       "fonte": "Agência Brasil",
@@ -136,18 +148,6 @@
       "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-10/enade-2026-iniciantes-devem-preencher-questionario-ate-18-de-dezembro",
       "fonte": "Agência Brasil",
       "data": "30/10"
-    },
-    {
-      "titulo": "Inscrições para o Programa Futuras Cientistas vão até 6 novembro",
-      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-10/inscricoes-para-o-programa-futuras-cientistas-vao-ate-6-novembro",
-      "fonte": "Agência Brasil",
-      "data": "30/10"
-    },
-    {
-      "titulo": "Escolas públicas têm até sábado para regularizar pendências com FNDE",
-      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-10/escolas-publicas-tem-ate-sabado-para-regularizar-pendencias-com-fnde",
-      "fonte": "Agência Brasil",
-      "data": "29/10"
     }
   ],
   "temasRedacao": [
