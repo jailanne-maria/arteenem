@@ -1,5 +1,5 @@
 {
-  "atualizadoEm": "2026-11-02T02:04:12.665Z",
+  "atualizadoEm": "2026-11-02T20:37:55.052Z",
   "fontes": [
     "MEC",
     "Agência Brasil"
@@ -126,7 +126,19 @@
       "data": "outubro/2026"
     },
     {
-      "titulo": "Falta uma semana para o Enem 2026; veja horários e o que levar",
+      "titulo": "Impa Tech abre inscrições para graduação em matemática nesta terça",
+      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-10/impa-tech-abre-inscricoes-para-graduacao-em-matematica-nesta-terca",
+      "fonte": "Agência Brasil",
+      "data": "02/11"
+    },
+    {
+      "titulo": "Inscrições para vagas remanescentes do Fies terminam na terça-feira",
+      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-10/inscricoes-para-vagas-remanescentes-do-fies-terminam-na-terca-feira",
+      "fonte": "Agência Brasil",
+      "data": "02/11"
+    },
+    {
+      "titulo": "Falta uma semana para o Enem 2026: veja horários e o que levar",
       "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/falta-uma-semana-para-o-enem-2026-veja-horarios-e-o-que-levar",
       "fonte": "Agência Brasil",
       "data": "01/11"
@@ -136,18 +148,6 @@
       "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/mec-reune-denuncias-de-violencia-politica-e-encaminha-a-pf",
       "fonte": "Agência Brasil",
       "data": "01/11"
-    },
-    {
-      "titulo": "Prêmio para mulheres cientistas tem inscrição prorrogada até novembro",
-      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-10/premio-para-mulheres-cientistas-tem-inscricao-prorrogada-ate-novembro",
-      "fonte": "Agência Brasil",
-      "data": "01/11"
-    },
-    {
-      "titulo": "Programa oferece cursos gratuitos sobre IA para professores",
-      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-10/programa-oferece-cursos-gratuitos-sobre-ia-para-professores",
-      "fonte": "Agência Brasil",
-      "data": "31/10"
     }
   ],
   "temasRedacao": [
