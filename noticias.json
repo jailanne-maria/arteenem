@@ -1,5 +1,5 @@
 {
-  "atualizadoEm": "2026-11-01T16:59:19.963Z",
+  "atualizadoEm": "2026-11-02T02:04:12.665Z",
   "fontes": [
     "MEC",
     "Agência Brasil"
@@ -126,6 +126,12 @@
       "data": "outubro/2026"
     },
     {
+      "titulo": "Falta uma semana para o Enem 2026; veja horários e o que levar",
+      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/falta-uma-semana-para-o-enem-2026-veja-horarios-e-o-que-levar",
+      "fonte": "Agência Brasil",
+      "data": "01/11"
+    },
+    {
       "titulo": "MEC encaminha à PF denúncias de violência política",
       "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/mec-reune-denuncias-de-violencia-politica-e-encaminha-a-pf",
       "fonte": "Agência Brasil",
@@ -142,12 +148,6 @@
       "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-10/programa-oferece-cursos-gratuitos-sobre-ia-para-professores",
       "fonte": "Agência Brasil",
       "data": "31/10"
-    },
-    {
-      "titulo": "Enade 2026: iniciantes devem preencher questionário até 18 de dezembro",
-      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-10/enade-2026-iniciantes-devem-preencher-questionario-ate-18-de-dezembro",
-      "fonte": "Agência Brasil",
-      "data": "30/10"
     }
   ],
   "temasRedacao": [
