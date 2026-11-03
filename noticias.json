@@ -1,10 +1,34 @@
 {
-  "atualizadoEm": "2026-11-03T03:50:06.476Z",
+  "atualizadoEm": "2026-11-03T18:13:24.237Z",
   "fontes": [
     "MEC",
     "Agência Brasil"
   ],
   "noticias": [
+    {
+      "titulo": "Conhecendo o MEC desta semana aborda o Enem",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/conhecendo-o-mec-desta-semana-aborda-o-enem",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "UFRJ pesquisa diferenças na resposta ao estresse entre os sexos",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/ufrj-pesquisa-diferencas-na-resposta-ao-estresse-entre-os-sexos",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "Pronatec oferece mais de 1.300 vagas verdes de qualificação profissional",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/pronatec-oferece-mais-de-1-300-vagas-verdes-de-qualificacao-profissional",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "Programa Mulheres Mil oferece 230 vagas gratuitas em cursos de qualificação profissional",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/programa-mulheres-mil-oferece-230-vagas-gratuitas-em-cursos-de-qualificacao-profissional",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
     {
       "titulo": "MEC Livros participa da 6ª Flitabira em Minas Gerais",
       "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/mec-livros-participa-da-6a-flitabira-em-minas-gerais",
@@ -102,28 +126,16 @@
       "data": "outubro/2026"
     },
     {
-      "titulo": "ETI: redes de ensino têm até 31 de outubro para executar recursos",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/eti-redes-de-ensino-tem-ate-31-de-outubro-para-executar-recursos",
-      "fonte": "MEC",
-      "data": "outubro/2026"
+      "titulo": "Semana de Educação Midiática terá atividades em todas as regiões",
+      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/semana-de-educacao-midiatica-tera-atividades-em-todas-regioes",
+      "fonte": "Agência Brasil",
+      "data": "03/11"
     },
     {
-      "titulo": "Nova resolução aprimora compra de alimentos da agricultura familiar para a alimentação escolar",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/nova-resolucao-aprimora-compra-de-alimentos-da-agricultura-familiar-para-a-alimentacao-escolar",
-      "fonte": "MEC",
-      "data": "outubro/2026"
-    },
-    {
-      "titulo": "Municípios priorizados pelo Ideb têm até 30 de outubro para preencher plano de ação",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/municipios-priorizados-pelo-ideb-tem-ate-30-de-outubro-para-preencher-plano-de-acao",
-      "fonte": "MEC",
-      "data": "outubro/2026"
-    },
-    {
-      "titulo": "Candidatos já podem conferir o local de prova do Enem 2026",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/candidatos-ja-podem-conferir-o-local-de-prova-do-enem-2026",
-      "fonte": "MEC",
-      "data": "outubro/2026"
+      "titulo": "Fies 2: inscrições para vagas remanescentes terminam nesta terça",
+      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/fies-2-inscricoes-para-vagas-remanescentes-terminam-nesta-terca",
+      "fonte": "Agência Brasil",
+      "data": "03/11"
     },
     {
       "titulo": "A menos de uma semana para o Enem 2026, MEC dá dicas aos participantes",
@@ -136,18 +148,6 @@
       "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-10/impa-tech-abre-inscricoes-para-graduacao-em-matematica-nesta-terca",
       "fonte": "Agência Brasil",
       "data": "02/11"
-    },
-    {
-      "titulo": "Inscrições para vagas remanescentes do Fies terminam na terça-feira",
-      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-10/inscricoes-para-vagas-remanescentes-do-fies-terminam-na-terca-feira",
-      "fonte": "Agência Brasil",
-      "data": "02/11"
-    },
-    {
-      "titulo": "Falta uma semana para o Enem 2026: veja horários e o que levar",
-      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/falta-uma-semana-para-o-enem-2026-veja-horarios-e-o-que-levar",
-      "fonte": "Agência Brasil",
-      "data": "01/11"
     }
   ],
   "temasRedacao": [
