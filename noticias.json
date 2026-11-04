@@ -1,10 +1,22 @@
 {
-  "atualizadoEm": "2026-11-04T02:53:51.213Z",
+  "atualizadoEm": "2026-11-04T18:26:59.289Z",
   "fontes": [
     "MEC",
     "Agência Brasil"
   ],
   "noticias": [
+    {
+      "titulo": "MEC Enem reúne simulados e recursos para a reta final de preparação",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/mec-enem-reune-simulados-e-recursos-para-a-reta-final-de-preparacao",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "MEC realiza seminário internacional da Escola Nacional de Hip Hop H2E",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/mec-realiza-seminario-internacional-da-escola-nacional-de-hip-hop-h2e",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
     {
       "titulo": "MEC divulga resultado da seleção de projetos de extensão da Rede Federal",
       "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/mec-divulga-resultado-da-selecao-de-projetos-de-extensao-da-rede-federal",
@@ -114,40 +126,28 @@
       "data": "outubro/2026"
     },
     {
-      "titulo": "Enem 2026: confira o passo a passo para visualizar o local de prova",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/enem-2026-confira-o-passo-a-passo-para-visualizar-o-local-de-prova",
-      "fonte": "MEC",
-      "data": "outubro/2026"
+      "titulo": "Enem 2026: MEC garante segurança da prova e mantém regras da redação",
+      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/enem-2026-mec-garante-seguranca-da-prova-e-mantem-regras-da-redacao",
+      "fonte": "Agência Brasil",
+      "data": "04/11"
     },
     {
-      "titulo": "MEC Livros marca presença no 68º Prêmio Jabuti",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/mec-livros-marca-presenca-no-68o-premio-jabuti",
-      "fonte": "MEC",
-      "data": "outubro/2026"
+      "titulo": "Racismo e desigualdades afetam aprendizagem das crianças, diz estudo",
+      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/racismo-e-desigualdades-afetam-aprendizagem-das-criancas-diz-estudo-0",
+      "fonte": "Agência Brasil",
+      "data": "04/11"
+    },
+    {
+      "titulo": "Enem 2026: confira dicas para cuidar do corpo e da mente na reta final",
+      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/enem-2026-confira-dicas-para-cuidar-do-corpo-e-da-mente-na-reta-final",
+      "fonte": "Agência Brasil",
+      "data": "04/11"
     },
     {
       "titulo": "Semana de Educação Midiática terá atividades em todas as regiões",
       "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/semana-de-educacao-midiatica-tera-atividades-em-todas-regioes",
       "fonte": "Agência Brasil",
       "data": "03/11"
-    },
-    {
-      "titulo": "Fies 2: inscrições para vagas remanescentes terminam nesta terça",
-      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/fies-2-inscricoes-para-vagas-remanescentes-terminam-nesta-terca",
-      "fonte": "Agência Brasil",
-      "data": "03/11"
-    },
-    {
-      "titulo": "A menos de uma semana para o Enem 2026, MEC dá dicas aos participantes",
-      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/menos-de-uma-semana-para-o-enem-2026-mec-da-dicas-aos-participantes",
-      "fonte": "Agência Brasil",
-      "data": "02/11"
-    },
-    {
-      "titulo": "Impa Tech abre inscrições para graduação em matemática nesta terça",
-      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-10/impa-tech-abre-inscricoes-para-graduacao-em-matematica-nesta-terca",
-      "fonte": "Agência Brasil",
-      "data": "02/11"
     }
   ],
   "temasRedacao": [
