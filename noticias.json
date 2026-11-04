@@ -1,10 +1,28 @@
 {
-  "atualizadoEm": "2026-11-03T18:13:24.237Z",
+  "atualizadoEm": "2026-11-04T02:53:51.213Z",
   "fontes": [
     "MEC",
     "Agência Brasil"
   ],
   "noticias": [
+    {
+      "titulo": "MEC divulga resultado da seleção de projetos de extensão da Rede Federal",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/mec-divulga-resultado-da-selecao-de-projetos-de-extensao-da-rede-federal",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "MEC regulamenta trava digital para conclusão de cursos técnicos",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/mec-regulamenta-trava-digital-para-conclusao-de-cursos-tecnicos",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "Impa Tech abre seleção com 150 vagas em graduação gratuita",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/impa-tech-abre-selecao-com-150-vagas-em-graduacao-gratuita",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
     {
       "titulo": "Conhecendo o MEC desta semana aborda o Enem",
       "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/conhecendo-o-mec-desta-semana-aborda-o-enem",
@@ -104,24 +122,6 @@
     {
       "titulo": "MEC Livros marca presença no 68º Prêmio Jabuti",
       "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/mec-livros-marca-presenca-no-68o-premio-jabuti",
-      "fonte": "MEC",
-      "data": "outubro/2026"
-    },
-    {
-      "titulo": "UFMG inaugura supercomputador para pesquisas com IA",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/ufmg-inaugura-supercomputador-para-pesquisas-com-ia",
-      "fonte": "MEC",
-      "data": "outubro/2026"
-    },
-    {
-      "titulo": "MEC estabelece plano para integrar dados educacionais",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/mec-estabelece-plano-para-integrar-dados-educacionais",
-      "fonte": "MEC",
-      "data": "outubro/2026"
-    },
-    {
-      "titulo": "Comissão Nacional da Educação Superior elege novo presidente",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/comissao-nacional-da-educacao-superior-elege-novo-presidente",
       "fonte": "MEC",
       "data": "outubro/2026"
     },
