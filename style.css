@@ -6145,3 +6145,38 @@ h1, h2, h3, h4, .marca-nome, .btn-principal, .btn-secundario, .btn-google, .btn-
 @media (prefers-reduced-motion: reduce) {
   .bingo-poronga, .bingo-chama, .bingo-festa-caixa { animation: none; }
 }
+
+/* ===== Aviso institucional do rodapé: caixa verde, letras amarelas ===== */
+.rodape .btn-institucional {
+  display: inline-block;
+  margin-top: 14px;
+  padding: 9px 16px;
+  background: var(--green);
+  color: var(--yellow);
+  font-family: var(--pixel);
+  font-size: 0.58rem;
+  line-height: 1.9;
+  font-weight: 400;
+  border: 3px solid var(--black);
+  border-radius: 10px;
+  box-shadow: 4px 4px 0 var(--sombra-texto);
+  text-shadow: 1px 1px 0 rgba(20, 20, 43, .55);
+  opacity: 1;
+  cursor: pointer;
+  transition: transform .08s ease, background .15s ease;
+}
+.rodape .btn-institucional:hover {
+  background: var(--green-dark);
+  transform: translateY(-1px);
+}
+.rodape .btn-institucional:active {
+  transform: translateY(1px);
+  box-shadow: 2px 2px 0 var(--sombra-texto);
+}
+.rodape .btn-institucional:focus-visible {
+  outline: 3px solid var(--yellow);
+  outline-offset: 3px;
+}
+@media (max-width: 520px) {
+  .rodape .btn-institucional { font-size: 0.5rem; padding: 8px 12px; }
+}
