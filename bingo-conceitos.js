@@ -172,5 +172,9 @@ const CONCEITOS_BINGO = [
  {
   "termo": "Cabrita",
   "def": "Faca pequena, de cabo curto, usada pelo seringueiro para fazer o corte na casca da seringueira e colher o látex. O corte é feito em diagonal, sem atingir o cerne da árvore, para que ela continue produzindo."
+ },
+ {
+  "termo": "Extrativistas",
+  "def": "Populações tradicionais que vivem da coleta sustentável do que a floresta oferece — látex, castanha, açaí, babaçu, mel, pescado — sem derrubar a mata. O Decreto nº 6.040/2007 reconhece os extrativistas entre os povos e comunidades tradicionais. No Acre, o termo se confunde com a história dos seringueiros e das reservas extrativistas, criadas para garantir que quem preserva tenha direito à terra e à renda."
  }
 ];
