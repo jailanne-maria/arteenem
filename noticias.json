@@ -1,10 +1,28 @@
 {
-  "atualizadoEm": "2026-11-05T03:06:58.320Z",
+  "atualizadoEm": "2026-11-05T18:30:18.478Z",
   "fontes": [
     "MEC",
     "Agência Brasil"
   ],
   "noticias": [
+    {
+      "titulo": "Dia Nacional da Língua Portuguesa destaca retomada de olimpíada pelo MEC",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/dia-nacional-da-lingua-portuguesa-destaca-retomada-de-olimpiada-pelo-mec",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "Dia Nacional da Língua Portuguesa destaca alfabetização",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/dia-nacional-da-lingua-portuguesa-destaca-alfabetizacao",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "Histórias no Enem: veteranas dão dicas para encarar as provas",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/historias-no-enem-veteranas-dao-dicas-para-encarar-as-provas",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
     {
       "titulo": "Evento destaca avanços e desafios da educação digital nas escolas",
       "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/evento-destaca-avancos-e-desafios-da-educacao-digital-nas-escolas",
@@ -108,22 +126,10 @@
       "data": "outubro/2026"
     },
     {
-      "titulo": "92% das redes de ensino cumprem critério de equidade e são habilitadas ao VAAR/Fundeb 2027",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/92-das-redes-de-ensino-cumprem-criterio-de-equidade-e-sao-habilitadas-ao-vaar-fundeb-2027",
-      "fonte": "MEC",
-      "data": "outubro/2026"
-    },
-    {
-      "titulo": "Fies remanescente: inscrições terminam na terça-feira (3/11)",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/fies-remanescente-inscricoes-terminam-na-terca-feira-3-11",
-      "fonte": "MEC",
-      "data": "outubro/2026"
-    },
-    {
-      "titulo": "Entre estudos e expectativas, Akira se prepara para fazer o Enem pela primeira vez",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/entre-estudos-e-expectativas-akira-se-prepara-para-fazer-o-enem-pela-primeira-vez",
-      "fonte": "MEC",
-      "data": "outubro/2026"
+      "titulo": "Enem: cursinhos populares preparam alunos em vulnerabilidade social",
+      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/enem-cursinhos-populares-preparam-alunos-em-vulnerabilidade-social",
+      "fonte": "Agência Brasil",
+      "data": "05/11"
     },
     {
       "titulo": "MEC Enem reúne recursos gratuitos para a reta final de preparação",
@@ -140,12 +146,6 @@
     {
       "titulo": "Enem 2026: MEC garante segurança da prova e mantém regras da redação",
       "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/enem-2026-mec-garante-seguranca-da-prova-e-mantem-regras-da-redacao",
-      "fonte": "Agência Brasil",
-      "data": "04/11"
-    },
-    {
-      "titulo": "Racismo e desigualdades afetam aprendizagem das crianças, diz estudo",
-      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/racismo-e-desigualdades-afetam-aprendizagem-das-criancas-diz-estudo-0",
       "fonte": "Agência Brasil",
       "data": "04/11"
     }
