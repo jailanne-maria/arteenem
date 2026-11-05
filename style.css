@@ -6042,7 +6042,7 @@ h1, h2, h3, h4, .marca-nome, .btn-principal, .btn-secundario, .btn-google, .btn-
   font-size: 10px;
   cursor: default;
 }
-.bingo-botao-gritar { width: 100%; max-width: 560px; margin: 0 auto; display: block; }
+.bingo-botao-gritar { width: 100%; max-width: 560px; margin: 14px auto 0; display: block; }
 .bingo-legenda {
   text-align: center;
   font-family: var(--texto);
@@ -6055,4 +6055,29 @@ h1, h2, h3, h4, .marca-nome, .btn-principal, .btn-secundario, .btn-google, .btn-
   .bingo-celula { font-size: 11px; }
   .bingo-termo { font-size: 15px; }
   .bingo-globo { width: 74px; height: 74px; font-size: 42px; }
+}
+
+/* ===== Ajuste da cartela do bingo (não estourar a largura do painel) ===== */
+.bingo-cartela {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-auto-rows: minmax(58px, auto);
+  width: 100%;
+  max-width: 560px;
+  margin: 14px auto 6px;
+}
+.bingo-celula {
+  aspect-ratio: auto;
+  min-width: 0;
+  padding: 6px 4px;
+  font-size: clamp(10px, 2.4vw, 13px);
+  line-height: 1.1;
+  overflow-wrap: anywhere;
+  hyphens: auto;
+}
+.bingo-botao-gritar { margin: 14px auto 0; }
+
+@media (max-width: 520px) {
+  .bingo-cartela { gap: 4px; grid-auto-rows: minmax(54px, auto); }
+  .bingo-celula { font-size: 11px; padding: 5px 3px; border-width: 2px; border-radius: 8px; }
+  .bingo-celula.livre { font-size: 8px; }
 }
