@@ -263,7 +263,11 @@ function bingoEscutarCartelas() {
 
       const venc = bingoEl("bingo-vencedores");
       if (venc) {
-        const ganhadores = cartelas.filter((c) => c.bingo);
+        const ganhadores = [];
+        cartelas.forEach((c) => {
+          (c.historico || []).forEach((h) => ganhadores.push({ nome: c.nome, padrao: h.padrao }));
+          if (!c.historico && c.bingo) ganhadores.push({ nome: c.nome, padrao: c.padrao });
+        });
         if (bingoEstado.vencedoresVistos === null) bingoEstado.vencedoresVistos = ganhadores.length;
         else if (ganhadores.length > bingoEstado.vencedoresVistos) {
           const ultimo = ganhadores[ganhadores.length - 1];
@@ -288,6 +292,7 @@ async function bingoEntrarAluno() {
   const db = firebase.firestore();
   const sessaoSnap = await db.collection(BINGO_COL_SESSAO).doc(codigo).get();
   if (!sessaoSnap.exists) return bingoAviso("A sala ainda não foi aberta pelo professor.", "erro");
+  const jaSorteados = (sessaoSnap.data().sorteados || []).length;
 
   const ref = db.collection(BINGO_COL_CARTELA).doc(codigo + "_" + user.uid);
   try {
@@ -301,6 +306,8 @@ async function bingoEntrarAluno() {
         celulas,
         marcados: celulas.map(() => false),
         bingo: false,
+        historico: [],
+        inicioSorteios: jaSorteados,
         criadaEm: firebase.firestore.FieldValue.serverTimestamp(),
       });
     }
@@ -336,7 +343,8 @@ function bingoRenderAluno(sessao) {
   if (!grade || !cartela) return;
 
   const sorteados = (sessao && sessao.sorteados) || [];
-  const sorteadosIdx = new Set(sorteados.map((s) => s.i));
+  const base = cartela.inicioSorteios || 0;
+  const sorteadosIdx = new Set(sorteados.slice(base).map((s) => s.i));
 
   // marca automaticamente quem já saiu
   const marcados = (cartela.marcados || []).slice();
@@ -408,19 +416,45 @@ async function bingoGritar() {
     if (typeof mostrarToast === "function") mostrarToast("Ainda não há linha completa.", "erro");
     return;
   }
+  const padrao = bingoComboNome(linha);
   const user = typeof usuarioAtual === "function" ? usuarioAtual() : null;
+  const ref = firebase.firestore().collection(BINGO_COL_CARTELA).doc(bingoEstado.codigo + "_" + user.uid);
+
+  bingoEstado.festaMostrada = true;
+  bingoFesta("", padrao);
+
+  try {
+    await ref.update({
+      bingo: true,
+      padrao,
+      bingoEm: firebase.firestore.FieldValue.serverTimestamp(),
+      historico: firebase.firestore.FieldValue.arrayUnion({ padrao, em: Date.now() }),
+    });
+    await bingoZerarCartela();
+    if (typeof mostrarToast === "function") mostrarToast("Bingo registrado! Sua cartela foi zerada para a próxima rodada.", "ok");
+  } catch (e) {
+    bingoAviso("Não foi possível registrar o bingo: " + e.message, "erro");
+  }
+}
+
+// zera a cartela depois do bingo: sorteia novas células e recomeça a marcação
+async function bingoZerarCartela() {
+  const user = typeof usuarioAtual === "function" ? usuarioAtual() : null;
+  if (!user || !bingoEstado.codigo) return;
+  const celulas = bingoGerarCartela();
+  const sorteados = (bingoEstado.sessao && bingoEstado.sessao.sorteados) || [];
   try {
     await firebase.firestore().collection(BINGO_COL_CARTELA)
       .doc(bingoEstado.codigo + "_" + user.uid)
       .update({
-        bingo: true,
-        padrao: bingoComboNome(linha),
-        bingoEm: firebase.firestore.FieldValue.serverTimestamp(),
+        celulas,
+        marcados: celulas.map(() => false),
+        bingo: false,
+        padrao: null,
+        inicioSorteios: sorteados.length,
+        zeradaEm: firebase.firestore.FieldValue.serverTimestamp(),
       });
-    if (typeof mostrarToast === "function") mostrarToast("Bingo registrado! Aguarde a conferência do professor.", "ok");
-  } catch (e) {
-    bingoAviso("Não foi possível registrar o bingo: " + e.message, "erro");
-  }
+  } catch (e) { /* a próxima leitura do snapshot corrige */ }
 }
 
 // ---------- festa do bingo ----------
