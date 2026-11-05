@@ -164,5 +164,13 @@ const CONCEITOS_BINGO = [
  {
   "termo": "Aliança dos Povos da Floresta",
   "def": "Movimento criado no final dos anos 1980, quando seringueiros (representados por Chico Mendes e Marina Silva) e povos indígenas (representados por Ailton Krenak) uniram forças — inimigos históricos no passado — contra um inimigo comum: o desmatamento em massa e a expulsão de suas terras nativas. Essa união provou que a melhor forma de proteger a Amazônia é garantir os direitos territoriais de quem habita e vive em simbiose com ela."
+ },
+ {
+  "termo": "Poronga",
+  "def": "Lamparina de querosene que o seringueiro prende na cabeça com uma faixa de tecido para iluminar a mata antes do amanhecer, durante a extração do látex. A chama fica protegida por uma cúpula de metal. Virou símbolo da cultura seringueira e da luta dos povos da floresta."
+ },
+ {
+  "termo": "Cabrita",
+  "def": "Faca pequena, de cabo curto, usada pelo seringueiro para fazer o corte na casca da seringueira e colher o látex. O corte é feito em diagonal, sem atingir o cerne da árvore, para que ela continue produzindo."
  }
 ];

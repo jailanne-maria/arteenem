@@ -10,7 +10,7 @@
   <link rel="apple-touch-icon" href="img/icon-192.png">
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#5c94fc">
-  <link rel="stylesheet" href="style.css?v=108">
+  <link rel="stylesheet" href="style.css?v=109">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
@@ -1446,7 +1446,34 @@
         <button id="bingo-bingo" class="btn-principal bingo-botao-gritar" disabled>BINGO!</button>
         <p class="bingo-legenda">Marque quando o conceito for sorteado. O centro é livre.</p>
       </div>
-    </section>
+            <div id="bingo-festa" class="bingo-festa escondido" role="dialog" aria-modal="true" aria-labelledby="bingo-festa-titulo">
+          <div class="bingo-festa-caixa">
+            <svg class="bingo-poronga" viewBox="0 0 120 170" aria-hidden="true" focusable="false">
+              <defs>
+                <linearGradient id="bingoMetal" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0%" stop-color="#8a8f98"/>
+                  <stop offset="45%" stop-color="#d9dde3"/>
+                  <stop offset="100%" stop-color="#6d737c"/>
+                </linearGradient>
+                <radialGradient id="bingoChama" cx="50%" cy="70%" r="60%">
+                  <stop offset="0%" stop-color="#fff7c2"/>
+                  <stop offset="45%" stop-color="#ffb347"/>
+                  <stop offset="100%" stop-color="#ff6b1a"/>
+                </radialGradient>
+              </defs>
+              <path d="M8 150 Q60 118 112 150 L112 160 Q60 130 8 160 Z" fill="#c8b18a" stroke="#14142b" stroke-width="4"/>
+              <rect x="40" y="78" width="40" height="42" rx="6" fill="url(#bingoMetal)" stroke="#14142b" stroke-width="4"/>
+              <path d="M36 78 L44 26 L76 26 L84 78 Z" fill="#ffd9a0" fill-opacity="0.35" stroke="#14142b" stroke-width="4"/>
+              <path class="bingo-chama" d="M60 72 C54 64 56 54 60 44 C64 54 66 64 60 72 Z" fill="url(#bingoChama)"/>
+              <rect x="54" y="70" width="12" height="10" rx="3" fill="url(#bingoMetal)" stroke="#14142b" stroke-width="3"/>
+            </svg>
+            <h2 id="bingo-festa-titulo" class="bingo-festa-titulo">BINGO!</h2>
+            <p id="bingo-festa-texto" class="bingo-festa-texto">Cartela completa.</p>
+            <button id="bingo-festa-fechar" class="btn-principal">Continuar jogando</button>
+          </div>
+        </div>
+
+</section>
 
     <!-- ===== CLASSIFICAÇÃO, PRIVACIDADE, TERMOS E CRÉDITOS ===== -->
     <section id="tela-sobre" class="tela">
@@ -1690,21 +1717,21 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
 
-  <script src="questoes.js?v=108"></script>
-  <script src="questoes-arte.js?v=108"></script>
-  <script src="plano.js?v=108"></script>
-  <script src="explorar.js?v=108"></script>
-  <script src="figurinhas.js?v=108"></script>
-  <script src="curriculo.js?v=108"></script>
-  <script src="cursos.js?v=108"></script>
-  <script src="mascote.js?v=108"></script>
-  <script src="glossario.js?v=108"></script>
-  <script src="glossario-acreanes.js?v=108"></script>
-  <script src="encenacao.js?v=108"></script>
-    <script src="plataforma.js?v=108"></script>
-  <script src="firebase-config.js?v=108"></script>
-<script src="bingo-conceitos.js?v=108"></script>
-<script src="bingo.js?v=108"></script>
-  <script src="script.js?v=108"></script>
+  <script src="questoes.js?v=109"></script>
+  <script src="questoes-arte.js?v=109"></script>
+  <script src="plano.js?v=109"></script>
+  <script src="explorar.js?v=109"></script>
+  <script src="figurinhas.js?v=109"></script>
+  <script src="curriculo.js?v=109"></script>
+  <script src="cursos.js?v=109"></script>
+  <script src="mascote.js?v=109"></script>
+  <script src="glossario.js?v=109"></script>
+  <script src="glossario-acreanes.js?v=109"></script>
+  <script src="encenacao.js?v=109"></script>
+    <script src="plataforma.js?v=109"></script>
+  <script src="firebase-config.js?v=109"></script>
+<script src="bingo-conceitos.js?v=109"></script>
+<script src="bingo.js?v=109"></script>
+  <script src="script.js?v=109"></script>
 </body>
 </html>

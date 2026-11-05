@@ -6081,3 +6081,67 @@ h1, h2, h3, h4, .marca-nome, .btn-principal, .btn-secundario, .btn-google, .btn-
   .bingo-celula { font-size: 11px; padding: 5px 3px; border-width: 2px; border-radius: 8px; }
   .bingo-celula.livre { font-size: 8px; }
 }
+
+/* ===== Festa do bingo (poronga brilhando) ===== */
+.bingo-festa {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(20, 20, 43, .84);
+}
+.bingo-festa.escondido { display: none; }
+.bingo-festa-caixa {
+  background: var(--cream);
+  border: 4px solid var(--black);
+  border-radius: 18px;
+  box-shadow: var(--sombra);
+  padding: 26px 22px 22px;
+  text-align: center;
+  width: 100%;
+  max-width: 340px;
+  animation: bingo-pop .35s ease-out;
+}
+.bingo-poronga {
+  width: 112px;
+  height: 158px;
+  display: block;
+  margin: 0 auto 6px;
+  filter: drop-shadow(0 0 16px rgba(255, 179, 71, .95)) drop-shadow(0 0 34px rgba(255, 140, 0, .65));
+  animation: bingo-brilho 1.6s ease-in-out infinite;
+}
+.bingo-chama {
+  animation: bingo-fogo .9s steps(2, end) infinite alternate;
+  transform-origin: 60px 72px;
+}
+.bingo-festa-titulo {
+  font-family: var(--pixel);
+  font-size: 26px;
+  color: var(--red);
+  text-shadow: 2px 2px 0 var(--black);
+  margin: 4px 0 10px;
+}
+.bingo-festa-texto {
+  font-family: var(--texto);
+  font-size: 19px;
+  color: var(--on-surface-2);
+  margin: 0 0 18px;
+}
+@keyframes bingo-brilho {
+  0%, 100% { filter: drop-shadow(0 0 14px rgba(255, 179, 71, .85)) drop-shadow(0 0 28px rgba(255, 140, 0, .5)); }
+  50% { filter: drop-shadow(0 0 26px rgba(255, 214, 120, 1)) drop-shadow(0 0 54px rgba(255, 140, 0, .85)); }
+}
+@keyframes bingo-fogo {
+  from { transform: scaleY(.9) translateY(1px); }
+  to { transform: scaleY(1.1) translateY(-1px); }
+}
+@keyframes bingo-pop {
+  from { transform: scale(.85); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .bingo-poronga, .bingo-chama, .bingo-festa-caixa { animation: none; }
+}

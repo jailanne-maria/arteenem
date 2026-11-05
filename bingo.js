@@ -264,6 +264,12 @@ function bingoEscutarCartelas() {
       const venc = bingoEl("bingo-vencedores");
       if (venc) {
         const ganhadores = cartelas.filter((c) => c.bingo);
+        if (bingoEstado.vencedoresVistos === null) bingoEstado.vencedoresVistos = ganhadores.length;
+        else if (ganhadores.length > bingoEstado.vencedoresVistos) {
+          const ultimo = ganhadores[ganhadores.length - 1];
+          bingoEstado.vencedoresVistos = ganhadores.length;
+          bingoFesta(ultimo.nome || "Um estudante", ultimo.padrao);
+        }
         venc.innerHTML = ganhadores.length
           ? ganhadores.map((c) => "<li><strong>" + bingoEsc(c.nome || "Estudante") + "</strong> — " + bingoEsc(c.padrao || "bingo") + "</li>").join("")
           : "<li class='bingo-vazio'>Ninguém cantou bingo ainda.</li>";
@@ -360,6 +366,11 @@ function bingoRenderAluno(sessao) {
     btn.textContent = cartela.bingo ? "Bingo registrado ✓" : "BINGO!";
   }
 
+  if (cartela.bingo && !bingoEstado.festaMostrada) {
+    bingoEstado.festaMostrada = true;
+    bingoFesta("", cartela.padrao);
+  }
+
   if (mudou && !cartela.bingo) bingoSalvarMarcados(marcados);
   if (linha >= 0 && !cartela.bingo && !bingoEstado.avisouLinha) {
     bingoEstado.avisouLinha = true;
@@ -412,6 +423,26 @@ async function bingoGritar() {
   }
 }
 
+// ---------- festa do bingo ----------
+function bingoFesta(nome, padrao) {
+  const caixa = bingoEl("bingo-festa");
+  if (!caixa) return;
+  const titulo = bingoEl("bingo-festa-titulo");
+  const texto = bingoEl("bingo-festa-texto");
+  if (titulo) titulo.textContent = "BINGO!";
+  if (texto) {
+    texto.textContent = (nome ? nome + " completou " : "Você completou ") + (padrao || "a cartela") + "!";
+  }
+  caixa.classList.remove("escondido");
+  const btn = bingoEl("bingo-festa-fechar");
+  if (btn) btn.focus();
+}
+
+function bingoFecharFesta() {
+  const caixa = bingoEl("bingo-festa");
+  if (caixa) caixa.classList.add("escondido");
+}
+
 // ---------- ligações de interface ----------
 document.addEventListener("DOMContentLoaded", () => {
   const ligar = (id, evento, fn) => {
@@ -425,6 +456,8 @@ document.addEventListener("DOMContentLoaded", () => {
   ligar("bingo-globo", "click", bingoGirar);
   ligar("bingo-encerrar", "click", bingoEncerrar);
   ligar("bingo-bingo", "click", bingoGritar);
+  ligar("bingo-festa-fechar", "click", bingoFecharFesta);
+  ligar("bingo-festa", "click", (ev) => { if (ev.target && ev.target.id === "bingo-festa") bingoFecharFesta(); });
 
   const grade = bingoEl("bingo-cartela");
   if (grade) {
