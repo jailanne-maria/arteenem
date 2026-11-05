@@ -1,10 +1,52 @@
 {
-  "atualizadoEm": "2026-11-04T18:26:59.289Z",
+  "atualizadoEm": "2026-11-05T03:06:58.320Z",
   "fontes": [
     "MEC",
     "Agência Brasil"
   ],
   "noticias": [
+    {
+      "titulo": "Evento destaca avanços e desafios da educação digital nas escolas",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/evento-destaca-avancos-e-desafios-da-educacao-digital-nas-escolas",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "MEC e Governo do Piauí realizam aulão para o Enem",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/mec-e-governo-do-piaui-realizam-aulao-para-o-enem",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "Ministro da Educação alerta para riscos das bets aos estudantes",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/ministro-da-educacao-alerta-para-riscos-das-bets-aos-estudantes",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "Conheça a história da Hadassa e sua preparação para o Enem",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/conheca-a-historia-da-hadassa-e-sua-preparacao-para-o-enem",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "Pronatec tem mais de mil vagas verdes para qualificação profissional no RS",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/pronatec-tem-mais-de-mil-vagas-verdes-para-qualificacao-profissional-no-rs",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "MEC participa de evento internacional sobre inovação aberta na EPT",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/mec-participa-de-evento-internacional-sobre-inovacao-aberta-na-ept",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "PodCast Rumo ao Enem apresenta histórias reais de participantes",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/podcast-rumo-ao-enem-apresenta-historias-reais-de-participantes",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
     {
       "titulo": "MEC Enem reúne simulados e recursos para a reta final de preparação",
       "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/mec-enem-reune-simulados-e-recursos-para-a-reta-final-de-preparacao",
@@ -84,46 +126,16 @@
       "data": "outubro/2026"
     },
     {
-      "titulo": "PodMEC debate financiamento da educação e o papel do Fundeb",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/podmec-debate-financiamento-da-educacao-e-o-papel-do-fundeb",
-      "fonte": "MEC",
-      "data": "outubro/2026"
+      "titulo": "MEC Enem reúne recursos gratuitos para a reta final de preparação",
+      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/mec-enem-reune-recursos-gratuitos-para-reta-final-de-preparacao",
+      "fonte": "Agência Brasil",
+      "data": "04/11"
     },
     {
-      "titulo": "UFVJM oferece mais de 300 vagas em especializações gratuitas a distância",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/ufvjm-oferece-mais-de-300-vagas-em-especializacoes-gratuitas-a-distancia",
-      "fonte": "MEC",
-      "data": "outubro/2026"
-    },
-    {
-      "titulo": "PNLD Educação Infantil: escolas têm até 6/11 para escolher obras",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/pnld-educacao-infantil-escolas-tem-ate-6-11-para-escolher-obras",
-      "fonte": "MEC",
-      "data": "outubro/2026"
-    },
-    {
-      "titulo": "Estão abertas as inscrições para seminário do Pé-de-Meia",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/estao-abertas-as-inscricoes-para-seminario-do-pe-de-meia",
-      "fonte": "MEC",
-      "data": "outubro/2026"
-    },
-    {
-      "titulo": "Dia Nacional do Livro: conheça iniciativas que ampliam o acesso à leitura",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/dia-nacional-do-livro-conheca-iniciativas-que-ampliam-o-acesso-a-leitura",
-      "fonte": "MEC",
-      "data": "outubro/2026"
-    },
-    {
-      "titulo": "Empresas podem apresentar propostas para programa #TôComProf",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/empresas-podem-apresentar-propostas-para-programa-tocomprof",
-      "fonte": "MEC",
-      "data": "outubro/2026"
-    },
-    {
-      "titulo": "Redes devem regularizar pendências do PDDE até 31 de outubro",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/redes-devem-regularizar-pendencias-do-pdde-ate-31-de-outubro",
-      "fonte": "MEC",
-      "data": "outubro/2026"
+      "titulo": "Pé-de-Meia Universitário deve começar em 2027 para aluno do CadÚnico",
+      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/pe-de-meia-universitario-deve-comecar-em-2027-para-aluno-do-cadunico",
+      "fonte": "Agência Brasil",
+      "data": "04/11"
     },
     {
       "titulo": "Enem 2026: MEC garante segurança da prova e mantém regras da redação",
@@ -136,18 +148,6 @@
       "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/racismo-e-desigualdades-afetam-aprendizagem-das-criancas-diz-estudo-0",
       "fonte": "Agência Brasil",
       "data": "04/11"
-    },
-    {
-      "titulo": "Enem 2026: confira dicas para cuidar do corpo e da mente na reta final",
-      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/enem-2026-confira-dicas-para-cuidar-do-corpo-e-da-mente-na-reta-final",
-      "fonte": "Agência Brasil",
-      "data": "04/11"
-    },
-    {
-      "titulo": "Semana de Educação Midiática terá atividades em todas as regiões",
-      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/semana-de-educacao-midiatica-tera-atividades-em-todas-regioes",
-      "fonte": "Agência Brasil",
-      "data": "03/11"
     }
   ],
   "temasRedacao": [
