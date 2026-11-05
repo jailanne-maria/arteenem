@@ -59,6 +59,7 @@ aoMudarUsuario(async (user) => {
   const btnMural = document.getElementById("btn-mural");
   const btnPerfil = document.getElementById("btn-perfil");
   const btnExplorar = document.getElementById("btn-explorar");
+  const btnBingo = document.getElementById("btn-bingo");
   const btnEca = document.getElementById("btn-eca");
   const btnJogo = document.getElementById("btn-jogo");
   const btnNoticias = document.getElementById("btn-noticias");
@@ -84,6 +85,7 @@ aoMudarUsuario(async (user) => {
     esconder(btnMural);
     esconder(btnPerfil);
     esconder(btnExplorar);
+    esconder(btnBingo);
     esconder(btnEca);
     esconder(btnJogo);
     esconder(btnNoticias);
@@ -137,6 +139,7 @@ aoMudarUsuario(async (user) => {
   exibir(btnMural);
   exibir(btnPerfil);
   exibir(btnExplorar);
+  exibir(btnBingo);
   exibir(btnEca);
   exibir(btnJogo);
   exibir(btnNoticias);
@@ -2235,6 +2238,8 @@ function caminharEIniciar(i) {
 }
 
 document.getElementById("btn-explorar").addEventListener("click", abrirExplorar);
+document.getElementById("btn-bingo").addEventListener("click", bingoAbrirTela);
+document.getElementById("btn-voltar-bingo").addEventListener("click", () => { if (typeof bingoDesconectar === "function") bingoDesconectar(); mostrarTela("tela-inicio"); });
 document.getElementById("btn-trocar-avatar").addEventListener("click", () => {
   const bloco = document.getElementById("avatar-escolha");
   if (bloco.classList.contains("escondido")) exibir(bloco);

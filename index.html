@@ -10,7 +10,7 @@
   <link rel="apple-touch-icon" href="img/icon-192.png">
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#5c94fc">
-  <link rel="stylesheet" href="style.css?v=106">
+  <link rel="stylesheet" href="style.css?v=107">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
@@ -39,6 +39,7 @@
           <button id="btn-curriculo" class="btn-ghost escondido">📚 Currículo</button>
           <button id="btn-revisoes" class="btn-ghost escondido">📖 Revisões</button>
           <button id="btn-jogo" class="btn-ghost escondido">🎡 Jogo</button>
+          <button id="btn-bingo" class="btn-ghost escondido">🎲 Bingo étnico-racial</button>
           <button id="btn-explorar" class="btn-ghost escondido">🎮 Explorar</button>
           <button id="btn-eca" class="btn-ghost escondido">📜 ECA</button>
           <button id="btn-perfil" class="btn-ghost escondido">👤 Perfil</button>
@@ -1386,6 +1387,67 @@
       </div>
     </section>
 
+    <!-- ===== BINGO ÉTNICO-RACIAL ===== -->
+    <section id="tela-bingo" class="tela">
+      <button id="btn-voltar-bingo" class="btn-ghost voltar">← Voltar</button>
+
+      <div class="hero">
+        <h1>Bingo <span class="destaque">Étnico-Racial</span></h1>
+        <p>Mediação do professor, cartelas no celular e o globo na tela de quem conduz.</p>
+        <p class="credito-questoes">Conceitos da cartilha “Antirracismo na práxis” · Raízes da Comunidade</p>
+      </div>
+
+      <div id="bingo-entrada" class="painel-bloco">
+        <h3 class="secao-titulo">Entrar na sala</h3>
+        <div class="campo">
+          <label for="bingo-codigo">Código da turma</label>
+          <input id="bingo-codigo" type="text" maxlength="6" autocomplete="off" placeholder="Ex.: ABC123" />
+        </div>
+        <div class="bingo-papeis">
+          <button id="bingo-sou-professor" class="btn-secundario">Sou professor(a) — abrir sala</button>
+          <button id="bingo-sou-aluno" class="btn-principal">Sou estudante — pegar cartela</button>
+        </div>
+        <p id="bingo-aviso" class="bingo-aviso" role="status" aria-live="polite"></p>
+      </div>
+
+      <div id="bingo-professor" class="painel-bloco escondido">
+        <div class="bingo-painel-topo">
+          <button id="bingo-globo" class="bingo-globo" aria-label="Girar o globo" title="Girar o globo">🌍</button>
+          <div class="bingo-painel-info">
+            <p id="bingo-prof-status" class="bingo-chip">Rodada aberta</p>
+            <p id="bingo-pendentes" class="bingo-contagem"></p>
+            <p id="bingo-participantes" class="bingo-contagem"></p>
+          </div>
+        </div>
+
+        <div id="bingo-sorteado" class="bingo-sorteado">
+          <p class="bingo-vazio">O globo ainda não girou nesta rodada.</p>
+        </div>
+
+        <div class="bingo-acoes">
+          <button id="bingo-girar" class="btn-principal">Girar o globo 🎲</button>
+          <button id="bingo-encerrar" class="btn-secundario">Encerrar rodada</button>
+        </div>
+
+        <h3 class="secao-titulo">Bingos cantados</h3>
+        <ul id="bingo-vencedores" class="bingo-vencedores">
+          <li class="bingo-vazio">Ninguém cantou bingo ainda.</li>
+        </ul>
+
+        <h3 class="secao-titulo">Conceitos sorteados</h3>
+        <ol id="bingo-historico" class="bingo-historico">
+          <li class="bingo-vazio">Nada sorteado ainda.</li>
+        </ol>
+      </div>
+
+      <div id="bingo-aluno" class="painel-bloco escondido">
+        <p id="bingo-aluno-status" class="bingo-chip" role="status" aria-live="polite">Aguardando o professor…</p>
+        <div id="bingo-cartela" class="bingo-cartela" aria-label="Cartela de bingo"></div>
+        <button id="bingo-bingo" class="btn-principal bingo-botao-gritar" disabled>BINGO!</button>
+        <p class="bingo-legenda">Marque quando o conceito for sorteado. O centro é livre.</p>
+      </div>
+    </section>
+
     <!-- ===== CLASSIFICAÇÃO, PRIVACIDADE, TERMOS E CRÉDITOS ===== -->
     <section id="tela-sobre" class="tela">
       <button id="btn-voltar-sobre" class="btn-ghost voltar">← Voltar</button>
@@ -1628,19 +1690,21 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
 
-  <script src="questoes.js?v=106"></script>
-  <script src="questoes-arte.js?v=106"></script>
-  <script src="plano.js?v=106"></script>
-  <script src="explorar.js?v=106"></script>
-  <script src="figurinhas.js?v=106"></script>
-  <script src="curriculo.js?v=106"></script>
-  <script src="cursos.js?v=106"></script>
-  <script src="mascote.js?v=106"></script>
-  <script src="glossario.js?v=106"></script>
-  <script src="glossario-acreanes.js?v=106"></script>
-  <script src="encenacao.js?v=106"></script>
-    <script src="plataforma.js?v=106"></script>
-  <script src="firebase-config.js?v=106"></script>
-  <script src="script.js?v=106"></script>
+  <script src="questoes.js?v=107"></script>
+  <script src="questoes-arte.js?v=107"></script>
+  <script src="plano.js?v=107"></script>
+  <script src="explorar.js?v=107"></script>
+  <script src="figurinhas.js?v=107"></script>
+  <script src="curriculo.js?v=107"></script>
+  <script src="cursos.js?v=107"></script>
+  <script src="mascote.js?v=107"></script>
+  <script src="glossario.js?v=107"></script>
+  <script src="glossario-acreanes.js?v=107"></script>
+  <script src="encenacao.js?v=107"></script>
+    <script src="plataforma.js?v=107"></script>
+  <script src="firebase-config.js?v=107"></script>
+<script src="bingo-conceitos.js?v=107"></script>
+<script src="bingo.js?v=107"></script>
+  <script src="script.js?v=107"></script>
 </body>
 </html>

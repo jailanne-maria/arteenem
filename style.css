@@ -5897,3 +5897,162 @@ h1, h2, h3, h4, .marca-nome, .btn-principal, .btn-secundario, .btn-google, .btn-
   line-height: 1.45;
   color: var(--on-surface-2);
 }
+
+/* ===== BINGO ÉTNICO-RACIAL ===== */
+.bingo-papeis {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 14px;
+}
+.bingo-papeis .btn-principal,
+.bingo-papeis .btn-secundario { flex: 1 1 240px; }
+
+.bingo-aviso { margin: 12px 0 0; font-size: 15px; color: var(--muted); }
+.bingo-aviso.erro { color: var(--red-dark); font-weight: bold; }
+.bingo-aviso.ok { color: var(--green-dark); font-weight: bold; }
+
+.bingo-chip {
+  display: inline-block;
+  background: var(--surface-3);
+  border: 3px solid var(--black);
+  border-radius: 10px;
+  padding: 6px 12px;
+  font-family: var(--texto);
+  font-size: 17px;
+  margin: 0 0 8px;
+}
+.bingo-contagem { margin: 2px 0; font-family: var(--texto); font-size: 16px; color: var(--on-surface-2); }
+
+.bingo-painel-topo {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-bottom: 18px;
+}
+.bingo-globo {
+  font-size: 54px;
+  line-height: 1;
+  width: 92px;
+  height: 92px;
+  border-radius: 50%;
+  border: 4px solid var(--black);
+  background: radial-gradient(circle at 30% 30%, var(--sky-2), var(--sky));
+  box-shadow: 5px 5px 0 var(--black);
+  cursor: pointer;
+  transition: transform .15s ease;
+}
+.bingo-globo:disabled { opacity: .5; cursor: not-allowed; }
+.bingo-globo.girando { animation: bingo-girar .9s ease-in-out; }
+@keyframes bingo-girar {
+  0% { transform: rotate(0deg) scale(1); }
+  50% { transform: rotate(540deg) scale(1.12); }
+  100% { transform: rotate(1080deg) scale(1); }
+}
+
+.bingo-sorteado {
+  background: var(--surface-2);
+  border: 4px solid var(--black);
+  border-radius: 14px;
+  box-shadow: var(--sombra);
+  padding: 20px 22px;
+  margin-bottom: 18px;
+  min-height: 120px;
+}
+.bingo-rotulo {
+  font-family: var(--pixel);
+  font-size: 10px;
+  letter-spacing: .06em;
+  color: var(--roxo);
+  margin: 0 0 10px;
+}
+.bingo-termo {
+  font-family: var(--pixel);
+  font-size: 18px;
+  line-height: 1.6;
+  margin: 0 0 12px;
+  color: var(--on-surface);
+}
+.bingo-def {
+  font-family: var(--texto);
+  font-size: 19px;
+  line-height: 1.45;
+  margin: 0;
+  color: var(--on-surface-2);
+}
+.bingo-vazio { color: var(--muted); font-family: var(--texto); font-size: 17px; }
+
+.bingo-acoes { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 20px; }
+.bingo-acoes .btn-principal,
+.bingo-acoes .btn-secundario { flex: 1 1 220px; }
+
+.bingo-historico,
+.bingo-vencedores {
+  margin: 0 0 22px;
+  padding-left: 22px;
+  font-family: var(--texto);
+  font-size: 18px;
+  color: var(--on-surface);
+}
+.bingo-historico li,
+.bingo-vencedores li { margin-bottom: 6px; }
+.bingo-ordem {
+  font-family: var(--pixel);
+  font-size: 9px;
+  color: var(--muted);
+  margin-left: 8px;
+}
+
+.bingo-cartela {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 6px;
+  margin: 14px auto;
+  max-width: 560px;
+}
+.bingo-celula {
+  aspect-ratio: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 4px;
+  font-family: var(--texto);
+  font-size: 13px;
+  line-height: 1.15;
+  color: var(--on-surface);
+  background: var(--surface-2);
+  border: 3px solid var(--black);
+  border-radius: 10px;
+  cursor: pointer;
+  word-break: break-word;
+  transition: transform .08s ease, background .15s ease;
+}
+.bingo-celula:hover { transform: translateY(-2px); }
+.bingo-celula.marcada {
+  background: var(--green);
+  color: #fff;
+  text-decoration: line-through;
+  text-decoration-thickness: 2px;
+}
+.bingo-celula.livre {
+  background: var(--yellow);
+  color: var(--black);
+  font-family: var(--pixel);
+  font-size: 10px;
+  cursor: default;
+}
+.bingo-botao-gritar { width: 100%; max-width: 560px; margin: 0 auto; display: block; }
+.bingo-legenda {
+  text-align: center;
+  font-family: var(--texto);
+  font-size: 15px;
+  color: var(--muted);
+  margin-top: 10px;
+}
+
+@media (max-width: 520px) {
+  .bingo-celula { font-size: 11px; }
+  .bingo-termo { font-size: 15px; }
+  .bingo-globo { width: 74px; height: 74px; font-size: 42px; }
+}
