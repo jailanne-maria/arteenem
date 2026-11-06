@@ -1,10 +1,58 @@
 {
-  "atualizadoEm": "2026-11-06T03:07:40.925Z",
+  "atualizadoEm": "2026-11-06T17:48:09.951Z",
   "fontes": [
     "MEC",
     "Agência Brasil"
   ],
   "noticias": [
+    {
+      "titulo": "Prazo do edital Ciclo de Saberes termina em 8 de novembro",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/prazo-do-edital-ciclo-de-saberes-termina-em-8-de-novembro",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "Quem faz o Enem pode ter parcela extra do Pé-de-Meia",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/quem-faz-o-enem-pode-ter-parcela-extra-do-pe-de-meia",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "Enem 2026: primeiro dia de provas ocorre neste domingo (8)",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/enem-2026-primeiro-dia-de-provas-ocorre-neste-domingo-8",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "MEC promove último aulão do Enem em Pelotas (RS)",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/mec-promove-ultimo-aulao-do-enem-em-pelotas-rs",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "Enem 2026: nota do exame também abre portas para os institutos federais",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/enem-2026-nota-do-exame-tambem-abre-portas-para-os-institutos-federais",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "MEC abre consulta pública para atualização das normas do PET",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/mec-abre-consulta-publica-para-atualizacao-das-normas-do-pet",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "MEC Livros leva acervo digital e quadrinhos ao FIQ-BH 2026",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/mec-livros-leva-acervo-digital-e-quadrinhos-ao-fiq-bh-2026",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "Podcast do MEC conta histórias transformadas pela educação",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/podcast-do-mec-conta-historias-transformadas-pela-educacao",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
     {
       "titulo": "Enem 2026 também será usado para avaliar a qualidade do ensino médio",
       "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/enem-2026-tambem-sera-usado-para-avaliar-a-qualidade-do-ensino-medio",
@@ -78,76 +126,28 @@
       "data": "novembro/2026"
     },
     {
-      "titulo": "Conheça o perfil dos participantes do Enem 2026 no RN",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/conheca-o-perfil-dos-participantes-do-enem-2026-no-rn",
-      "fonte": "MEC",
-      "data": "novembro/2026"
-    },
-    {
-      "titulo": "Conheça o perfil dos participantes do Enem 2026 no Piauí",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/conheca-o-perfil-dos-participantes-do-enem-2026-no-piaui",
-      "fonte": "MEC",
-      "data": "novembro/2026"
-    },
-    {
-      "titulo": "Conheça o perfil dos participantes do Enem 2026 em Pernambuco",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/conheca-o-perfil-dos-participantes-do-enem-2026-em-pernambuco",
-      "fonte": "MEC",
-      "data": "novembro/2026"
-    },
-    {
-      "titulo": "Conheça o perfil dos participantes do Enem 2026 na Paraíba",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/conheca-o-perfil-dos-participantes-do-enem-2026-na-paraiba",
-      "fonte": "MEC",
-      "data": "novembro/2026"
-    },
-    {
-      "titulo": "Conheça o perfil dos participantes do Enem 2026 no Maranhão",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/conheca-o-perfil-dos-participantes-do-enem-2026-no-maranhao",
-      "fonte": "MEC",
-      "data": "novembro/2026"
-    },
-    {
-      "titulo": "Conheça o perfil dos participantes do Enem 2026 no Ceará",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/conheca-o-perfil-dos-participantes-do-enem-2026-no-ceara",
-      "fonte": "MEC",
-      "data": "novembro/2026"
-    },
-    {
-      "titulo": "Conheça o perfil dos participantes do Enem 2026 na Bahia",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/conheca-o-perfil-dos-participantes-do-enem-2026-na-bahia",
-      "fonte": "MEC",
-      "data": "novembro/2026"
-    },
-    {
-      "titulo": "Conheça o perfil dos participantes do Enem 2026 em SC",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/conheca-o-perfil-dos-participantes-do-enem-2026-em-sc",
-      "fonte": "MEC",
-      "data": "novembro/2026"
-    },
-    {
-      "titulo": "Enem: cursinhos populares preparam alunos em vulnerabilidade social",
-      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/enem-cursinhos-populares-preparam-alunos-em-vulnerabilidade-social",
+      "titulo": "Enem: descanso deve ser prioridade nas horas que antecedem a prova",
+      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/enem-descanso-deve-ser-prioridade-nas-horas-que-antecedem-prova",
       "fonte": "Agência Brasil",
-      "data": "05/11"
+      "data": "06/11"
     },
     {
-      "titulo": "MEC Enem reúne recursos gratuitos para a reta final de preparação",
-      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/mec-enem-reune-recursos-gratuitos-para-reta-final-de-preparacao",
+      "titulo": "Enem: EBC terá cobertura especial com live pós-prova na Agência Brasil",
+      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/enem-ebc-tera-cobertura-especial-com-live-pos-prova-na-agencia-brasil",
       "fonte": "Agência Brasil",
-      "data": "04/11"
+      "data": "06/11"
     },
     {
-      "titulo": "Pé-de-Meia Universitário deve começar em 2027 para aluno do CadÚnico",
-      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/pe-de-meia-universitario-deve-comecar-em-2027-para-aluno-do-cadunico",
+      "titulo": "Aprendizagem de alunos com deficiência avança no Brasil",
+      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/aprendizagem-de-alunos-com-deficiencia-avanca-no-brasil",
       "fonte": "Agência Brasil",
-      "data": "04/11"
+      "data": "06/11"
     },
     {
-      "titulo": "Enem 2026: MEC garante segurança da prova e mantém regras da redação",
-      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/enem-2026-mec-garante-seguranca-da-prova-e-mantem-regras-da-redacao",
+      "titulo": "Enem: 90 itens, redação e 5h30 de duração; conheça estrutura da prova",
+      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/enem-90-itens-redacao-e-5h30-de-duracao-conheca-estrutura-da-prova",
       "fonte": "Agência Brasil",
-      "data": "04/11"
+      "data": "06/11"
     }
   ],
   "temasRedacao": [
