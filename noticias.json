@@ -1,10 +1,40 @@
 {
-  "atualizadoEm": "2026-11-05T18:30:18.478Z",
+  "atualizadoEm": "2026-11-06T03:07:40.925Z",
   "fontes": [
     "MEC",
     "Agência Brasil"
   ],
   "noticias": [
+    {
+      "titulo": "Enem 2026 também será usado para avaliar a qualidade do ensino médio",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/enem-2026-tambem-sera-usado-para-avaliar-a-qualidade-do-ensino-medio",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "MEC e Governo do Rio Grande do Norte realizam aulão para o Enem",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/mec-e-governo-do-rio-grande-do-norte-realizam-aulao-para-o-enem",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "Enem 2026 amplia locais de aplicação do exame",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/enem-2026-amplia-locais-de-aplicacao-do-exame",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "PodMEC: Episódio desta semana debate novas possibilidades do Enem",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/episodio-desta-semana-debate-novas-possibilidades-do-enem",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "MEC lança edital para certificar entidades formadoras de Hip-Hop e educação e prevê apoio financeiro",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/mec-lanca-edital-para-certificar-entidades-formadoras-de-hip-hop-e-educacao-e-preve-apoio-financeiro",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
     {
       "titulo": "Dia Nacional da Língua Portuguesa destaca retomada de olimpíada pelo MEC",
       "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/dia-nacional-da-lingua-portuguesa-destaca-retomada-de-olimpiada-pelo-mec",
@@ -18,112 +48,82 @@
       "data": "novembro/2026"
     },
     {
-      "titulo": "Histórias no Enem: veteranas dão dicas para encarar as provas",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/historias-no-enem-veteranas-dao-dicas-para-encarar-as-provas",
+      "titulo": "Conheça o perfil dos participantes do Enem 2026 em São Paulo",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/conheca-o-perfil-dos-participantes-do-enem-2026-em-sao-paulo",
       "fonte": "MEC",
       "data": "novembro/2026"
     },
     {
-      "titulo": "Evento destaca avanços e desafios da educação digital nas escolas",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/evento-destaca-avancos-e-desafios-da-educacao-digital-nas-escolas",
+      "titulo": "Conheça o perfil dos participantes do Enem 2026 no Rio de Janeiro",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/conheca-o-perfil-dos-participantes-do-enem-2026-no-rio-de-janeiro",
       "fonte": "MEC",
       "data": "novembro/2026"
     },
     {
-      "titulo": "MEC e Governo do Piauí realizam aulão para o Enem",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/mec-e-governo-do-piaui-realizam-aulao-para-o-enem",
+      "titulo": "Conheça o perfil dos participantes do Enem 2026 em Minas Gerais",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/conheca-o-perfil-dos-participantes-do-enem-2026-em-minas-gerais",
       "fonte": "MEC",
       "data": "novembro/2026"
     },
     {
-      "titulo": "Ministro da Educação alerta para riscos das bets aos estudantes",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/ministro-da-educacao-alerta-para-riscos-das-bets-aos-estudantes",
+      "titulo": "Conheça o perfil dos participantes do Enem 2026 no Espírito Santo",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/conheca-o-perfil-dos-participantes-do-enem-2026-no-espirito-santo",
       "fonte": "MEC",
       "data": "novembro/2026"
     },
     {
-      "titulo": "Conheça a história da Hadassa e sua preparação para o Enem",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/conheca-a-historia-da-hadassa-e-sua-preparacao-para-o-enem",
+      "titulo": "Conheça o perfil dos participantes do Enem 2026 em Sergipe",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/conheca-o-perfil-dos-participantes-do-enem-2026-em-sergipe",
       "fonte": "MEC",
       "data": "novembro/2026"
     },
     {
-      "titulo": "Pronatec tem mais de mil vagas verdes para qualificação profissional no RS",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/pronatec-tem-mais-de-mil-vagas-verdes-para-qualificacao-profissional-no-rs",
+      "titulo": "Conheça o perfil dos participantes do Enem 2026 no RN",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/conheca-o-perfil-dos-participantes-do-enem-2026-no-rn",
       "fonte": "MEC",
       "data": "novembro/2026"
     },
     {
-      "titulo": "MEC participa de evento internacional sobre inovação aberta na EPT",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/mec-participa-de-evento-internacional-sobre-inovacao-aberta-na-ept",
+      "titulo": "Conheça o perfil dos participantes do Enem 2026 no Piauí",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/conheca-o-perfil-dos-participantes-do-enem-2026-no-piaui",
       "fonte": "MEC",
       "data": "novembro/2026"
     },
     {
-      "titulo": "PodCast Rumo ao Enem apresenta histórias reais de participantes",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/podcast-rumo-ao-enem-apresenta-historias-reais-de-participantes",
+      "titulo": "Conheça o perfil dos participantes do Enem 2026 em Pernambuco",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/conheca-o-perfil-dos-participantes-do-enem-2026-em-pernambuco",
       "fonte": "MEC",
       "data": "novembro/2026"
     },
     {
-      "titulo": "MEC Enem reúne simulados e recursos para a reta final de preparação",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/mec-enem-reune-simulados-e-recursos-para-a-reta-final-de-preparacao",
+      "titulo": "Conheça o perfil dos participantes do Enem 2026 na Paraíba",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/conheca-o-perfil-dos-participantes-do-enem-2026-na-paraiba",
       "fonte": "MEC",
       "data": "novembro/2026"
     },
     {
-      "titulo": "MEC realiza seminário internacional da Escola Nacional de Hip Hop H2E",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/mec-realiza-seminario-internacional-da-escola-nacional-de-hip-hop-h2e",
+      "titulo": "Conheça o perfil dos participantes do Enem 2026 no Maranhão",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/conheca-o-perfil-dos-participantes-do-enem-2026-no-maranhao",
       "fonte": "MEC",
       "data": "novembro/2026"
     },
     {
-      "titulo": "MEC divulga resultado da seleção de projetos de extensão da Rede Federal",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/mec-divulga-resultado-da-selecao-de-projetos-de-extensao-da-rede-federal",
+      "titulo": "Conheça o perfil dos participantes do Enem 2026 no Ceará",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/conheca-o-perfil-dos-participantes-do-enem-2026-no-ceara",
       "fonte": "MEC",
       "data": "novembro/2026"
     },
     {
-      "titulo": "MEC regulamenta trava digital para conclusão de cursos técnicos",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/mec-regulamenta-trava-digital-para-conclusao-de-cursos-tecnicos",
+      "titulo": "Conheça o perfil dos participantes do Enem 2026 na Bahia",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/conheca-o-perfil-dos-participantes-do-enem-2026-na-bahia",
       "fonte": "MEC",
       "data": "novembro/2026"
     },
     {
-      "titulo": "Impa Tech abre seleção com 150 vagas em graduação gratuita",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/impa-tech-abre-selecao-com-150-vagas-em-graduacao-gratuita",
+      "titulo": "Conheça o perfil dos participantes do Enem 2026 em SC",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/conheca-o-perfil-dos-participantes-do-enem-2026-em-sc",
       "fonte": "MEC",
       "data": "novembro/2026"
-    },
-    {
-      "titulo": "Conhecendo o MEC desta semana aborda o Enem",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/conhecendo-o-mec-desta-semana-aborda-o-enem",
-      "fonte": "MEC",
-      "data": "novembro/2026"
-    },
-    {
-      "titulo": "UFRJ pesquisa diferenças na resposta ao estresse entre os sexos",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/ufrj-pesquisa-diferencas-na-resposta-ao-estresse-entre-os-sexos",
-      "fonte": "MEC",
-      "data": "novembro/2026"
-    },
-    {
-      "titulo": "Pronatec oferece mais de 1.300 vagas verdes de qualificação profissional",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/pronatec-oferece-mais-de-1-300-vagas-verdes-de-qualificacao-profissional",
-      "fonte": "MEC",
-      "data": "novembro/2026"
-    },
-    {
-      "titulo": "Programa Mulheres Mil oferece 230 vagas gratuitas em cursos de qualificação profissional",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/programa-mulheres-mil-oferece-230-vagas-gratuitas-em-cursos-de-qualificacao-profissional",
-      "fonte": "MEC",
-      "data": "novembro/2026"
-    },
-    {
-      "titulo": "MEC Livros participa da 6ª Flitabira em Minas Gerais",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/outubro/mec-livros-participa-da-6a-flitabira-em-minas-gerais",
-      "fonte": "MEC",
-      "data": "outubro/2026"
     },
     {
       "titulo": "Enem: cursinhos populares preparam alunos em vulnerabilidade social",
