@@ -1,10 +1,34 @@
 {
-  "atualizadoEm": "2026-11-06T17:48:09.951Z",
+  "atualizadoEm": "2026-11-07T02:32:07.403Z",
   "fontes": [
     "MEC",
     "Agência Brasil"
   ],
   "noticias": [
+    {
+      "titulo": "Lula sanciona lei do Enamed como requisito para exercer medicina",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/lula-sanciona-lei-do-enamed-como-requisito-para-exercer-medicina",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "Guia do Enem oferece orientações para participantes",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/guia-do-enem-oferece-orientacoes-para-participantes",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "MEC oferece nova forma de consulta a cartão de confirmação do Enem",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/mec-oferece-nova-forma-de-consulta-a-cartao-de-confirmacao-do-enem",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "Enem 2026: confira orientações para cobertura de imprensa",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/enem-2026-confira-orientacoes-para-cobertura-de-imprensa",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
     {
       "titulo": "Prazo do edital Ciclo de Saberes termina em 8 de novembro",
       "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/prazo-do-edital-ciclo-de-saberes-termina-em-8-de-novembro",
@@ -102,50 +126,26 @@
       "data": "novembro/2026"
     },
     {
-      "titulo": "Conheça o perfil dos participantes do Enem 2026 no Rio de Janeiro",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/conheca-o-perfil-dos-participantes-do-enem-2026-no-rio-de-janeiro",
-      "fonte": "MEC",
-      "data": "novembro/2026"
-    },
-    {
-      "titulo": "Conheça o perfil dos participantes do Enem 2026 em Minas Gerais",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/conheca-o-perfil-dos-participantes-do-enem-2026-em-minas-gerais",
-      "fonte": "MEC",
-      "data": "novembro/2026"
-    },
-    {
-      "titulo": "Conheça o perfil dos participantes do Enem 2026 no Espírito Santo",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/conheca-o-perfil-dos-participantes-do-enem-2026-no-espirito-santo",
-      "fonte": "MEC",
-      "data": "novembro/2026"
-    },
-    {
-      "titulo": "Conheça o perfil dos participantes do Enem 2026 em Sergipe",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/conheca-o-perfil-dos-participantes-do-enem-2026-em-sergipe",
-      "fonte": "MEC",
-      "data": "novembro/2026"
-    },
-    {
-      "titulo": "Enem: descanso deve ser prioridade nas horas que antecedem a prova",
-      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/enem-descanso-deve-ser-prioridade-nas-horas-que-antecedem-prova",
+      "titulo": "Enem: candidato pode saber local de prova por telefone",
+      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/enem-candidato-pode-saber-local-de-prova-por-telefone",
       "fonte": "Agência Brasil",
       "data": "06/11"
     },
     {
-      "titulo": "Enem: EBC terá cobertura especial com live pós-prova na Agência Brasil",
-      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/enem-ebc-tera-cobertura-especial-com-live-pos-prova-na-agencia-brasil",
+      "titulo": "Alunos de escola pública em Goiás contam com aulões para o Enem",
+      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/alunos-de-escola-publica-em-goias-contam-com-auloes-para-o-enem",
       "fonte": "Agência Brasil",
       "data": "06/11"
     },
     {
-      "titulo": "Aprendizagem de alunos com deficiência avança no Brasil",
-      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/aprendizagem-de-alunos-com-deficiencia-avanca-no-brasil",
+      "titulo": "Enem: cidades de Seara e Canoinhas (SC) têm locais de prova alterados",
+      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/enem-cidades-de-seara-e-canoinhas-sc-tem-locais-de-prova-alterados",
       "fonte": "Agência Brasil",
       "data": "06/11"
     },
     {
-      "titulo": "Enem: 90 itens, redação e 5h30 de duração; conheça estrutura da prova",
-      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/enem-90-itens-redacao-e-5h30-de-duracao-conheca-estrutura-da-prova",
+      "titulo": "Cursos populares ajudam mulheres a retomar estudos para o Enem",
+      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/cursos-populares-ajudam-mulheres-retomar-estudos-para-o-enem",
       "fonte": "Agência Brasil",
       "data": "06/11"
     }
