@@ -1,10 +1,28 @@
 {
-  "atualizadoEm": "2026-11-08T02:01:53.892Z",
+  "atualizadoEm": "2026-11-08T16:54:30.349Z",
   "fontes": [
     "MEC",
     "Agência Brasil"
   ],
   "noticias": [
+    {
+      "titulo": "Enem 2026: portões são fechados para o primeiro dia de prova",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/enem-2026-portoes-sao-fechados-para-o-primeiro-dia-de-prova",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "Enem 2026: portões dos locais de prova abertos",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/enem-2026-portoes-dos-locais-de-prova-abertos",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "Enem 2026 começa neste domingo (8)",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/enem-2026-comeca-neste-domingo-8",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
     {
       "titulo": "Lula sanciona lei do Enamed como requisito para exercer medicina",
       "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/lula-sanciona-lei-do-enamed-como-requisito-para-exercer-medicina",
@@ -108,46 +126,28 @@
       "data": "novembro/2026"
     },
     {
-      "titulo": "Dia Nacional da Língua Portuguesa destaca retomada de olimpíada pelo MEC",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/dia-nacional-da-lingua-portuguesa-destaca-retomada-de-olimpiada-pelo-mec",
-      "fonte": "MEC",
-      "data": "novembro/2026"
-    },
-    {
-      "titulo": "Dia Nacional da Língua Portuguesa destaca alfabetização",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/dia-nacional-da-lingua-portuguesa-destaca-alfabetizacao",
-      "fonte": "MEC",
-      "data": "novembro/2026"
-    },
-    {
-      "titulo": "Conheça o perfil dos participantes do Enem 2026 em São Paulo",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/conheca-o-perfil-dos-participantes-do-enem-2026-em-sao-paulo",
-      "fonte": "MEC",
-      "data": "novembro/2026"
-    },
-    {
-      "titulo": "Enem: confira as regras, os horários e os itens proibidos na prova",
-      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/enem-confira-regras-os-horarios-e-os-itens-proibidos-na-prova",
+      "titulo": "Portões se abrem e candidatos seguem para fazer o Enem 2026",
+      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/portoes-se-abrem-e-candidatos-seguem-para-fazer-o-enem-2026",
       "fonte": "Agência Brasil",
-      "data": "07/11"
+      "data": "08/11"
     },
     {
-      "titulo": "Professores comentam primeiro dia de provas ao vivo na Resenha do Enem",
-      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/professores-comentam-primeiro-dia-de-provas-ao-vivo-na-resenha-do-enem",
+      "titulo": "Aplicação do Enem é operação de guerra contra o retrocesso, diz Lula",
+      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/aplicacao-do-enem-e-operacao-de-guerra-contra-o-retrocesso-diz-lula",
       "fonte": "Agência Brasil",
-      "data": "07/11"
+      "data": "08/11"
     },
     {
-      "titulo": "Enem 2026: saiba o que levar no dia da prova",
-      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/enem-2026-saiba-o-que-levar-no-dia-da-prova",
+      "titulo": "Enem 2026 estreia apoio emocional e novas regras de acessibilidade",
+      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/enem-2026-estreia-apoio-emocional-e-novas-regras-de-acessibilidade",
       "fonte": "Agência Brasil",
-      "data": "07/11"
+      "data": "08/11"
     },
     {
-      "titulo": "Enem 2026: candidatos vivem expectativa sobre o tema da redação",
-      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/enem-2026-candidatos-vivem-expectativa-sobre-o-tema-da-redacao",
+      "titulo": "Notas do Enem são critério de acesso para faculdades públicas",
+      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/notas-do-enem-sao-criterio-de-acesso-para-faculdades-publicas",
       "fonte": "Agência Brasil",
-      "data": "07/11"
+      "data": "08/11"
     }
   ],
   "temasRedacao": [
