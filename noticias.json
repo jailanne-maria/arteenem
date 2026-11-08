@@ -1,5 +1,5 @@
 {
-  "atualizadoEm": "2026-11-07T16:43:34.081Z",
+  "atualizadoEm": "2026-11-08T02:01:53.892Z",
   "fontes": [
     "MEC",
     "Agência Brasil"
@@ -126,6 +126,18 @@
       "data": "novembro/2026"
     },
     {
+      "titulo": "Enem: confira as regras, os horários e os itens proibidos na prova",
+      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/enem-confira-regras-os-horarios-e-os-itens-proibidos-na-prova",
+      "fonte": "Agência Brasil",
+      "data": "07/11"
+    },
+    {
+      "titulo": "Professores comentam primeiro dia de provas ao vivo na Resenha do Enem",
+      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/professores-comentam-primeiro-dia-de-provas-ao-vivo-na-resenha-do-enem",
+      "fonte": "Agência Brasil",
+      "data": "07/11"
+    },
+    {
       "titulo": "Enem 2026: saiba o que levar no dia da prova",
       "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/enem-2026-saiba-o-que-levar-no-dia-da-prova",
       "fonte": "Agência Brasil",
@@ -136,18 +148,6 @@
       "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/enem-2026-candidatos-vivem-expectativa-sobre-o-tema-da-redacao",
       "fonte": "Agência Brasil",
       "data": "07/11"
-    },
-    {
-      "titulo": "Enem: confira as regras da redação e dicas para um texto nota 1.000",
-      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/enem-confira-regras-da-redacao-e-dicas-para-um-texto-nota-1000",
-      "fonte": "Agência Brasil",
-      "data": "07/11"
-    },
-    {
-      "titulo": "Enem: candidato pode saber local de prova por telefone",
-      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/enem-candidato-pode-saber-local-de-prova-por-telefone",
-      "fonte": "Agência Brasil",
-      "data": "06/11"
     }
   ],
   "temasRedacao": [
