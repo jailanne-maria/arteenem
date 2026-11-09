@@ -1,13 +1,43 @@
 {
-  "atualizadoEm": "2026-11-08T16:54:30.349Z",
+  "atualizadoEm": "2026-11-09T02:21:38.374Z",
   "fontes": [
     "MEC",
     "Agência Brasil"
   ],
   "noticias": [
     {
+      "titulo": "Enem 2026 tem participação recorde de concluintes da rede pública",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/enem-2026-tem-participacao-recorde-de-concluintes-da-rede-publica",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "Participantes concluem primeiro dia do Enem 2026",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/participantes-concluem-primeiro-dia-do-enem-2026",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "Presidente Lula e ministro Leonardo Barchini acompanham monitoramento do Enem",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/presidente-lula-e-ministro-leonardo-barchini-acompanham-monitoramento-do-enem",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "Tema da redação: “A valorização do Sistema Único de Saúde (SUS) como direito universal”",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/tema-da-redacao-201ca-valorizacao-do-sistema-unico-de-saude-sus-como-direito-universal201d",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
       "titulo": "Enem 2026: portões são fechados para o primeiro dia de prova",
       "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/enem-2026-portoes-sao-fechados-para-o-primeiro-dia-de-prova",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "Começa aplicação do Enem 2026",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/comeca-aplicacao-do-enem-2026",
       "fonte": "MEC",
       "data": "novembro/2026"
     },
@@ -96,56 +126,26 @@
       "data": "novembro/2026"
     },
     {
-      "titulo": "Enem 2026 também será usado para avaliar a qualidade do ensino médio",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/enem-2026-tambem-sera-usado-para-avaliar-a-qualidade-do-ensino-medio",
-      "fonte": "MEC",
-      "data": "novembro/2026"
+      "titulo": "Enem registra aumento na participação de alunos da rede pública",
+      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/enem-registra-aumento-na-participacao-de-alunos-da-rede-publica",
+      "fonte": "Agência Brasil",
+      "data": "09/11"
     },
     {
-      "titulo": "MEC e Governo do Rio Grande do Norte realizam aulão para o Enem",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/mec-e-governo-do-rio-grande-do-norte-realizam-aulao-para-o-enem",
-      "fonte": "MEC",
-      "data": "novembro/2026"
-    },
-    {
-      "titulo": "Enem 2026 amplia locais de aplicação do exame",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/enem-2026-amplia-locais-de-aplicacao-do-exame",
-      "fonte": "MEC",
-      "data": "novembro/2026"
-    },
-    {
-      "titulo": "PodMEC: Episódio desta semana debate novas possibilidades do Enem",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/episodio-desta-semana-debate-novas-possibilidades-do-enem",
-      "fonte": "MEC",
-      "data": "novembro/2026"
-    },
-    {
-      "titulo": "MEC lança edital para certificar entidades formadoras de Hip-Hop e educação e prevê apoio financeiro",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/mec-lanca-edital-para-certificar-entidades-formadoras-de-hip-hop-e-educacao-e-preve-apoio-financeiro",
-      "fonte": "MEC",
-      "data": "novembro/2026"
-    },
-    {
-      "titulo": "Portões se abrem e candidatos seguem para fazer o Enem 2026",
-      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/portoes-se-abrem-e-candidatos-seguem-para-fazer-o-enem-2026",
+      "titulo": "Ao vivo: professores comentam prova na live Resenha do Enem, às 19h30",
+      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/ao-vivo-professores-comentam-prova-na-live-resenha-do-enem-19h30",
       "fonte": "Agência Brasil",
       "data": "08/11"
     },
     {
-      "titulo": "Aplicação do Enem é operação de guerra contra o retrocesso, diz Lula",
-      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/aplicacao-do-enem-e-operacao-de-guerra-contra-o-retrocesso-diz-lula",
+      "titulo": "Veja a opinião dos alunos sobre tema da redação do Enem 2026",
+      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/veja-opiniao-dos-alunos-sobre-tema-da-redacao-do-enem-2026",
       "fonte": "Agência Brasil",
       "data": "08/11"
     },
     {
-      "titulo": "Enem 2026 estreia apoio emocional e novas regras de acessibilidade",
-      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/enem-2026-estreia-apoio-emocional-e-novas-regras-de-acessibilidade",
-      "fonte": "Agência Brasil",
-      "data": "08/11"
-    },
-    {
-      "titulo": "Notas do Enem são critério de acesso para faculdades públicas",
-      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/notas-do-enem-sao-criterio-de-acesso-para-faculdades-publicas",
+      "titulo": "Professores avaliam tema da redação do Enem como relevante e acessível",
+      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/professores-avaliam-tema-da-redacao-do-enem-como-relevante-e-acessivel",
       "fonte": "Agência Brasil",
       "data": "08/11"
     }
