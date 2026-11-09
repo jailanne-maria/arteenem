@@ -1,10 +1,34 @@
 {
-  "atualizadoEm": "2026-11-09T02:21:38.374Z",
+  "atualizadoEm": "2026-11-09T21:17:07.229Z",
   "fontes": [
     "MEC",
     "Agência Brasil"
   ],
   "noticias": [
+    {
+      "titulo": "Dirigentes das instituições da Rede Federal debatem rumos da EPT",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/dirigentes-das-instituicoes-da-rede-federal-debatem-rumos-da-ept",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "MEC autoriza novo curso de medicina na Unilab, na Bahia",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/mec-autoriza-novo-curso-de-medicina-na-unilab-na-bahia",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "MEC e IFood lançam parceria para candidatos do Enem 2026",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/mec-e-ifood-lancam-parceria-para-candidatos-do-enem-2026",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "Enfrentamento à desinformação será debatido em webinário do PET",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/enfrentamento-a-desinformacao-sera-debatido-em-webinario-do-pet",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
     {
       "titulo": "Enem 2026 tem participação recorde de concluintes da rede pública",
       "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/enem-2026-tem-participacao-recorde-de-concluintes-da-rede-publica",
@@ -102,28 +126,10 @@
       "data": "novembro/2026"
     },
     {
-      "titulo": "Enem 2026: nota do exame também abre portas para os institutos federais",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/enem-2026-nota-do-exame-tambem-abre-portas-para-os-institutos-federais",
-      "fonte": "MEC",
-      "data": "novembro/2026"
-    },
-    {
-      "titulo": "MEC abre consulta pública para atualização das normas do PET",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/mec-abre-consulta-publica-para-atualizacao-das-normas-do-pet",
-      "fonte": "MEC",
-      "data": "novembro/2026"
-    },
-    {
-      "titulo": "MEC Livros leva acervo digital e quadrinhos ao FIQ-BH 2026",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/mec-livros-leva-acervo-digital-e-quadrinhos-ao-fiq-bh-2026",
-      "fonte": "MEC",
-      "data": "novembro/2026"
-    },
-    {
-      "titulo": "Podcast do MEC conta histórias transformadas pela educação",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/podcast-do-mec-conta-historias-transformadas-pela-educacao",
-      "fonte": "MEC",
-      "data": "novembro/2026"
+      "titulo": "Enem: publicações da EBC são citadas na prova",
+      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/reportagens-da-agencia-brasil-e-da-radioagencia-sao-citadas-no-enem",
+      "fonte": "Agência Brasil",
+      "data": "09/11"
     },
     {
       "titulo": "Enem registra aumento na participação de alunos da rede pública",
@@ -140,12 +146,6 @@
     {
       "titulo": "Veja a opinião dos alunos sobre tema da redação do Enem 2026",
       "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/veja-opiniao-dos-alunos-sobre-tema-da-redacao-do-enem-2026",
-      "fonte": "Agência Brasil",
-      "data": "08/11"
-    },
-    {
-      "titulo": "Professores avaliam tema da redação do Enem como relevante e acessível",
-      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/professores-avaliam-tema-da-redacao-do-enem-como-relevante-e-acessivel",
       "fonte": "Agência Brasil",
       "data": "08/11"
     }
