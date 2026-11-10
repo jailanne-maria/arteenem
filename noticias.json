@@ -1,10 +1,28 @@
 {
-  "atualizadoEm": "2026-11-10T04:28:44.296Z",
+  "atualizadoEm": "2026-11-10T18:27:57.081Z",
   "fontes": [
     "MEC",
     "Agência Brasil"
   ],
   "noticias": [
+    {
+      "titulo": "Conhecendo o MEC fala sobre a CNDB",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/conhecendo-o-mec-fala-sobre-a-cndb",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "Saiba como promover educação digital e midiática em sala de aula",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/saiba-como-promover-educacao-digital-e-midiatica-em-sala-de-aula",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "Enade 2026: locais de prova e Cartão de Confirmação estão disponíveis",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/enade-2026-locais-de-prova-e-cartao-de-confirmacao-estao-disponiveis",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
     {
       "titulo": "Redes de ensino têm até 16/11 para participar do Selo Nacional de Alfabetização",
       "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/redes-de-ensino-tem-ate-16-11-para-participar-do-selo-nacional-de-alfabetizacao",
@@ -108,22 +126,10 @@
       "data": "novembro/2026"
     },
     {
-      "titulo": "Guia do Enem oferece orientações para participantes",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/guia-do-enem-oferece-orientacoes-para-participantes",
-      "fonte": "MEC",
-      "data": "novembro/2026"
-    },
-    {
-      "titulo": "MEC oferece nova forma de consulta a cartão de confirmação do Enem",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/mec-oferece-nova-forma-de-consulta-a-cartao-de-confirmacao-do-enem",
-      "fonte": "MEC",
-      "data": "novembro/2026"
-    },
-    {
-      "titulo": "Enem 2026: confira orientações para cobertura de imprensa",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/enem-2026-confira-orientacoes-para-cobertura-de-imprensa",
-      "fonte": "MEC",
-      "data": "novembro/2026"
+      "titulo": "Um terço dos jovens de 16 a 29 anos quer chegar à universidade",
+      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/um-terco-dos-jovens-de-ate-29-anos-quer-chegar-universidade",
+      "fonte": "Agência Brasil",
+      "data": "10/11"
     },
     {
       "titulo": "Enem 2026: saiba quem tem direito à reaplicação do exame",
@@ -140,12 +146,6 @@
     {
       "titulo": "Enem: publicações da EBC são citadas na prova",
       "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/reportagens-da-agencia-brasil-e-da-radioagencia-sao-citadas-no-enem",
-      "fonte": "Agência Brasil",
-      "data": "09/11"
-    },
-    {
-      "titulo": "Enem registra aumento na participação de alunos da rede pública",
-      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/enem-registra-aumento-na-participacao-de-alunos-da-rede-publica",
       "fonte": "Agência Brasil",
       "data": "09/11"
     }
