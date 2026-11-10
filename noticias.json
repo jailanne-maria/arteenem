@@ -1,10 +1,34 @@
 {
-  "atualizadoEm": "2026-11-09T21:17:07.229Z",
+  "atualizadoEm": "2026-11-10T04:28:44.296Z",
   "fontes": [
     "MEC",
     "Agência Brasil"
   ],
   "noticias": [
+    {
+      "titulo": "Redes de ensino têm até 16/11 para participar do Selo Nacional de Alfabetização",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/redes-de-ensino-tem-ate-16-11-para-participar-do-selo-nacional-de-alfabetizacao",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "MEC reúne redes de ensino para avaliar ensino médio e planejar ações para 2027",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/mec-reune-redes-de-ensino-para-avaliar-ensino-medio-e-planejar-acoes-para-2027",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "Rede HU Brasil realiza terceiro mutirão nacional de 2026, com cerca de 50 mil atendimentos",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/rede-hu-brasil-realiza-terceiro-mutirao-nacional-de-2026-com-cerca-de-50-mil-atendimentos",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "MEC disponibiliza novos cursos de formação para a docência na EJA",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/mec-disponibiliza-novos-cursos-de-formacao-para-a-docencia-na-eja",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
     {
       "titulo": "Dirigentes das instituições da Rede Federal debatem rumos da EPT",
       "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/dirigentes-das-instituicoes-da-rede-federal-debatem-rumos-da-ept",
@@ -102,28 +126,16 @@
       "data": "novembro/2026"
     },
     {
-      "titulo": "Prazo do edital Ciclo de Saberes termina em 8 de novembro",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/prazo-do-edital-ciclo-de-saberes-termina-em-8-de-novembro",
-      "fonte": "MEC",
-      "data": "novembro/2026"
+      "titulo": "Enem 2026: saiba quem tem direito à reaplicação do exame",
+      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/enem-2026-saiba-quem-tem-direito-a-reaplicacao-do-exame",
+      "fonte": "Agência Brasil",
+      "data": "09/11"
     },
     {
-      "titulo": "Quem faz o Enem pode ter parcela extra do Pé-de-Meia",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/quem-faz-o-enem-pode-ter-parcela-extra-do-pe-de-meia",
-      "fonte": "MEC",
-      "data": "novembro/2026"
-    },
-    {
-      "titulo": "Enem 2026: primeiro dia de provas ocorre neste domingo (8)",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/enem-2026-primeiro-dia-de-provas-ocorre-neste-domingo-8",
-      "fonte": "MEC",
-      "data": "novembro/2026"
-    },
-    {
-      "titulo": "MEC promove último aulão do Enem em Pelotas (RS)",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/mec-promove-ultimo-aulao-do-enem-em-pelotas-rs",
-      "fonte": "MEC",
-      "data": "novembro/2026"
+      "titulo": "Brasil conquista 4 ouros em olimpíada latino-americana de astronomia",
+      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/brasil-conquista-4-ouros-em-olimpiada-latino-americana-de-astronomia",
+      "fonte": "Agência Brasil",
+      "data": "09/11"
     },
     {
       "titulo": "Enem: publicações da EBC são citadas na prova",
@@ -136,18 +148,6 @@
       "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/enem-registra-aumento-na-participacao-de-alunos-da-rede-publica",
       "fonte": "Agência Brasil",
       "data": "09/11"
-    },
-    {
-      "titulo": "Ao vivo: professores comentam prova na live Resenha do Enem, às 19h30",
-      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/ao-vivo-professores-comentam-prova-na-live-resenha-do-enem-19h30",
-      "fonte": "Agência Brasil",
-      "data": "08/11"
-    },
-    {
-      "titulo": "Veja a opinião dos alunos sobre tema da redação do Enem 2026",
-      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/veja-opiniao-dos-alunos-sobre-tema-da-redacao-do-enem-2026",
-      "fonte": "Agência Brasil",
-      "data": "08/11"
     }
   ],
   "temasRedacao": [
