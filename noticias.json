@@ -1,10 +1,22 @@
 {
-  "atualizadoEm": "2026-11-11T02:30:30.994Z",
+  "atualizadoEm": "2026-11-11T18:21:18.146Z",
   "fontes": [
     "MEC",
     "Agência Brasil"
   ],
   "noticias": [
+    {
+      "titulo": "MEC e Secom/PR destacam a atuação de grupos PET no enfrentamento à desinformação",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/mec-e-secom-pr-destacam-a-atuacao-de-grupos-pet-no-enfrentamento-a-desinformacao",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "Saberes tradicionais e periféricos ampliam debate sobre educação no seminário H2E",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/saberes-tradicionais-e-perifericos-ampliam-debate-sobre-educacao-no-seminario-h2e",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
     {
       "titulo": "MEC anuncia quase 5 mil cargos para a Rede Federal",
       "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/mec-anuncia-quase-5-mil-cargos-para-a-rede-federal",
@@ -110,18 +122,6 @@
     {
       "titulo": "MEC e IFood lançam parceria para candidatos do Enem 2026",
       "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/mec-e-ifood-lancam-parceria-para-candidatos-do-enem-2026",
-      "fonte": "MEC",
-      "data": "novembro/2026"
-    },
-    {
-      "titulo": "Enfrentamento à desinformação será debatido em webinário do PET",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/enfrentamento-a-desinformacao-sera-debatido-em-webinario-do-pet",
-      "fonte": "MEC",
-      "data": "novembro/2026"
-    },
-    {
-      "titulo": "Enem 2026 tem participação recorde de concluintes da rede pública",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/enem-2026-tem-participacao-recorde-de-concluintes-da-rede-publica",
       "fonte": "MEC",
       "data": "novembro/2026"
     },
