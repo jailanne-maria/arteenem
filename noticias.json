@@ -1,10 +1,22 @@
 {
-  "atualizadoEm": "2026-11-11T18:21:18.146Z",
+  "atualizadoEm": "2026-11-12T03:35:29.684Z",
   "fontes": [
     "MEC",
     "Agência Brasil"
   ],
   "noticias": [
+    {
+      "titulo": "Enem: Segundo dia terá itens de Matemática e Ciências da Natureza",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/enem-segundo-dia-tera-itens-de-matematica-e-ciencias-da-natureza",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "Mary Lourdes e o sonho de estudar para inspirar os filhos",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/mary-lourdes-e-o-sonho-de-estudar-para-inspirar-os-filhos",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
     {
       "titulo": "MEC e Secom/PR destacam a atuação de grupos PET no enfrentamento à desinformação",
       "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/mec-e-secom-pr-destacam-a-atuacao-de-grupos-pet-no-enfrentamento-a-desinformacao",
@@ -114,40 +126,28 @@
       "data": "novembro/2026"
     },
     {
-      "titulo": "MEC autoriza novo curso de medicina na Unilab, na Bahia",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/mec-autoriza-novo-curso-de-medicina-na-unilab-na-bahia",
-      "fonte": "MEC",
-      "data": "novembro/2026"
+      "titulo": "Letramento digital precisa vir antes de uso da IA, diz Unesco",
+      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/letramento-digital-precisa-vir-antes-de-uso-da-ia-diz-unesco",
+      "fonte": "Agência Brasil",
+      "data": "11/11"
     },
     {
-      "titulo": "MEC e IFood lançam parceria para candidatos do Enem 2026",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/mec-e-ifood-lancam-parceria-para-candidatos-do-enem-2026",
-      "fonte": "MEC",
-      "data": "novembro/2026"
+      "titulo": "Enem 2026: entenda como funciona a Teoria da Resposta ao Item",
+      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/enem-2026-entenda-como-funciona-teoria-da-resposta-ao-item",
+      "fonte": "Agência Brasil",
+      "data": "11/11"
+    },
+    {
+      "titulo": "MEC fixa novas normas para educação de alunos com altas habilidades",
+      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/mec-fixa-novas-normas-para-educacao-de-alunos-com-altas-habilidades",
+      "fonte": "Agência Brasil",
+      "data": "11/11"
     },
     {
       "titulo": "MEC aprova diretrizes para uso de IA em cada etapa da educação",
       "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/mec-aprova-diretrizes-para-uso-de-ia-em-cada-etapa-da-educacao",
       "fonte": "Agência Brasil",
       "data": "10/11"
-    },
-    {
-      "titulo": "Falta de saneamento influencia no desempenho de estudantes no Enem",
-      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/falta-de-saneamento-influencia-no-desempenho-de-estudantes-no-enem",
-      "fonte": "Agência Brasil",
-      "data": "10/11"
-    },
-    {
-      "titulo": "Um terço dos jovens de 16 a 29 anos quer chegar à universidade",
-      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/um-terco-dos-jovens-de-ate-29-anos-quer-chegar-universidade",
-      "fonte": "Agência Brasil",
-      "data": "10/11"
-    },
-    {
-      "titulo": "Enem 2026: saiba quem tem direito à reaplicação do exame",
-      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/enem-2026-saiba-quem-tem-direito-a-reaplicacao-do-exame",
-      "fonte": "Agência Brasil",
-      "data": "09/11"
     }
   ],
   "temasRedacao": [
