@@ -1,10 +1,34 @@
 {
-  "atualizadoEm": "2026-11-12T03:35:29.684Z",
+  "atualizadoEm": "2026-11-12T18:40:42.337Z",
   "fontes": [
     "MEC",
     "Agência Brasil"
   ],
   "noticias": [
+    {
+      "titulo": "MEC apresenta avanços de rede internacional de cooperação em educação na COP31",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/mec-apresenta-avancos-de-rede-internacional-de-cooperacao-em-educacao-na-cop31",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "Futuro em Construção: podcast mostra como a EPT gera oportunidades",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/futuro-em-construcao-podcast-mostra-como-a-ept-gera-oportunidades",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "Novo painel de aquisição de alimentos amplia transparência da alimentação escolar",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/novo-painel-de-aquisicao-de-alimentos-amplia-transparencia-da-alimentacao-escolar",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "Dia do Diretor Escolar: MEC destaca iniciativas de formação e fortalecimento da gestão escolar",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/dia-do-diretor-escolar-mec-destaca-iniciativas-de-formacao-e-fortalecimento-da-gestao-escolar",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
     {
       "titulo": "Enem: Segundo dia terá itens de Matemática e Ciências da Natureza",
       "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/enem-segundo-dia-tera-itens-de-matematica-e-ciencias-da-natureza",
@@ -102,28 +126,10 @@
       "data": "novembro/2026"
     },
     {
-      "titulo": "MEC reúne redes de ensino para avaliar ensino médio e planejar ações para 2027",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/mec-reune-redes-de-ensino-para-avaliar-ensino-medio-e-planejar-acoes-para-2027",
-      "fonte": "MEC",
-      "data": "novembro/2026"
-    },
-    {
-      "titulo": "Rede HU Brasil realiza terceiro mutirão nacional de 2026, com cerca de 50 mil atendimentos",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/rede-hu-brasil-realiza-terceiro-mutirao-nacional-de-2026-com-cerca-de-50-mil-atendimentos",
-      "fonte": "MEC",
-      "data": "novembro/2026"
-    },
-    {
-      "titulo": "MEC disponibiliza novos cursos de formação para a docência na EJA",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/mec-disponibiliza-novos-cursos-de-formacao-para-a-docencia-na-eja",
-      "fonte": "MEC",
-      "data": "novembro/2026"
-    },
-    {
-      "titulo": "Dirigentes das instituições da Rede Federal debatem rumos da EPT",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/dirigentes-das-instituicoes-da-rede-federal-debatem-rumos-da-ept",
-      "fonte": "MEC",
-      "data": "novembro/2026"
+      "titulo": "Conheça as novas diretrizes da educação profissional e tecnológica",
+      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/conheca-novas-diretrizes-da-educacao-profissional-e-tecnologica",
+      "fonte": "Agência Brasil",
+      "data": "12/11"
     },
     {
       "titulo": "Letramento digital precisa vir antes de uso da IA, diz Unesco",
@@ -142,12 +148,6 @@
       "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/mec-fixa-novas-normas-para-educacao-de-alunos-com-altas-habilidades",
       "fonte": "Agência Brasil",
       "data": "11/11"
-    },
-    {
-      "titulo": "MEC aprova diretrizes para uso de IA em cada etapa da educação",
-      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/mec-aprova-diretrizes-para-uso-de-ia-em-cada-etapa-da-educacao",
-      "fonte": "Agência Brasil",
-      "data": "10/11"
     }
   ],
   "temasRedacao": [
