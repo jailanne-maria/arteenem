@@ -6180,3 +6180,12 @@ h1, h2, h3, h4, .marca-nome, .btn-principal, .btn-secundario, .btn-google, .btn-
 @media (max-width: 520px) {
   .rodape .btn-institucional { font-size: 0.5rem; padding: 8px 12px; }
 }
+
+/* ===== Botão Museu Virtual (link externo no menu) ===== */
+a.btn-ghost {
+  display: inline-block;
+  text-decoration: none;
+  line-height: 1.4;
+}
+a.btn-ghost:hover { background: var(--yellow); }
+a.btn-ghost:focus-visible { outline: 3px solid var(--yellow); outline-offset: 2px; }
