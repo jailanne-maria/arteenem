@@ -1,10 +1,28 @@
 {
-  "atualizadoEm": "2026-11-13T03:07:36.814Z",
+  "atualizadoEm": "2026-11-13T18:21:34.580Z",
   "fontes": [
     "MEC",
     "Agência Brasil"
   ],
   "noticias": [
+    {
+      "titulo": "Enem 2026: confira as orientações para o segundo dia de provas",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/enem-2026-confira-as-orientacoes-para-o-segundo-dia-de-provas",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "MEC apresenta Referencial e lança Diagnóstico da Gestão Escolar em celebração ao Dia do Diretores",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/mec-apresenta-referencial-e-lanca-diagnostico-da-gestao-escolar-em-celebracao-ao-dia-do-diretores",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "MEC Livros marca presença em “Flips” no Rio e em Pernambuco",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/mec-livros-marca-presenca-em-201cflips201d-no-rio-e-em-pernambuco",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
     {
       "titulo": "MEC participa do Prêmio Capes de Tese 2026",
       "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/mec-participa-do-premio-capes-de-tese-2026",
@@ -108,46 +126,28 @@
       "data": "novembro/2026"
     },
     {
-      "titulo": "Enem: Quem faltou ao primeiro dia pode fazer a prova no segundo?",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/enem-quem-faltou-ao-primeiro-dia-pode-fazer-a-prova-no-segundo",
-      "fonte": "MEC",
-      "data": "novembro/2026"
-    },
-    {
-      "titulo": "Diretrizes orientam atendimento a estudantes com altas habilidades",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/diretrizes-orientam-atendimento-a-estudantes-com-altas-habilidades",
-      "fonte": "MEC",
-      "data": "novembro/2026"
-    },
-    {
-      "titulo": "Cursos de moda e estatística têm diretrizes curriculares homologadas",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/cursos-de-moda-e-estatistica-tem-diretrizes-curriculares-homologadas",
-      "fonte": "MEC",
-      "data": "novembro/2026"
-    },
-    {
-      "titulo": "Professora é demitida de escola em SC após foto em apoio a Lula",
-      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/professora-e-demitida-de-escola-em-sc-apos-foto-em-apoio-lula",
+      "titulo": "Resenha do Enem: EBC prepara live para segundo dia de prova",
+      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/resenha-do-enem-ebc-prepara-live-para-segundo-dia-de-prova",
       "fonte": "Agência Brasil",
-      "data": "12/11"
+      "data": "13/11"
     },
     {
-      "titulo": "Conheça as novas diretrizes da educação profissional e tecnológica",
-      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/conheca-novas-diretrizes-da-educacao-profissional-e-tecnologica",
+      "titulo": "Rec’n’Play promove aulões gratuitos para estudantes que vão fazer Enem",
+      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/recnplay-promove-auloes-gratuitos-para-estudantes-que-vao-fazer-enem",
       "fonte": "Agência Brasil",
-      "data": "12/11"
+      "data": "13/11"
     },
     {
-      "titulo": "Letramento digital precisa vir antes de uso da IA, diz Unesco",
-      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/letramento-digital-precisa-vir-antes-de-uso-da-ia-diz-unesco",
+      "titulo": "Enem 2026: saiba como controlar a ansiedade antes e durante a prova",
+      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/enem-2026-saiba-como-controlar-ansiedade-antes-e-durante-prova",
       "fonte": "Agência Brasil",
-      "data": "11/11"
+      "data": "13/11"
     },
     {
-      "titulo": "Enem 2026: entenda como funciona a Teoria da Resposta ao Item",
-      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/enem-2026-entenda-como-funciona-teoria-da-resposta-ao-item",
+      "titulo": "Enem 2026: revisão e gestão do tempo são foco na reta final",
+      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/enem-2026-revisao-e-gestao-do-tempo-sao-foco-na-reta-final",
       "fonte": "Agência Brasil",
-      "data": "11/11"
+      "data": "13/11"
     }
   ],
   "temasRedacao": [
