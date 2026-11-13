@@ -1,10 +1,40 @@
 {
-  "atualizadoEm": "2026-11-12T18:40:42.337Z",
+  "atualizadoEm": "2026-11-13T03:07:36.814Z",
   "fontes": [
     "MEC",
     "Agência Brasil"
   ],
   "noticias": [
+    {
+      "titulo": "MEC participa do Prêmio Capes de Tese 2026",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/mec-participa-do-premio-capes-de-tese-2026",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "MEC debate planejamento educacional e novo PNE em fórum da Undime",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/mec-debate-planejamento-educacional-e-novo-pne-em-forum-da-undime",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "‘O Enem é só o começo’: lições de quem trilhou o caminho",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/2018o-enem-e-so-o-comeco2019-licoes-de-quem-trilhou-o-caminho",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "Segunda etapa do Revalida será aplicada em 14 de março de 2027",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/segunda-etapa-do-revalida-sera-aplicada-em-14-de-marco-de-2027",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "MEC e BNDES abrem chamada de R$ 80 milhões para reformar instituições federais de ensino na Bacia do Rio Doce",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/mec-e-bndes-abrem-chamada-de-r-80-milhoes-para-reformar-instituicoes-federais-de-ensino-na-bacia-do-rio-doce",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
     {
       "titulo": "MEC apresenta avanços de rede internacional de cooperação em educação na COP31",
       "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/mec-apresenta-avancos-de-rede-internacional-de-cooperacao-em-educacao-na-cop31",
@@ -96,34 +126,10 @@
       "data": "novembro/2026"
     },
     {
-      "titulo": "MEC estabelece diretrizes para uso responsável da IA na educação",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/mec-estabelece-diretrizes-para-uso-responsavel-da-ia-na-educacao",
-      "fonte": "MEC",
-      "data": "novembro/2026"
-    },
-    {
-      "titulo": "Conhecendo o MEC fala sobre a CNDB",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/conhecendo-o-mec-fala-sobre-a-cndb",
-      "fonte": "MEC",
-      "data": "novembro/2026"
-    },
-    {
-      "titulo": "Saiba como promover educação digital e midiática em sala de aula",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/saiba-como-promover-educacao-digital-e-midiatica-em-sala-de-aula",
-      "fonte": "MEC",
-      "data": "novembro/2026"
-    },
-    {
-      "titulo": "Enade 2026: locais de prova e Cartão de Confirmação estão disponíveis",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/enade-2026-locais-de-prova-e-cartao-de-confirmacao-estao-disponiveis",
-      "fonte": "MEC",
-      "data": "novembro/2026"
-    },
-    {
-      "titulo": "Redes de ensino têm até 16/11 para participar do Selo Nacional de Alfabetização",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/redes-de-ensino-tem-ate-16-11-para-participar-do-selo-nacional-de-alfabetizacao",
-      "fonte": "MEC",
-      "data": "novembro/2026"
+      "titulo": "Professora é demitida de escola em SC após foto em apoio a Lula",
+      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/professora-e-demitida-de-escola-em-sc-apos-foto-em-apoio-lula",
+      "fonte": "Agência Brasil",
+      "data": "12/11"
     },
     {
       "titulo": "Conheça as novas diretrizes da educação profissional e tecnológica",
@@ -140,12 +146,6 @@
     {
       "titulo": "Enem 2026: entenda como funciona a Teoria da Resposta ao Item",
       "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/enem-2026-entenda-como-funciona-teoria-da-resposta-ao-item",
-      "fonte": "Agência Brasil",
-      "data": "11/11"
-    },
-    {
-      "titulo": "MEC fixa novas normas para educação de alunos com altas habilidades",
-      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/mec-fixa-novas-normas-para-educacao-de-alunos-com-altas-habilidades",
       "fonte": "Agência Brasil",
       "data": "11/11"
     }
