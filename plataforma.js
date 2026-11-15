@@ -788,6 +788,7 @@ const PLATAFORMA = (() => {
     if (!rodando) return;
     const dt = Math.min(60, t - ultimo);
     ultimo = t;
+    lerGamepadCartao();
     if (!pausado && !pausaManual) {
       acumulado += dt;
       let passos = 0;
