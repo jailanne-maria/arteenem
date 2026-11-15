@@ -2,6 +2,32 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
+  <script>
+  (function () {
+    var erros = [];
+    function mostra() {
+      if (!document.body) { document.addEventListener("DOMContentLoaded", mostra, { once: true }); return; }
+      var d = document.getElementById("nina-erros");
+      if (!d) {
+        d = document.createElement("div");
+        d.id = "nina-erros";
+        d.setAttribute("style", "position:fixed;left:8px;right:8px;bottom:8px;z-index:99999;background:#2b0b0b;color:#ffd7d7;font:12px/1.45 monospace;padding:10px;border-radius:8px;max-height:45vh;overflow:auto;white-space:pre-wrap;box-shadow:0 0 0 2px #ff6b6b");
+        document.body.appendChild(d);
+      }
+      d.textContent = "ERROS (" + erros.length + "):\n" + erros.join("\n");
+      window.__ninaErros = erros;
+    }
+    window.addEventListener("error", function (e) {
+      erros.push((e.message || "erro") + " @ " + (e.filename || "?") + ":" + (e.lineno || 0));
+      mostra();
+    }, true);
+    window.addEventListener("unhandledrejection", function (e) {
+      var r = (e && e.reason) || {};
+      erros.push("promise: " + (r.code || r.message || String(r)));
+      mostra();
+    });
+  })();
+  </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="NINA — diagnóstico das 4 áreas do ENEM. Professores criam turmas, estudantes fazem o diagnóstico e disputam o ranking.">
   <title>NINA · Diagnóstico das 4 áreas</title>
@@ -10,7 +36,7 @@
   <link rel="apple-touch-icon" href="img/icon-192.png">
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#5c94fc">
-  <link rel="stylesheet" href="style.css?v=120">
+  <link rel="stylesheet" href="style.css?v=121">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
@@ -1800,23 +1826,23 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
 
-  <script src="questoes.js?v=120"></script>
-  <script src="questoes-arte.js?v=120"></script>
-  <script src="plano.js?v=120"></script>
-  <script src="explorar.js?v=120"></script>
-  <script src="figurinhas.js?v=120"></script>
-  <script src="curriculo.js?v=120"></script>
-  <script src="cursos.js?v=120"></script>
-  <script src="mascote.js?v=120"></script>
-  <script src="glossario.js?v=120"></script>
-  <script src="glossario-acreanes.js?v=120"></script>
-  <script src="encenacao.js?v=120"></script>
-    <script src="plataforma.js?v=120"></script>
-  <script src="firebase-config.js?v=120"></script>
-<script src="bingo-conceitos.js?v=120"></script>
-<script src="bingo.js?v=120"></script>
-<script src="teatro-oprimido.js?v=120"></script>
-<script src="desafios-escrita.js?v=120"></script>
-  <script src="script.js?v=120"></script>
+  <script src="questoes.js?v=121"></script>
+  <script src="questoes-arte.js?v=121"></script>
+  <script src="plano.js?v=121"></script>
+  <script src="explorar.js?v=121"></script>
+  <script src="figurinhas.js?v=121"></script>
+  <script src="curriculo.js?v=121"></script>
+  <script src="cursos.js?v=121"></script>
+  <script src="mascote.js?v=121"></script>
+  <script src="glossario.js?v=121"></script>
+  <script src="glossario-acreanes.js?v=121"></script>
+  <script src="encenacao.js?v=121"></script>
+    <script src="plataforma.js?v=121"></script>
+  <script src="firebase-config.js?v=121"></script>
+<script src="bingo-conceitos.js?v=121"></script>
+<script src="bingo.js?v=121"></script>
+<script src="teatro-oprimido.js?v=121"></script>
+<script src="desafios-escrita.js?v=121"></script>
+  <script src="script.js?v=121"></script>
 </body>
 </html>
