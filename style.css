@@ -6326,3 +6326,161 @@ a.btn-ghost:focus-visible { outline: 3px solid var(--yellow); outline-offset: 2p
   padding: 5px 9px;
 }
 .chat-msg .chat-texto { direction: ltr; unicode-bidi: plaintext; }
+
+/* ===== Balão de missão (cartão do caso no jogo) ===== */
+.noticia-card {
+  background: #1e2f66;
+  border: 4px solid #fff8e7;
+  border-radius: 8px;
+  box-shadow: 0 0 0 4px var(--black), 9px 9px 0 rgba(20, 20, 43, .45);
+  padding: 20px 20px 18px;
+}
+.noticia-card .noticia-tag {
+  background: var(--yellow);
+  color: var(--black);
+  border: 3px solid var(--black);
+  border-radius: 4px;
+  box-shadow: 3px 3px 0 rgba(20, 20, 43, .5);
+}
+.noticia-card .noticia-texto {
+  color: #f4efe0;
+  font-family: var(--texto);
+  font-size: 1.45rem;
+  line-height: 1.45;
+}
+.noticia-card .noticia-passo {
+  color: var(--yellow);
+  font-family: var(--pixel);
+  font-size: 0.52rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.noticia-card .noticia-pergunta-just,
+.noticia-card .noticia-pista,
+.noticia-card .noticia-material,
+.noticia-card .noticia-feedback,
+.noticia-card .noticia-pistas p,
+.noticia-card .noticia-opcoes button {
+  font-family: var(--texto);
+}
+.noticia-card .noticia-pistas p,
+.noticia-card .noticia-pergunta-just {
+  color: #f4efe0;
+  font-size: 1.15rem;
+}
+.noticia-card .noticia-material {
+  background: rgba(255, 248, 231, .1);
+  border-left: 6px solid var(--yellow);
+  color: #f4efe0;
+}
+.noticia-card .noticia-material * { color: #f4efe0; }
+.noticia-card .noticia-feedback { color: #f4efe0; }
+.noticia-card .bingo-vazio, .noticia-card .vazio { color: #c9c9dd; }
+
+/* ===== Tela cheia do jogo ===== */
+body.modo-jogo header,
+body.modo-jogo footer,
+body.modo-jogo #menu-extra,
+body.modo-jogo .dica { display: none !important; }
+body.modo-jogo {
+  overflow: hidden;
+  background: #14142b;
+}
+body.modo-jogo #app {
+  max-width: none;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+body.modo-jogo #tela-fase { width: 100%; height: 100vh; margin: 0; padding: 0; }
+body.modo-jogo #tela-fase .fase-cabeca,
+body.modo-jogo #tela-fase .fase-progresso-wrap,
+body.modo-jogo #tela-fase .fase-intro { display: none; }
+body.modo-jogo #tela-fase > .voltar {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  z-index: 10000;
+  font-size: 0.5rem;
+  padding: 7px 10px;
+  opacity: .85;
+}
+body.modo-jogo .plataforma-wrap { max-width: none; width: 100%; height: 100vh; }
+body.modo-jogo #fase-canvas {
+  width: 100vw;
+  height: 100vh;
+  object-fit: contain;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  background: #8cb8ff;
+}
+body.modo-jogo .noticia-card {
+  max-width: min(92vw, 760px);
+  max-height: 84vh;
+  overflow: auto;
+  margin: auto;
+}
+body.modo-jogo .controles-jogo { z-index: 5; }
+
+/* Aviso de orientação (só em retrato no celular) */
+#aviso-orientacao { display: none; }
+body.modo-jogo #aviso-orientacao {
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  background: #14142b;
+  color: #f4efe0;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  text-align: center;
+  padding: 24px;
+}
+@media (max-width: 900px) and (orientation: portrait) {
+  body.modo-jogo #aviso-orientacao { display: flex; }
+}
+#aviso-orientacao .giro {
+  width: 84px;
+  height: 132px;
+  border: 4px solid var(--yellow);
+  border-radius: 12px;
+  position: relative;
+  animation: girarAviso 2s ease-in-out infinite;
+}
+#aviso-orientacao .giro::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 8px;
+  width: 10px;
+  height: 10px;
+  margin-left: -5px;
+  border-radius: 50%;
+  background: var(--yellow);
+}
+@keyframes girarAviso {
+  0%, 20% { transform: rotate(0deg); }
+  60%, 100% { transform: rotate(-90deg); }
+}
+#aviso-orientacao p {
+  font-family: var(--pixel);
+  font-size: 0.62rem;
+  line-height: 2;
+  margin: 0;
+  max-width: 320px;
+}
+#aviso-orientacao small {
+  font-family: var(--texto);
+  font-size: 16px;
+  color: #b9b9d0;
+}
+@media (prefers-reduced-motion: reduce) {
+  #aviso-orientacao .giro { animation: none; transform: rotate(-90deg); }
+}

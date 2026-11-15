@@ -335,6 +335,7 @@ const PLATAFORMA = (() => {
 
   // ---------- ciclo ----------
   function atualizar() {
+    if (typeof window !== "undefined" && window.matchMedia && window.innerWidth <= 900 && window.matchMedia("(orientation: portrait)").matches) return;
     const j = jog;
     lerGamepad();
     const alvoEsq = input.esq || pad.esq || teclas["ArrowLeft"] || teclas["a"] || teclas["A"];
@@ -395,7 +396,7 @@ const PLATAFORMA = (() => {
       } else j.y = ny;
     }
 
-    if (j.y > ALTURA * TILE + 40) return cairNoBuraco();
+    if (j.y > (ALTURA - 2) * TILE + 8) return cairNoBuraco();
 
     // checkpoint (bloco 95): ao passar, vira o ponto de retomada
     if (!checkpointAtivo && j.x + j.w >= checkpointX) checkpointAtivo = true;
@@ -994,13 +995,19 @@ const PLATAFORMA = (() => {
     if (opcoes.sessao) aplicarSessao(opcoes.sessao);
     ligarControles(opcoes.controles || {});
     rodando = true;
+    if (typeof document !== "undefined" && document.body) document.body.classList.add("modo-jogo");
     ultimo = performance.now();
     cancelAnimationFrame(raf);
     raf = requestAnimationFrame(loop);
     atualizarHudExterno();
   }
 
-  function parar() { rodando = false; cancelAnimationFrame(raf); desligarControles(); }
+  function parar() {
+    rodando = false;
+    cancelAnimationFrame(raf);
+    desligarControles();
+    if (document && document.body) document.body.classList.remove("modo-jogo");
+  }
 
   return {
     iniciar,
