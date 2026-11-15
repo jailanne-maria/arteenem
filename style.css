@@ -6382,6 +6382,7 @@ body.modo-jogo header,
 body.modo-jogo footer,
 body.modo-jogo #menu-extra,
 body.modo-jogo .dica { display: none !important; }
+body.modo-jogo #app { display: block; }
 body.modo-jogo {
   overflow: hidden;
   background: #14142b;
@@ -6396,7 +6397,8 @@ body.modo-jogo #app {
   align-items: center;
   justify-content: center;
 }
-body.modo-jogo #tela-fase { width: 100%; height: 100vh; margin: 0; padding: 0; }
+body.modo-jogo #tela-fase { position: fixed; inset: 0; width: 100vw; height: 100vh; margin: 0; padding: 0; z-index: 9000; background: #14142b; }
+body.modo-jogo #tela-fase #fase-jogo { position: absolute; inset: 0; margin: 0; padding: 0; }
 body.modo-jogo #tela-fase .fase-cabeca,
 body.modo-jogo #tela-fase .fase-progresso-wrap,
 body.modo-jogo #tela-fase .fase-intro { display: none; }
@@ -6409,21 +6411,29 @@ body.modo-jogo #tela-fase > .voltar {
   padding: 7px 10px;
   opacity: .85;
 }
-body.modo-jogo .plataforma-wrap { max-width: none; width: 100%; height: 100vh; }
+body.modo-jogo .plataforma-wrap { position: absolute; inset: 0; max-width: none; width: 100%; height: 100%; margin: 0; }
+body.modo-jogo .plataforma-controles { position: absolute; left: 0; right: 0; bottom: 6px; z-index: 9500; padding: 0 10px; }
+body.modo-jogo .plataforma-dica { display: none; }
 body.modo-jogo #fase-canvas {
-  width: 100vw;
-  height: 100vh;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
   object-fit: contain;
   border: 0;
   border-radius: 0;
   box-shadow: none;
   background: #8cb8ff;
 }
-body.modo-jogo .noticia-card {
-  max-width: min(92vw, 760px);
-  max-height: 84vh;
+body.modo-jogo .plataforma-wrap .noticia-card {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: min(92vw, 720px);
+  max-height: calc(100vh - 28px);
   overflow: auto;
-  margin: auto;
+  margin: 0;
 }
 body.modo-jogo .controles-jogo { z-index: 5; }
 
