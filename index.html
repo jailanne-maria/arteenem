@@ -10,7 +10,7 @@
   <link rel="apple-touch-icon" href="img/icon-192.png">
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#5c94fc">
-  <link rel="stylesheet" href="style.css?v=115">
+  <link rel="stylesheet" href="style.css?v=116">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
@@ -42,7 +42,7 @@
           <button id="btn-bingo" class="btn-ghost escondido">🎲 Bingo étnico-racial</button>
           <a id="btn-museu" class="btn-ghost" href="https://jailanne-maria.github.io/estrelas-do-norte/" target="_blank" rel="noopener noreferrer">🏛️ Museu Virtual</a>
           <a id="btn-seringa" class="btn-ghost" href="https://jailanne-maria.github.io/justica-climatica/jogo.html" target="_blank" rel="noopener noreferrer">🌿 Caminhos da Seringa</a>
-          <button id="btn-teatro" class="btn-ghost">🎭 Teatro do Oprimido</button>
+          <button id="btn-teatro" class="btn-ghost escondido">🎭 Teatro do Oprimido</button>
           <button id="btn-escrita" class="btn-ghost">✍️ Desafios de Escrita</button>
           <button id="btn-explorar" class="btn-ghost escondido">🎮 Explorar</button>
           <button id="btn-eca" class="btn-ghost escondido">📜 ECA</button>
@@ -1494,6 +1494,47 @@
       </div>
 
       <div id="teatro-lista" class="teatro-lista"></div>
+
+      <div class="painel-bloco teatro-ficha" id="teatro-ficha">
+        <h3 class="secao-titulo">Fichamento do professor</h3>
+        <p class="teatro-resumo">Registre o que você aplicou. Serve para planejar a próxima aula e para comprovar a prática na escola.</p>
+
+        <div class="ficha-grid">
+          <label class="campo">
+            <span>Jogo aplicado</span>
+            <select id="ficha-jogo"></select>
+          </label>
+          <label class="campo">
+            <span>Data</span>
+            <input id="ficha-data" type="date" />
+          </label>
+          <label class="campo">
+            <span>Turma</span>
+            <input id="ficha-turma" type="text" maxlength="40" placeholder="Ex.: 2º ano B" />
+          </label>
+        </div>
+
+        <label class="campo">
+          <span>O que eu fiz</span>
+          <textarea id="ficha-fiz" class="campo-texto" rows="3" maxlength="800" placeholder="Jogo, tempo, organização da turma..."></textarea>
+        </label>
+        <label class="campo">
+          <span>O que funcionou</span>
+          <textarea id="ficha-funcionou" class="campo-texto" rows="3" maxlength="800" placeholder="O que apareceu na conversa, quem participou..."></textarea>
+        </label>
+        <label class="campo">
+          <span>O que eu mudaria</span>
+          <textarea id="ficha-ajustar" class="campo-texto" rows="3" maxlength="800" placeholder="Tempo, agrupamento, cuidado com exposição..."></textarea>
+        </label>
+
+        <div class="ficha-acoes">
+          <span id="ficha-msg" class="escrita-msg" role="status" aria-live="polite"></span>
+          <button id="ficha-salvar" class="btn-principal" type="button">Salvar fichamento</button>
+        </div>
+
+        <h4 class="ficha-subtitulo">Últimos fichamentos</h4>
+        <ul id="ficha-lista" class="ficha-lista"></ul>
+      </div>
     </section>
 
     <!-- ===== DESAFIOS DE ESCRITA ===== -->
@@ -1509,6 +1550,9 @@
         <p class="teatro-intro">Não existe resposta certa única. O que se avalia é o caminho: o exemplo, a justificativa e a clareza. Mínimo de 120 caracteres por resposta.</p>
       </div>
 
+      <h2 class="secao-titulo" style="margin-top:26px">Temas que estão no noticiário</h2>
+      <p class="teatro-resumo">Não dá para prever o tema da redação. O caminho é acompanhar o que está em debate no Brasil e treinar argumento com repertório.</p>
+      <div id="temas-lista" class="temas-lista"></div>
       <div id="escrita-lista" class="escrita-lista"></div>
     </section>
 
@@ -1754,23 +1798,23 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
 
-  <script src="questoes.js?v=115"></script>
-  <script src="questoes-arte.js?v=115"></script>
-  <script src="plano.js?v=115"></script>
-  <script src="explorar.js?v=115"></script>
-  <script src="figurinhas.js?v=115"></script>
-  <script src="curriculo.js?v=115"></script>
-  <script src="cursos.js?v=115"></script>
-  <script src="mascote.js?v=115"></script>
-  <script src="glossario.js?v=115"></script>
-  <script src="glossario-acreanes.js?v=115"></script>
-  <script src="encenacao.js?v=115"></script>
-    <script src="plataforma.js?v=115"></script>
-  <script src="firebase-config.js?v=115"></script>
-<script src="bingo-conceitos.js?v=115"></script>
-<script src="bingo.js?v=115"></script>
-<script src="teatro-oprimido.js?v=115"></script>
-<script src="desafios-escrita.js?v=115"></script>
-  <script src="script.js?v=115"></script>
+  <script src="questoes.js?v=116"></script>
+  <script src="questoes-arte.js?v=116"></script>
+  <script src="plano.js?v=116"></script>
+  <script src="explorar.js?v=116"></script>
+  <script src="figurinhas.js?v=116"></script>
+  <script src="curriculo.js?v=116"></script>
+  <script src="cursos.js?v=116"></script>
+  <script src="mascote.js?v=116"></script>
+  <script src="glossario.js?v=116"></script>
+  <script src="glossario-acreanes.js?v=116"></script>
+  <script src="encenacao.js?v=116"></script>
+    <script src="plataforma.js?v=116"></script>
+  <script src="firebase-config.js?v=116"></script>
+<script src="bingo-conceitos.js?v=116"></script>
+<script src="bingo.js?v=116"></script>
+<script src="teatro-oprimido.js?v=116"></script>
+<script src="desafios-escrita.js?v=116"></script>
+  <script src="script.js?v=116"></script>
 </body>
 </html>

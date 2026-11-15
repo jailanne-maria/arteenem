@@ -60,6 +60,7 @@ aoMudarUsuario(async (user) => {
   const btnPerfil = document.getElementById("btn-perfil");
   const btnExplorar = document.getElementById("btn-explorar");
   const btnBingo = document.getElementById("btn-bingo");
+  const btnTeatro = document.getElementById("btn-teatro");
   const btnEca = document.getElementById("btn-eca");
   const btnJogo = document.getElementById("btn-jogo");
   const btnNoticias = document.getElementById("btn-noticias");
@@ -86,6 +87,7 @@ aoMudarUsuario(async (user) => {
     esconder(btnPerfil);
     esconder(btnExplorar);
     esconder(btnBingo);
+    esconder(btnTeatro);
     esconder(btnEca);
     esconder(btnJogo);
     esconder(btnNoticias);
@@ -140,6 +142,8 @@ aoMudarUsuario(async (user) => {
   exibir(btnPerfil);
   exibir(btnExplorar);
   exibir(btnBingo);
+  // Teatro do Oprimido e fichamento: só para professores
+  if (usuario.papel === "professor" || podeAdministrar()) exibir(btnTeatro); else esconder(btnTeatro);
   exibir(btnEca);
   exibir(btnJogo);
   exibir(btnNoticias);

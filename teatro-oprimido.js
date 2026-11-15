@@ -212,6 +212,99 @@ function teatroRender() {
   }).join("");
 }
 
+// ---------- fichamento do professor ----------
+const NOMES_JOGOS = (() => {
+  const lista = [];
+  TEATRO_CATEGORIAS.forEach((c) => c.jogos.forEach((j) => lista.push(j.nome)));
+  return lista;
+})();
+
+function fichaPreencherSelect() {
+  const sel = document.getElementById("ficha-jogo");
+  if (!sel || sel.options.length) return;
+  sel.innerHTML = NOMES_JOGOS.map((n) => `<option value="${teatroEsc(n)}">${teatroEsc(n)}</option>`).join("");
+}
+
+function fichaDataHoje() {
+  const campo = document.getElementById("ficha-data");
+  if (campo && !campo.value) campo.value = new Date().toISOString().slice(0, 10);
+}
+
+function fichaTurmaPadrao() {
+  const campo = document.getElementById("ficha-turma");
+  if (campo && !campo.value && typeof minhaTurma !== "undefined" && minhaTurma && minhaTurma.nome) {
+    campo.value = minhaTurma.nome;
+  }
+}
+
+function fichaMsg(texto, tipo) {
+  const m = document.getElementById("ficha-msg");
+  if (!m) return;
+  m.textContent = texto || "";
+  m.className = "escrita-msg" + (tipo ? " " + tipo : "");
+}
+
+async function fichaSalvar() {
+  const user = typeof usuarioAtual === "function" ? usuarioAtual() : null;
+  if (!user) return fichaMsg("entre na sua conta para salvar", "erro");
+
+  const jogo = (document.getElementById("ficha-jogo") || {}).value || "";
+  const data = (document.getElementById("ficha-data") || {}).value || "";
+  const turma = (document.getElementById("ficha-turma") || {}).value || "";
+  const fiz = (document.getElementById("ficha-fiz") || {}).value || "";
+  const funcionou = (document.getElementById("ficha-funcionou") || {}).value || "";
+  const ajustar = (document.getElementById("ficha-ajustar") || {}).value || "";
+
+  if (!jogo) return fichaMsg("escolha o jogo aplicado", "erro");
+  if (fiz.trim().length < 20) return fichaMsg("descreva o que você fez (mínimo 20 caracteres)", "erro");
+
+  fichaMsg("salvando...");
+  try {
+    await firebase.firestore().collection("fichamentos").add({
+      uid: user.uid,
+      professor: (typeof usuario !== "undefined" && usuario && usuario.nome) ? usuario.nome : (user.displayName || "Professor(a)"),
+      codigo: (typeof minhaTurma !== "undefined" && minhaTurma && minhaTurma.codigo) ? minhaTurma.codigo : null,
+      jogo,
+      data,
+      turma,
+      oQueFiz: fiz.trim(),
+      oQueFuncionou: funcionou.trim(),
+      oQueAjustar: ajustar.trim(),
+      criadoEm: firebase.firestore.FieldValue.serverTimestamp(),
+    });
+    fichaMsg("fichamento salvo ✓", "ok");
+    ["ficha-fiz", "ficha-funcionou", "ficha-ajustar"].forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) el.value = "";
+    });
+    fichaListar();
+  } catch (e) {
+    fichaMsg("não foi possível salvar: " + e.message, "erro");
+  }
+}
+
+async function fichaListar() {
+  const alvo = document.getElementById("ficha-lista");
+  const user = typeof usuarioAtual === "function" ? usuarioAtual() : null;
+  if (!alvo || !user) return;
+  try {
+    const snap = await firebase.firestore().collection("fichamentos")
+      .where("uid", "==", user.uid).limit(20).get();
+    const itens = [];
+    snap.forEach((doc) => itens.push(doc.data()));
+    itens.sort((a, b) => String(b.data || "").localeCompare(String(a.data || "")));
+    alvo.innerHTML = itens.length
+      ? itens.slice(0, 8).map((f) => `
+          <li>
+            <strong>${teatroEsc(f.jogo)}</strong>
+            <span class="ficha-meta">${teatroEsc(f.data || "")}${f.turma ? " · " + teatroEsc(f.turma) : ""}</span>
+            <p>${teatroEsc(f.oQueFiz)}</p>
+          </li>`).join("")
+      : "<li class=\"bingo-vazio\">Nenhum fichamento ainda.</li>";
+  } catch (e) {
+    alvo.innerHTML = "<li class=\"bingo-vazio\">Não foi possível carregar os fichamentos.</li>";
+  }
+}
 function teatroAbrirTela() {
   teatroRender();
   if (typeof mostrarTela === "function") mostrarTela("tela-teatro");
