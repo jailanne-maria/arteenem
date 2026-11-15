@@ -6309,3 +6309,11 @@ a.btn-ghost:focus-visible { outline: 3px solid var(--yellow); outline-offset: 2p
   margin: 10px 0 4px;
   text-align: left;
 }
+
+.login-versao {
+  font-family: var(--texto);
+  font-size: 13px;
+  color: var(--muted);
+  margin: 2px 0 0;
+  letter-spacing: .04em;
+}
