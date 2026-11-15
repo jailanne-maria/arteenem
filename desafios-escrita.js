@@ -93,7 +93,7 @@ const DESAFIOS_ESCRITA = [
 const ESCRITA_MIN = 120;
 
 // ---------- temas de redação (repertório a partir do noticiário) ----------
-const TEMAS_REDACAO = [
+const TEMAS_NOTICIARIO = [
   {
     titulo: "SUS e a privatização da saúde",
     contexto: "O Sistema Único de Saúde é direito de todos e dever do Estado (art. 196 da Constituição) e atende a maior parte da população. Em períodos eleitorais, volta ao noticiário a proposta de ampliar planos privados e terceirizar serviços.",
@@ -160,7 +160,7 @@ const TEMAS_REDACAO = [
 function temasRender() {
   const alvo = document.getElementById("temas-lista");
   if (!alvo) return;
-  alvo.innerHTML = TEMAS_REDACAO.map((t) => `
+  alvo.innerHTML = TEMAS_NOTICIARIO.map((t) => `
     <article class="tema-card">
       <h3 class="escrita-titulo">${escritaEsc(t.titulo)}</h3>
       <p class="tema-contexto">${escritaEsc(t.contexto)}</p>
