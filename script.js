@@ -199,10 +199,32 @@ aoMudarUsuario(async (user) => {
 });
 
 document.getElementById("btn-google").addEventListener("click", async () => {
+  const btn = document.getElementById("btn-google");
+  const dica = document.getElementById("login-erro");
+  const mostrarErro = (texto) => {
+    if (dica) { dica.textContent = texto; dica.classList.remove("escondido"); }
+    else alert(texto);
+  };
+  if (dica) { dica.textContent = ""; dica.classList.add("escondido"); }
   try {
+    if (btn) btn.disabled = true;
     await loginGoogle();
   } catch (e) {
-    alert("Não foi possível entrar: " + e.message);
+    const code = (e && e.code) ? e.code : "";
+    const explica = {
+      "auth/unauthorized-domain": "O domínio do site não está autorizado no Firebase (Authentication > Settings > Authorized domains).",
+      "auth/popup-blocked": "O navegador bloqueou a janela do Google. Libere pop-ups para este site e tente de novo.",
+      "auth/popup-closed-by-user": "A janela do Google foi fechada antes de concluir.",
+      "auth/cancelled-popup-request": "Outra tentativa de login estava aberta. Feche e tente de novo.",
+      "auth/network-request-failed": "Falha de conexão. Verifique a internet e tente novamente.",
+      "auth/operation-not-allowed": "O login com Google não está ativado no console do Firebase.",
+      "auth/web-storage-unsupported": "O navegador está bloqueando armazenamento local (modo anônimo ou cookies bloqueados).",
+      "auth/internal-error": "Erro interno do Firebase. Tente novamente em alguns segundos.",
+    }[code];
+    mostrarErro((explica || (e && e.message) || "Erro desconhecido.") + (code ? " [" + code + "]" : ""));
+    console.error("Falha no login:", e);
+  } finally {
+    if (btn) btn.disabled = false;
   }
 });
 

@@ -6295,3 +6295,17 @@ a.btn-ghost:focus-visible { outline: 3px solid var(--yellow); outline-offset: 2p
 .tema-linha { font-family: var(--texto); font-size: 17px; line-height: 1.4; margin: 0 0 6px; color: var(--on-surface-2); }
 .tema-perguntas { font-family: var(--texto); font-size: 17px; margin: 8px 0 0 18px; color: var(--on-surface); }
 .tema-perguntas li { margin-bottom: 4px; }
+
+/* ===== Aviso de erro no login ===== */
+.login-erro {
+  font-family: var(--texto);
+  font-size: 16px;
+  line-height: 1.4;
+  color: var(--red-dark);
+  background: #ffe9e9;
+  border: 3px solid var(--red-dark);
+  border-radius: 10px;
+  padding: 10px 12px;
+  margin: 10px 0 4px;
+  text-align: left;
+}
