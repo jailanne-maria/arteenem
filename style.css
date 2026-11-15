@@ -6317,3 +6317,12 @@ a.btn-ghost:focus-visible { outline: 3px solid var(--yellow); outline-offset: 2p
   margin: 2px 0 0;
   letter-spacing: .04em;
 }
+
+/* ===== Botão desvirar (mensagem espelhada) ===== */
+.chat-desvirar {
+  align-self: flex-start;
+  margin: 2px 0 6px;
+  font-size: 0.52rem;
+  padding: 5px 9px;
+}
+.chat-msg .chat-texto { direction: ltr; unicode-bidi: plaintext; }

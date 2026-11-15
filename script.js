@@ -7078,11 +7078,20 @@ function carregarConversaMsgs() {  if (conversaUnsub) { conversaUnsub(); convers
       const hora = m.ms
         ? new Date(m.ms).toLocaleString("pt-BR", { day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" })
         : "";
+      const comum = /\b(oi|ola|olá|nao|não|que|de|da|do|minha|professora|professor|atividade|atividades|aba|nada|ajuda|porque|como)\b/i;
+      const espelhado = !!m.texto && m.texto.trim().length > 12 && !comum.test(m.texto) && comum.test([...m.texto].reverse().join(''));
       return `<div class="chat-msg ${daProf ? "minha" : ""}">
         <div class="chat-msg-topo"><strong>${daProf ? "Você (professora)" : "Usuário"}</strong><span>${hora}</span></div>
-        <p>${escaparHTML(m.texto || "")}</p>
+        <p class="chat-texto">${escaparHTML(m.texto || "")}</p>
+        ${espelhado ? `<button class="btn-ghost compacto chat-desvirar" type="button" title="Virar o texto de volta">⇄ desvirar</button>` : ""}
       </div>`;
     }).join("");
+    div.querySelectorAll(".chat-desvirar").forEach((b) => {
+      b.addEventListener("click", () => {
+        const alvoTxt = b.parentElement.querySelector(".chat-texto");
+        if (alvoTxt) alvoTxt.textContent = [...alvoTxt.textContent].reverse().join("");
+      });
+    });
     div.scrollTop = div.scrollHeight;
   });
 }
