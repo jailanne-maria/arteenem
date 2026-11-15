@@ -6374,7 +6374,16 @@ a.btn-ghost:focus-visible { outline: 3px solid var(--yellow); outline-offset: 2p
   color: #f4efe0;
 }
 .noticia-card .noticia-material * { color: #f4efe0; }
-.noticia-card .noticia-feedback { color: #f4efe0; }
+.noticia-card .noticia-feedback {
+  color: #2a0d12;
+  font-family: var(--texto);
+  font-size: 1.2rem;
+  border: 3px solid var(--black);
+  box-shadow: 4px 4px 0 rgba(20, 20, 43, .5);
+}
+.noticia-card .noticia-feedback.ok { background: #c8f0c8; color: #14351a; }
+.noticia-card .noticia-feedback.erro { background: #ffd9d4; color: #5a0f16; }
+.noticia-card .noticia-feedback strong { color: inherit; }
 .noticia-card .bingo-vazio, .noticia-card .vazio { color: #c9c9dd; }
 
 /* ===== Tela cheia do jogo ===== */
