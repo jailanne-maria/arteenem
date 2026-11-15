@@ -313,6 +313,8 @@ function teatroAbrirTela() {
 document.addEventListener("DOMContentLoaded", () => {
   const btn = document.getElementById("btn-teatro");
   if (btn) btn.addEventListener("click", teatroAbrirTela);
+  const atalho = document.getElementById("btn-teatro-perfil");
+  if (atalho) atalho.addEventListener("click", teatroAbrirTela);
   const voltar = document.getElementById("btn-voltar-teatro");
   if (voltar) voltar.addEventListener("click", () => {
     const ehProf = (typeof usuario !== "undefined" && usuario && usuario.papel === "professor") ||

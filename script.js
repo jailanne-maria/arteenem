@@ -1721,10 +1721,14 @@ function abrirMeuPerfil() {
   // Glossários: só para professores
   if (usuario.papel === "professor") exibir(document.getElementById("btn-glossario-perfil"));
   else esconder(document.getElementById("btn-glossario-perfil"));
-  // Fichário de Encenação: só para professores
-  if (usuario.papel === "professor") exibir(document.getElementById("btn-encenacao-perfil"));
-  else esconder(document.getElementById("btn-encenacao-perfil"));
-  renderPerfilObjetivo(true);
+  // Fichário de Encenação e Teatro do Oprimido: só para professores
+  if (usuario.papel === "professor") {
+    exibir(document.getElementById("btn-encenacao-perfil"));
+    exibir(document.getElementById("btn-teatro-perfil"));
+  } else {
+    esconder(document.getElementById("btn-encenacao-perfil"));
+    esconder(document.getElementById("btn-teatro-perfil"));
+  }
   modoPerfil(false);
   carregarAtividadesPerfil(usuario.uid);
   mostrarTela("tela-perfil");
