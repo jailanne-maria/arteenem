@@ -10,7 +10,7 @@
   <link rel="apple-touch-icon" href="img/icon-192.png">
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#5c94fc">
-  <link rel="stylesheet" href="style.css?v=114">
+  <link rel="stylesheet" href="style.css?v=115">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
@@ -42,6 +42,8 @@
           <button id="btn-bingo" class="btn-ghost escondido">🎲 Bingo étnico-racial</button>
           <a id="btn-museu" class="btn-ghost" href="https://jailanne-maria.github.io/estrelas-do-norte/" target="_blank" rel="noopener noreferrer">🏛️ Museu Virtual</a>
           <a id="btn-seringa" class="btn-ghost" href="https://jailanne-maria.github.io/justica-climatica/jogo.html" target="_blank" rel="noopener noreferrer">🌿 Caminhos da Seringa</a>
+          <button id="btn-teatro" class="btn-ghost">🎭 Teatro do Oprimido</button>
+          <button id="btn-escrita" class="btn-ghost">✍️ Desafios de Escrita</button>
           <button id="btn-explorar" class="btn-ghost escondido">🎮 Explorar</button>
           <button id="btn-eca" class="btn-ghost escondido">📜 ECA</button>
           <button id="btn-perfil" class="btn-ghost escondido">👤 Perfil</button>
@@ -1477,7 +1479,40 @@
 
 </section>
 
-    <!-- ===== CLASSIFICAÇÃO, PRIVACIDADE, TERMOS E CRÉDITOS ===== -->
+        <!-- ===== TEATRO DO OPRIMIDO ===== -->
+    <section id="tela-teatro" class="tela">
+      <button id="btn-voltar-teatro" class="btn-ghost voltar">← Voltar</button>
+
+      <div class="hero">
+        <h1>Teatro do <span class="destaque">Oprimido</span></h1>
+        <p>Jogos para sala de aula, organizados por categoria, com o caminho de mediação do professor.</p>
+      </div>
+
+      <div class="painel-bloco">
+        <p id="teatro-intro" class="teatro-intro"></p>
+        <p class="teatro-fonte">Base: Augusto Boal — <em>Jogos para atores e não-atores</em> e <em>Teatro do Oprimido</em>.</p>
+      </div>
+
+      <div id="teatro-lista" class="teatro-lista"></div>
+    </section>
+
+    <!-- ===== DESAFIOS DE ESCRITA ===== -->
+    <section id="tela-escrita" class="tela">
+      <button id="btn-voltar-escrita" class="btn-ghost voltar">← Voltar</button>
+
+      <div class="hero">
+        <h1>Desafios de <span class="destaque">Escrita</span></h1>
+        <p>Perguntas ligadas às competências da BNCC. Escreva com as suas palavras — a resposta fica salva na sua conta.</p>
+      </div>
+
+      <div class="painel-bloco">
+        <p class="teatro-intro">Não existe resposta certa única. O que se avalia é o caminho: o exemplo, a justificativa e a clareza. Mínimo de 120 caracteres por resposta.</p>
+      </div>
+
+      <div id="escrita-lista" class="escrita-lista"></div>
+    </section>
+
+<!-- ===== CLASSIFICAÇÃO, PRIVACIDADE, TERMOS E CRÉDITOS ===== -->
     <section id="tela-sobre" class="tela">
       <button id="btn-voltar-sobre" class="btn-ghost voltar">← Voltar</button>
 
@@ -1719,21 +1754,23 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
 
-  <script src="questoes.js?v=114"></script>
-  <script src="questoes-arte.js?v=114"></script>
-  <script src="plano.js?v=114"></script>
-  <script src="explorar.js?v=114"></script>
-  <script src="figurinhas.js?v=114"></script>
-  <script src="curriculo.js?v=114"></script>
-  <script src="cursos.js?v=114"></script>
-  <script src="mascote.js?v=114"></script>
-  <script src="glossario.js?v=114"></script>
-  <script src="glossario-acreanes.js?v=114"></script>
-  <script src="encenacao.js?v=114"></script>
-    <script src="plataforma.js?v=114"></script>
-  <script src="firebase-config.js?v=114"></script>
-<script src="bingo-conceitos.js?v=114"></script>
-<script src="bingo.js?v=114"></script>
-  <script src="script.js?v=114"></script>
+  <script src="questoes.js?v=115"></script>
+  <script src="questoes-arte.js?v=115"></script>
+  <script src="plano.js?v=115"></script>
+  <script src="explorar.js?v=115"></script>
+  <script src="figurinhas.js?v=115"></script>
+  <script src="curriculo.js?v=115"></script>
+  <script src="cursos.js?v=115"></script>
+  <script src="mascote.js?v=115"></script>
+  <script src="glossario.js?v=115"></script>
+  <script src="glossario-acreanes.js?v=115"></script>
+  <script src="encenacao.js?v=115"></script>
+    <script src="plataforma.js?v=115"></script>
+  <script src="firebase-config.js?v=115"></script>
+<script src="bingo-conceitos.js?v=115"></script>
+<script src="bingo.js?v=115"></script>
+<script src="teatro-oprimido.js?v=115"></script>
+<script src="desafios-escrita.js?v=115"></script>
+  <script src="script.js?v=115"></script>
 </body>
 </html>

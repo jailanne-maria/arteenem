@@ -4695,7 +4695,7 @@ document.getElementById("btn-menu").addEventListener("click", () => {
 
 // Fecha o menu ao clicar em qualquer botão de dentro
 document.getElementById("menu-extra").addEventListener("click", (e) => {
-  if (e.target.closest("button")) esconder(document.getElementById("menu-extra"));
+  if (e.target.closest("button, a")) esconder(document.getElementById("menu-extra"));
 });
 
 document.getElementById("btn-inicio").addEventListener("click", () => {

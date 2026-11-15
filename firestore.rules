@@ -93,6 +93,12 @@ service cloud.firestore {
       );
       allow delete: if logado() && (resource.data.uid == request.auth.uid || ehAdmin());
     }
+    // ---- Desafios de escrita (cada estudante escreve e o professor da turma lê) ----
+    match /escritas/{id} {
+      allow read: if logado();
+      allow create, update: if logado() && request.resource.data.uid == request.auth.uid;
+      allow delete: if logado() && (resource.data.uid == request.auth.uid || ehAdmin());
+    }
     // ---- Resto do app ----
     match /resultados/{id} { allow read, write: if logado(); }
     match /depoimentos/{id} { allow read, write: if logado(); }

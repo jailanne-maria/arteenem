@@ -6189,3 +6189,83 @@ a.btn-ghost {
 }
 a.btn-ghost:hover { background: var(--yellow); }
 a.btn-ghost:focus-visible { outline: 3px solid var(--yellow); outline-offset: 2px; }
+
+/* ===== Teatro do Oprimido ===== */
+.teatro-intro { font-family: var(--texto); font-size: 19px; line-height: 1.5; margin: 0 0 10px; color: var(--on-surface); }
+.teatro-fonte { font-family: var(--texto); font-size: 15px; color: var(--muted); margin: 0; }
+.teatro-lista { display: flex; flex-direction: column; gap: 18px; margin-top: 18px; }
+.teatro-categoria {
+  background: var(--surface-2);
+  border: 4px solid var(--black);
+  border-radius: 14px;
+  box-shadow: var(--sombra);
+  padding: 18px 18px 14px;
+}
+.teatro-resumo { font-family: var(--texto); font-size: 17px; color: var(--on-surface-2); margin: 6px 0 14px; }
+.teatro-jogo {
+  border: 2px solid var(--black);
+  border-radius: 10px;
+  margin-bottom: 10px;
+  padding: 10px 12px;
+  background: var(--cream);
+}
+.teatro-jogo summary {
+  cursor: pointer;
+  font-family: var(--texto);
+  font-size: 19px;
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  align-items: baseline;
+}
+.teatro-meta { font-family: var(--pixel); font-size: 8px; color: var(--roxo); white-space: nowrap; }
+.teatro-objetivo, .teatro-materiais { font-family: var(--texto); font-size: 17px; margin: 8px 0 4px; color: var(--on-surface); }
+.teatro-passos { font-family: var(--texto); font-size: 17px; margin: 6px 0 8px 20px; color: var(--on-surface); }
+.teatro-passos li { margin-bottom: 4px; }
+.teatro-mediacao {
+  font-family: var(--texto);
+  font-size: 17px;
+  background: #F5F3FF;
+  border-left: 5px solid var(--roxo);
+  padding: 8px 10px;
+  border-radius: 6px;
+  color: #3a3a55;
+}
+
+/* ===== Desafios de escrita ===== */
+.escrita-lista { display: flex; flex-direction: column; gap: 16px; margin-top: 18px; }
+.escrita-card {
+  background: var(--surface-2);
+  border: 4px solid var(--black);
+  border-radius: 14px;
+  box-shadow: var(--sombra);
+  padding: 18px;
+}
+.escrita-comp {
+  font-family: var(--pixel);
+  font-size: 7px;
+  letter-spacing: .04em;
+  color: var(--roxo);
+  margin: 0 0 8px;
+  text-transform: uppercase;
+}
+.escrita-titulo { font-family: var(--pixel); font-size: 11px; line-height: 1.8; margin: 0 0 10px; color: var(--on-surface); }
+.escrita-pergunta { font-family: var(--texto); font-size: 19px; line-height: 1.45; margin: 0 0 8px; color: var(--on-surface); }
+.escrita-dica { font-family: var(--texto); font-size: 16px; color: var(--muted); margin: 0 0 12px; }
+.escrita-texto { width: 100%; box-sizing: border-box; }
+.escrita-rodape {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+.escrita-cont { font-family: var(--texto); font-size: 15px; color: var(--muted); }
+.escrita-msg { font-family: var(--texto); font-size: 15px; margin-left: auto; }
+.escrita-msg.ok { color: var(--green-dark); }
+.escrita-msg.erro { color: var(--red-dark); }
+.escrita-salvar { flex: 0 0 auto; }
+@media (max-width: 520px) {
+  .escrita-titulo { font-size: 9px; }
+  .escrita-msg { margin-left: 0; width: 100%; }
+}

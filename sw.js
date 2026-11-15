@@ -3,7 +3,7 @@
    - Também cuida das notificações push (Firebase Cloud Messaging)
    Precisa ficar na RAIZ do site (junto do index.html). */
 
-const VERSAO = "nina-v14";
+const VERSAO = "nina-v15";
 
 // Arquivos do próprio app (essenciais para abrir offline)
 const SHELL = [
@@ -15,6 +15,8 @@ const SHELL = [
   "./firebase-config.js",
   "./bingo-conceitos.js",
   "./bingo.js",
+  "./teatro-oprimido.js",
+  "./desafios-escrita.js",
   "./questoes.js",
   "./questoes-arte.js",
   "./plano.js",
