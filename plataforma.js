@@ -854,6 +854,31 @@ const PLATAFORMA = (() => {
   const somErro = () => { tocar(220, 0.2, "triangle", 0.14); };
   const somDano = () => tocar(140, 0.22, "sawtooth", 0.16);
 
+  // ---------- gamepad no cartão: classificar sem soltar o controle ----------
+  let botoesCartaoAntes = [false, false, false, false];
+  function lerGamepadCartao() {
+    if (typeof document === "undefined" || typeof navigator === "undefined" || !navigator.getGamepads) return;
+    const cartao = document.getElementById("noticia-card");
+    const aberto = !!(cartao && !cartao.classList.contains("escondido"));
+    if (!aberto) { botoesCartaoAntes = [false, false, false, false]; return; }
+
+    const lista = navigator.getGamepads();
+    let gp = null;
+    for (let i = 0; i < lista.length; i++) if (lista[i] && lista[i].connected) { gp = lista[i]; break; }
+    if (!gp) return;
+    const bt = gp.buttons || [];
+    const apertado = (i) => !!(bt[i] && (bt[i].pressed || bt[i].value > 0.5));
+    const alvos = ["btn-verdadeira", "btn-falsa", "btn-insuficiente", "btn-enganosa"];
+    for (let k = 0; k < 4; k++) {
+      const agora = apertado(k);
+      if (agora && !botoesCartaoAntes[k]) {
+        const el = document.getElementById(alvos[k]);
+        if (el && !el.disabled) el.click();
+      }
+      botoesCartaoAntes[k] = agora;
+    }
+    pad.esq = pad.dir = pad.pulo = false;
+  }
   // ---------- controle (Gamepad: PlayStation, Xbox, genéricos) ----------
   function lerGamepad() {
     if (typeof navigator === "undefined" || !navigator.getGamepads) return;

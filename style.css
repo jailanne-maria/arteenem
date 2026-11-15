@@ -6503,3 +6503,13 @@ body.modo-jogo #aviso-orientacao {
 @media (prefers-reduced-motion: reduce) {
   #aviso-orientacao .giro { animation: none; transform: rotate(-90deg); }
 }
+
+/* ===== Teclas do controle nos botoes de classificacao ===== */
+.btn-vf .btn-tecla {
+  display: inline-block;
+  min-width: 20px;
+  margin-right: 8px;
+  font-family: var(--pixel);
+  font-size: 0.62rem;
+  opacity: .95;
+}

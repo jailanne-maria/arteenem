@@ -2553,7 +2553,8 @@ function abrirPerguntaPlataforma(i) {
   document.getElementById("noticia-acoes").innerHTML = opcoesDaFase(faseAtual)
     .map((cat) => {
       const id = cat === "verdadeira" ? "btn-verdadeira" : cat === "falsa" ? "btn-falsa" : "btn-" + cat;
-      return `<button class="btn-vf ${cat}" id="${id}" data-cat="${cat}" type="button">${CLASSIFICACOES[cat].rotulo}</button>`;
+      const tecla = { verdadeira: "✕", falsa: "◯", enganosa: "△", insuficiente: "□" }[cat] || "";
+      return `<button class="btn-vf ${cat}" id="${id}" data-cat="${cat}" type="button"><span class="btn-tecla">${tecla}</span>${CLASSIFICACOES[cat].rotulo}</button>`;
     })
     .join("");
 
