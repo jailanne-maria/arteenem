@@ -111,7 +111,17 @@ aoMudarUsuario(async (user) => {
   }
 
   // Carrega (ou cria) o perfil no Firestore
-  let perfil = await carregarUsuario(user.uid);
+  let perfil = null;
+  try {
+    perfil = await carregarUsuario(user.uid);
+  } catch (e) {
+    console.error("Falha ao ler o perfil:", e);
+    const dica = document.getElementById("login-erro");
+    if (dica) {
+      dica.textContent = "A conta do Google entrou, mas não foi possível ler seu perfil no banco. Verifique as regras do Firestore. [" + ((e && e.code) || "erro") + "]";
+      dica.classList.remove("escondido");
+    }
+  }
   if (!perfil) {
     perfil = {
       uid: user.uid,
