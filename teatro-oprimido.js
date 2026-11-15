@@ -315,7 +315,9 @@ document.addEventListener("DOMContentLoaded", () => {
   if (btn) btn.addEventListener("click", teatroAbrirTela);
   const voltar = document.getElementById("btn-voltar-teatro");
   if (voltar) voltar.addEventListener("click", () => {
-    if (typeof mostrarTela === "function") mostrarTela("tela-inicio");
+    const ehProf = (typeof usuario !== "undefined" && usuario && usuario.papel === "professor") ||
+      (typeof podeAdministrar === "function" && podeAdministrar());
+    if (typeof mostrarTela === "function") mostrarTela(ehProf ? "tela-professor" : "tela-inicio");
   });
   const intro = document.getElementById("teatro-intro");
   if (intro) intro.textContent = TEATRO_INTRO;
