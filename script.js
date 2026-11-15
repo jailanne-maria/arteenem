@@ -3189,7 +3189,7 @@ async function carregarENEMArea(area) {
         const r = await fetch(`https://api.enem.dev/v1/exams/${ano}/questions?limit=50&offset=${offset}`);
         if (!r.ok) break;
         const data = await r.json();
-        todas = todas.concat((data.questions || []).filter((q) => q.discipline === apiArea).map((q) => ({ ...q, year: q.year || ano })));
+        todas = todas.concat((data.questions || []).filter((q) => q.discipline === apiArea && alternativasComTexto(q)).map((q) => ({ ...q, year: q.year || ano })));
         if (!data.metadata || !data.metadata.hasMore) break;
       } catch {
         break;
@@ -3213,6 +3213,12 @@ async function carregarENEMArea(area) {
   return mapeadas;
 }
 
+// Questões do ENEM que dependem de figura nas alternativas ficam sem texto na API.
+// Sem a imagem, a alternativa aparece vazia — então essas questões são descartadas.
+function alternativasComTexto(q) {
+  const alts = (q && q.alternatives) || [];
+  return alts.length >= 4 && alts.every((a) => a && typeof a.text === "string" && a.text.trim().length > 1);
+}
 function chaveQuestao(q) {
   return q.id || (q.enunciado || "").slice(0, 40);
 }
@@ -5366,7 +5372,7 @@ async function carregarQuestoesSimulado() {
         const r = await fetch(`https://api.enem.dev/v1/exams/${ano}/questions?limit=50&offset=${offset}`);
         if (!r.ok) break;
         const data = await r.json();
-        const qs = (data.questions || []).map((q) => ({ ...q, year: q.year || ano }));
+        const qs = (data.questions || []).filter(alternativasComTexto).map((q) => ({ ...q, year: q.year || ano }));
         todas = todas.concat(qs);
         if (!data.metadata || !data.metadata.hasMore || qs.length < 50) break;
       }
