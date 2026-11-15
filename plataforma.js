@@ -897,13 +897,6 @@ const PLATAFORMA = (() => {
     }
     if (!gp) {
       gamepadAtivo = null;
-    // R1 / RB (botão 5) registra a descoberta e volta ao jogo
-    const r1Cartao = apertado(5);
-    if (r1Cartao && !botoesCartaoAntes[4]) {
-      const proxDesafio = document.getElementById("btn-proximo-desafio");
-      if (proxDesafio && !proxDesafio.disabled && !proxDesafio.classList.contains("escondido")) proxDesafio.click();
-    }
-    botoesCartaoAntes[4] = r1Cartao;
       pad.esq = pad.dir = pad.pulo = false;
       return;
     }
@@ -930,13 +923,6 @@ const PLATAFORMA = (() => {
   });
   window.addEventListener("gamepaddisconnected", () => {
     gamepadAtivo = null;
-    // R1 / RB (botão 5) registra a descoberta e volta ao jogo
-    const r1Cartao = apertado(5);
-    if (r1Cartao && !botoesCartaoAntes[4]) {
-      const proxDesafio = document.getElementById("btn-proximo-desafio");
-      if (proxDesafio && !proxDesafio.disabled && !proxDesafio.classList.contains("escondido")) proxDesafio.click();
-    }
-    botoesCartaoAntes[4] = r1Cartao;
     pad.esq = pad.dir = pad.pulo = false;
   });
 
