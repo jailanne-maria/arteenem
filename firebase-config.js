@@ -31,54 +31,39 @@ function fb() {
 // ---------- Autenticação ----------
 // Tenta popup; se o navegador bloquear (cookies de terceiros),
 // cai para redirecionamento (mais confiável, sem popup).
+// Login: janela do Google (popup). Só cai para redirecionamento quando o
+// navegador bloqueia popup de verdade. Nada de duas tentativas ao mesmo tempo.
 function loginGoogle() {
   fb();
+  const auth = firebase.auth();
+  if (auth.currentUser) return Promise.resolve(auth.currentUser);
   const provider = new firebase.auth.GoogleAuthProvider();
   provider.setCustomParameters({ prompt: "select_account" });
-  const auth = firebase.auth();
-
-  // Popup primeiro. Se em 3 segundos nada aconteceu (popup bloqueado ou que
-  // não abriu), cai para redirecionamento, que não depende de janela.
-  return new Promise((resolve, reject) => {
-    let encerrado = false;
-    const timer = setTimeout(() => {
-      if (encerrado) return;
-      encerrado = true;
-      auth.signInWithRedirect(provider).catch(reject);
-    }, 3000);
-
-    auth.signInWithPopup(provider)
-      .then((r) => {
-        if (encerrado) return;
-        encerrado = true;
-        clearTimeout(timer);
-        resolve(r);
-      })
-      .catch((e) => {
-        if (encerrado) return;
-        encerrado = true;
-        clearTimeout(timer);
-        const code = e && e.code;
-        const usarRedirect =
-          code === "auth/popup-blocked" ||
-          code === "auth/popup-closed-by-user" ||
-          code === "auth/cancelled-popup-request" ||
-          code === "auth/operation-not-supported-in-this-environment" ||
-          code === "auth/web-storage-unsupported" ||
-          code === "auth/internal-error";
-        if (usarRedirect) {
-          auth.signInWithRedirect(provider).then(resolve).catch(reject);
-          return;
-        }
-        reject(e);
-      });
+  return auth.signInWithPopup(provider).catch((e) => {
+    const code = (e && e.code) || "";
+    if (code === "auth/popup-blocked" || code === "auth/operation-not-supported-in-this-environment") {
+      try { sessionStorage.setItem("nina_login_pendente", "1"); } catch (err) {}
+      return auth.signInWithRedirect(provider);
+    }
+    throw e;
   });
 }
 
-// Processa o retorno do redirecionamento (se usado)
+// Processa o retorno do redirecionamento e guarda o motivo de eventual falha
 function processarRedirect() {
   fb();
-  return firebase.auth().getRedirectResult().catch(() => null);
+  return firebase.auth().getRedirectResult()
+    .then((r) => {
+      try { sessionStorage.removeItem("nina_login_pendente"); } catch (e) {}
+      return r;
+    })
+    .catch((e) => {
+      try {
+        sessionStorage.setItem("nina_login_erro", (e && e.code) || (e && e.message) || "erro");
+        sessionStorage.removeItem("nina_login_pendente");
+      } catch (err) {}
+      return null;
+    });
 }
 
 function logout() {

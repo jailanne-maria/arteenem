@@ -107,6 +107,19 @@ aoMudarUsuario(async (user) => {
     esconder(nomeTopo);
     esconder(document.getElementById("menu-extra"));
     mostrarTela("tela-login");
+    try {
+      const erroSalvo = sessionStorage.getItem("nina_login_erro");
+      const pendente = sessionStorage.getItem("nina_login_pendente");
+      const caixa = document.getElementById("login-erro");
+      if (caixa && (erroSalvo || pendente)) {
+        caixa.textContent = erroSalvo
+          ? "Não foi possível concluir o login com o Google. [" + erroSalvo + "] Verifique se o domínio está autorizado no Firebase Authentication."
+          : "O Google devolveu a página sem sessão. Feche as outras abas do Google, tente de novo e permita janelas pop-up para este site.";
+        caixa.classList.remove("escondido");
+        sessionStorage.removeItem("nina_login_erro");
+        sessionStorage.removeItem("nina_login_pendente");
+      }
+    } catch (e) {}
     return;
   }
 
