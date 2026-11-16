@@ -1,10 +1,58 @@
 {
-  "atualizadoEm": "2026-11-16T02:33:01.009Z",
+  "atualizadoEm": "2026-11-16T20:47:25.563Z",
   "fontes": [
     "MEC",
     "Agência Brasil"
   ],
   "noticias": [
+    {
+      "titulo": "Novo PAR: prazo para revisão do Questionário Diagnóstico é prorrogado até 1º de dezembro",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/novo-par-prazo-para-revisao-do-questionario-diagnostico-e-prorrogado-ate-1o-de-dezembro",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "MEC divulga resultado da edição do Fies para vagas remanescentes",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/mec-divulga-resultado-da-edicao-do-fies-para-vagas-remanescentes",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "Da água que viu faltar em casa ao projeto de pesquisa",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/da-agua-que-viu-faltar-em-casa-ao-projeto-de-pesquisa",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "MEC apresenta diagnóstico das ações de recomposição das aprendizagens",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/mec-apresenta-diagnostico-das-acoes-de-recomposicao-das-aprendizagens",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "MEC institui Conselho de Especialistas para instituições comunitárias",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/mec-institui-conselho-de-especialistas-para-instituicoes-comunitarias",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "Hip-Hop: seminário reúne mais de 250 trabalhos em Ouro Preto",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/hip-hop-seminario-reune-mais-de-250-trabalhos-em-ouro-preto",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "Enem 2026: aberto prazo para solicitar reaplicação",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/enem-2026-aberto-prazo-para-solicitar-reaplicacao",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "MEC e UFRB anunciam criação da Cátedra Sabotage de Hip-Hop e Educação",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/mec-e-ufrb-anunciam-criacao-da-catedra-sabotage-de-hip-hop-e-educacao",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
     {
       "titulo": "Resultados do Enem serão divulgados em 18 de janeiro",
       "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/resultados-do-enem-serao-divulgados-em-18-de-janeiro",
@@ -78,74 +126,26 @@
       "data": "novembro/2026"
     },
     {
-      "titulo": "Dia Nacional da Alfabetização reforça compromisso com o direito de aprender",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/dia-nacional-da-alfabetizacao-reforca-compromisso-com-o-direito-de-aprender",
-      "fonte": "MEC",
-      "data": "novembro/2026"
+      "titulo": "Fies 2026: chamada para vagas remanescentes sai nesta segunda-feira",
+      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/fies-2026-chamada-para-vagas-remanescentes-sai-nesta-segunda-feira",
+      "fonte": "Agência Brasil",
+      "data": "16/11"
     },
     {
-      "titulo": "Resultado preliminar da fase de habilitação do Ciclo de Saberes",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/resultado-preliminar-da-fase-de-habilitacao-do-ciclo-de-saberes",
-      "fonte": "MEC",
-      "data": "novembro/2026"
+      "titulo": "Enem 2026: começa prazo para pedir reaplicação de provas em dezembro",
+      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/enem-2026-aberto-prazo-para-pedir-reaplicacao-de-provas-em-dezembro",
+      "fonte": "Agência Brasil",
+      "data": "16/11"
     },
     {
-      "titulo": "Enem 2026: confira orientações para cobertura de imprensa",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/enem-2026-confira-orientacoes-para-cobertura-imprensa",
-      "fonte": "MEC",
-      "data": "novembro/2026"
-    },
-    {
-      "titulo": "Grupo de trabalho visita futura sede da UFEsporte em Brasília",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/grupo-de-trabalho-visita-futura-sede-da-ufesporte-em-brasilia",
-      "fonte": "MEC",
-      "data": "novembro/2026"
-    },
-    {
-      "titulo": "MEC cria plano de acesso, permanência e êxito e anuncia novo Sistec",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/mec-cria-plano-de-acesso-permanencia-e-exito-e-anuncia-novo-sistec",
-      "fonte": "MEC",
-      "data": "novembro/2026"
-    },
-    {
-      "titulo": "Enem 2026: confira as orientações para o segundo dia de provas",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/enem-2026-confira-as-orientacoes-para-o-segundo-dia-de-provas",
-      "fonte": "MEC",
-      "data": "novembro/2026"
-    },
-    {
-      "titulo": "MEC apresenta Referencial e lança Diagnóstico da Gestão Escolar em celebração ao Dia do Diretores",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/mec-apresenta-referencial-e-lanca-diagnostico-da-gestao-escolar-em-celebracao-ao-dia-do-diretores",
-      "fonte": "MEC",
-      "data": "novembro/2026"
-    },
-    {
-      "titulo": "MEC Livros marca presença em “Flips” no Rio e em Pernambuco",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/mec-livros-marca-presenca-em-201cflips201d-no-rio-e-em-pernambuco",
-      "fonte": "MEC",
-      "data": "novembro/2026"
+      "titulo": "“É só a cor”: estudante negra relata episódios de racismo na faculdade",
+      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/e-so-cor-estudante-negra-relata-episodios-de-racismo-na-faculdade",
+      "fonte": "Agência Brasil",
+      "data": "16/11"
     },
     {
       "titulo": "Gabarito do Enem sai na quarta-feira, e resultado em 18 de janeiro",
       "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/gabarito-do-enem-sai-na-quarta-feira-e-resultado-em-18-de-janeiro",
-      "fonte": "Agência Brasil",
-      "data": "15/11"
-    },
-    {
-      "titulo": "Bullying: após morte, família e especialistas pedem rigor de escolas",
-      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/bullying-apos-morte-familia-e-especialistas-pedem-rigor-de-escolas",
-      "fonte": "Agência Brasil",
-      "data": "15/11"
-    },
-    {
-      "titulo": "Alckmin destaca alcance do Enem e desafio logístico para a aplicação",
-      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/alckmin-destaca-alcance-do-enem-e-desafio-logistico-para-aplicacao",
-      "fonte": "Agência Brasil",
-      "data": "15/11"
-    },
-    {
-      "titulo": "Candidatos contam expectativas para o segundo dia de provas do Enem",
-      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/candidatos-contam-expectativas-para-o-segundo-dia-de-provas-do-enem",
       "fonte": "Agência Brasil",
       "data": "15/11"
     }
