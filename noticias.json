@@ -1,10 +1,28 @@
 {
-  "atualizadoEm": "2026-11-15T17:32:51.958Z",
+  "atualizadoEm": "2026-11-16T02:33:01.009Z",
   "fontes": [
     "MEC",
     "Agência Brasil"
   ],
   "noticias": [
+    {
+      "titulo": "Resultados do Enem serão divulgados em 18 de janeiro",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/resultados-do-enem-serao-divulgados-em-18-de-janeiro",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "Alckmin e ministro Barchini visitam sala de monitoramento do Enem",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/alckmin-e-ministro-barchini-visitam-sala-de-monitoramento-do-enem",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "Enem 2026: segundo dia de prova chega ao fim neste domingo (15)",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/enem-2026-segundo-dia-de-prova-chega-ao-fim-neste-domingo-15",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
     {
       "titulo": "Enem 2026: participantes iniciam segundo dia de provas",
       "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/enem-2026-participantes-iniciam-segundo-dia-de-provas",
@@ -108,22 +126,16 @@
       "data": "novembro/2026"
     },
     {
-      "titulo": "MEC participa do Prêmio Capes de Tese 2026",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/mec-participa-do-premio-capes-de-tese-2026",
-      "fonte": "MEC",
-      "data": "novembro/2026"
+      "titulo": "Gabarito do Enem sai na quarta-feira, e resultado em 18 de janeiro",
+      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/gabarito-do-enem-sai-na-quarta-feira-e-resultado-em-18-de-janeiro",
+      "fonte": "Agência Brasil",
+      "data": "15/11"
     },
     {
-      "titulo": "MEC debate planejamento educacional e novo PNE em fórum da Undime",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/mec-debate-planejamento-educacional-e-novo-pne-em-forum-da-undime",
-      "fonte": "MEC",
-      "data": "novembro/2026"
-    },
-    {
-      "titulo": "‘O Enem é só o começo’: lições de quem trilhou o caminho",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/2018o-enem-e-so-o-comeco2019-licoes-de-quem-trilhou-o-caminho",
-      "fonte": "MEC",
-      "data": "novembro/2026"
+      "titulo": "Bullying: após morte, família e especialistas pedem rigor de escolas",
+      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/bullying-apos-morte-familia-e-especialistas-pedem-rigor-de-escolas",
+      "fonte": "Agência Brasil",
+      "data": "15/11"
     },
     {
       "titulo": "Alckmin destaca alcance do Enem e desafio logístico para a aplicação",
@@ -134,18 +146,6 @@
     {
       "titulo": "Candidatos contam expectativas para o segundo dia de provas do Enem",
       "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/candidatos-contam-expectativas-para-o-segundo-dia-de-provas-do-enem",
-      "fonte": "Agência Brasil",
-      "data": "15/11"
-    },
-    {
-      "titulo": "Veja o que esperar do segundo dia de provas do Enem 2026",
-      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/veja-o-que-esperar-do-segundo-dia-de-provas-do-enem-2026",
-      "fonte": "Agência Brasil",
-      "data": "15/11"
-    },
-    {
-      "titulo": "Ao vivo: professores comentam 2º dia de prova na live Resenha do Enem",
-      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/ao-vivo-professores-comentam-2o-dia-de-prova-na-live-resenha-do-enem",
       "fonte": "Agência Brasil",
       "data": "15/11"
     }
