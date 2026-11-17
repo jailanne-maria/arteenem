@@ -1,10 +1,34 @@
 {
-  "atualizadoEm": "2026-11-16T20:47:25.563Z",
+  "atualizadoEm": "2026-11-17T04:56:34.306Z",
   "fontes": [
     "MEC",
     "Agência Brasil"
   ],
   "noticias": [
+    {
+      "titulo": "Comissão avança na definição de padrões de qualidade e fortalece governança do SNE",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/comissao-avanca-na-definicao-de-padroes-de-qualidade-e-fortalece-governanca-do-sne",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "MEC e Universidade Tecnológica do Uruguai discutem ampliação da cooperação em educação profissional e superior na fronteira",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/mec-e-universidade-tecnologica-do-uruguai-discutem-ampliacao-da-cooperacao-em-educacao-profissional-e-superior-na-fronteira",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "Seminário da Escola Nacional do Hip-hop debate saberes periféricos e lança Cátedra Sabotage",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/seminario-da-escola-nacional-do-hip-hop-debate-saberes-perifericos-e-lanca-catedra-sabotage",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "Seminário do Hip-Hop destaca pesquisas, educação e cultura em Ouro Preto",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/seminario-do-hip-hop-destaca-pesquisas-educacao-e-cultura-em-ouro-preto",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
     {
       "titulo": "Novo PAR: prazo para revisão do Questionário Diagnóstico é prorrogado até 1º de dezembro",
       "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/novo-par-prazo-para-revisao-do-questionario-diagnostico-e-prorrogado-ate-1o-de-dezembro",
@@ -98,30 +122,6 @@
     {
       "titulo": "Primeiro dia do Seminário de Hip-Hop destaca o movimento como pedagogia e ferramenta de transformação social",
       "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/primeiro-dia-do-seminario-de-hip-hop-destaca-o-movimento-como-pedagogia-e-ferramenta-de-transformacao-social",
-      "fonte": "MEC",
-      "data": "novembro/2026"
-    },
-    {
-      "titulo": "96 anos do MEC: políticas públicas que transformam a vida dos brasileiros",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/96-anos-do-mec-politicas-publicas-que-transformam-a-vida-dos-brasileiros",
-      "fonte": "MEC",
-      "data": "novembro/2026"
-    },
-    {
-      "titulo": "Brasil reforça cooperação regional na educação durante reunião do Mercosul",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/brasil-reforca-cooperacao-regional-na-educacao-durante-reuniao-do-mercosul",
-      "fonte": "MEC",
-      "data": "novembro/2026"
-    },
-    {
-      "titulo": "MEC Livros é tema de debate na 21ª edição da Fliporto",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/mec-livros-e-tema-de-debate-na-21a-edicao-da-fliporto",
-      "fonte": "MEC",
-      "data": "novembro/2026"
-    },
-    {
-      "titulo": "Ministério da Educação integra iniciativa de IA premiada pela Enap",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/ministerio-da-educacao-integra-iniciativa-de-ia-premiada-pela-enap",
       "fonte": "MEC",
       "data": "novembro/2026"
     },
