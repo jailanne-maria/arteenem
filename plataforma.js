@@ -822,6 +822,56 @@ const PLATAFORMA = (() => {
     marcar(c.pulo, "pulo");
   }
 
+  // ---------- joystick de toque: andar para os lados ----------
+  function resetarJoystick() {
+    const knob = typeof document !== "undefined" && document.getElementById("joystick-knob");
+    if (knob) knob.style.transform = "translate(0px, 0px)";
+  }
+
+  function ligarJoystick() {
+    if (typeof document === "undefined") return;
+    const base = document.getElementById("joystick");
+    const knob = document.getElementById("joystick-knob");
+    if (!base || !knob) return;
+    let ponteiro = null;
+
+    const arrasta = (dx, dy) => {
+      const raio = base.clientWidth * 0.34;
+      const dist = Math.hypot(dx, dy) || 0;
+      if (dist > raio) { dx = (dx / dist) * raio; dy = (dy / dist) * raio; }
+      knob.style.transform = "translate(" + Math.round(dx) + "px, " + Math.round(dy) + "px)";
+      const limite = Math.max(6, base.clientWidth * 0.12);
+      input.esq = dx < -limite;
+      input.dir = dx > limite;
+    };
+
+    const soltar = (e) => {
+      if (e && ponteiro !== null && e.pointerId !== ponteiro) return;
+      ponteiro = null;
+      input.esq = input.dir = false;
+      resetarJoystick();
+    };
+
+    base.addEventListener("pointerdown", (e) => {
+      e.preventDefault();
+      ponteiro = e.pointerId;
+      try { base.setPointerCapture(ponteiro); } catch (err) { /* sem captura */ }
+      const r = base.getBoundingClientRect();
+      arrasta(e.clientX - (r.left + r.width / 2), e.clientY - (r.top + r.height / 2));
+    });
+    base.addEventListener("pointermove", (e) => {
+      if (ponteiro === null || e.pointerId !== ponteiro) return;
+      e.preventDefault();
+      const r = base.getBoundingClientRect();
+      arrasta(e.clientX - (r.left + r.width / 2), e.clientY - (r.top + r.height / 2));
+    });
+    base.addEventListener("pointerup", soltar);
+    base.addEventListener("pointercancel", soltar);
+    base.addEventListener("lostpointercapture", soltar);
+  }
+
+  if (typeof document !== "undefined") ligarJoystick();
+
   // ---------- som (gerado por código, sem arquivos) ----------
   let audioCtx = null;
   function ctxAudio() {
@@ -923,8 +973,15 @@ const PLATAFORMA = (() => {
     const bt = gp.buttons || [];
     const apertado = (i) => !!(bt[i] && (bt[i].pressed || bt[i].value > 0.5));
 
-    pad.esq = (ax[0] || 0) < -0.35 || apertado(14);   // analógico esquerdo ou direcional
-    pad.dir = (ax[0] || 0) > 0.35 || apertado(15);
+    // eixo horizontal do analógico esquerdo (com tolerância para controles
+    // genéricos, que às vezes entregam o analógico esquerdo em axes[2])
+    let eixoX = ax[0] || 0;
+    if (Math.abs(eixoX) < 0.2 && gp.mapping !== "standard" && Math.abs(ax[2] || 0) > 0.2) {
+      eixoX = ax[2];
+    }
+
+    pad.esq = eixoX < -0.25 || apertado(14);   // analógico esquerdo ou direcional
+    pad.dir = eixoX > 0.25 || apertado(15);
     // qualquer botão de ação pula (cruz, bola, quadrado, triângulo / A, B, X, Y) ou direcional para cima
     pad.pulo = apertado(0) || apertado(1) || apertado(2) || apertado(3) || apertado(12);
 
@@ -947,6 +1004,7 @@ const PLATAFORMA = (() => {
     controlesLigados.forEach((el) => { if (el._limpar) el._limpar(); });
     controlesLigados.length = 0;
     input.esq = input.dir = input.pulo = false;
+    resetarJoystick();
   }
 
   function aoTecla(e, baixou) {

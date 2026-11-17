@@ -59,7 +59,7 @@
   <link rel="apple-touch-icon" href="img/icon-192.png">
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#5c94fc">
-  <link rel="stylesheet" href="style.css?v=136">
+  <link rel="stylesheet" href="style.css?v=137">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
@@ -121,7 +121,7 @@
           Entrar com Google
         </button>
         <p class="dica">Use a conta Google da escola ou pessoal.</p>
-        <p class="login-versao">versão 136</p>
+        <p class="login-versao">versão 137</p>
         <div class="login-selos">
           <span class="selo-idade" title="Autoavaliação de conteúdo feita pelo projeto">12</span>
           <span class="selo-txt">Classificação indicativa (autoavaliação) · sem anúncios · sem cobrança</span>
@@ -778,12 +778,17 @@
         </div>
 
         <div class="plataforma-controles">
-          <button id="pad-esq" class="pad" type="button" aria-label="Esquerda">◀</button>
+          <div class="joystick" id="joystick" role="application" aria-label="Joystick para andar para a esquerda ou para a direita">
+            <div class="joystick-base">
+              <span class="joystick-seta esq" aria-hidden="true">◀</span>
+              <span class="joystick-seta dir" aria-hidden="true">▶</span>
+              <div class="joystick-knob" id="joystick-knob"></div>
+            </div>
+          </div>
           <button id="pad-pulo" class="pad pad-pulo" type="button" aria-label="Pular">⤒ Pular</button>
-          <button id="pad-dir" class="pad" type="button" aria-label="Direita">▶</button>
         </div>
         <p class="plataforma-dica">No computador use as setas ← → e espaço (ou ↑) para pular. Quebre os tijolos 🧱, pegue o cogumelo 🍄 (ganha vida e fica maior) e bata nos blocos <strong>?</strong> para responder sobre as notícias.</p>
-        <p class="plataforma-dica">🎮 <strong>Também funciona com controle</strong> (PlayStation, Xbox ou genérico): analógico esquerdo ou direcional para andar, <strong>qualquer botão de ação</strong> para pular e <strong>Start / Options</strong> (ou Esc/P no teclado) para pausar. Ligue o controle e aperte um botão para o jogo reconhecer.</p>
+        <p class="plataforma-dica">🎮 <strong>Também funciona com controle</strong> (PlayStation, Xbox ou genérico): o <strong>analógico esquerdo</strong> ou o direcional anda, <strong>qualquer botão de ação</strong> pula e <strong>Start / Options</strong> (ou Esc/P no teclado) pausa. Ligue o controle e aperte um botão para o jogo reconhecer.</p>
         <p class="texto-ajuda">Precisa de leitor de tela, tem dificuldade de coordenação ou prefere ler com calma? Volte e escolha <strong>♿ Jogar sem o jogo</strong>.</p>
 
         <div id="fase-acessivel" class="escondido">
@@ -1865,23 +1870,23 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
 
-  <script src="questoes.js?v=136"></script>
-  <script src="questoes-arte.js?v=136"></script>
-  <script src="plano.js?v=136"></script>
-  <script src="explorar.js?v=136"></script>
-  <script src="figurinhas.js?v=136"></script>
-  <script src="curriculo.js?v=136"></script>
-  <script src="cursos.js?v=136"></script>
-  <script src="mascote.js?v=136"></script>
-  <script src="glossario.js?v=136"></script>
-  <script src="glossario-acreanes.js?v=136"></script>
-  <script src="encenacao.js?v=136"></script>
-    <script src="plataforma.js?v=136"></script>
-  <script src="firebase-config.js?v=136"></script>
-<script src="bingo-conceitos.js?v=136"></script>
-<script src="bingo.js?v=136"></script>
-<script src="teatro-oprimido.js?v=136"></script>
-<script src="desafios-escrita.js?v=136"></script>
-  <script src="script.js?v=136"></script>
+  <script src="questoes.js?v=137"></script>
+  <script src="questoes-arte.js?v=137"></script>
+  <script src="plano.js?v=137"></script>
+  <script src="explorar.js?v=137"></script>
+  <script src="figurinhas.js?v=137"></script>
+  <script src="curriculo.js?v=137"></script>
+  <script src="cursos.js?v=137"></script>
+  <script src="mascote.js?v=137"></script>
+  <script src="glossario.js?v=137"></script>
+  <script src="glossario-acreanes.js?v=137"></script>
+  <script src="encenacao.js?v=137"></script>
+    <script src="plataforma.js?v=137"></script>
+  <script src="firebase-config.js?v=137"></script>
+<script src="bingo-conceitos.js?v=137"></script>
+<script src="bingo.js?v=137"></script>
+<script src="teatro-oprimido.js?v=137"></script>
+<script src="desafios-escrita.js?v=137"></script>
+  <script src="script.js?v=137"></script>
 </body>
 </html>

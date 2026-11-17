@@ -2417,8 +2417,6 @@ function iniciarPlataforma(sessao) {
     vidas: MAX_VIDAS,
     sessao: sessao || null,
     controles: {
-      esq: document.getElementById("pad-esq"),
-      dir: document.getElementById("pad-dir"),
       pulo: document.getElementById("pad-pulo"),
     },
     callbacks: {

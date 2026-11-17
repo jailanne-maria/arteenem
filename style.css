@@ -5438,10 +5438,54 @@ h1, h2, h3, h4, .marca-nome, .btn-principal, .btn-secundario, .btn-google, .btn-
 .plataforma-controles {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-end;
   gap: 12px;
   max-width: 800px;
   margin: 14px auto 0;
+}
+
+/* Joystick de toque (andar para os lados) */
+.joystick {
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.joystick-base {
+  position: relative;
+  width: 132px;
+  height: 132px;
+  border-radius: 50%;
+  background: rgba(255, 248, 231, .5);
+  border: 4px solid var(--black);
+  box-shadow: 4px 4px 0 var(--black);
+}
+.joystick-seta {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.1rem;
+  color: rgba(20, 20, 43, .35);
+  pointer-events: none;
+}
+.joystick-seta.esq { left: 10px; }
+.joystick-seta.dir { right: 10px; }
+.joystick-knob {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 58px;
+  height: 58px;
+  margin: -29px 0 0 -29px;
+  border-radius: 50%;
+  background: var(--green);
+  border: 4px solid var(--black);
+  box-shadow: 0 4px 0 rgba(20, 20, 43, .35);
+  will-change: transform;
+}
+@media (max-width: 520px) {
+  .joystick-base { width: 110px; height: 110px; }
+  .joystick-knob { width: 50px; height: 50px; margin: -25px 0 0 -25px; }
+  .pad-pulo { width: 88px; height: 88px; font-size: .85rem; }
 }
 
 .pad {
@@ -5468,7 +5512,15 @@ h1, h2, h3, h4, .marca-nome, .btn-principal, .btn-secundario, .btn-google, .btn-
 .pad-pulo {
   background: var(--green);
   color: var(--white);
-  font-size: 1.2rem;
+  font-size: 1rem;
+  width: 104px;
+  height: 104px;
+  min-width: 0;
+  border-radius: 50%;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* Esconde os botões de toque só em aparelhos com mouse (no celular em
@@ -6436,7 +6488,7 @@ body.modo-jogo #tela-fase > .voltar {
   opacity: .85;
 }
 body.modo-jogo .plataforma-wrap { position: absolute; inset: 0; max-width: none; width: 100%; height: 100%; margin: 0; }
-body.modo-jogo .plataforma-controles { position: absolute; left: 0; right: 0; bottom: 6px; z-index: 9500; padding: 0 10px; }
+body.modo-jogo .plataforma-controles { position: absolute; left: 0; right: 0; bottom: 6px; z-index: 4; padding: 0 10px; }
 body.modo-jogo .plataforma-dica { display: none; }
 body.modo-jogo #fase-canvas {
   position: absolute;
