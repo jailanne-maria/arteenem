@@ -5471,7 +5471,9 @@ h1, h2, h3, h4, .marca-nome, .btn-principal, .btn-secundario, .btn-google, .btn-
   font-size: 1.2rem;
 }
 
-@media (min-width: 760px) {
+/* Esconde os botões de toque só em aparelhos com mouse (no celular em
+   paisagem a tela passa de 760px, mas ele continua precisando dos botões) */
+@media (hover: hover) and (pointer: fine) {
   .plataforma-controles { display: none; }
 }
 
@@ -6385,6 +6387,19 @@ a.btn-ghost:focus-visible { outline: 3px solid var(--yellow); outline-offset: 2p
 .noticia-card .noticia-feedback.erro { background: #ffd9d4; color: #5a0f16; }
 .noticia-card .noticia-feedback strong { color: inherit; }
 .noticia-card .bingo-vazio, .noticia-card .vazio { color: #c9c9dd; }
+
+/* Os botões de classificação ficam sempre visíveis, mesmo com a ficha rolada */
+.plataforma-wrap .noticia-card .noticia-acoes {
+  position: sticky;
+  bottom: -6px;
+  z-index: 2;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  background: #1e2f66;
+  padding: 10px 0 8px;
+  margin-top: 6px;
+}
 
 /* ===== Tela cheia do jogo ===== */
 body.modo-jogo header,

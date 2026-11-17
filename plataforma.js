@@ -857,11 +857,17 @@ const PLATAFORMA = (() => {
 
   // ---------- gamepad no cartão: classificar sem soltar o controle ----------
   let botoesCartaoAntes = [false, false, false, false];
+  let cartaoAbertoAntes = false;
+  let cartaoVistoEm = 0;
   function lerGamepadCartao() {
     if (typeof document === "undefined" || typeof navigator === "undefined" || !navigator.getGamepads) return;
     const cartao = document.getElementById("noticia-card");
     const aberto = !!(cartao && !cartao.classList.contains("escondido"));
-    if (!aberto) { botoesCartaoAntes = [false, false, false, false]; return; }
+    if (!aberto) {
+      cartaoAbertoAntes = false;
+      botoesCartaoAntes = [false, false, false, false];
+      return;
+    }
 
     const lista = navigator.getGamepads();
     let gp = null;
@@ -869,6 +875,17 @@ const PLATAFORMA = (() => {
     if (!gp) return;
     const bt = gp.buttons || [];
     const apertado = (i) => !!(bt[i] && (bt[i].pressed || bt[i].value > 0.5));
+
+    // ao abrir o cartão, ignora o que já estava apertado (ex.: botão de pulo)
+    if (!cartaoAbertoAntes) {
+      cartaoAbertoAntes = true;
+      cartaoVistoEm = (typeof performance !== "undefined" ? performance.now() : Date.now());
+      for (let k = 0; k < 4; k++) botoesCartaoAntes[k] = apertado(k);
+      botoesCartaoAntes[4] = apertado(5);
+    }
+    const agoraMs = (typeof performance !== "undefined" ? performance.now() : Date.now());
+    if (agoraMs - cartaoVistoEm < 250) return;
+
     const alvos = ["btn-verdadeira", "btn-falsa", "btn-insuficiente", "btn-enganosa"];
     for (let k = 0; k < 4; k++) {
       const agora = apertado(k);
