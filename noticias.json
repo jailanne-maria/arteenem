@@ -1,10 +1,34 @@
 {
-  "atualizadoEm": "2026-11-17T04:56:34.306Z",
+  "atualizadoEm": "2026-11-17T19:35:45.494Z",
   "fontes": [
     "MEC",
     "Agência Brasil"
   ],
   "noticias": [
+    {
+      "titulo": "Hip-hop fortalece participação estudantil e gestão democrática nas escolas",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/hip-hop-fortalece-participacao-estudantil-e-gestao-democratica-nas-escolas",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "Conhecendo MEC desta semana fala sobre CPOP e Na Ponta do Lápis",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/conhecendo-mec-desta-semana-fala-sobre-cpop-e-na-ponta-do-lapis",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "MEC lança novo ambiente de monitoramento do Novo PAR",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/mec-lanca-novo-ambiente-de-monitoramento-do-novo-par",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "Da sala de aula aos versos: professora aposentada encontra no cordel uma nova forma de ensinar",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/da-sala-de-aula-aos-versos-professora-aposentada-encontra-no-cordel-uma-nova-forma-de-ensinar",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
     {
       "titulo": "Comissão avança na definição de padrões de qualidade e fortalece governança do SNE",
       "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/comissao-avanca-na-definicao-de-padroes-de-qualidade-e-fortalece-governanca-do-sne",
@@ -102,28 +126,16 @@
       "data": "novembro/2026"
     },
     {
-      "titulo": "Enem 2026: portões são fechados para o segundo dia de provas",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/enem-2026-portoes-sao-fechados-para-o-segundo-dia-de-provas",
-      "fonte": "MEC",
-      "data": "novembro/2026"
+      "titulo": "Fies: candidatos pré-selecionados devem validar dados da inscrição",
+      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/fies-candidatos-pre-selecionados-devem-validar-dados-da-inscricao",
+      "fonte": "Agência Brasil",
+      "data": "17/11"
     },
     {
-      "titulo": "Enem 2026: portões estão abertos para o segundo dia de provas",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/enem-2026-portoes-estao-abertos-para-o-segundo-dia-de-provas",
-      "fonte": "MEC",
-      "data": "novembro/2026"
-    },
-    {
-      "titulo": "Enem 2026: segundo dia de provas ocorre neste domingo (15)",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/enem-2026-segundo-dia-de-provas-ocorre-neste-domingo-15",
-      "fonte": "MEC",
-      "data": "novembro/2026"
-    },
-    {
-      "titulo": "Primeiro dia do Seminário de Hip-Hop destaca o movimento como pedagogia e ferramenta de transformação social",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/primeiro-dia-do-seminario-de-hip-hop-destaca-o-movimento-como-pedagogia-e-ferramenta-de-transformacao-social",
-      "fonte": "MEC",
-      "data": "novembro/2026"
+      "titulo": "Hospitais privados oferecem vagas em cursos de medicina em 2027",
+      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/hospitais-privados-oferecem-vagas-em-cursos-de-medicina-em-2027",
+      "fonte": "Agência Brasil",
+      "data": "17/11"
     },
     {
       "titulo": "Fies 2026: chamada para vagas remanescentes sai nesta segunda-feira",
@@ -136,18 +148,6 @@
       "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/enem-2026-aberto-prazo-para-pedir-reaplicacao-de-provas-em-dezembro",
       "fonte": "Agência Brasil",
       "data": "16/11"
-    },
-    {
-      "titulo": "“É só a cor”: estudante negra relata episódios de racismo na faculdade",
-      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/e-so-cor-estudante-negra-relata-episodios-de-racismo-na-faculdade",
-      "fonte": "Agência Brasil",
-      "data": "16/11"
-    },
-    {
-      "titulo": "Gabarito do Enem sai na quarta-feira, e resultado em 18 de janeiro",
-      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/gabarito-do-enem-sai-na-quarta-feira-e-resultado-em-18-de-janeiro",
-      "fonte": "Agência Brasil",
-      "data": "15/11"
     }
   ],
   "temasRedacao": [
