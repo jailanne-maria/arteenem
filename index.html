@@ -5,33 +5,49 @@
   <script>
   (function () {
     var erros = [];
+    var esconderTimer = null;
+    window.__ninaErros = erros;
     function mostra() {
       if (!document.body) { document.addEventListener("DOMContentLoaded", mostra, { once: true }); return; }
       var d = document.getElementById("nina-erros");
       if (!d) {
         d = document.createElement("div");
         d.id = "nina-erros";
-        d.setAttribute("style", "position:fixed;left:8px;right:8px;bottom:8px;z-index:99999;background:#2b0b0b;color:#ffd7d7;font:12px/1.45 monospace;padding:10px;border-radius:8px;max-height:45vh;overflow:auto;white-space:pre-wrap;box-shadow:0 0 0 2px #ff6b6b");
+        d.setAttribute("style", "position:fixed;left:8px;right:8px;bottom:8px;z-index:99999;pointer-events:none;background:#2b0b0b;color:#ffd7d7;font:12px/1.45 monospace;padding:10px;border-radius:8px;max-height:35vh;overflow:hidden;white-space:pre-wrap;box-shadow:0 0 0 2px #ff6b6b");
         document.body.appendChild(d);
       }
-      d.textContent = "ERROS (" + erros.length + "):\n" + erros.join("\n");
-      window.__ninaErros = erros;
-    document.addEventListener("DOMContentLoaded", function () {
-      var m = document.querySelector("link[rel=stylesheet]");
-      var v = m && m.getAttribute("href") || "";
-      var n = (v.match(/v=(\\d+)/) || [])[1];
-      var alvo = document.querySelector(".login-versao");
-      if (n && alvo) alvo.textContent = "versão " + n;
-    });
+      d.textContent = "ERROS (" + erros.length + "):\n" + erros.slice(-5).join("\n");
+      d.style.display = "block";
+      clearTimeout(esconderTimer);
+      esconderTimer = setTimeout(function () { d.style.display = "none"; }, 12000);
+    }
+    // erros de recurso (fonte, imagem) não quebram o app: ficam só no console
+    function ehRecurso(e) {
+      return !!(e && e.target && e.target !== window && e.target.tagName);
     }
     window.addEventListener("error", function (e) {
-      erros.push((e.message || "erro") + " @ " + (e.filename || "?") + ":" + (e.lineno || 0));
+      if (ehRecurso(e)) {
+        console.warn("Falha ao carregar:", (e.target && (e.target.src || e.target.href)) || e.target);
+        return;
+      }
+      var msg = e.message || "";
+      if (!msg || msg === "Script error.") return;
+      erros.push(msg + " @ " + (e.filename || "?") + ":" + (e.lineno || 0));
       mostra();
     }, true);
     window.addEventListener("unhandledrejection", function (e) {
       var r = (e && e.reason) || {};
-      erros.push("promise: " + (r.code || r.message || String(r)));
+      var txt = r.code || r.message || String(r);
+      if (!txt || txt === "[object Object]") return;
+      erros.push("promise: " + txt);
       mostra();
+    });
+    document.addEventListener("DOMContentLoaded", function () {
+      var m = document.querySelector("link[rel=stylesheet]");
+      var v = (m && m.getAttribute("href")) || "";
+      var n = (v.match(/v=(\d+)/) || [])[1];
+      var alvo = document.querySelector(".login-versao");
+      if (n && alvo) alvo.textContent = "versão " + n;
     });
   })();
   </script>
@@ -43,7 +59,7 @@
   <link rel="apple-touch-icon" href="img/icon-192.png">
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#5c94fc">
-  <link rel="stylesheet" href="style.css?v=135">
+  <link rel="stylesheet" href="style.css?v=136">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
@@ -105,7 +121,7 @@
           Entrar com Google
         </button>
         <p class="dica">Use a conta Google da escola ou pessoal.</p>
-        <p class="login-versao">versão 120</p>
+        <p class="login-versao">versão 136</p>
         <div class="login-selos">
           <span class="selo-idade" title="Autoavaliação de conteúdo feita pelo projeto">12</span>
           <span class="selo-txt">Classificação indicativa (autoavaliação) · sem anúncios · sem cobrança</span>
@@ -1849,23 +1865,23 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
 
-  <script src="questoes.js?v=135"></script>
-  <script src="questoes-arte.js?v=135"></script>
-  <script src="plano.js?v=135"></script>
-  <script src="explorar.js?v=135"></script>
-  <script src="figurinhas.js?v=135"></script>
-  <script src="curriculo.js?v=135"></script>
-  <script src="cursos.js?v=135"></script>
-  <script src="mascote.js?v=135"></script>
-  <script src="glossario.js?v=135"></script>
-  <script src="glossario-acreanes.js?v=135"></script>
-  <script src="encenacao.js?v=135"></script>
-    <script src="plataforma.js?v=135"></script>
-  <script src="firebase-config.js?v=135"></script>
-<script src="bingo-conceitos.js?v=135"></script>
-<script src="bingo.js?v=135"></script>
-<script src="teatro-oprimido.js?v=135"></script>
-<script src="desafios-escrita.js?v=135"></script>
-  <script src="script.js?v=135"></script>
+  <script src="questoes.js?v=136"></script>
+  <script src="questoes-arte.js?v=136"></script>
+  <script src="plano.js?v=136"></script>
+  <script src="explorar.js?v=136"></script>
+  <script src="figurinhas.js?v=136"></script>
+  <script src="curriculo.js?v=136"></script>
+  <script src="cursos.js?v=136"></script>
+  <script src="mascote.js?v=136"></script>
+  <script src="glossario.js?v=136"></script>
+  <script src="glossario-acreanes.js?v=136"></script>
+  <script src="encenacao.js?v=136"></script>
+    <script src="plataforma.js?v=136"></script>
+  <script src="firebase-config.js?v=136"></script>
+<script src="bingo-conceitos.js?v=136"></script>
+<script src="bingo.js?v=136"></script>
+<script src="teatro-oprimido.js?v=136"></script>
+<script src="desafios-escrita.js?v=136"></script>
+  <script src="script.js?v=136"></script>
 </body>
 </html>
