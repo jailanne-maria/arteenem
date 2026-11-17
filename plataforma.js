@@ -71,7 +71,9 @@ const PLATAFORMA = (() => {
   }
 
   // ---------- personagem (boneco inteiro, em pixel) ----------
-  const BONECO = [
+  // H = cabelo · S/A = pele · E = olho · C = camisa · B = short · R = saia
+  // F = sapato
+  const BONECO_MENINO = [
     "....HHHH....",
     "...HHHHHH...",
     "...HSSSSH...",
@@ -87,7 +89,39 @@ const PLATAFORMA = (() => {
     "..SSS..SSS..",
     "..FFF..FFF..",
   ];
-  const CORES_BONECO = { H: "#2b1a12", S: "#e0b088", E: "#14142b", C: "#e52521", A: "#e0b088", B: "#14142b", F: "#0b0b16" };
+  const BONECO_MENINA = [
+    "...HHHHHH...",
+    "..HHHHHHHH..",
+    "..HHSSSSHH..",
+    "..HSESSESH..",
+    "..HSSSSSSH..",
+    "...HSSSSH...",
+    "...CCCCCC...",
+    "..CCCCCCCC..",
+    ".ACCCCCCCA..",
+    ".ACCCCCCCA..",
+    ".RRRRRRRRRR.",
+    "..RRRRRRRR..",
+    "...SS..SS...",
+    "...FF..FF...",
+  ];
+  const BONECO_NEUTRO = [
+    "....HHHH....",
+    "...HHHHHH...",
+    "..HHSSSSHH..",
+    "...SESSES...",
+    "...SSSSSS...",
+    "....SSSS....",
+    "...CCCCCC...",
+    "..CCCCCCCC..",
+    ".ACCCCCCCA..",
+    ".ACCCCCCCA..",
+    "..BBBBBBBB..",
+    "..BBB..BBB..",
+    "..SSS..SSS..",
+    "..FFF..FFF..",
+  ];
+  const CORES_BONECO = { E: "#14142b", F: "#0b0b16" };
   const PELE = {
     menino1: "#f3d3b3", menina1: "#f3d3b3",
     menino2: "#cf9463", menina2: "#cf9463", neutro1: "#cf9463",
@@ -98,16 +132,38 @@ const PLATAFORMA = (() => {
     menina2: "#e52521", menino3: "#43b047", menina3: "#fbd000",
     neutro1: "#43b047", neutro2: "#6b3fd4",
   };
+  const CABELO = {
+    menino1: "#2b1a12", menina1: "#2b1a12",
+    menino2: "#1b1210", menina2: "#1b1210", neutro1: "#2b1a12",
+    menino3: "#140d0a", menina3: "#140d0a", neutro2: "#1b1210",
+  };
+  const CALCA = {
+    menino1: "#14142b", menina1: "#f4efe0",
+    menino2: "#14142b", menina2: "#f4efe0", neutro1: "#14142b",
+    menino3: "#14142b", menina3: "#f4efe0", neutro2: "#14142b",
+  };
   let peleAtual = PELE.menino2, camisaAtual = CAMISA.menino2;
+  let cabeloAtual = CABELO.menino2, calcaAtual = CALCA.menino2;
+  let tipoAtual = "menino";
+  let gradeAtual = BONECO_MENINO;
 
   function definirCores(avatarId) {
-    peleAtual = PELE[avatarId] || PELE.menino2;
-    camisaAtual = CAMISA[avatarId] || CAMISA.menino2;
+    const id = avatarId || "menino2";
+    peleAtual = PELE[id] || PELE.menino2;
+    camisaAtual = CAMISA[id] || CAMISA.menino2;
+    cabeloAtual = CABELO[id] || CABELO.menino2;
+    calcaAtual = CALCA[id] || CALCA.menino2;
+    if (id.indexOf("menina") === 0) { tipoAtual = "menina"; gradeAtual = BONECO_MENINA; }
+    else if (id.indexOf("neutro") === 0) { tipoAtual = "neutro"; gradeAtual = BONECO_NEUTRO; }
+    else { tipoAtual = "menino"; gradeAtual = BONECO_MENINO; }
   }
 
   function corDaCelula(ch) {
     if (ch === "S" || ch === "A") return peleAtual;
     if (ch === "C") return camisaAtual;
+    if (ch === "H") return cabeloAtual;
+    if (ch === "B") return calcaAtual;
+    if (ch === "R") return camisaAtual;
     return CORES_BONECO[ch] || "#14142b";
   }
 
@@ -122,9 +178,9 @@ const PLATAFORMA = (() => {
     } else {
       ctx.translate(px, py);
     }
-    for (let ly = 0; ly < BONECO.length; ly++) {
-      for (let lx = 0; lx < BONECO[ly].length; lx++) {
-        const celula = BONECO[ly][lx];
+    for (let ly = 0; ly < gradeAtual.length; ly++) {
+      for (let lx = 0; lx < gradeAtual[ly].length; lx++) {
+        const celula = gradeAtual[ly][lx];
         if (celula === ".") continue;
         let x = lx;
         if (ly >= 11) x += passo * 0.5; // pernas balançando
@@ -138,18 +194,20 @@ const PLATAFORMA = (() => {
   // Mesmo boneco em SVG (usado no mapa das fases)
   function svgBoneco(avatarId, escala) {
     const e = escala || 2;
-    const peleAntes = peleAtual, camisaAntes = camisaAtual;
+    const antes = { pele: peleAtual, camisa: camisaAtual, cabelo: cabeloAtual, calca: calcaAtual, grade: gradeAtual, tipo: tipoAtual };
     definirCores(avatarId);
     let s = '<svg width="' + 12 * e + '" height="' + 14 * e + '" viewBox="0 0 12 14" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">';
-    for (let ly = 0; ly < BONECO.length; ly++) {
-      for (let lx = 0; lx < BONECO[ly].length; lx++) {
-        const celula = BONECO[ly][lx];
+    for (let ly = 0; ly < gradeAtual.length; ly++) {
+      for (let lx = 0; lx < gradeAtual[ly].length; lx++) {
+        const celula = gradeAtual[ly][lx];
         if (celula === ".") continue;
         s += '<rect x="' + lx + '" y="' + ly + '" width="1" height="1" fill="' + corDaCelula(celula) + '"/>';
       }
     }
     s += "</svg>";
-    peleAtual = peleAntes; camisaAtual = camisaAntes;
+    peleAtual = antes.pele; camisaAtual = antes.camisa;
+    cabeloAtual = antes.cabelo; calcaAtual = antes.calca;
+    gradeAtual = antes.grade; tipoAtual = antes.tipo;
     return s;
   }
 
