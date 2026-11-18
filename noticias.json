@@ -1,10 +1,16 @@
 {
-  "atualizadoEm": "2026-11-17T19:35:45.494Z",
+  "atualizadoEm": "2026-11-18T04:00:22.682Z",
   "fontes": [
     "MEC",
     "Agência Brasil"
   ],
   "noticias": [
+    {
+      "titulo": "Prorrogadas até 23 de novembro inscrições para o Selo de Alfabetização",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/prorrogadas-ate-23-de-novembro-inscricoes-para-o-selo-de-alfabetizacao",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
     {
       "titulo": "Hip-hop fortalece participação estudantil e gestão democrática nas escolas",
       "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/hip-hop-fortalece-participacao-estudantil-e-gestao-democratica-nas-escolas",
@@ -116,12 +122,6 @@
     {
       "titulo": "Enem 2026: segundo dia de prova chega ao fim neste domingo (15)",
       "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/enem-2026-segundo-dia-de-prova-chega-ao-fim-neste-domingo-15",
-      "fonte": "MEC",
-      "data": "novembro/2026"
-    },
-    {
-      "titulo": "Enem 2026: participantes iniciam segundo dia de provas",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/enem-2026-participantes-iniciam-segundo-dia-de-provas",
       "fonte": "MEC",
       "data": "novembro/2026"
     },
