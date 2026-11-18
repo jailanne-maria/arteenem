@@ -1,10 +1,40 @@
 {
-  "atualizadoEm": "2026-11-18T04:00:22.682Z",
+  "atualizadoEm": "2026-11-18T19:14:02.715Z",
   "fontes": [
     "MEC",
     "Agência Brasil"
   ],
   "noticias": [
+    {
+      "titulo": "Uma vida transformada pela EJA",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/uma-vida-transformada-pela-eja",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "Enem 2026: gabaritos e Cadernos de Questões disponíveis para consulta",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/enem-2026-gabaritos-e-cadernos-de-questoes-disponiveis-para-consulta",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "MEC destaca avanço de protocolos para combater racismo nas escolas",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/mec-destaca-avanco-de-protocolos-para-combater-racismo-nas-escolas",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "Da escola pública à universidade federal",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/da-escola-publica-a-universidade-federal",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "Fies remanescente: último dia para comprovar informações da inscrição",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/fies-remanescente-ultimo-dia-para-comprovar-informacoes-da-inscricao",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
     {
       "titulo": "Prorrogadas até 23 de novembro inscrições para o Selo de Alfabetização",
       "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/prorrogadas-ate-23-de-novembro-inscricoes-para-o-selo-de-alfabetizacao",
@@ -96,58 +126,28 @@
       "data": "novembro/2026"
     },
     {
-      "titulo": "Enem 2026: aberto prazo para solicitar reaplicação",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/enem-2026-aberto-prazo-para-solicitar-reaplicacao",
-      "fonte": "MEC",
-      "data": "novembro/2026"
-    },
-    {
-      "titulo": "MEC e UFRB anunciam criação da Cátedra Sabotage de Hip-Hop e Educação",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/mec-e-ufrb-anunciam-criacao-da-catedra-sabotage-de-hip-hop-e-educacao",
-      "fonte": "MEC",
-      "data": "novembro/2026"
-    },
-    {
-      "titulo": "Resultados do Enem serão divulgados em 18 de janeiro",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/resultados-do-enem-serao-divulgados-em-18-de-janeiro",
-      "fonte": "MEC",
-      "data": "novembro/2026"
-    },
-    {
-      "titulo": "Alckmin e ministro Barchini visitam sala de monitoramento do Enem",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/alckmin-e-ministro-barchini-visitam-sala-de-monitoramento-do-enem",
-      "fonte": "MEC",
-      "data": "novembro/2026"
-    },
-    {
-      "titulo": "Enem 2026: segundo dia de prova chega ao fim neste domingo (15)",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/enem-2026-segundo-dia-de-prova-chega-ao-fim-neste-domingo-15",
-      "fonte": "MEC",
-      "data": "novembro/2026"
-    },
-    {
-      "titulo": "Fies: candidatos pré-selecionados devem validar dados da inscrição",
-      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/fies-candidatos-pre-selecionados-devem-validar-dados-da-inscricao",
+      "titulo": "MEC amplia até dia 23 prazo para adesão ao Selo de Alfabetização",
+      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/mec-amplia-ate-dia-23-prazo-para-adesao-ao-selo-de-alfabetizacao",
       "fonte": "Agência Brasil",
-      "data": "17/11"
+      "data": "18/11"
     },
     {
-      "titulo": "Hospitais privados oferecem vagas em cursos de medicina em 2027",
-      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/hospitais-privados-oferecem-vagas-em-cursos-de-medicina-em-2027",
+      "titulo": "Mais de 40 mil vagas de estágio serão abertas até o início de 2027",
+      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/mais-de-40-mil-vagas-de-estagio-serao-abertas-ate-o-inicio-de-2027",
       "fonte": "Agência Brasil",
-      "data": "17/11"
+      "data": "18/11"
     },
     {
-      "titulo": "Fies 2026: chamada para vagas remanescentes sai nesta segunda-feira",
-      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/fies-2026-chamada-para-vagas-remanescentes-sai-nesta-segunda-feira",
+      "titulo": "Inep divulga gabarito oficial do Enem 2026; veja como consultar",
+      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/inep-divulga-gabarito-oficial-do-enem-2026-veja-como-consultar",
       "fonte": "Agência Brasil",
-      "data": "16/11"
+      "data": "18/11"
     },
     {
-      "titulo": "Enem 2026: começa prazo para pedir reaplicação de provas em dezembro",
-      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/enem-2026-aberto-prazo-para-pedir-reaplicacao-de-provas-em-dezembro",
+      "titulo": "Fies: candidatos têm até hoje para validar informações da inscrição",
+      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/fies-candidatos-tem-ate-hoje-para-validar-informacoes-da-inscricao",
       "fonte": "Agência Brasil",
-      "data": "16/11"
+      "data": "18/11"
     }
   ],
   "temasRedacao": [
