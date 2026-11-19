@@ -1,10 +1,16 @@
 {
-  "atualizadoEm": "2026-11-19T03:57:39.010Z",
+  "atualizadoEm": "2026-11-19T19:20:14.237Z",
   "fontes": [
     "MEC",
     "Agência Brasil"
   ],
   "noticias": [
+    {
+      "titulo": "Museu itinerante apresenta história do futebol feminino",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/museu-itinerante-apresenta-historia-do-futebol-feminino",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
     {
       "titulo": "Futuro em Construção desta semana aborda gastronomia e saneamento",
       "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/futuro-em-construcao-desta-semana-aborda-gastronomia-e-saneamento",
@@ -20,6 +26,12 @@
     {
       "titulo": "MEC reúne articuladores para fortalecer Compromisso Nacional Toda Matemática",
       "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/mec-reune-articuladores-para-fortalecer-compromisso-nacional-toda-matematica",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "MEC lança episódio sobre manta de carneiro, do Sertão dos Inhamuns (CE)",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/mec-lanca-episodio-sobre-manta-de-carneiro-do-sertao-dos-inhamuns-ce",
       "fonte": "MEC",
       "data": "novembro/2026"
     },
@@ -114,16 +126,16 @@
       "data": "novembro/2026"
     },
     {
-      "titulo": "MEC divulga resultado da edição do Fies para vagas remanescentes",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/mec-divulga-resultado-da-edicao-do-fies-para-vagas-remanescentes",
-      "fonte": "MEC",
-      "data": "novembro/2026"
+      "titulo": "Escola pública do Rio vence Prêmio Melhores Escolas do Mundo",
+      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/escola-publica-do-rio-vence-premio-melhores-escolas-do-mundo",
+      "fonte": "Agência Brasil",
+      "data": "19/11"
     },
     {
-      "titulo": "Da água que viu faltar em casa ao projeto de pesquisa",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/da-agua-que-viu-faltar-em-casa-ao-projeto-de-pesquisa",
-      "fonte": "MEC",
-      "data": "novembro/2026"
+      "titulo": "Termina em um dia prazo para pedir reaplicação do Enem 2026",
+      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/termina-em-um-dia-prazo-para-pedir-reaplicacao-do-enem-2026",
+      "fonte": "Agência Brasil",
+      "data": "19/11"
     },
     {
       "titulo": "MEC amplia até dia 23 prazo para adesão ao Selo de Alfabetização",
@@ -134,18 +146,6 @@
     {
       "titulo": "Mais de 40 mil vagas de estágio serão abertas até o início de 2027",
       "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/mais-de-40-mil-vagas-de-estagio-serao-abertas-ate-o-inicio-de-2027",
-      "fonte": "Agência Brasil",
-      "data": "18/11"
-    },
-    {
-      "titulo": "Inep divulga gabarito oficial do Enem 2026; veja como consultar",
-      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/inep-divulga-gabarito-oficial-do-enem-2026-veja-como-consultar",
-      "fonte": "Agência Brasil",
-      "data": "18/11"
-    },
-    {
-      "titulo": "Fies: candidatos têm até hoje para validar informações da inscrição",
-      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/fies-candidatos-tem-ate-hoje-para-validar-informacoes-da-inscricao",
       "fonte": "Agência Brasil",
       "data": "18/11"
     }
