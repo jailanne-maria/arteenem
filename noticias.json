@@ -1,10 +1,28 @@
 {
-  "atualizadoEm": "2026-11-18T19:14:02.715Z",
+  "atualizadoEm": "2026-11-19T03:57:39.010Z",
   "fontes": [
     "MEC",
     "Agência Brasil"
   ],
   "noticias": [
+    {
+      "titulo": "Futuro em Construção desta semana aborda gastronomia e saneamento",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/futuro-em-construcao-desta-semana-aborda-gastronomia-e-saneamento",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "MEC promove encontro nacional para fortalecer recomposição das aprendizagens",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/mec-promove-encontro-nacional-para-fortalecer-recomposicao-das-aprendizagens",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "MEC reúne articuladores para fortalecer Compromisso Nacional Toda Matemática",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/mec-reune-articuladores-para-fortalecer-compromisso-nacional-toda-matematica",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
     {
       "titulo": "Uma vida transformada pela EJA",
       "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/uma-vida-transformada-pela-eja",
@@ -104,24 +122,6 @@
     {
       "titulo": "Da água que viu faltar em casa ao projeto de pesquisa",
       "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/da-agua-que-viu-faltar-em-casa-ao-projeto-de-pesquisa",
-      "fonte": "MEC",
-      "data": "novembro/2026"
-    },
-    {
-      "titulo": "MEC apresenta diagnóstico das ações de recomposição das aprendizagens",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/mec-apresenta-diagnostico-das-acoes-de-recomposicao-das-aprendizagens",
-      "fonte": "MEC",
-      "data": "novembro/2026"
-    },
-    {
-      "titulo": "MEC institui Conselho de Especialistas para instituições comunitárias",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/mec-institui-conselho-de-especialistas-para-instituicoes-comunitarias",
-      "fonte": "MEC",
-      "data": "novembro/2026"
-    },
-    {
-      "titulo": "Hip-Hop: seminário reúne mais de 250 trabalhos em Ouro Preto",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/hip-hop-seminario-reune-mais-de-250-trabalhos-em-ouro-preto",
       "fonte": "MEC",
       "data": "novembro/2026"
     },
