@@ -1,10 +1,58 @@
 {
-  "atualizadoEm": "2026-11-19T19:20:14.237Z",
+  "atualizadoEm": "2026-11-20T03:51:50.942Z",
   "fontes": [
     "MEC",
     "Agência Brasil"
   ],
   "noticias": [
+    {
+      "titulo": "MEC recebe delegação da Noruega para ampliar cooperação educacional",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/mec-recebe-delegacao-da-noruega-para-ampliar-cooperacao-educacional",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "Políticas de equidade racial ganham escala e transformam redes de ensino em todo o país",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/politicas-de-equidade-racial-ganham-escala-e-transformam-redes-de-ensino-em-todo-o-pais",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "PodMEC aborda os caminhos para o ensino superior pós-Enem",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/podmec-aborda-os-caminhos-para-o-ensino-superior-pos-enem",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "Educação leva pai e filhas a dividirem a mesma universidade",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/educacao-leva-pai-e-filhas-a-dividirem-a-mesma-universidade",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "Parcela do Pé-de-Meia começa a ser paga segunda (23)",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/parcela-do-pe-de-meia-comeca-a-ser-paga-segunda-23",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "MEC divulga resultado da 8ª Olimpíada de Professores de Língua Portuguesa",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/mec-divulga-resultado-da-8a-olimpiada-de-professores-de-lingua-portuguesa",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "Prazo para pedido de reaplicação do Enem termina sexta (20)",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/prazo-para-pedido-de-reaplicacao-do-enem-termina-sexta-20",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "Dia da Consciência Negra: Canal Educação recebe Petronilha Gonçalves",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/dia-da-consciencia-negra-canal-educacao-recebe-petronilha-goncalves",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
     {
       "titulo": "Museu itinerante apresenta história do futebol feminino",
       "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/museu-itinerante-apresenta-historia-do-futebol-feminino",
@@ -74,54 +122,6 @@
     {
       "titulo": "Hip-hop fortalece participação estudantil e gestão democrática nas escolas",
       "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/hip-hop-fortalece-participacao-estudantil-e-gestao-democratica-nas-escolas",
-      "fonte": "MEC",
-      "data": "novembro/2026"
-    },
-    {
-      "titulo": "Conhecendo MEC desta semana fala sobre CPOP e Na Ponta do Lápis",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/conhecendo-mec-desta-semana-fala-sobre-cpop-e-na-ponta-do-lapis",
-      "fonte": "MEC",
-      "data": "novembro/2026"
-    },
-    {
-      "titulo": "MEC lança novo ambiente de monitoramento do Novo PAR",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/mec-lanca-novo-ambiente-de-monitoramento-do-novo-par",
-      "fonte": "MEC",
-      "data": "novembro/2026"
-    },
-    {
-      "titulo": "Da sala de aula aos versos: professora aposentada encontra no cordel uma nova forma de ensinar",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/da-sala-de-aula-aos-versos-professora-aposentada-encontra-no-cordel-uma-nova-forma-de-ensinar",
-      "fonte": "MEC",
-      "data": "novembro/2026"
-    },
-    {
-      "titulo": "Comissão avança na definição de padrões de qualidade e fortalece governança do SNE",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/comissao-avanca-na-definicao-de-padroes-de-qualidade-e-fortalece-governanca-do-sne",
-      "fonte": "MEC",
-      "data": "novembro/2026"
-    },
-    {
-      "titulo": "MEC e Universidade Tecnológica do Uruguai discutem ampliação da cooperação em educação profissional e superior na fronteira",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/mec-e-universidade-tecnologica-do-uruguai-discutem-ampliacao-da-cooperacao-em-educacao-profissional-e-superior-na-fronteira",
-      "fonte": "MEC",
-      "data": "novembro/2026"
-    },
-    {
-      "titulo": "Seminário da Escola Nacional do Hip-hop debate saberes periféricos e lança Cátedra Sabotage",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/seminario-da-escola-nacional-do-hip-hop-debate-saberes-perifericos-e-lanca-catedra-sabotage",
-      "fonte": "MEC",
-      "data": "novembro/2026"
-    },
-    {
-      "titulo": "Seminário do Hip-Hop destaca pesquisas, educação e cultura em Ouro Preto",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/seminario-do-hip-hop-destaca-pesquisas-educacao-e-cultura-em-ouro-preto",
-      "fonte": "MEC",
-      "data": "novembro/2026"
-    },
-    {
-      "titulo": "Novo PAR: prazo para revisão do Questionário Diagnóstico é prorrogado até 1º de dezembro",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/novo-par-prazo-para-revisao-do-questionario-diagnostico-e-prorrogado-ate-1o-de-dezembro",
       "fonte": "MEC",
       "data": "novembro/2026"
     },
