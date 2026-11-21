@@ -1,5 +1,5 @@
 {
-  "atualizadoEm": "2026-11-21T03:44:38.747Z",
+  "atualizadoEm": "2026-11-21T17:51:55.680Z",
   "fontes": [
     "MEC",
     "Agência Brasil"
@@ -126,6 +126,18 @@
       "data": "novembro/2026"
     },
     {
+      "titulo": "Dossiê mapeia desafios do ensino de matemática e sugere soluções",
+      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/dossie-mapeia-desafios-do-ensino-de-matematica-e-sugere-solucoes",
+      "fonte": "Agência Brasil",
+      "data": "21/11"
+    },
+    {
+      "titulo": "70% dos cursos de pedagogia dedicam apenas 2,5% da grade horária",
+      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/70-dos-cursos-de-pedagogia-dedicam-apenas-25-da-grade-horaria",
+      "fonte": "Agência Brasil",
+      "data": "21/11"
+    },
+    {
       "titulo": "Maranhão: professores usam filmes e comida para educação antirracista",
       "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/maranhao-professores-usam-filmes-e-comida-para-educacao-antirracista",
       "fonte": "Agência Brasil",
@@ -136,18 +148,6 @@
       "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/termina-nesta-sexta-prazo-para-pedir-reaplicacao-do-enem-2026",
       "fonte": "Agência Brasil",
       "data": "20/11"
-    },
-    {
-      "titulo": "Escola pública do Rio vence Prêmio Melhores Escolas do Mundo",
-      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/escola-publica-do-rio-vence-premio-melhores-escolas-do-mundo",
-      "fonte": "Agência Brasil",
-      "data": "19/11"
-    },
-    {
-      "titulo": "Termina em um dia prazo para pedir reaplicação do Enem 2026",
-      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/termina-em-um-dia-prazo-para-pedir-reaplicacao-do-enem-2026",
-      "fonte": "Agência Brasil",
-      "data": "19/11"
     }
   ],
   "temasRedacao": [
