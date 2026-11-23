@@ -1,5 +1,5 @@
 {
-  "atualizadoEm": "2026-11-22T18:12:08.702Z",
+  "atualizadoEm": "2026-11-23T03:29:13.266Z",
   "fontes": [
     "MEC",
     "Agência Brasil"
@@ -126,6 +126,18 @@
       "data": "novembro/2026"
     },
     {
+      "titulo": "Escolas já podem se inscrever para a Olitef 2027",
+      "link": "https://agenciabrasil.ebc.com.br/economia/noticia/2026-11/escolas-ja-podem-se-inscrever-para-olitef-2027",
+      "fonte": "Agência Brasil",
+      "data": "22/11"
+    },
+    {
+      "titulo": "Simpósio de matemática premia professores e expõe soluções de ensino",
+      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/simposio-de-matematica-premia-professores-e-expoe-solucoes-de-ensino",
+      "fonte": "Agência Brasil",
+      "data": "22/11"
+    },
+    {
       "titulo": "MEC apresenta programa Toda Matemática em evento nacional no Maranhão",
       "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/mec-apresenta-programa-toda-matematica-em-evento-nacional-no-maranhao",
       "fonte": "Agência Brasil",
@@ -136,18 +148,6 @@
       "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/ia-na-educacao-exige-capacitacao-de-professores-dizem-especial",
       "fonte": "Agência Brasil",
       "data": "22/11"
-    },
-    {
-      "titulo": "Cocal dos Alves: como a matemática mudou destino de município do Piauí",
-      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/cocal-dos-alves-como-matematica-mudou-destino-de-municipio-do-piaui",
-      "fonte": "Agência Brasil",
-      "data": "21/11"
-    },
-    {
-      "titulo": "Dossiê mapeia desafios do ensino de matemática e sugere soluções",
-      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/dossie-mapeia-desafios-do-ensino-de-matematica-e-sugere-solucoes",
-      "fonte": "Agência Brasil",
-      "data": "21/11"
     }
   ],
   "temasRedacao": [
