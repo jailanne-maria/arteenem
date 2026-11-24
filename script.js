@@ -432,6 +432,8 @@ async function abrirTurmaProfessor(turma) {
   rankingDiv.innerHTML = "";
   mapaDiv.innerHTML = "";
   membrosDiv.innerHTML = "";
+  document.getElementById("relatorio-turma").innerHTML = "<p class='vazio'>Carregando…</p>";
+  document.getElementById("btn-baixar-relatorio").classList.add("escondido");
 
   try {
     const [membros, ranking] = await Promise.all([
@@ -452,6 +454,9 @@ async function abrirTurmaProfessor(turma) {
     renderRanking(rankingDiv, ranking, null);
     renderMapaDificuldades(mapaDiv, ranking);
 
+    const contagem = await contarAtividadesDaTurma(turma.codigo).catch(() => ({}));
+    renderRelatorioTurma(contagem, membros);
+
     if (membros.length) {
       membrosDiv.innerHTML = membros
         .map((m) => `<span class="membro-tag"><span class="membro-nome clicavel" data-uid="${m.uid}">${m.nome}</span><button class="btn-remover" data-uid="${m.uid}" data-nome="${(m.nome || "").replace(/"/g, "&quot;")}" title="Remover da turma">✖</button></span>`)
@@ -463,6 +468,106 @@ async function abrirTurmaProfessor(turma) {
     stats.innerHTML = `<p class='vazio'>Erro: ${e.message}</p>`;
   }
 }
+
+// ===== Relatório final da turma (ordem alfabética) =====
+let relatorioTurmaAtual = [];
+
+function renderRelatorioTurma(contagem, membros) {
+  const div = document.getElementById("relatorio-turma");
+  const btn = document.getElementById("btn-baixar-relatorio");
+  if (!div) return;
+  const porUid = contagem || {};
+  const linhas = (membros || []).map((m) => {
+    const c = porUid[m.uid] || {};
+    return {
+      uid: m.uid,
+      nome: (m.nome || c.nome || "").trim() || "(sem nome)",
+      diagnostico: c.diagnostico || 0,
+      atividades: c.atividades || 0,
+      tarefas: c.tarefas || 0,
+      escritas: c.escritas || 0,
+      pct: typeof c.pct === "number" ? c.pct : null,
+    };
+  });
+  // registros de quem já saiu da turma continuam aparecendo
+  Object.values(porUid).forEach((c) => {
+    if (!linhas.some((l) => l.uid === c.uid)) {
+      linhas.push({
+        uid: c.uid,
+        nome: (c.nome || "").trim() || "(sem nome)",
+        diagnostico: c.diagnostico || 0,
+        atividades: c.atividades || 0,
+        tarefas: c.tarefas || 0,
+        escritas: c.escritas || 0,
+        pct: typeof c.pct === "number" ? c.pct : null,
+      });
+    }
+  });
+  linhas.forEach((l) => { l.total = l.diagnostico + l.atividades + l.tarefas + l.escritas; });
+  linhas.sort((a, b) => a.nome.localeCompare(b.nome, "pt-BR", { sensitivity: "base" }));
+  relatorioTurmaAtual = linhas;
+
+  if (!linhas.length) {
+    div.innerHTML = "<p class='vazio'>Nenhum estudante na turma ainda.</p>";
+    if (btn) btn.classList.add("escondido");
+    return;
+  }
+
+  const soma = linhas.reduce((s, l) => s + l.total, 0);
+  const comAtividade = linhas.filter((l) => l.total > 0).length;
+
+  div.innerHTML = `
+    <p class="relatorio-resumo"><strong>${linhas.length}</strong> estudantes · <strong>${comAtividade}</strong> com alguma atividade · <strong>${soma}</strong> registros no total</p>
+    <div class="tabela-rolavel">
+      <table class="tabela-relatorio">
+        <thead>
+          <tr>
+            <th>Estudante</th>
+            <th title="Diagnóstico das 4 áreas">Diagn.</th>
+            <th title="Atividades enviadas pelo professor">Ativid.</th>
+            <th title="Tarefas e revisões respondidas">Tarefas</th>
+            <th title="Desafios de escrita salvos">Escritas</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${linhas.map((l) => `
+            <tr${l.total === 0 ? ' class="sem-atividade"' : ""}>
+              <td class="nome">${escaparHTML(l.nome)}</td>
+              <td>${l.diagnostico ? "✅" : "—"}</td>
+              <td>${l.atividades}</td>
+              <td>${l.tarefas}</td>
+              <td>${l.escritas}</td>
+              <td><strong>${l.total}</strong></td>
+            </tr>`).join("")}
+        </tbody>
+      </table>
+    </div>
+  `;
+  if (btn) btn.classList.remove("escondido");
+}
+
+function baixarRelatorioTurma() {
+  if (!relatorioTurmaAtual.length) return;
+  const linhas = [["Estudante", "Diagnóstico", "Atividades", "Tarefas", "Escritas", "Total"]];
+  relatorioTurmaAtual.forEach((l) => {
+    linhas.push([l.nome, l.diagnostico ? 1 : 0, l.atividades, l.tarefas, l.escritas, l.total]);
+  });
+  const csv = linhas
+    .map((l) => l.map((c) => '"' + String(c).replace(/"/g, '""') + '"').join(";"))
+    .join("\r\n");
+  const nome = "relatorio-" + ((turmaAtualProf && turmaAtualProf.codigo) || "turma") + ".csv";
+  const blob = new Blob(["\ufeff" + csv], { type: "text/csv;charset=utf-8;" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = nome;
+  document.body.appendChild(a);
+  a.click();
+  setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 1000);
+  anunciar("Relatório baixado.");
+}
+
+document.getElementById("btn-baixar-relatorio").addEventListener("click", baixarRelatorioTurma);
 
 // Média da turma por área (onde a turma tem mais dificuldade)
 function renderMapaDificuldades(container, ranking) {

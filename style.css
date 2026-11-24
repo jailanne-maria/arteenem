@@ -6580,3 +6580,35 @@ body.modo-jogo #aviso-orientacao {
   font-size: 0.62rem;
   opacity: .95;
 }
+/* ===== Relatório final da turma ===== */
+.relatorio-resumo {
+  font-size: .95rem;
+  color: var(--on-surface);
+  opacity: .85;
+  margin: 0 0 10px;
+}
+.tabela-rolavel { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.tabela-relatorio {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: .95rem;
+  font-family: var(--texto);
+}
+.tabela-relatorio th,
+.tabela-relatorio td {
+  padding: 8px 10px;
+  border-bottom: 1px solid rgba(20, 20, 43, .14);
+  text-align: center;
+  white-space: nowrap;
+}
+.tabela-relatorio th {
+  font-family: var(--pixel);
+  font-size: .5rem;
+  letter-spacing: .5px;
+  text-transform: uppercase;
+  background: rgba(20, 20, 43, .06);
+  color: var(--black);
+}
+.tabela-relatorio td.nome { text-align: left; font-weight: 600; white-space: normal; }
+.tabela-relatorio tbody tr:nth-child(even) { background: rgba(20, 20, 43, .03); }
+.tabela-relatorio tr.sem-atividade td { opacity: .5; }

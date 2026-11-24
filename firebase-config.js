@@ -219,8 +219,42 @@ function listarAtividadesDasTurmas(codigos) {
     });
 }
 
-// ---------- Resultados e ranking ----------
-// Doc id: {codigoTurma}_{uid} — guarda o melhor resultado do aluno na turma
+// ---------- Relatório final da turma (atividades por estudante) ----------
+// Soma, por estudante: diagnósticos, atividades (quiz), tarefas (revisões) e escritas
+function contarAtividadesDaTurma(codigo) {
+  const cod = String(codigo || "").toUpperCase();
+  const db = firebase.firestore();
+  const vazio = () => Promise.resolve({ docs: [] });
+  return Promise.all([
+    db.collection("respostasQuiz").where("turma", "==", cod).get().catch(vazio),
+    db.collection("respostasAtividade").where("turma", "==", cod).get().catch(vazio),
+    db.collection("escritas").where("codigo", "==", cod).get().catch(vazio),
+    db.collection("resultados").where("turma", "==", cod).get().catch(vazio),
+  ]).then(([quiz, tarefas, escritas, diag]) => {
+    const mapa = {};
+    const pega = (uid, nome) => {
+      if (!uid) return null;
+      if (!mapa[uid]) {
+        mapa[uid] = { uid, nome: nome || "", atividades: 0, tarefas: 0, escritas: 0, diagnostico: 0, pct: null, total: 0 };
+      }
+      if (nome && !mapa[uid].nome) mapa[uid].nome = nome;
+      return mapa[uid];
+    };
+    quiz.docs.forEach((d) => { const r = pega(d.data().alunoId, d.data().alunoNome); if (r) r.atividades++; });
+    tarefas.docs.forEach((d) => { const r = pega(d.data().alunoId, d.data().alunoNome); if (r) r.tarefas++; });
+    escritas.docs.forEach((d) => { const r = pega(d.data().uid, d.data().nome); if (r) r.escritas++; });
+    diag.docs.forEach((d) => {
+      const r = pega(d.data().uid, d.data().nome);
+      if (r) { r.diagnostico = 1; r.pct = typeof d.data().pct === "number" ? d.data().pct : null; }
+    });
+    Object.values(mapa).forEach((r) => {
+      r.total = r.diagnostico + r.atividades + r.tarefas + r.escritas;
+    });
+    return mapa;
+  });
+}
+
+// ---------- Resultados e ranking ----------// Doc id: {codigoTurma}_{uid} — guarda o melhor resultado do aluno na turma
 function salvarResultado(codigo, aluno, resultado) {
   const cod = codigo.toUpperCase();
   const id = `${cod}_${aluno.uid}`;
