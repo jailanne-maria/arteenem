@@ -1,10 +1,52 @@
 {
-  "atualizadoEm": "2026-11-24T06:42:58.282Z",
+  "atualizadoEm": "2026-11-24T20:58:50.583Z",
   "fontes": [
     "MEC",
     "Agência Brasil"
   ],
   "noticias": [
+    {
+      "titulo": "Entenda as novas regras para o uso de IA na educação básica",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/entenda-as-novas-regras-para-o-uso-de-ia-na-educacao-basica",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "MEC divulga revisão do Plano de Transformação Digital",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/mec-divulga-revisao-do-plano-de-transformacao-digital",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "Muito além dos balões: os quadrinhos na formação de leitores",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/muito-alem-dos-baloes-os-quadrinhos-na-formacao-de-leitores",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "Conhecendo MEC desta semana aborda CadEJA, Tempo Integral e Pé-de-Meia",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/conhecendo-mec-desta-semana-aborda-cadeja-tempo-integral-e-pe-de-meia",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "MEC defende ações de inclusão voltadas para permanência estudantil",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/mec-defende-acoes-de-inclusao-voltadas-para-permanencia-estudantil",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "Seminário Internacional debate avanços e desafios na EaD",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/seminario-internacional-debate-avancos-e-desafios-na-ead",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "MEC lança guia para orientar seleção de diretores escolares",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/mec-lanca-guia-para-orientar-selecao-de-diretores-escolares",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
     {
       "titulo": "MEC lança documento orientador para a autoavaliação nas escolas",
       "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/mec-lanca-documento-orientador-para-a-autoavaliacao-nas-escolas",
@@ -84,46 +126,16 @@
       "data": "novembro/2026"
     },
     {
-      "titulo": "Parcela do Pé-de-Meia começa a ser paga segunda (23)",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/parcela-do-pe-de-meia-comeca-a-ser-paga-segunda-23",
-      "fonte": "MEC",
-      "data": "novembro/2026"
+      "titulo": "Pé-de-Meia começa a pagar oitava parcela de 2026 a estudantes",
+      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/pe-de-meia-comeca-pagar-oitava-parcela-de-2026-estudantes",
+      "fonte": "Agência Brasil",
+      "data": "24/11"
     },
     {
-      "titulo": "MEC divulga resultado da 8ª Olimpíada de Professores de Língua Portuguesa",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/mec-divulga-resultado-da-8a-olimpiada-de-professores-de-lingua-portuguesa",
-      "fonte": "MEC",
-      "data": "novembro/2026"
-    },
-    {
-      "titulo": "Prazo para pedido de reaplicação do Enem termina sexta (20)",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/prazo-para-pedido-de-reaplicacao-do-enem-termina-sexta-20",
-      "fonte": "MEC",
-      "data": "novembro/2026"
-    },
-    {
-      "titulo": "Dia da Consciência Negra: Canal Educação recebe Petronilha Gonçalves",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/dia-da-consciencia-negra-canal-educacao-recebe-petronilha-goncalves",
-      "fonte": "MEC",
-      "data": "novembro/2026"
-    },
-    {
-      "titulo": "Museu itinerante apresenta história do futebol feminino",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/museu-itinerante-apresenta-historia-do-futebol-feminino",
-      "fonte": "MEC",
-      "data": "novembro/2026"
-    },
-    {
-      "titulo": "Futuro em Construção desta semana aborda gastronomia e saneamento",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/futuro-em-construcao-desta-semana-aborda-gastronomia-e-saneamento",
-      "fonte": "MEC",
-      "data": "novembro/2026"
-    },
-    {
-      "titulo": "MEC promove encontro nacional para fortalecer recomposição das aprendizagens",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/mec-promove-encontro-nacional-para-fortalecer-recomposicao-das-aprendizagens",
-      "fonte": "MEC",
-      "data": "novembro/2026"
+      "titulo": "MEC divulga regras para distribuição de verbas adicionais do Fundeb",
+      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/mec-divulga-regras-para-distribuicao-de-verbas-adicionais-do-fundeb",
+      "fonte": "Agência Brasil",
+      "data": "24/11"
     },
     {
       "titulo": "Celpe-Bras: provas serão aplicadas no exterior a partir desta terça",
@@ -134,18 +146,6 @@
     {
       "titulo": "Escolas já podem se inscrever para a Olitef 2027",
       "link": "https://agenciabrasil.ebc.com.br/economia/noticia/2026-11/escolas-ja-podem-se-inscrever-para-olitef-2027",
-      "fonte": "Agência Brasil",
-      "data": "22/11"
-    },
-    {
-      "titulo": "Simpósio de matemática premia professores e expõe soluções de ensino",
-      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/simposio-de-matematica-premia-professores-e-expoe-solucoes-de-ensino",
-      "fonte": "Agência Brasil",
-      "data": "22/11"
-    },
-    {
-      "titulo": "MEC apresenta programa Toda Matemática em evento nacional no Maranhão",
-      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/mec-apresenta-programa-toda-matematica-em-evento-nacional-no-maranhao",
       "fonte": "Agência Brasil",
       "data": "22/11"
     }
