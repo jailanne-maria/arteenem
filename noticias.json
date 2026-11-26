@@ -1,10 +1,136 @@
 {
-  "atualizadoEm": "2026-11-26T04:41:38.470Z",
+  "atualizadoEm": "2026-11-26T19:58:09.416Z",
   "fontes": [
     "MEC",
     "Agência Brasil"
   ],
   "noticias": [
+    {
+      "titulo": "MEC apresenta primeiro Diagnóstico Nacional do Escola que Protege",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/mec-apresenta-primeiro-diagnostico-nacional-do-escola-que-protege",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "Brasil tem recorde de estudantes na graduação",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/brasil-tem-recorde-de-estudantes-na-graduacao",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "MEC entra na reta final de consulta pública sobre o PET",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/mec-entra-na-reta-final-de-consulta-publica-sobre-o-pet",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "Fies remanescentes: iniciada convocação pela lista de espera",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/fies-remanescentes-iniciada-convocacao-pela-lista-de-espera",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "MEC publica novas Diretrizes Curriculares para a Educação Profissional e Tecnológica",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/mec-publica-novas-diretrizes-curriculares-para-a-educacao-profissional-e-tecnologica",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "3ª Edição do Selo Nacional de Alfabetização registra inscrições de 5.036 entes federativos",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/3a-edicao-do-selo-nacional-de-alfabetizacao-registra-inscricoes-de-5-036-entes-federativos",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "MEC oferta cerca de 70 mil vagas em formação continuada em educação especial inclusiva",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/mec-oferta-cerca-de-70-mil-vagas-em-formacao-continuada-em-educacao-especial-inclusiva",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "Robótica e saúde mental são temas do Futuro em Construção",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/robotica-e-saude-mental-sao-temas-do-futuro-em-construcao",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "MEC lança segunda edição dos Cadernos Brasileiros de Educação Popular",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/mec-lanca-segunda-edicao-dos-cadernos-brasileiros-de-educacao-popular",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "MEC promove 2ª Semana Nacional de Práticas Restaurativas na Educação",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/mec-promove-2a-semana-nacional-de-praticas-restaurativas-na-educacao",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "De aluna à primeira mulher reitora do IFPB",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/de-aluna-a-primeira-mulher-reitora-do-ifpb",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "Entes avançam na construção de política de educação integral",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/entes-avancam-na-construcao-de-politica-de-educacao-integral",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "MEC anuncia ações para preservar memória e modernizar infraestrutura",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/mec-anuncia-acoes-para-preservar-memoria-e-modernizar-infraestrutura",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "Seminário sobre permanência estudantil reforça apoio a ações do MEC",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/seminario-sobre-permanencia-estudantil-reforca-apoio-a-acoes-do-mec",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "MEC lança segunda edição do Selo Petronilha que reconhece iniciativas de equidade racial na educação",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/mec-lanca-segunda-edicao-do-selo-petronilha-que-reconhece-iniciativas-de-equidade-racial-na-educacao",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "Entenda as novas regras para o uso de IA na educação básica",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/entenda-as-novas-regras-para-o-uso-de-ia-na-educacao-basica",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "MEC divulga revisão do Plano de Transformação Digital",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/mec-divulga-revisao-do-plano-de-transformacao-digital",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "Muito além dos balões: os quadrinhos na formação de leitores",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/muito-alem-dos-baloes-os-quadrinhos-na-formacao-de-leitores",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "Conhecendo MEC desta semana aborda CadEJA, Tempo Integral e Pé-de-Meia",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/conhecendo-mec-desta-semana-aborda-cadeja-tempo-integral-e-pe-de-meia",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "Número de jovens de 18 a 24 anos na graduação bate recorde no país",
+      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/numero-de-jovens-de-18-24-anos-na-graduacao-bate-recorde-no-pais",
+      "fonte": "Agência Brasil",
+      "data": "26/11"
+    },
+    {
+      "titulo": "Brasil atinge recorde de 10,6 milhões de matrículas no ensino superior",
+      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/brasil-atinge-recorde-de-106-milhoes-de-matriculas-no-ensino-superior",
+      "fonte": "Agência Brasil",
+      "data": "26/11"
+    },
     {
       "titulo": "Pesquisadoras recebem prêmio por inovações e valorizam trajetória",
       "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/pesquisadoras-recebem-premio-por-inovacoes-e-valorizam-percurso",
@@ -22,108 +148,6 @@
       "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/semana-nacional-de-ciencia-e-tecnologia-segue-ate-sabado",
       "fonte": "Agência Brasil",
       "data": "25/11"
-    },
-    {
-      "titulo": "Pé-de-Meia começa a pagar oitava parcela de 2026 a estudantes",
-      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/pe-de-meia-comeca-pagar-oitava-parcela-de-2026-estudantes",
-      "fonte": "Agência Brasil",
-      "data": "24/11"
-    },
-    {
-      "titulo": "MEC divulga regras para distribuição de verbas adicionais do Fundeb",
-      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/mec-divulga-regras-para-distribuicao-de-verbas-adicionais-do-fundeb",
-      "fonte": "Agência Brasil",
-      "data": "24/11"
-    },
-    {
-      "titulo": "Celpe-Bras: provas serão aplicadas no exterior a partir desta terça",
-      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/celpe-bras-provas-serao-aplicadas-no-exterior-partir-desta-terca",
-      "fonte": "Agência Brasil",
-      "data": "23/11"
-    },
-    {
-      "titulo": "Escolas já podem se inscrever para a Olitef 2027",
-      "link": "https://agenciabrasil.ebc.com.br/economia/noticia/2026-11/escolas-ja-podem-se-inscrever-para-olitef-2027",
-      "fonte": "Agência Brasil",
-      "data": "22/11"
-    },
-    {
-      "titulo": "Simpósio de matemática premia professores e expõe soluções de ensino",
-      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/simposio-de-matematica-premia-professores-e-expoe-solucoes-de-ensino",
-      "fonte": "Agência Brasil",
-      "data": "22/11"
-    },
-    {
-      "titulo": "MEC apresenta programa Toda Matemática em evento nacional no Maranhão",
-      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/mec-apresenta-programa-toda-matematica-em-evento-nacional-no-maranhao",
-      "fonte": "Agência Brasil",
-      "data": "22/11"
-    },
-    {
-      "titulo": "IA na educação exige capacitação de professores, dizem especialistas",
-      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/ia-na-educacao-exige-capacitacao-de-professores-dizem-especial",
-      "fonte": "Agência Brasil",
-      "data": "22/11"
-    },
-    {
-      "titulo": "Com alerta de chuvas fortes, Rio suspende aulas na rede pública",
-      "link": "https://agenciabrasil.ebc.com.br/geral/noticia/2026-11/com-alerta-de-chuvas-fortes-rio-suspende-aulas-na-rede-publica",
-      "fonte": "Agência Brasil",
-      "data": "25/11"
-    },
-    {
-      "titulo": "Tempestades e frente fria devem atingir Centro-Sul até sexta-feira",
-      "link": "https://agenciabrasil.ebc.com.br/geral/noticia/2026-11/tempestades-e-frente-fria-devem-atingir-centro-sul-ate-sexta-feira",
-      "fonte": "Agência Brasil",
-      "data": "25/11"
-    },
-    {
-      "titulo": "Defesa Civil Alerta já emitiu mais de 4 mil avisos desde 2024",
-      "link": "https://agenciabrasil.ebc.com.br/geral/noticia/2026-11/defesa-civil-alerta-ja-emitiu-mais-de-4-mil-avisos-desde-2024",
-      "fonte": "Agência Brasil",
-      "data": "25/11"
-    },
-    {
-      "titulo": "Mega-Sena acumula para R$ 75 milhões; confira os números sorteados",
-      "link": "https://agenciabrasil.ebc.com.br/geral/noticia/2026-11/mega-sena-acumula-para-r-75-milhoes-confira-os-numeros-sorteados",
-      "fonte": "Agência Brasil",
-      "data": "25/11"
-    },
-    {
-      "titulo": "Superlua pode ser observada nesta terça-feira; veja melhor horário",
-      "link": "https://agenciabrasil.ebc.com.br/geral/noticia/2026-11/superlua-pode-ser-observada-nesta-terca-feira-veja-melhor-horario",
-      "fonte": "Agência Brasil",
-      "data": "24/11"
-    },
-    {
-      "titulo": "PF investiga esquema de lavagem de dinheiro e fraude com criptoativos",
-      "link": "https://agenciabrasil.ebc.com.br/geral/noticia/2026-11/pf-investiga-esquema-de-lavagem-de-dinheiro-e-fraude-com-criptoativos",
-      "fonte": "Agência Brasil",
-      "data": "24/11"
-    },
-    {
-      "titulo": "PF faz operação contra captura e tráfico de macacos-prego na Tijuca",
-      "link": "https://agenciabrasil.ebc.com.br/geral/noticia/2026-11/pf-faz-operacao-contra-captura-e-trafico-de-macacos-prego-na-tijuca",
-      "fonte": "Agência Brasil",
-      "data": "24/11"
-    },
-    {
-      "titulo": "Mega-Sena sorteia prêmio de R$ 65 milhões nesta terça-feira",
-      "link": "https://agenciabrasil.ebc.com.br/geral/noticia/2026-11/mega-sena-sorteia-premio-de-r-65-milhoes-nesta-terca-feira",
-      "fonte": "Agência Brasil",
-      "data": "24/11"
-    },
-    {
-      "titulo": "Abin apresenta estratégia para criptografia pós-quântica",
-      "link": "https://agenciabrasil.ebc.com.br/geral/noticia/2026-11/abin-apresenta-estrategia-para-criptografia-pos-quantica",
-      "fonte": "Agência Brasil",
-      "data": "23/11"
-    },
-    {
-      "titulo": "Chuvas deixam 34 desalojados e um desaparecido em São Paulo",
-      "link": "https://agenciabrasil.ebc.com.br/geral/noticia/2026-11/chuvas-deixam-34-desalojados-e-um-desaparecido-em-sao-paulo",
-      "fonte": "Agência Brasil",
-      "data": "23/11"
     }
   ],
   "temasRedacao": [
