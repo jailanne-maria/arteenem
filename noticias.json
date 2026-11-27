@@ -1,10 +1,34 @@
 {
-  "atualizadoEm": "2026-11-26T19:58:09.416Z",
+  "atualizadoEm": "2026-11-27T04:45:28.618Z",
   "fontes": [
     "MEC",
     "Agência Brasil"
   ],
   "noticias": [
+    {
+      "titulo": "MEC destaca potencial dos institutos federais na educação ambiental e no enfrentamento das emergências climáticas",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/mec-destaca-potencial-dos-institutos-federais-na-educacao-ambiental-e-no-enfrentamento-das-emergencias-climaticas",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "Pretos, pardos e indígenas são maioria em universidades federais",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/pretos-pardos-e-indigenas-sao-maioria-em-universidades-federais",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "Episódio do PodMEC debate evolução da educação no século XXI",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/episodio-do-podmec-debate-evolucao-da-educacao-no-seculo-xxi",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "Digital Learning Week Brasil debaterá IA no contexto das políticas públicas de educação digital e midiática",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/digital-learning-week-brasil-debatera-ia-no-contexto-das-politicas-publicas-de-educacao-digital-e-midiatica",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
     {
       "titulo": "MEC apresenta primeiro Diagnóstico Nacional do Escola que Protege",
       "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/mec-apresenta-primeiro-diagnostico-nacional-do-escola-que-protege",
@@ -96,28 +120,10 @@
       "data": "novembro/2026"
     },
     {
-      "titulo": "Entenda as novas regras para o uso de IA na educação básica",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/entenda-as-novas-regras-para-o-uso-de-ia-na-educacao-basica",
-      "fonte": "MEC",
-      "data": "novembro/2026"
-    },
-    {
-      "titulo": "MEC divulga revisão do Plano de Transformação Digital",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/mec-divulga-revisao-do-plano-de-transformacao-digital",
-      "fonte": "MEC",
-      "data": "novembro/2026"
-    },
-    {
-      "titulo": "Muito além dos balões: os quadrinhos na formação de leitores",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/muito-alem-dos-baloes-os-quadrinhos-na-formacao-de-leitores",
-      "fonte": "MEC",
-      "data": "novembro/2026"
-    },
-    {
-      "titulo": "Conhecendo MEC desta semana aborda CadEJA, Tempo Integral e Pé-de-Meia",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/conhecendo-mec-desta-semana-aborda-cadeja-tempo-integral-e-pe-de-meia",
-      "fonte": "MEC",
-      "data": "novembro/2026"
+      "titulo": "STF: estados e municípios são obrigados a pagar piso dos professores",
+      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/stf-estados-e-municipios-sao-obrigados-pagar-piso-dos-professores",
+      "fonte": "Agência Brasil",
+      "data": "26/11"
     },
     {
       "titulo": "Número de jovens de 18 a 24 anos na graduação bate recorde no país",
@@ -140,12 +146,6 @@
     {
       "titulo": "Comissão fixa carga mínima de filosofia e sociologia no ensino médio",
       "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/comissao-fixa-carga-minima-filosofia-e-sociologia-no-ensino-medio",
-      "fonte": "Agência Brasil",
-      "data": "25/11"
-    },
-    {
-      "titulo": "Com tema Ciência Delas, Semana de Ciência e Tecnologia vai até sábado",
-      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/semana-nacional-de-ciencia-e-tecnologia-segue-ate-sabado",
       "fonte": "Agência Brasil",
       "data": "25/11"
     }
