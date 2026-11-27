@@ -1,10 +1,46 @@
 {
-  "atualizadoEm": "2026-11-27T04:45:28.618Z",
+  "atualizadoEm": "2026-11-27T19:47:23.005Z",
   "fontes": [
     "MEC",
     "Agência Brasil"
   ],
   "noticias": [
+    {
+      "titulo": "Presidente e ministro participam de evento estudantil da UFF",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/presidente-e-ministro-participam-de-evento-estudantil-da-uff",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "Concluintes de bacharelado e de tecnologia fazem Enade neste domingo (29)",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/concluintes-de-bacharelado-e-de-tecnologia-fazem-enade-neste-domingo-29",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "MEC lança curso sobre o Pé-de-Meia no Avamec",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/mec-lanca-curso-sobre-o-pe-de-meia-no-avamec",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "MEC participa da 2° Festa Literária da Fundação Casa de Rui Barbosa",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/mec-participa-da-2deg-festa-literaria-da-fundacao-casa-de-rui-barbosa",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "MEC lança Portal de Evidências do Pé-de-Meia em seminário",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/mec-lanca-portal-de-evidencias-do-pe-de-meia-em-seminario",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "Governo Federal libera R$ 16,6 milhões para reconstrução de Tupanciretã",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/governo-federal-libera-r-16-6-milhoes-para-reconstrucao-de-tupancireta",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
     {
       "titulo": "MEC destaca potencial dos institutos federais na educação ambiental e no enfrentamento das emergências climáticas",
       "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/mec-destaca-potencial-dos-institutos-federais-na-educacao-ambiental-e-no-enfrentamento-das-emergencias-climaticas",
@@ -84,70 +120,34 @@
       "data": "novembro/2026"
     },
     {
-      "titulo": "MEC promove 2ª Semana Nacional de Práticas Restaurativas na Educação",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/mec-promove-2a-semana-nacional-de-praticas-restaurativas-na-educacao",
-      "fonte": "MEC",
-      "data": "novembro/2026"
+      "titulo": "Em encontro com Lula, estudantes destacam programas de acesso a ensino",
+      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/em-encontro-com-lula-estudantes-destacam-programas-de-acesso-ensino",
+      "fonte": "Agência Brasil",
+      "data": "27/11"
     },
     {
-      "titulo": "De aluna à primeira mulher reitora do IFPB",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/de-aluna-a-primeira-mulher-reitora-do-ifpb",
-      "fonte": "MEC",
-      "data": "novembro/2026"
+      "titulo": "Enade 2026: estudantes de 18 áreas fazem a prova neste domingo",
+      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/enade-2026-estudantes-de-18-areas-fazem-prova-neste-domingo",
+      "fonte": "Agência Brasil",
+      "data": "27/11"
     },
     {
-      "titulo": "Entes avançam na construção de política de educação integral",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/entes-avancam-na-construcao-de-politica-de-educacao-integral",
-      "fonte": "MEC",
-      "data": "novembro/2026"
+      "titulo": "Pé-de-Meia: nascidos em setembro e outubro recebem parcela de R$ 200",
+      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/pe-de-meia-nascidos-em-setembro-e-outubro-recebem-parcela-de-r-200",
+      "fonte": "Agência Brasil",
+      "data": "27/11"
     },
     {
-      "titulo": "MEC anuncia ações para preservar memória e modernizar infraestrutura",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/mec-anuncia-acoes-para-preservar-memoria-e-modernizar-infraestrutura",
-      "fonte": "MEC",
-      "data": "novembro/2026"
-    },
-    {
-      "titulo": "Seminário sobre permanência estudantil reforça apoio a ações do MEC",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/seminario-sobre-permanencia-estudantil-reforca-apoio-a-acoes-do-mec",
-      "fonte": "MEC",
-      "data": "novembro/2026"
-    },
-    {
-      "titulo": "MEC lança segunda edição do Selo Petronilha que reconhece iniciativas de equidade racial na educação",
-      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/mec-lanca-segunda-edicao-do-selo-petronilha-que-reconhece-iniciativas-de-equidade-racial-na-educacao",
-      "fonte": "MEC",
-      "data": "novembro/2026"
+      "titulo": "Licenciaturas crescem e somam 1,7 milhão de matrículas em 2025",
+      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/licenciaturas-crescem-e-somam-17-milhao-de-matriculas-em-2025",
+      "fonte": "Agência Brasil",
+      "data": "27/11"
     },
     {
       "titulo": "STF: estados e municípios são obrigados a pagar piso dos professores",
       "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/stf-estados-e-municipios-sao-obrigados-pagar-piso-dos-professores",
       "fonte": "Agência Brasil",
       "data": "26/11"
-    },
-    {
-      "titulo": "Número de jovens de 18 a 24 anos na graduação bate recorde no país",
-      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/numero-de-jovens-de-18-24-anos-na-graduacao-bate-recorde-no-pais",
-      "fonte": "Agência Brasil",
-      "data": "26/11"
-    },
-    {
-      "titulo": "Brasil atinge recorde de 10,6 milhões de matrículas no ensino superior",
-      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/brasil-atinge-recorde-de-106-milhoes-de-matriculas-no-ensino-superior",
-      "fonte": "Agência Brasil",
-      "data": "26/11"
-    },
-    {
-      "titulo": "Pesquisadoras recebem prêmio por inovações e valorizam trajetória",
-      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/pesquisadoras-recebem-premio-por-inovacoes-e-valorizam-percurso",
-      "fonte": "Agência Brasil",
-      "data": "26/11"
-    },
-    {
-      "titulo": "Comissão fixa carga mínima de filosofia e sociologia no ensino médio",
-      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/comissao-fixa-carga-minima-filosofia-e-sociologia-no-ensino-medio",
-      "fonte": "Agência Brasil",
-      "data": "25/11"
     }
   ],
   "temasRedacao": [
