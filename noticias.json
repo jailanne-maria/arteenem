@@ -1,10 +1,136 @@
 {
-  "atualizadoEm": "2026-11-28T04:29:56.042Z",
+  "atualizadoEm": "2026-11-28T18:40:01.899Z",
   "fontes": [
     "MEC",
     "Agência Brasil"
   ],
   "noticias": [
+    {
+      "titulo": "Brasil e Haiti discutem cooperação para formação profissional",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/brasil-e-haiti-discutem-cooperacao-para-formacao-profissional",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "Estudantes dos IFs apresentam soluções inovadores para transformar a sociedade",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/estudantes-dos-ifs-apresentam-solucoes-inovadores-para-transformar-a-sociedade",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "Brasil e outros países discutem estratégias para fortalecer EaD",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/brasil-e-outros-paises-discutem-estrategias-para-fortalecer-ead",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "MEC visita iniciativa da Unirio voltada à saúde de idosos",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/mec-visita-iniciativa-da-unirio-voltada-a-saude-de-idosos",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "Novo PAR: MEC assina parceria com Universidade de São Paulo",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/novo-par-mec-assina-parceria-com-universidade-de-sao-paulo",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "Medalhistas da OBMEP embarcam para intercâmbio na China",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/medalhistas-da-obmep-embarcam-para-intercambio-na-china",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "Presidente e ministro participam de evento estudantil da UFF",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/presidente-e-ministro-participam-de-evento-estudantil-da-uff",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "Concluintes de bacharelado e de tecnologia fazem Enade neste domingo (29)",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/concluintes-de-bacharelado-e-de-tecnologia-fazem-enade-neste-domingo-29",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "MEC lança curso sobre o Pé-de-Meia no Avamec",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/mec-lanca-curso-sobre-o-pe-de-meia-no-avamec",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "MEC participa da 2° Festa Literária da Fundação Casa de Rui Barbosa",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/mec-participa-da-2deg-festa-literaria-da-fundacao-casa-de-rui-barbosa",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "MEC lança Portal de Evidências do Pé-de-Meia em seminário",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/mec-lanca-portal-de-evidencias-do-pe-de-meia-em-seminario",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "Governo Federal libera R$ 16,6 milhões para reconstrução de Tupanciretã",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/governo-federal-libera-r-16-6-milhoes-para-reconstrucao-de-tupancireta",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "MEC destaca potencial dos institutos federais na educação ambiental e no enfrentamento das emergências climáticas",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/mec-destaca-potencial-dos-institutos-federais-na-educacao-ambiental-e-no-enfrentamento-das-emergencias-climaticas",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "Pretos, pardos e indígenas são maioria em universidades federais",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/pretos-pardos-e-indigenas-sao-maioria-em-universidades-federais",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "Episódio do PodMEC debate evolução da educação no século XXI",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/episodio-do-podmec-debate-evolucao-da-educacao-no-seculo-xxi",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "Digital Learning Week Brasil debaterá IA no contexto das políticas públicas de educação digital e midiática",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/digital-learning-week-brasil-debatera-ia-no-contexto-das-politicas-publicas-de-educacao-digital-e-midiatica",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "MEC apresenta primeiro Diagnóstico Nacional do Escola que Protege",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/mec-apresenta-primeiro-diagnostico-nacional-do-escola-que-protege",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "Brasil tem recorde de estudantes na graduação",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/brasil-tem-recorde-de-estudantes-na-graduacao",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "MEC entra na reta final de consulta pública sobre o PET",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/mec-entra-na-reta-final-de-consulta-publica-sobre-o-pet",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "Fies remanescentes: iniciada convocação pela lista de espera",
+      "link": "https://www.gov.br/mec/pt-br/assuntos/noticias/2026/novembro/fies-remanescentes-iniciada-convocacao-pela-lista-de-espera",
+      "fonte": "MEC",
+      "data": "novembro/2026"
+    },
+    {
+      "titulo": "Enade 2026: concluintes devem preencher questionário antes das provas",
+      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/enade-2026-concluintes-devem-preencher-questionario-antes-das-provas",
+      "fonte": "Agência Brasil",
+      "data": "28/11"
+    },
     {
       "titulo": "Enem 2026: resultado de pedidos de reaplicação já está disponível",
       "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/enem-2026-resultado-de-pedidos-de-reaplicacao-ja-esta-disponivel",
@@ -22,108 +148,6 @@
       "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/enade-2026-estudantes-de-18-areas-fazem-prova-neste-domingo",
       "fonte": "Agência Brasil",
       "data": "27/11"
-    },
-    {
-      "titulo": "Pé-de-Meia: nascidos em setembro e outubro recebem parcela de R$ 200",
-      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/pe-de-meia-nascidos-em-setembro-e-outubro-recebem-parcela-de-r-200",
-      "fonte": "Agência Brasil",
-      "data": "27/11"
-    },
-    {
-      "titulo": "Licenciaturas crescem e somam 1,7 milhão de matrículas em 2025",
-      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/licenciaturas-crescem-e-somam-17-milhao-de-matriculas-em-2025",
-      "fonte": "Agência Brasil",
-      "data": "27/11"
-    },
-    {
-      "titulo": "STF: estados e municípios são obrigados a pagar piso dos professores",
-      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/stf-estados-e-municipios-sao-obrigados-pagar-piso-dos-professores",
-      "fonte": "Agência Brasil",
-      "data": "26/11"
-    },
-    {
-      "titulo": "Número de jovens de 18 a 24 anos na graduação bate recorde no país",
-      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/numero-de-jovens-de-18-24-anos-na-graduacao-bate-recorde-no-pais",
-      "fonte": "Agência Brasil",
-      "data": "26/11"
-    },
-    {
-      "titulo": "Brasil atinge recorde de 10,6 milhões de matrículas no ensino superior",
-      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/brasil-atinge-recorde-de-106-milhoes-de-matriculas-no-ensino-superior",
-      "fonte": "Agência Brasil",
-      "data": "26/11"
-    },
-    {
-      "titulo": "Pesquisadoras recebem prêmio por inovações e valorizam trajetória",
-      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/pesquisadoras-recebem-premio-por-inovacoes-e-valorizam-percurso",
-      "fonte": "Agência Brasil",
-      "data": "26/11"
-    },
-    {
-      "titulo": "Comissão fixa carga mínima de filosofia e sociologia no ensino médio",
-      "link": "https://agenciabrasil.ebc.com.br/educacao/noticia/2026-11/comissao-fixa-carga-minima-filosofia-e-sociologia-no-ensino-medio",
-      "fonte": "Agência Brasil",
-      "data": "25/11"
-    },
-    {
-      "titulo": "Polícia Civil prende líder de milícia no Rio de Janeiro",
-      "link": "https://agenciabrasil.ebc.com.br/geral/noticia/2026-11/policia-civil-prende-lider-de-milicia-no-rio-de-janeiro",
-      "fonte": "Agência Brasil",
-      "data": "27/11"
-    },
-    {
-      "titulo": "SP: rompimento de cabos de fibra óptica causa instabilidade",
-      "link": "https://agenciabrasil.ebc.com.br/geral/noticia/2026-11/sp-rompimento-de-cabos-de-fibra-optica-causa-instabilidade",
-      "fonte": "Agência Brasil",
-      "data": "27/11"
-    },
-    {
-      "titulo": "Expectativa de vida das mulheres no Brasil supera os 80 anos",
-      "link": "https://agenciabrasil.ebc.com.br/geral/noticia/2026-11/expectativa-de-vida-das-mulheres-no-brasil-supera-os-80-anos",
-      "fonte": "Agência Brasil",
-      "data": "27/11"
-    },
-    {
-      "titulo": "Receita Federal no Rio apreende encomendas com drogas nos Correios",
-      "link": "https://agenciabrasil.ebc.com.br/geral/noticia/2026-11/receita-federal-no-rio-apreende-encomendas-com-drogas-nos-correios",
-      "fonte": "Agência Brasil",
-      "data": "27/11"
-    },
-    {
-      "titulo": "Amazonas, Pará e Roraima passam por apagão de energia nesta quinta",
-      "link": "https://agenciabrasil.ebc.com.br/geral/noticia/2026-11/amazonas-para-e-roraima-passam-por-apagao-de-energia-nesta-quinta",
-      "fonte": "Agência Brasil",
-      "data": "26/11"
-    },
-    {
-      "titulo": "Estudo aponta falta de dados recentes sobre 85% de estoques pesqueiros",
-      "link": "https://agenciabrasil.ebc.com.br/geral/noticia/2026-11/estudo-aponta-falta-de-dados-recentes-sobre-85-de-estoques-pesqueiros",
-      "fonte": "Agência Brasil",
-      "data": "26/11"
-    },
-    {
-      "titulo": "Trivia Trens retoma operação das linhas 11- Coral e 12-Safira",
-      "link": "https://agenciabrasil.ebc.com.br/geral/noticia/2026-11/trivia-trens-retoma-operacao-das-linhas-11-coral-e-12-safira",
-      "fonte": "Agência Brasil",
-      "data": "26/11"
-    },
-    {
-      "titulo": "Polícia Civil de São Paulo faz operação contra Grupo Fictor",
-      "link": "https://agenciabrasil.ebc.com.br/geral/noticia/2026-11/pol%C3%ADcia-civil-de-S%C3%A3o-Paulo-faz-opera%C3%A7%C3%A3o-contra-Grupo-Fictorsa-que-movimentou-r-4-bi",
-      "fonte": "Agência Brasil",
-      "data": "26/11"
-    },
-    {
-      "titulo": "Itaipu Parquetec atrai estudantes e empreendedores para festival",
-      "link": "https://agenciabrasil.ebc.com.br/geral/noticia/2026-11/itaipu-atrai-estudantes-e-empreendedores-para-festival-de-inovacao",
-      "fonte": "Agência Brasil",
-      "data": "26/11"
-    },
-    {
-      "titulo": "Com alerta de chuvas fortes, Rio suspende aulas na rede pública",
-      "link": "https://agenciabrasil.ebc.com.br/geral/noticia/2026-11/com-alerta-de-chuvas-fortes-rio-suspende-aulas-na-rede-publica",
-      "fonte": "Agência Brasil",
-      "data": "25/11"
     }
   ],
   "temasRedacao": [
